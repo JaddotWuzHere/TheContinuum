@@ -25,10 +25,6 @@ if ! git diff --cached --quiet; then
   git commit -m "$MSG"
   git push origin main
 
-  if [[ -n "$VERSION" ]]; then
-    git tag -a "$VERSION" -m "Wiki $VERSION"
-    git push origin "$VERSION"
-  fi
 else
   echo "No changes; nothing to commit."
 fi
