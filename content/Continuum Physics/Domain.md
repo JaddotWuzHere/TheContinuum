@@ -1,0 +1,3 @@
+- Realspace
+- Manaspace
+- Animaspace
