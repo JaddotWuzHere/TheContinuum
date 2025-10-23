@@ -3,4 +3,4 @@ title: The Continuum
 ---
 ## Overview
 ---
-Lorem ipsum Jalen sucks
+Lorem ipsum
