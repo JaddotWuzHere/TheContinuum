@@ -1,7 +1,9 @@
 ---
 title: Domain
-slug: /Continuum-Physics/Domain
+draft: false
+publish: true
 ---
+
 - Realspace
 - Manaspace
 - Animaspace
