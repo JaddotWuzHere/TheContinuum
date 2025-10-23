@@ -10,7 +10,6 @@ const config: QuartzConfig = {
   configuration: {
     pageTitle: "Quartz 4",
     pageTitleSuffix: "",
-    pathFolderStyle: true,
     enableSPA: true,
     enablePopovers: true,
     analytics: {
