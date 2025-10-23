@@ -11,7 +11,9 @@ The Laws of Manaphysics describe how the universal invariants of the Continuum m
 ##### Statement:
 > Every structure or configuration in realspace possesses a harmonic counterpart in manaspace; interactions occur when their resonant frequencies align.
 ##### Formal Expression:
-$$R_R(\omega)\leftrightarrow R_M(\omega)\quad \text{if} \quad \mid \omega_R-\omega_M \mid \leq \epsilon$$
+$$
+R_R(\omega)\leftrightarrow R_M(\omega)\quad \text{if} \quad \mid \omega_R-\omega_M \mid \leq \epsilon
+$$
 where:
 - $R_R(\omega)$ — resonant response in realspace
 - $R_M(\omega)$ — resonant response in manaspace
@@ -24,7 +26,9 @@ Misaligned resonance leads to dissipation or destructive interference, limiting 
 ##### Statement: 
 > The total energy exchange between realspace and manaspace seeks dynamic equilibrium. Any imbalance produces compensatory flux until a stable energetic ratio is restored.
 ##### Formal Expression:
-$$\frac{d}{dt}\left(E_R - \kappa E_M\right) = 0$$
+$$
+\frac{d}{dt}\left(E_R - \kappa E_M\right) = 0
+$$
 where:
 - $E_R$ — energy in realspace
 - $E_M$ — energy in manaspace
@@ -37,7 +41,9 @@ This compensatory behavior maintains large-scale energetic stability throughout 
 ##### Statement:
 > Mana currents amplify when multiple field oscillations achieve coherent phase synchronization, producing resonance feedback across the Continuum.
 ##### Formal Expression:
-$$A_{\text{net}} = \left| \sum_{i} A_i e^{i \phi_i} \right|$$
+$$
+A_{\text{net}} = \left| \sum_{i} A_i e^{i \phi_i} \right|
+$$
 where:
 - $A_i$ — amplitude of the $i$-th field oscillation
 - $\phi_i$ — phase of each oscillation
@@ -51,7 +57,9 @@ However, when resonance exceeds local stability thresholds, feedback collapses c
 ##### Statement:
 > After excitation, mana fields retain residual coherence from prior states, delaying full relaxation to equilibrium. This persistence of phase alignment manifests as temporal lag in field recovery.
 ##### Formal Expression:
-$$\Phi(t) = \Phi_0 + (\Phi_i - \Phi_0)e^{-t / \tau}$$
+$$
+\Phi(t) = \Phi_0 + (\Phi_i - \Phi_0)e^{-t / \tau}
+$$
 where:
 - $\Phi$ — instantaneous field coherence
 - $\Phi_0$ — equilibrium (rest) coherence

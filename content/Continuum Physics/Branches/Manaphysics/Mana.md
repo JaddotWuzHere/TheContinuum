@@ -9,7 +9,9 @@ Mana functions as a medium and currency of metaphysical work. It makes possible 
 ---
 #### The Mana Field
 Mana exists as a continuous field denoted by 
-$$M(x, t)=\{\rho_M, \boldsymbol{\Phi}_M\}$$
+$$
+M(x, t)=\{\rho_M, \boldsymbol{\Phi}_M\}
+$$
 where:
 - $\rho_M$ — mana density
 - $\boldsymbol{\Phi}_M$ — mana flux.
@@ -19,7 +21,9 @@ Manaflows follow a gradient model, meaning high-density regions push flux toward
 The mana field is not directly observable via electromagnetic or gravitational interaction, but it couples weakly to matter through what is known as the Arcane-Biological (AB) coupling constant, denoted $\alpha_{AB}$. This coupling allows Sources to store and channel mana internally, forming the basis for magic and various other metaphysical phenomena.
 
 Mathematically, local mana density $\rho_M$ can be expressed as:
-$$\rho_M=\frac{\partial M}{\partial t} + \nabla \cdot (\textbf{M})$$
+$$
+\rho_M=\frac{\partial M}{\partial t} + \nabla \cdot (\textbf{M})
+$$
 where:
 - $\textbf{M}$ — spatial mana flux vector.
 #### Phase Behavior
@@ -40,7 +44,9 @@ Mana exhibits varying phases of activity. Each phase represents distinct energet
 ##### Phase Transitions
 Phase transitions are continuous rather than abrupt.
 A coherence threshold $C_{crit}$ separates quiescence from activation:
-$$C>C_{crit}\implies \text{Active Phase}, C<C_{crit}\implies \text{Latent Phase}$$
+$$
+C>C_{crit}\implies \text{Active Phase}, C<C_{crit}\implies \text{Latent Phase}
+$$
 This threshold varies across Sources and environments. Regions rich in ambient mana or with strong field feedback require less excitation to cross into the active regime, known as "mana sensitivity."
 ###### Critical Coherence State
 At the threshold $C=C_{crit}$, the mana field enters a marginally stable regime.

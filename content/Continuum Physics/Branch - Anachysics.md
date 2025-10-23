@@ -13,7 +13,9 @@ In essence, anachysics is the physics of existence through awareness and the stu
 ##### Statement:
 > Stable consciousness requires continuous phase lock between the anima and mana fields. A Source remains stable only while this trans-phase coupling persists.
 ##### Formal Expression:
-$$\frac{d}{dt}\langle A, M \rangle=0\implies \text{stable Source}$$
+$$
+\frac{d}{dt}\langle A, M \rangle=0\implies \text{stable Source}
+$$
 where:
 - $A$ — anima field
 - $M$ — mana field
@@ -26,7 +28,9 @@ If coherence between these fields decays, the coupling collapses, resulting in S
 ##### Statement:
 > The resonance loop coupling the anima field, Source, and mana field remains stable only when total feedback gain does not exceed unity.
 ##### Formal Expression:
-$$G = \alpha_{AB} \frac{\partial \langle A, M \rangle}{\partial t} \le 1$$
+$$
+G = \alpha_{AB} \frac{\partial \langle A, M \rangle}{\partial t} \le 1
+$$
 where:
 - $G$ — feedback gain of the ASM loop
 - $\alpha_{AB}$ — AB coupling constant
@@ -41,7 +45,9 @@ This law establishes the quantitative stability limit for all soul–Source inte
 ##### Statement:
 > In the absence of external disruption, coherent anima systems naturally evolve toward higher internal order through recursive resonance reinforcement, while remaining constrained by entropic consistency.
 ##### Formal Expression:
-$$\frac{d\kappa_A}{dt} \ge 0 \quad \text{while} \quad \frac{dS_\mathcal{C}}{dt} \ge 0$$
+$$
+\frac{d\kappa_A}{dt} \ge 0 \quad \text{while} \quad \frac{dS_\mathcal{C}}{dt} \ge 0
+$$
 where:
 - $\kappa_A$ — coherence of the anima field 
 - $S_\mathcal{C}$ — entropy through the Continuum

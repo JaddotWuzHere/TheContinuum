@@ -17,7 +17,9 @@ Much like classic physics, Continuum physics derives its framework from a discre
 ##### Statement:
 > The total energetic and informational content of the Continuum remains invariant. Energy may transform between domains, but the aggregate sum across all domains is conserved.
 ##### Formal Expression:
-$$\sum_{i=1}^{n} \Delta E_i = 0$$
+$$
+\sum_{i=1}^{n} \Delta E_i = 0
+$$
 where:
 - $E_i$ — energy (or equivalent conserved quantity) of the $i$-th domain
 - $n$ — number of domains within the Continuum
@@ -39,7 +41,9 @@ This law ensures that causal influence flows unidirectionally, preserving tempor
 ##### Statement:
 > The total entropy of the Continuum cannot decrease. Any localized decrease in disorder must be offset by an equal or greater increase elsewhere within the domain set.
 ##### Formal Expression:
-$$\sum_{i=1}^{n} \frac{dS_i}{dt} \ge 0$$
+$$
+\sum_{i=1}^{n} \frac{dS_i}{dt} \ge 0
+$$
 where:
 - $S_i$ — entropy of the $i$-th domain
 - $n$ — number of domains within the Continuum
@@ -59,7 +63,9 @@ As these parameters diverge between domains, relative distortions manifest, prod
 ##### Statement:
 > All fields within the Continuum are continuous and differentiable; discontinuities represent regions of phase collapse or void.
 ##### Formal Expression:
-$$\nabla \cdot F_i = 0, \quad \frac{\partial F_i}{\partial t} \text{ continuous on } \mathcal{C}$$
+$$
+\nabla \cdot F_i = 0, \quad \frac{\partial F_i}{\partial t} \text{ continuous on } \mathcal{C}
+$$
 where:
 - $F_i$ — field quantity in domain $i$
 - $\mathcal{C}$ — the total Continuum manifold
@@ -71,7 +77,9 @@ Where continuity breaks, the field ceases to conserve local flux, leading to phe
 ##### Statement:
 > Each domain of the Continuum defines the geometry of others; curvature or density in one induces reciprocal distortions across the rest.
 ##### Formal Expression:
-$$R_i \leftrightarrow \Phi_j, \quad \forall (i, j) \in \mathcal{C}$$
+$$
+R_i \leftrightarrow \Phi_j, \quad \forall (i, j) \in \mathcal{C}
+$$
 where:
 - $R_i$ — geometric or curvature tensor of domain $i$
 - $\Phi_j$ — field potential or energy distribution of domain $j$
@@ -86,7 +94,9 @@ The Law of Dimensional Reciprocity establishes the geometric interdependence of 
 ##### Statement:
 > New domains may manifest when interdomain complexity surpasses a critical coherence threshold, enabling the Continuum to stabilize a novel field configuration.
 ##### Formal Expression:
-$$C_{\text{inter}} > C_{\text{crit}} \implies D_{n+1}$$
+$$
+C_{\text{inter}} > C_{\text{crit}} \implies D_{n+1}
+$$
 where:
 - $C_{inter}$ — collective coherence between existing domains
 - $C_{crit}$ — critical threshold of coherence required for domain formation

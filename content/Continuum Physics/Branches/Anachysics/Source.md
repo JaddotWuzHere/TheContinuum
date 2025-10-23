@@ -9,7 +9,9 @@ While it isn't clear which types of entities are guaranteed to possess natural S
 A Source is not a physical organ but a localized resonance pattern sustained at the boundary between the anima and mana fields. It represents a region of phase lock, where no oscillations of both fields synchronize in frequency and phase. 
 
 This coupling converts the abstract modulation of consciousness into measurable energy exchange. Mathematically, the Source can be expressed as:
-$$S(x,t) = f(A(x,t), M(x,t)), \qquad \frac{dE_R}{dt} = -\frac{dE_M}{dt} = \alpha_{AB} \langle A, M \rangle$$
+$$
+S(x,t) = f(A(x,t), M(x,t)), \qquad \frac{dE_R}{dt} = -\frac{dE_M}{dt} = \alpha_{AB} \langle A, M \rangle
+$$
 where:
 - $A$ — anima field
 - $M$ — local mana field

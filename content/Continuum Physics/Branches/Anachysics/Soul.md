@@ -13,7 +13,9 @@ Every natural Source is uniquely bound to the soul that generated it.
 The anima field is the fundamental substrate of consciousness within the Continuum. It is the metaphysical field from which awareness, intent, and identity emerge. It governs informational coherence, such as thought, memory, and self reference. 
 
 Mathematically, the anime field can be expressed as:
-$$A(x, t)=\{\rho_A, \boldsymbol{\Phi}_A\}$$
+$$
+A(x, t)=\{\rho_A, \boldsymbol{\Phi}_A\}
+$$
 where:
 - $\rho_A$ — anima density
 - $\boldsymbol{\Phi}_A$ — anima flux.
@@ -46,7 +48,9 @@ A soul forms spontaneously when a developing consciousness reaches critical self
 When its resonance aligns with the surrounding mana field, a Source manifests naturally at the field boundary, establishing the link between will and mana flow. This process marks the threshold at which a being becomes metaphysically alive.
 
 Formally:
-$$C_A > C_{anima} \implies \text{Soul genesis},\qquad \langle A, M \rangle \geq \lambda_{crit}\implies \text{Source formation}$$
+$$
+C_A > C_{anima} \implies \text{Soul genesis},\qquad \langle A, M \rangle \geq \lambda_{crit}\implies \text{Source formation}
+$$
 where:
 - $\langle A, M\rangle$ — resonance overlap
 - $\lambda_{crit}$ — minimum coupling threshold (phase lock)
@@ -64,7 +68,9 @@ Souls exhibit various inherent characteristics:
 The soul and Source exist in a state of bidirectional resonance. The soul provides intent and structure, while the Source translates these modulations into mana flux and returns feedback that stabilizes the soul’s coherence.
 
 Mathematically, the coupling can be modeled as a recursive resonance loop:
-$$A \rightleftharpoons{} S \rightleftharpoons{} M$$
+$$
+A \rightleftharpoons{} S \rightleftharpoons{} M
+$$
 where:
 - $A$ — anima field
 - $S$ — Source
@@ -72,7 +78,9 @@ where:
 This is also known as the anima-Source-mana (ASM) loop.
 
 When the soul’s internal harmonics align with a subset of mana field frequencies, the Source acts as a phase lock transducer, converting the qualitative modulation of will into quantitative mana flow:
-$$\frac{dE_R}{dt} = -\frac{dE_M}{dt} = \alpha_{AB} \langle A, M \rangle$$
+$$
+\frac{dE_R}{dt} = -\frac{dE_M}{dt} = \alpha_{AB} \langle A, M \rangle
+$$
 The soul’s resonance determines the direction and coherence of flux, while the Source determines the throughput and stability of the translation.
 
 As mana flows outward, feedback from the Source re-enters the soul as stabilizing resonance. This recursive process forms a closed harmonic loop sustaining both fields.
