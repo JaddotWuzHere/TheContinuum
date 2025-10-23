@@ -1,6 +1,6 @@
 ## Overview
 ---
-Mana is a universal energetic substrate that exists throughout the **[[Field - Continuum Physics#The Continuum|Continuum]]**, acting as an intermediary between realspace and manaspace. Mana does not obey conventional thermodynamic or electromagnetic laws. Rather, it follows field resonance dynamics that can interact with biological and material systems under certain conditions.
+Mana is a universal energetic substrate that exists throughout the **[[Continuum Physics#The Continuum|Continuum]]**, acting as an intermediary between realspace and manaspace. Mana does not obey conventional thermodynamic or electromagnetic laws. Rather, it follows field resonance dynamics that can interact with biological and material systems under certain conditions.
 
 When dormant, mana exists in a latent phase, entirely decoupled from realspace matter and undetectable by physical means. When an organic or synthetic **[[Source|Source]]** opens a conduit, the field momentarily phases in, allowing manaspace energy to interact with realspace. 
 
@@ -54,7 +54,7 @@ At the threshold $C=C_{crit}$, the mana field enters a marginally stable regime.
 - Small perturbations can tip it toward activation or quiescence, making it highly sensitive to stimuli
 - Transitional boundary, not a stable phase
 
-After extended activation, the field often exhibits [[Branch - Manaphysics#4. Law of Phase Hysteresis|hysteresis]]. 
+After extended activation, the field often exhibits [[Manaphysics#4. Law of Phase Hysteresis|hysteresis]]. 
 #### Flow and Circulation
 Mana naturally moves both within and between Sources. Inside a Source, mana flows through internal channels that sustain a being's magical capacity.
 
@@ -72,4 +72,4 @@ In biological systems, mana coupling occurs through the Arcane–Biological (AB)
 
 At larger scales, mana–matter interactions give rise to various ambient field effects. These phenomena arise naturally from the same principles that govern field continuity and trans-phase resonance.
 
-*(For more detail, see: **[[Branch - Manaphysics#1. Law of Resonant Correspondence|Law of Resonant Correspondence]]**)*
+*(For more detail, see: **[[Manaphysics#1. Law of Resonant Correspondence|Law of Resonant Correspondence]]**)*
