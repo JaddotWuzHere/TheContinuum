@@ -1,7 +1,6 @@
 ---
 title: Continuum Physics
 ---
-
 ## Introduction
 ---
 ### The Continuum
@@ -45,7 +44,7 @@ The Law of Continuum Conservation establishes the Continuum itself as the fundam
 The Law of Continuum Symmetry establishes the structural unity of the Continuum. Despite varying local parameters, each domain remains isomorphic in its physical formulation, ensuring that transformations between domains preserve the same fundamental laws. Differences observed between domains arise not from distinct laws, but from divergent constants, coupling behaviors, or dimensional expressions within the same underlying Continuum structure.
 ### III. Law of Continuum Causality
 > [!epigraph]
-> The arrow remembers only its flight, never the bow that loosed it.
+> "The arrow remembers only its flight, never the bow that loosed it."
 > 
 > — Mathilde Koenig
 ##### Statement: 
