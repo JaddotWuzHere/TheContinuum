@@ -33,7 +33,7 @@ The strength and organization of these layers determine a soul’s stability.
 Loss of internal coherence leads to field fragmentation, reducing clarity of identity or causing complete collapse of self structure.
 ##### Coherence and Stability
 Soul coherence $\kappa_A$ measures the proportion of ordered flux within the anima field:
-$$\kappa_A = \frac{\left\lVert \boldsymbol{\Phi}_A^{\text{ordered}} \right\rVert}
+$$ \kappa_A = \frac{\left\lVert \boldsymbol{\Phi}_A^{\text{ordered}} \right\rVert}
 {\left\lVert \boldsymbol{\Phi}_A^{\text{total}} \right\rVert}$$
 High coherence souls exhibit strong memory integrity and refined Source coupling. Low coherence, in contrast, results in irregular resonance and impaired mana control. 
 
