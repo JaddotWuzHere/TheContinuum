@@ -86,7 +86,7 @@ Temporal flow, coherence, and perceived energy vary according to the observer’
 As these parameters diverge between domains, relative distortions manifest, producing effects such as **[[Mana Time Dilation|mana time dilation]]** and **[[Continuum Physics/Branches/Manaphysics/index#4. Law of Phase Hysteresis|mana hysteresis]]**. Thus, observation and causality remain consistent within each frame, yet differ across domains, ensuring that no universal synchronization exists within the Continuum.
 ### VI. Law of Field Continuity
 > [!epigraph]
-> "They told *me*. I heard them when everything became quiet. It remembers—that emptiness... it was—it was *listening*. Let *go* of me, you damn bastards!"
+> "They told *me*. I heard them when everything became quiet. It remembers, that emptiness... it was—it was *listening*. Let *go* of me, you damn bastards!"
 > 
 > — Survivor of the Fracture of Concordance, $(\Phi 4.02:039\Xi3)$
 ##### Statement:

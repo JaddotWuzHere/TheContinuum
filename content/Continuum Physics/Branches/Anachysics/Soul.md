@@ -12,7 +12,7 @@ Every natural Source is uniquely bound to the soul that generated it.
 #### The Anima Field
 The anima field is the fundamental substrate of consciousness within the Continuum. It is the metaphysical field from which awareness, intent, and identity emerge. It governs informational coherence, such as thought, memory, and self reference. 
 
-Mathematically, the anime field can be expressed as:
+Mathematically, the anima field can be expressed as:
 $$
 A(x, t)=\{\rho_A, \boldsymbol{\Phi}_A\}
 $$
