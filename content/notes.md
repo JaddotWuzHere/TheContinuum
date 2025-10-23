@@ -1,5 +1,5 @@
 ---
-private: true
+draft: true
 ---
 Lecture
 _From the closing remarks of Professor Lyra Montreux’s “On Reciprocal Geometries,” delivered before the Collegium of Unified Physics, 1889_
