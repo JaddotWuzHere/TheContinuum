@@ -30,7 +30,7 @@ The soul serves as an anchor point for natural Sources. The Source attaches to t
 #### Interaction with Mana
 The Source mediates energy exchange and information transfer between the soul and the mana field. It does not produce mana but draws upon and shapes existing flux within the **[[The Continuum|Continuum]]**. 
 
-When activated through will or focus, the natural Source aligns the soul’s internal pattern with specific harmonics in the mana field. This process transfers energy across the Continuum boundary while conserving total system energy, as described by the **[[Continuum Physics#1. Law of Continuum Conservation|Law of Continuum Conservation]]**. 
+When activated through will or focus, the natural Source aligns the soul’s internal pattern with specific harmonics in the mana field. This process transfers energy across the Continuum boundary while conserving total system energy, as described by the **[[Continuum Physics/index#1. Law of Continuum Conservation|Law of Continuum Conservation]]**. 
 
 Efficiency varies between individuals and depends on:
 - **Coupling Strength ($\alpha_{AB}$):** the Arcane-Biological constant, reflecting how well the natural Source integrates with living matter
