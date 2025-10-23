@@ -1,6 +1,6 @@
 ## Overview
 ---
-Mana is a universal energetic substrate that exists throughout the **[[Continuum Physics#The Continuum|Continuum]]**, acting as an intermediary between realspace and manaspace. Mana does not obey conventional thermodynamic or electromagnetic laws. Rather, it follows field resonance dynamics that can interact with biological and material systems under certain conditions.
+Mana is a universal energetic substrate that exists throughout the **[[Field - Continuum Physics#The Continuum|Continuum]]**, acting as an intermediary between realspace and manaspace. Mana does not obey conventional thermodynamic or electromagnetic laws. Rather, it follows field resonance dynamics that can interact with biological and material systems under certain conditions.
 
 When dormant, mana exists in a latent phase, entirely decoupled from realspace matter and undetectable by physical means. When an organic or synthetic **[[Source|Source]]** opens a conduit, the field momentarily phases in, allowing manaspace energy to interact with realspace. 
 
