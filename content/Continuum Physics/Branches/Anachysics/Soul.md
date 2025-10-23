@@ -42,8 +42,6 @@ $$
 High coherence souls exhibit strong memory integrity and refined Source coupling. Low coherence, in contrast, results in irregular resonance and impaired mana control. 
 
 Prolonged instability may result in permanent fragmentation or collapse of the anima–mana interface.
-
-The anima field vibrates in an infinitesimally magnitude. 
 ##### Formation and Development
 A soul forms spontaneously when a developing consciousness reaches critical self coherence ($C_{anima}$), allowing sustained recursive awareness. 
 
