@@ -18,6 +18,11 @@ Much like classic physics, Continuum physics derives its framework from a discre
 ## The Fundamental Laws of the Continuum
 ---
 ### I. Law of Continuum Conservation
+> [!epigraph]
+> “All attainment entails its due; the universe forgets nothing.”
+> 
+> — René Valcourt, "Le Tissu de l’Infini", published $(\Phi 3.71:329\Xi2)$
+
 ##### Statement:
 > The total energetic and informational content of the Continuum remains invariant. Energy may transform between domains, but the aggregate sum across all domains is conserved.
 ##### Formal Expression:
@@ -30,11 +35,19 @@ where:
 ##### Description:
 The Law of Continuum Conservation establishes the Continuum itself as the fundamental closed system. Energy, information, or coherence may flow freely between active domains, yet the total sum of these quantities across the Continuum remains constant. This principle defines the unified conservation framework underlying all domain interactions and ensures that the Continuum’s coherence is never lost but only redistributed.
 ### II. Law of Continuum Symmetry
+> [!epigraph]
+> “The wise see no difference between heaven and hell, for every sculpture is carved by the same unseen hand.” 
+> 
+>  — Unknown
 ##### Statement:
 > The governing equations of all domains retain identical form under Continuum transformation; only local constants and coupling parameters differ.
 ##### Description:
 The Law of Continuum Symmetry establishes the structural unity of the Continuum. Despite varying local parameters, each domain remains isomorphic in its physical formulation, ensuring that transformations between domains preserve the same fundamental laws. Differences observed between domains arise not from distinct laws, but from divergent constants, coupling behaviors, or dimensional expressions within the same underlying Continuum structure.
 ### III. Law of Continuum Causality
+> [!epigraph]
+> The arrow remembers only its flight, never the bow that loosed it.
+> 
+> — Mathilde Koenig
 ##### Statement: 
 > Causal order is invariant throughout the Continuum. An effect cannot precede its initiating cause, regardless of the domains involved.
 ##### Description:
@@ -42,6 +55,10 @@ The Law of Continuum Causality defines a universal temporal framework that gover
 
 This law ensures that causal influence flows unidirectionally, preserving temporal consistency even across trans-phase boundaries. In essence, no domain can retroactively alter the state of another; the Continuum upholds causality as a fundamental invariant of its structure.
 ### IV. Law of Entropic Consistency
+> [!epigraph]
+> "None can escape chaos."
+> 
+> — Unknown
 ##### Statement:
 > The total entropy of the Continuum cannot decrease. Any localized decrease in disorder must be offset by an equal or greater increase elsewhere within the domain set.
 ##### Formal Expression:
@@ -56,6 +73,10 @@ The Law of Entropic Consistency generalizes the Second Law of Thermodynamics to 
 
 No act of order is free from entropic cost; each carries an inherent entropic debt that must be repaid through compensatory decay or turbulence in another domain. Thus, long-term equilibrium of the Continuum is maintained not through stasis, but through the perpetual redistribution of disorder.
 ### V. Law of Phase Relativity
+> [!epigraph]
+> “Many have sought the single clock by which all worlds might be timed, yet none have found it. Each observer swears by his own, and in their disagreement lies the truest measure of reality.”
+>
+> — Professor Erasmus Valehart, "On Temporal Relativity", delivered before the Imperial Institute of Erevale, $(\Phi 4.33:118\Xi3)$
 ##### Statement:
 > Measurements of time, energy, and coherence are relative to the observer’s local domain and phase frame. No absolute frame of reference exists within the Continuum.
 ##### Description:
@@ -64,6 +85,10 @@ Temporal flow, coherence, and perceived energy vary according to the observer’
 
 As these parameters diverge between domains, relative distortions manifest, producing effects such as **[[Mana Time Dilation|mana time dilation]]** and **[[Continuum Physics/Branches/Manaphysics/index#4. Law of Phase Hysteresis|mana hysteresis]]**. Thus, observation and causality remain consistent within each frame, yet differ across domains, ensuring that no universal synchronization exists within the Continuum.
 ### VI. Law of Field Continuity
+> [!epigraph]
+> "They told *me*. I heard them when everything became quiet. It remembers—that emptiness... it was—it was *listening*. Let *go* of me, you damn bastards!"
+> 
+> — Survivor of the Fracture of Concordance, $(\Phi 4.02:039\Xi3)$
 ##### Statement:
 > All fields within the Continuum are continuous and differentiable; discontinuities represent regions of phase collapse or void.
 ##### Formal Expression:
@@ -78,6 +103,10 @@ The Law of Field Continuity ensures mathematical and energetic coherence across 
 
 Where continuity breaks, the field ceases to conserve local flux, leading to phenomena such as **[[Mana Anomalies|mana void]]** or **[[Mana Anomalies|rifts]]**. Such discontinuities mark regions where the governing equations of the Continuum fail, signifying the breakdown of coherent field behavior and the onset of localized instability.
 ### VII. Law of Dimensional Reciprocity
+> [!epigraph]
+> When one world bends, the rest must breathe with it. Space is no solitary fabric but a tapestry under shared tension—pull one thread, and the whole design trembles.
+> 
+> — From the Bible of Truth, Verse II
 ##### Statement:
 > Each domain of the Continuum defines the geometry of others; curvature or density in one induces reciprocal distortions across the rest.
 ##### Formal Expression:
@@ -91,10 +120,10 @@ where:
 ##### Description:
 The Law of Dimensional Reciprocity establishes the geometric interdependence of all domains within the Continuum. Energy concentration, mass density, or field resonance within one domain alters the curvature and topology of the others, maintaining a dynamic equilibrium of form and influence. In essence, space, energy, and consciousness are not separate constructs, but reciprocally woven dimensions of one coherent manifold.
 ## VIII. Law of Domain Emergence 
-<div style="border-left: 3px solid #777777; padding-left: 1em; font-style: italic; color: #777777;">
-“Coherence begets creation.”
-</div>
-
+> [!epigraph]
+> "Reality begets creation."
+> 
+> — Unknown
 ##### Statement:
 > New domains may manifest when interdomain complexity surpasses a critical coherence threshold, enabling the Continuum to stabilize a novel field configuration.
 ##### Formal Expression:

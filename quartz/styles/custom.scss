@@ -1,3 +1,35 @@
 @use "./base.scss";
 
-// put your custom CSS here!
+.callout[data-callout="epigraph"] .callout-title {
+  display: none !important;
+}
+
+.callout[data-callout="epigraph"] {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+  --callout-bg: transparent;              
+  --callout-border: transparent;         
+
+  border-left: 3px solid #666666 !important;
+  padding-left: 1em !important;
+  margin: 1em 0 !important;
+  color: #666666;   
+}
+
+.callout[data-callout="epigraph"] .callout-content {
+  background: transparent !important;
+}
+
+.callout[data-callout="epigraph"] .callout-content > p:first-child {
+  font-style: normal !important;
+  color: #666666 !important;
+}
+
+.callout[data-callout="epigraph"] .callout-content > p:last-child {
+  font-style: italic !important;
+  color: #888888 !important;
+  text-align: right !important;
+  margin-top: 0.5em !important;
+}
+
