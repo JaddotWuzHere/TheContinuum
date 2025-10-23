@@ -1,3 +1,6 @@
+---
+title: Manaphysics
+---
 ## Overview
 ---
 Manaphysics is the formal study of the behaviors, interactions, and governing principles of **[[Mana|mana]]** within the **[[Continuum Physics#The Continuum|Continuum]]**. It focuses on how the mana field manifests, evolves, and couples with other domains under the universal constraints established by **[[Continuum Physics|Continuum physics]]**.

@@ -1,3 +1,7 @@
+---
+title: Anachysis
+---
+
 ## Overview
 ---
 Anachysics is the formal study of the structures, interactions, and governing principles of **[[Soul|souls]]** and **[[Source|Sources]]** within the **[[Continuum Physics#The Continuum|Continnuum]]**. It focuses on the behavior of the **[[Soul#The Anima Field|anima field]]**, its coherence, and its coupling with the **[[Mana#The Mana Field|mana field]]** through trans-phase resonance.

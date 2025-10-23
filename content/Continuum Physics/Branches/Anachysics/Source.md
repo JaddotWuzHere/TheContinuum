@@ -47,7 +47,7 @@ Natural Sources exhibit various inherent characteristics:
 
 Long term refinement of a Source is possible through training and resonance calibration, but reckless or unbalanced mana use can lead to permanent degradation.
 #### Damage and Collapse
-Minor damage to a Source reduces coupling efficiency, which may cause fatigue, weakened mana throughput, or instability. Major disruption may result in field misalignment and dangerous feedback, wherein excessive resonance amplification collapses coherence and destabilizes the Source. *(See: **[[Manaphysics#3. Law of Flux Resonance|Law of Flux Resonance]]**)*
+Minor damage to a Source reduces coupling efficiency, which may cause fatigue, weakened mana throughput, or instability. Major disruption may result in field misalignment and dangerous feedback, wherein excessive resonance amplification collapses coherence and destabilizes the Source. *(See: **[[Continuum Physics/Branches/Manaphysics/index#3. Law of Flux Resonance|Law of Flux Resonance]]**)*
 
 A collapsed Source loses coherence entirely. The soul may remain intact but becomes mana inert, unable to interact with the mana field, a condition known as **[[Anima-Source Disjunction (ASD)|anima-source disjunction (ASD)]]**. 
 
