@@ -20,7 +20,7 @@ Much like classic physics, Continuum physics derives its framework from a discre
 > [!epigraph]
 > “All attainment entails its due; the universe forgets nothing.”
 > 
-> — René Valcourt, "Le Tissu de l’Infini", published $(\Phi 3.71:329\Xi2)$
+> — René Valcourt, "Le Tissu de l’Infini", published Φ3.71:329Ξ2
 
 ##### Statement:
 > The total energetic and informational content of the Continuum remains invariant. Energy may transform between domains, but the aggregate sum across all domains is conserved.
@@ -75,7 +75,7 @@ No act of order is free from entropic cost; each carries an inherent entropic de
 > [!epigraph]
 > “Many have sought the single clock by which all worlds might be timed, yet none have found it. Each observer swears by his own, and in their disagreement lies the truest measure of reality.”
 >
-> — Professor Erasmus Valehart, "On Temporal Relativity", delivered before the Imperial Institute of Erevale, $(\Phi 4.33:118\Xi3)$
+> — Professor Erasmus Valehart, "On Temporal Relativity", delivered before the Imperial Institute of Erevale, Φ4.33:118Ξ3
 ##### Statement:
 > Measurements of time, energy, and coherence are relative to the observer’s local domain and phase frame. No absolute frame of reference exists within the Continuum.
 ##### Description:
@@ -87,7 +87,7 @@ As these parameters diverge between domains, relative distortions manifest, prod
 > [!epigraph]
 > "They told *me*. I heard them when everything became quiet. It remembers, that emptiness... it was—it was *listening*. Let *go* of me, you damn bastards!"
 > 
-> — Survivor of the Fracture of Concordance, $(\Phi 4.02:039\Xi3)$
+> — Survivor of the Fracture of Concordance, Φ4.02:039Ξ3
 ##### Statement:
 > All fields within the Continuum are continuous and differentiable; discontinuities represent regions of phase collapse or void.
 ##### Formal Expression:
