@@ -14,11 +14,13 @@ They are permanent, universal fields that define the essential aspects of realit
 
 Each fundamental domain possesses its own internal constants and conservation laws, yet all remain bound by the universal invariants of Continuum physics. They do not emerge or vanish; they are. The interaction of fundamental domains gives rise to all other phenomena.
 #### List of Fundamental Domains
-###### Realspace
+**Realspace**
 The familiar and observable layer of existence. Realspace defines the baseline energetic regime where classical physics holds true. It provides the reference frame for matter, inertia, and measurable cause and effect. Though it appears isolated, realspace continuously exchanges energy and information with adjacent domains through coupling phenomena that remain invisible to ordinary observation.
-###### Manaspace
+
+**Manaspace**
 An energetic domain that governs the flow and resonance of mana. Unlike realspace, manaspace operates under field-resonance dynamics rather than thermodynamic law. It serves as the substrate for metaphysical energy and arcane interaction. When accessed through a Source, its currents can influence realspace directly, allowing for controlled energy transfer, spellcasting, and field manipulation. Manaspace is the foundation of **[[Continuum Physics/Branches/Manaphysics/index|manaphysics]]**.
-###### Animaspace
+
+**Animaspace**
 The informational and cognitive domain where consciousness originates. It contains the anima field, which is the structure of awareness, memory, and individuality. Animaspace anchors selfhood and allows identity to persist through transformation and death. Its interaction with manaspace through the Source gives rise to life, thought, and will. The study of this coupling forms the basis of **[[Continuum Physics/Branches/Anachysics/index|anachysics]]**.
 ### Transient Domains
 Transient domains are conditional realities, existing only when the Continuum’s parameters align within a specific range. They are internally stable and law-abiding, but only manifest under fixed physical or metaphysical conditions. When those conditions lapse, the domain ceases to exist entirely, leaving behind only a faint resonance where it once stood.
