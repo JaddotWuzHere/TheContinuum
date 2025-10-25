@@ -1,4 +1,18 @@
 {
-  "cleanUrls": true
+  "cleanUrls": true,
+  "rewrites": [
+    {
+      "source": "/en/:path*",
+      "destination": "https://thecontinuum.vercel.app/:path*"
+    },
+    {
+      "source": "/zh/:path*",
+      "destination": "https://the-continuum-tau.vercel.app/:path*"
+    },
+    {
+      "source": "/",
+      "destination": "/en/"
+    }
+  ]
 }
 
