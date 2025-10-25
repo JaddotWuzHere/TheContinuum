@@ -3,11 +3,11 @@
   "rewrites": [
     {
       "source": "/en/:path*",
-      "destination": "https://thecontinuum.vercel.app/:path*"
+      "destination": "https://thecontinuum-en.vercel.app/:path*"
     },
     {
       "source": "/zh/:path*",
-      "destination": "https://the-continuum-tau.vercel.app/:path*"
+      "destination": "https://the-continuum-zh.vercel.app/:path*"
     },
     {
       "source": "/",
