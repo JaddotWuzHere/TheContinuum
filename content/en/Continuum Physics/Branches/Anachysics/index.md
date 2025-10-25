@@ -4,9 +4,9 @@ title: Anachysis
 
 ## Overview
 ---
-Anachysics is the formal study of the structures, interactions, and governing principles of **[[Soul|souls]]** and **[[Source|Sources]]** within the **[[Continuum Physics/index#The Continuum|Continnuum]]**. It focuses on the behavior of the **[[Soul#The Anima Field|anima field]]**, its coherence, and its coupling with the **[[Mana#The Mana Field|mana field]]** through trans-phase resonance.
+Anachysics is the formal study of the structures, interactions, and governing principles of **[[en/Continuum Physics/Branches/Anachysics/Soul|souls]]** and **[[en/Continuum Physics/Branches/Anachysics/Source|Sources]]** within the **[[en/Continuum Physics/index#The Continuum|Continnuum]]**. It focuses on the behavior of the **[[en/Continuum Physics/Branches/Anachysics/Soul#The Anima Field|anima field]]**, its coherence, and its coupling with the **[[en/Continuum Physics/Branches/Manaphysics/Mana#The Mana Field|mana field]]** through trans-phase resonance.
 
-Anachysics specializes in the dynamics of living coherence, namely the feedback processes that sustain the self and permit interaction between thought and metaphysical energy. It connects the informational domain of animaspace with the energetic **[[Domain|domain]]** of manaspace, forming the theoretical foundation for life, consciousness, and transcendence within the Continuum.
+Anachysics specializes in the dynamics of living coherence, namely the feedback processes that sustain the self and permit interaction between thought and metaphysical energy. It connects the informational domain of animaspace with the energetic **[[en/Continuum Physics/Domain|domain]]** of manaspace, forming the theoretical foundation for life, consciousness, and transcendence within the Continuum.
 
 The Laws of Anachysics describe how Continuum invariants manifest in the coupling between anima and mana. They define the limits of stability and evolution of coherent beings, such as how souls maintain identity, how Sources mediate energy across phase boundaries, and how both may fail and adapt.
 

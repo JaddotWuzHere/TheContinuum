@@ -1,10 +1,10 @@
 ## Overview
 ---
-A soul is a coherent configuration of the anima field that embodies individuality, awareness, and continuity of identity. It represents the metaphysical structure by which consciousness is defined within the **[[Continuum Physics/index#The Continuum|Continuum]]**. 
+A soul is a coherent configuration of the anima field that embodies individuality, awareness, and continuity of identity. It represents the metaphysical structure by which consciousness is defined within the **[[en/Continuum Physics/index#The Continuum|Continuum]]**. 
 
-The soul exists primarily within animaspace, a **[[Domain|domain]]** which houses information regarding conscious thought. Additionally, it serves as the anchor through which living beings maintain coherence across phase states. 
+The soul exists primarily within animaspace, a **[[en/Continuum Physics/Domain|domain]]** which houses information regarding conscious thought. Additionally, it serves as the anchor through which living beings maintain coherence across phase states. 
 
-Through resonance with the **[[Mana|mana]]** field, the soul enables willful interaction with the physical world. When resonance stabilizes, a **[[Source]]** forms at the boundary between the anima and mana fields, allowing thought to manifest as directed mana flow.
+Through resonance with the **[[en/Continuum Physics/Branches/Manaphysics/Mana|mana]]** field, the soul enables willful interaction with the physical world. When resonance stabilizes, a **[[zh/Continuum Physics/Branches/Anachysics/Source]]** forms at the boundary between the anima and mana fields, allowing thought to manifest as directed mana flow.
 
 Every natural Source is uniquely bound to the soul that generated it.
 ## Physical Properties
@@ -97,7 +97,7 @@ When coherence weakens or biological rhythm falters, this loop destabilizes.
 
 Without continual resonance feedback from the body’s biological oscillations, the coupling collapses irreversibly.
 ##### Interaction with the Continuum
-The soul acts as an informational attractor within the Continuum, generating curvature across adjacent domains through the **[[Continuum Physics/index#VII. Law of Dimensional Reciprocity|Law of Dimensional Reciprocity]]**. Localized concentration of anima energy alters the topology of manaspace, which shapes probability and field flow. This phenomenon is also known as **[[Eidolic Curvature|eidolic curvature]]**.
+The soul acts as an informational attractor within the Continuum, generating curvature across adjacent domains through the **[[en/Continuum Physics/index#VII. Law of Dimensional Reciprocity|Law of Dimensional Reciprocity]]**. Localized concentration of anima energy alters the topology of manaspace, which shapes probability and field flow. This phenomenon is also known as **[[Eidolic Curvature|eidolic curvature]]**.
 
 In practical terms, this curvature manifests as:
 - Field attraction, where ambient mana aligns with the resonance pattern of a strong soul
@@ -117,7 +117,7 @@ The resulting postmortem state depends on residual coherence at the moment of de
 
 Echo residues form the basis of phenomena such as hauntings, undead animation, and resonant reactivity. Devoid of consciousness, such remnants act according to residual harmonic patterns, either directed through necromantic control or self organized by environmental resonance.
 
-This process follows the **[[Continuum Physics/index#IV. Law of Entropic Consistency|Law of Entropic Consistency]]**, ensuring that the order lost through death contributes proportionally to order elsewhere within the Continuum.
+This process follows the **[[en/Continuum Physics/index#IV. Law of Entropic Consistency|Law of Entropic Consistency]]**, ensuring that the order lost through death contributes proportionally to order elsewhere within the Continuum.
 
 *(For more detail, see: **[[Death]]** and **[[Thaumatopathology]]**)*
 ## Evolution and Transcendence

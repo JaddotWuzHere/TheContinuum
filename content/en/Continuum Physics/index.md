@@ -4,7 +4,7 @@ title: Continuum Physics
 ## Introduction
 ---
 ### The Continuum
-The Continuum is the unified field framework that constitutes all existence, encompassing every **[[Domain|domain]]** of reality within a single, coherent manifold. It is not a separate dimension, but the substrate from which all dimensions, energies, and fields arise.
+The Continuum is the unified field framework that constitutes all existence, encompassing every **[[en/Continuum Physics/Domain|domain]]** of reality within a single, coherent manifold. It is not a separate dimension, but the substrate from which all dimensions, energies, and fields arise.
 Every known domain represents a distinct manifestation of the Continuum’s underlying structure. These domains differ in composition and behavior, yet remain inseparably linked through shared energetic and geometric foundations.
 
 Within the Continuum, each domain constitutes a self consistent field system characterized by its own energy form, constants, and coupling behavior. Energy and information can transfer between domains, but no process can violate the invariants that preserve the Continuum’s total balance.
@@ -82,7 +82,7 @@ No act of order is free from entropic cost; each carries an inherent entropic de
 The Law of Phase Relativity extends the principles of relativity to trans-domain contexts.
 Temporal flow, coherence, and perceived energy vary according to the observer’s phase reference frame, governed by local field conditions. 
 
-As these parameters diverge between domains, relative distortions manifest, producing effects such as **[[Mana Time Dilation|mana time dilation]]** and **[[Continuum Physics/Branches/Manaphysics/index#4. Law of Phase Hysteresis|mana hysteresis]]**. Thus, observation and causality remain consistent within each frame, yet differ across domains, ensuring that no universal synchronization exists within the Continuum.
+As these parameters diverge between domains, relative distortions manifest, producing effects such as **[[Mana Time Dilation|mana time dilation]]** and **[[en/Continuum Physics/Branches/Manaphysics/index#4. Law of Phase Hysteresis|mana hysteresis]]**. Thus, observation and causality remain consistent within each frame, yet differ across domains, ensuring that no universal synchronization exists within the Continuum.
 ### VI. Law of Field Continuity
 > [!epigraph]
 > "They told *me*. I heard them when everything became quiet. It remembers, that emptiness... it was—it was *listening*. Let *go* of me, you damn bastards!"

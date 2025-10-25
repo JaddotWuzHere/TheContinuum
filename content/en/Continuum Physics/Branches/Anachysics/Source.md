@@ -1,6 +1,6 @@
 ## Overview
 ---
-A Source is a trans-phase coupling field that enables a conscious being to interact with **[[Mana|mana]]**. It forms naturally whenever a coherent region of the anima field achieves stable resonance with the surrounding mana field. Through this resonance, intent and awareness can be translated into directed mana flow.
+A Source is a trans-phase coupling field that enables a conscious being to interact with **[[en/Continuum Physics/Branches/Manaphysics/Mana|mana]]**. It forms naturally whenever a coherent region of the anima field achieves stable resonance with the surrounding mana field. Through this resonance, intent and awareness can be translated into directed mana flow.
 
 While it isn't clear which types of entities are guaranteed to possess natural Sources, it has been found that most, if not all, conscious beings are born innately with a Source. The strength, stability, and efficiency of said Source vary according to the coherence of the soul and the local mana environment. While the **[[Souls|soul]]** provides individuality and will, the Source provides access and control. 
 ## Physical Properties
@@ -26,11 +26,11 @@ While the natural Source is metaphysical, its resonance aligns closely with biol
 #### Soul-Source Coupling
 The soul serves as an anchor point for natural Sources. The Source attaches to the soul's coherent structure through phase lock. As long as the soul maintains coherence, the Source mirrors its signature automatically. If the soul destabilizes or departs the body, the phase lock collapses and the Source ceases to exist. Beyond this stage, no method to preserve the Source is known.
 
-*(For more detail, see: **[[Soul#Soul-Source Coupling|Soul-Source Coupling]]**)*
+*(For more detail, see: **[[en/Continuum Physics/Branches/Anachysics/Soul#Soul-Source Coupling|Soul-Source Coupling]]**)*
 #### Interaction with Mana
 The Source mediates energy exchange and information transfer between the soul and the mana field. It does not produce mana but draws upon and shapes existing flux within the **[[The Continuum|Continuum]]**. 
 
-When activated through will or focus, the natural Source aligns the soul’s internal pattern with specific harmonics in the mana field. This process transfers energy across the Continuum boundary while conserving total system energy, as described by the **[[Continuum Physics/index#1. Law of Continuum Conservation|Law of Continuum Conservation]]**. 
+When activated through will or focus, the natural Source aligns the soul’s internal pattern with specific harmonics in the mana field. This process transfers energy across the Continuum boundary while conserving total system energy, as described by the **[[en/Continuum Physics/index#1. Law of Continuum Conservation|Law of Continuum Conservation]]**. 
 
 Efficiency varies between individuals and depends on:
 - **Coupling Strength ($\alpha_{AB}$):** the Arcane-Biological constant, reflecting how well the natural Source integrates with living matter
@@ -47,7 +47,7 @@ Natural Sources exhibit various inherent characteristics:
 
 Long term refinement of a Source is possible through training and resonance calibration, but reckless or unbalanced mana use can lead to permanent degradation.
 #### Damage and Collapse
-Minor damage to a Source reduces coupling efficiency, which may cause fatigue, weakened mana throughput, or instability. Major disruption may result in field misalignment and dangerous feedback, wherein excessive resonance amplification collapses coherence and destabilizes the Source. *(See: **[[Continuum Physics/Branches/Manaphysics/index#3. Law of Flux Resonance|Law of Flux Resonance]]**)*
+Minor damage to a Source reduces coupling efficiency, which may cause fatigue, weakened mana throughput, or instability. Major disruption may result in field misalignment and dangerous feedback, wherein excessive resonance amplification collapses coherence and destabilizes the Source. *(See: **[[en/Continuum Physics/Branches/Manaphysics/index#3. Law of Flux Resonance|Law of Flux Resonance]]**)*
 
 A collapsed Source loses coherence entirely. The soul may remain intact but becomes mana inert, unable to interact with the mana field, a condition known as **[[Anima-Source Disjunction (ASD)|anima-source disjunction (ASD)]]**. 
 

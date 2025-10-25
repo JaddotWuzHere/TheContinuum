@@ -6,6 +6,12 @@ import * as Plugin from "./quartz/plugins"
  *
  * See https://quartz.jzhao.xyz/configuration for more information.
  */
+const LANG = (process.env.LANG || "en").toLowerCase() as "en" | "zh"
+const LOCALE = LANG === "zh" ? "zh-CN" : "en-US"
+
+const IGNORE_PATTERNS = LANG === "zh" ? ["en/**"] : ["zh/**"]
+
+
 const config: QuartzConfig = {
   configuration: {
     pageTitle: "The Continuum",
@@ -15,9 +21,9 @@ const config: QuartzConfig = {
     analytics: {
       provider: "plausible",
     },
-    locale: "en-US",
+    locale: LOCALE,
     baseUrl: "quartz.jzhao.xyz",
-    ignorePatterns: ["private", "templates", ".obsidian"],
+    ignorePatterns: IGNORE_PATTERNS,
     defaultDateType: "modified",
     theme: {
       fontOrigin: "googleFonts",

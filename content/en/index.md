@@ -22,7 +22,7 @@ The Continuum is vast, but its laws are consistent. Every discipline, from metap
 
 Scholars divide this knowledge into broad fields, each dedicated to understanding a different aspect of existence.
 
-**[[Continuum Physics/index|Continuum Physics]]:** 
+**[[en/Continuum Physics/index|Continuum Physics]]:** 
 The foundational science of the universe.
 
 **[[Thaumatopathology]]:**

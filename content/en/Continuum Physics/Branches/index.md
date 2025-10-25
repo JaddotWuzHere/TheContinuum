@@ -3,7 +3,7 @@ title: Branches of Continuum Physics
 ---
 ## Overview
 ---
-**[[Continuum Physics/index|Continuum physics]]**, as a unified framework, encompasses an expansive hierarchy of specialized disciplines. Each branch isolates and formalizes the behavior of a particular field, phase, or coupling within the Continuum while remaining bound by the **[[Continuum Physics/index#The Fundamental Laws of the Continuum|Fundamental Laws]]**.
+**[[en/Continuum Physics/index|Continuum physics]]**, as a unified framework, encompasses an expansive hierarchy of specialized disciplines. Each branch isolates and formalizes the behavior of a particular field, phase, or coupling within the Continuum while remaining bound by the **[[en/Continuum Physics/index#The Fundamental Laws of the Continuum|Fundamental Laws]]**.
 
 These disciplines are not independent sciences but derivative expressions of the same coherent manifold, each a frame into the Continuum viewed through a distinct domain of manifestation.
 
@@ -17,10 +17,10 @@ Manaphysics investigates the resonance structure of manaspace, governing how man
 
 In practical terms, manaphysics underlies all known magical phenomena.
 
-*(For more detail, see: **[[Continuum Physics/Branches/Manaphysics/index|Manaphysics]]**)*
+*(For more detail, see: **[[en/Continuum Physics/Branches/Manaphysics/index|Manaphysics]]**)*
 #### Anachysis
 **Focus:** Coherence, identity, and the metaphysical mechanics of life. Anachysics studies the anima field and its coupling to mana through the Source, forming the theoretical basis of consciousness, will, and transcendence.
 
 It defines how souls maintain continuity, evolve coherence, and interact with the Continuum through feedback and phase-lock stability.
 
-*(For more detail, see: **[[Continuum Physics/Branches/Anachysics/index|Anachysics]]**)*
+*(For more detail, see: **[[en/Continuum Physics/Branches/Anachysics/index|Anachysics]]**)*
