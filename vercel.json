@@ -1,13 +1,3 @@
 {
-  "cleanUrls": true,
-  "trailingSlash": true,
-  "redirects": [
-    { "source": "/", "destination": "/en/", "permanent": false },
-    { "source": "/:lang(en|zh)", "destination": "/:lang/", "permanent": true }
-  ],
-  "rewrites": [
-    { "source": "/zh", "destination": "/zh/" },
-    { "source": "/zh/:path*", "destination": "https://the-continuum-zh.vercel.app/:path*" }
-  ]
+  "cleanUrls": true
 }
-
