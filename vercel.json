@@ -1,7 +1,4 @@
 {
-  "redirects": [
-    { "source": "/", "destination": "/en/" }
-  ],
+  "redirects": [{ "source": "/", "destination": "/en/" }],
   "cleanUrls": true
 }
-

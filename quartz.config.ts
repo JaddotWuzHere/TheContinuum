@@ -6,11 +6,6 @@ import * as Plugin from "./quartz/plugins"
  *
  * See https://quartz.jzhao.xyz/configuration for more information.
  */
-const LANG = (process.env.LANG || "en").toLowerCase() as "en" | "zh"
-const LOCALE = LANG === "zh" ? "zh-CN" : "en-US"
-
-const IGNORE_PATTERNS = LANG === "zh" ? ["en/**"] : ["zh/**"]
-
 
 const config: QuartzConfig = {
   configuration: {
@@ -21,9 +16,9 @@ const config: QuartzConfig = {
     analytics: {
       provider: "plausible",
     },
-    locale: LOCALE,
+    locale: "en-US",
     baseUrl: "quartz.jzhao.xyz",
-    ignorePatterns: IGNORE_PATTERNS,
+    ignorePatterns: ["private", "templates", ".obsidian"],
     defaultDateType: "modified",
     theme: {
       fontOrigin: "googleFonts",
