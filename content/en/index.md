@@ -2,7 +2,7 @@
 title:
 ---
 > [!epigraph]
-> "All things exist not apart, but as echoes of the same unbroken whole."
+> "All things exist not apart, but as tokens of the same unbroken whole."
 > 
 > — Unknown
 ## Introduction

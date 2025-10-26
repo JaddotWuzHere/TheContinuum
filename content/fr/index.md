@@ -1,35 +1,37 @@
 ---
-title: Welcome to the Continuum
+title: Bienvenue dans le Continuum.
 ---
 > [!epigraph]
-> "All things exist not apart, but as echoes of the same unbroken whole."
+> « Toutes choses n’existent pas séparément, mais comme des symboles d’un même tout indivisible. »
 > 
-> — Unknown
+> — Inconnu
 ## Introduction
 ---
-This is not Earth, nor is it a distant future of it. In fact, Earth doesn't exist at all. Yet the same familiar laws of matter, motion, and energy still hold true. 
+Ce monde n’est pas la Terre, ni un futur lointain de celle-ci. En vérité, la Terre n’existe pas.
+Et pourtant, les mêmes lois familières de la matière, du mouvement et de l’énergie demeurent.
 
-But alongside them exists another fundamental property of reality—mana.
+Mais, à leurs côtés, existe une autre propriété fondamentale de la réalité : le mana.
 
-Here, magic is not myth or miracle, but an additional layer of physics woven into the same natural order. Its discovery reshaped every science, every species, and every civilization that followed. Every species that learned to wield it developed; those that did not disappeared. 
+Ici, la magie n’est ni mythe ni miracle, mais une couche supplémentaire de la physique, intégrée à l’ordre naturel lui-même. Sa découverte a bouleversé toutes les sciences,
+et toutes les civilisations qui en ont suivi. Chaque espèce capable de la maîtriser s’est développée ; celles qui n’y sont pas parvenues ont disparu.
 
-The result is a universe deeply academic in nature, one where progress depends on comprehension, and knowledge itself determines survival.
+Il en résulte un univers profondément académique—où la connaissance détermine la survie.
 
-Welcome to the Continuum. 
-## Fields of Study
+Bienvenue dans le Continuum.
+## Domaines d’étude
 ---
-The Continuum is vast, but its laws are consistent. Every discipline, from metaphysics to biology, stems from the same foundation: the study of how reality maintains coherence between the physical and the magical.
+Le Continuum est vaste, mais ses lois demeurent cohérentes. Chaque discipline—de la métaphysique à la biologie—repose sur la même base : l’étude de la manière dont la réalité maintient sa cohérence entre le physique et le magique.
 
-Scholars divide this knowledge into broad fields, each dedicated to understanding a different aspect of existence.
+Les savants divisent ce savoir en grands domaines, chacun consacré à la compréhension d’un aspect particulier de l’existence.
 
-**[[en/Continuum Physics/index|Continuum Physics]]:** 
-The foundational science of the universe.
+**[[fr/Continuum Physics/index|Physique du Continuum]] :** 
+La science fondamentale de l’univers.
 
-**[[Thaumatopathology]]:**
-The medical science of magic-related disorders.
-## Universe Compendia
+**[[Thaumatopathologie]]:**
+La science médicale des troubles liés à la magie.
+## Compendium de l’Univers
 ---
-Beyond its sciences, the Continuum is shaped by the civilizations, histories, and philosophies that grew from its pursuit of knowledge. These entries record the living world: he people, institutions, and ideas that define how the universe understands itself.
+Au-delà de ses sciences, le Continuum est façonné par les civilisations, les histoires et les philosophies issues de sa quête du savoir. Ces entrées décrivent le monde vivant—les peuples, les institutions et les idées qui définissent la manière dont l’univers se comprend lui-même.
 
-**[[World Order]]**:
-The governing structure of the Continuum.
+**[[Ordre du Monde]]**:
+La structure gouvernementale du Continuum.
