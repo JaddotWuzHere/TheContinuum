@@ -4,6 +4,7 @@ import style from "./styles/search.scss"
 import script from "./scripts/search.inline"
 import { classNames } from "../util/lang"
 import { i18n } from "../i18n"
+import { getLangFromSlug } from "../util/i18n"
 
 export interface SearchOptions {
   enablePreview: boolean
@@ -14,11 +15,12 @@ const defaultOptions: SearchOptions = {
 }
 
 export default ((userOpts?: Partial<SearchOptions>) => {
-  const Search: QuartzComponent = ({ displayClass, cfg }: QuartzComponentProps) => {
-    const opts = { ...defaultOptions, ...userOpts }
-    const searchPlaceholder = i18n(cfg.locale).components.search.searchBarPlaceholder
-    return (
-      <div class={classNames(displayClass, "search")}>
+  const Search: QuartzComponent = ({ displayClass, cfg, fileData }: QuartzComponentProps) => {
+  const opts = { ...defaultOptions, ...userOpts }
+  const searchPlaceholder = i18n(cfg.locale).components.search.searchBarPlaceholder
+  const lang = getLangFromSlug(fileData.slug)
+  return (
+    <div class={classNames(displayClass, "search")} data-lang={lang}>
         <button class="search-button">
           <svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7">
             <title>Search</title>

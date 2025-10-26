@@ -5,6 +5,7 @@ import { googleFontHref, googleFontSubsetHref } from "../util/theme"
 import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } from "./types"
 import { unescapeHTML } from "../util/escape"
 import { CustomOgImagesEmitterName } from "../plugins/emitters/ogImage"
+import { getLangFromSlug, dropLangPrefix } from "../util/i18n"
 export default (() => {
   const Head: QuartzComponent = ({
     cfg,
@@ -35,6 +36,20 @@ export default (() => {
       (e) => e.name === CustomOgImagesEmitterName,
     )
     const ogImageDefaultPath = `https://${cfg.baseUrl}/static/og-image.png`
+
+    const corePath = dropLangPrefix(fileData.slug ?? "")
+
+    const toHref = (lang: "en" | "zh") => {
+    const segs: string[] = [lang]
+    if (corePath) segs.push(corePath)
+    let p = "/" + segs.join("/")
+    if (!p.endsWith("/")) p += "/"
+    return cfg.baseUrl ? `https://${cfg.baseUrl}${p}` : p
+  }
+
+
+    const enHref = toHref("en")
+    const zhHref = toHref("zh")
 
     return (
       <head>
@@ -79,6 +94,8 @@ export default (() => {
             <meta property="twitter:domain" content={cfg.baseUrl}></meta>
             <meta property="og:url" content={socialUrl}></meta>
             <meta property="twitter:url" content={socialUrl}></meta>
+            <link rel="alternate" hrefLang="en" href={enHref} />
+            <link rel="alternate" hrefLang="zh" href={zhHref} />
           </>
         )}
 
