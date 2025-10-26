@@ -1,3 +1,12 @@
+import type { FullSlug } from "../util/path"
+
+export function dropLangPrefix(slug?: string): FullSlug {
+  if (!slug) return "" as FullSlug
+  const parts = slug.split("/").filter(Boolean)
+  if (parts[0] === "en" || parts[0] === "zh") parts.shift()
+  return parts.join("/") as FullSlug
+}
+
 export type Lang = "en" | "zh";
 
 export function getLangFromSlug(slug?: string): Lang {
@@ -17,13 +26,6 @@ export function swapLangPath(pathname: string, target: Lang): string {
   if (parts[0] === "en" || parts[0] === "zh") parts[0] = target;
   else parts.unshift(target);
   return "/" + parts.join("/") + (pathname.endsWith("/") ? "/" : "");
-}
-
-export function dropLangPrefix(slug?: string): string {
-  if (!slug) return "";
-  const parts = slug.split("/").filter(Boolean);
-  if (parts[0] === "en" || parts[0] === "zh") parts.shift();
-  return parts.join("/");
 }
 
 export function hasLangPrefix(slug: string, lang: Lang): boolean {
