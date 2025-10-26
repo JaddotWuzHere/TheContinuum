@@ -5,7 +5,7 @@ title: Welcome to the Continuum
 > "All things exist not apart, but as echoes of the same unbroken whole."
 > 
 > — Unknown
-## Introduction
+## Introduction 你好世界
 ---
 This is not Earth, nor is it a distant future of it. In fact, Earth doesn't exist at all. Yet the same familiar laws of matter, motion, and energy still hold true. 
 
