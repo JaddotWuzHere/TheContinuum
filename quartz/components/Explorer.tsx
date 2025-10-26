@@ -44,15 +44,16 @@ const defaultOptions: Options = {
     let lang = "en"
     try {
       const seg0 = window.location.pathname.replace(/^\/+/, "").split("/")[0]?.toLowerCase()
-      lang = seg0 === "zh" ? "zh" : "en"
-    } catch { /* SSR */ }
+      lang = seg0 === "zh" ? "zh" : seg0 === "fr" ? "fr" : "en"
+    } catch {}
 
     const slug = (node.slug ?? "").replace(/^\/+/, "")
     const first = slug.split("/")[0]?.toLowerCase() || ""
 
-    if (node.isFolder && (node.displayName === "en" || node.displayName === "zh")) {
+    if (node.isFolder && ["en", "zh", "fr"].includes(node.displayName)) {
       return node.displayName.toLowerCase() === lang
     }
+
     return first === lang
   },
 
@@ -73,11 +74,13 @@ export default ((userOpts?: Partial<Options>) => {
     const { cfg, displayClass, fileData } = props
     const id = `explorer-${numExplorers++}`
 
-    const lang = localeFromSlug(fileData?.slug ?? "/en/")
-    // Map our simple language codes to Quartz’s full locale keys:
+    const lang = localeFromSlug(fileData?.slug ?? "/en/")  // "en" | "zh" | "fr"
     type I18nLocale = Parameters<typeof i18n>[0]
-    const locale = (lang === "zh" ? "zh-CN" : "en-US") as I18nLocale
-
+    const locale = (
+      lang === "zh" ? "zh-CN" :
+      lang === "fr" ? "fr-FR" :
+      "en-US"
+    ) as I18nLocale
 
     return (
       <div

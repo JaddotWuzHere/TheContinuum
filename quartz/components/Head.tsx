@@ -5,7 +5,9 @@ import { googleFontHref, googleFontSubsetHref } from "../util/theme"
 import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } from "./types"
 import { unescapeHTML } from "../util/escape"
 import { CustomOgImagesEmitterName } from "../plugins/emitters/ogImage"
-import { localeFromSlug } from "../util/locale"
+import { localeFromSlug, toI18nLocale } from "../util/locale"
+
+
 
 export default (() => {
   const Head: QuartzComponent = ({
@@ -15,19 +17,19 @@ export default (() => {
     ctx,
   }: QuartzComponentProps) => {
 
-    const short = localeFromSlug(fileData?.slug ?? "/en/") // "en" | "zh"
-    type I18nLocale = Parameters<typeof i18n>[0]
-    const htmlLang = (short === "zh" ? "zh-CN" : "en-US") as I18nLocale
-    (cfg as any).locale = htmlLang
+    const lang = localeFromSlug(fileData?.slug ?? "/en/")
+    const locale = toI18nLocale(lang)
+    const short = localeFromSlug(fileData?.slug ?? "/en/")
+    const htmlLang = toI18nLocale(short)   // "en-US" | "zh-CN" | "fr-FR"
+    ;(cfg as any).locale = htmlLang             
     const dict = i18n(htmlLang)
 
     const titleSuffix = cfg.pageTitleSuffix ?? ""
-    const title =
-      (fileData.frontmatter?.title ?? i18n(cfg.locale).propertyDefaults.title) + titleSuffix
+    const title = (fileData.frontmatter?.title ?? dict.propertyDefaults.title) + titleSuffix
     const description =
       fileData.frontmatter?.socialDescription ??
       fileData.frontmatter?.description ??
-      unescapeHTML(fileData.description?.trim() ?? i18n(cfg.locale).propertyDefaults.description)
+      unescapeHTML(fileData.description?.trim() ?? dict.propertyDefaults.description)
 
     const { css, js, additionalHead } = externalResources
 
