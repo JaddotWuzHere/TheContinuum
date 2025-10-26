@@ -5,6 +5,8 @@ import { googleFontHref, googleFontSubsetHref } from "../util/theme"
 import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } from "./types"
 import { unescapeHTML } from "../util/escape"
 import { CustomOgImagesEmitterName } from "../plugins/emitters/ogImage"
+import { localeFromSlug } from "../util/locale"
+
 export default (() => {
   const Head: QuartzComponent = ({
     cfg,
@@ -12,6 +14,13 @@ export default (() => {
     externalResources,
     ctx,
   }: QuartzComponentProps) => {
+
+    const short = localeFromSlug(fileData?.slug ?? "/en/") // "en" | "zh"
+    type I18nLocale = Parameters<typeof i18n>[0]
+    const htmlLang = (short === "zh" ? "zh-CN" : "en-US") as I18nLocale
+    (cfg as any).locale = htmlLang
+    const dict = i18n(htmlLang)
+
     const titleSuffix = cfg.pageTitleSuffix ?? ""
     const title =
       (fileData.frontmatter?.title ?? i18n(cfg.locale).propertyDefaults.title) + titleSuffix
@@ -26,6 +35,7 @@ export default (() => {
     const path = url.pathname as FullSlug
     const baseDir = fileData.slug === "404" ? path : pathToRoot(fileData.slug!)
     const iconPath = joinSegments(baseDir, "static/icon.png")
+    
 
     // Url of current page
     const socialUrl =
@@ -40,6 +50,15 @@ export default (() => {
       <head>
         <title>{title}</title>
         <meta charSet="utf-8" />
+
+        <meta httpEquiv="content-language" content={htmlLang} />
+        <script
+          // sets <html lang="..."> very early since we can’t touch the outer <html> here
+          dangerouslySetInnerHTML={{
+            __html: `document.documentElement.setAttribute('lang','${htmlLang}');`,
+          }}
+        />
+
         {cfg.theme.cdnCaching && cfg.theme.fontOrigin === "googleFonts" && (
           <>
             <link rel="preconnect" href="https://fonts.googleapis.com" />

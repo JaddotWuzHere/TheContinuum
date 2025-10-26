@@ -1,5 +1,6 @@
 import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } from "./types"
 import style from "./styles/explorer.scss"
+import { localeFromSlug } from "../util/locale"
 
 // @ts-ignore
 import script from "./scripts/explorer.inline"
@@ -68,8 +69,15 @@ export default ((userOpts?: Partial<Options>) => {
   const opts: Options = { ...defaultOptions, ...userOpts }
   const { OverflowList, overflowListAfterDOMLoaded } = OverflowListFactory()
 
-  const Explorer: QuartzComponent = ({ cfg, displayClass }: QuartzComponentProps) => {
+  const Explorer: QuartzComponent = (props: QuartzComponentProps) => {
+    const { cfg, displayClass, fileData } = props
     const id = `explorer-${numExplorers++}`
+
+    const lang = localeFromSlug(fileData?.slug ?? "/en/")
+    // Map our simple language codes to Quartz’s full locale keys:
+    type I18nLocale = Parameters<typeof i18n>[0]
+    const locale = (lang === "zh" ? "zh-CN" : "en-US") as I18nLocale
+
 
     return (
       <div
@@ -111,8 +119,7 @@ export default ((userOpts?: Partial<Options>) => {
           data-mobile={false}
           aria-expanded={true}
         >
-          <h2>{opts.title ?? i18n(cfg.locale).components.explorer.title}</h2>
-          <svg
+          <h2>{opts.title ?? i18n(locale).components.explorer.title}</h2>          <svg
             xmlns="http://www.w3.org/2000/svg"
             width="14"
             height="14"
