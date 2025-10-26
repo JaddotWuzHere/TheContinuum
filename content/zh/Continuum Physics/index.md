@@ -1,7 +1,7 @@
 ---
 title: Continuum Physics
 ---
-## Introduction
+## Introduction THIS IS CHINESE VERSION
 ---
 ### The Continuum
 The Continuum is the unified field framework that constitutes all existence, encompassing every **[[zh/Continuum Physics/Domain|domain]]** of reality within a single, coherent manifold. It is not a separate dimension, but the substrate from which all dimensions, energies, and fields arise.

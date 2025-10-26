@@ -26,27 +26,35 @@ const defaultOptions: Options = {
   folderDefaultState: "collapsed",
   folderClickBehavior: "link",
   useSavedState: true,
-  mapFn: (node) => {
-    return node
-  },
+  mapFn: (node) => node,
   sortFn: (a, b) => {
-    // Sort order: folders first, then files. Sort folders and files alphabeticall
     if ((!a.isFolder && !b.isFolder) || (a.isFolder && b.isFolder)) {
-      // numeric: true: Whether numeric collation should be used, such that "1" < "2" < "10"
-      // sensitivity: "base": Only strings that differ in base letters compare as unequal. Examples: a ≠ b, a = á, a = A
       return a.displayName.localeCompare(b.displayName, undefined, {
         numeric: true,
         sensitivity: "base",
       })
     }
-
-    if (!a.isFolder && b.isFolder) {
-      return 1
-    } else {
-      return -1
-    }
+    return !a.isFolder && b.isFolder ? 1 : -1
   },
-  filterFn: (node) => node.slugSegment !== "tags",
+
+  filterFn: (node) => {
+    if (node.slugSegment === "tags") return false
+
+    let lang = "en"
+    try {
+      const seg0 = window.location.pathname.replace(/^\/+/, "").split("/")[0]?.toLowerCase()
+      lang = seg0 === "zh" ? "zh" : "en"
+    } catch { /* SSR */ }
+
+    const slug = (node.slug ?? "").replace(/^\/+/, "")
+    const first = slug.split("/")[0]?.toLowerCase() || ""
+
+    if (node.isFolder && (node.displayName === "en" || node.displayName === "zh")) {
+      return node.displayName.toLowerCase() === lang
+    }
+    return first === lang
+  },
+
   order: ["filter", "map", "sort"],
 }
 
