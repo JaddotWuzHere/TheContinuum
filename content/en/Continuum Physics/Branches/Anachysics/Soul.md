@@ -1,4 +1,4 @@
-## Overviewetetet
+## Overview
 ---
 A soul is a coherent configuration of the anima field that embodies individuality, awareness, and continuity of identity. It represents the metaphysical structure by which consciousness is defined within the **[[en/Continuum Physics/index#The Continuum|Continuum]]**. 
 

@@ -1,35 +1,35 @@
 ---
-title: Welcome to the Continuum
+title: 欢迎来到「连续体」
 ---
 > [!epigraph]
-> "All things exist not apart, but as echoes of the same unbroken whole."
+> “万物非各自而存，皆为那一体无缺之整体的回声。”
 > 
-> — Unknown
-## Introduction 你好世界
+> —— 佚名
+## 引言
 ---
-This is not Earth, nor is it a distant future of it. In fact, Earth doesn't exist at all. Yet the same familiar laws of matter, motion, and energy still hold true. 
+这并非地球，也不是它遥远的未来。事实上，地球从未存在过。然而，那些熟悉的物质、运动与能量的定律依然成立。
 
-But alongside them exists another fundamental property of reality—mana.
+但在它们之上，还存在着现实的另一项根本属性——魔力（Mana）。
 
-Here, magic is not myth or miracle, but an additional layer of physics woven into the same natural order. Its discovery reshaped every science, every species, and every civilization that followed. Every species that learned to wield it developed; those that did not disappeared. 
+在此，魔法并非神话或奇迹，而是融入自然秩序的另一层物理学。它的发现重塑了所有科学，也改写了所有随之而生的文明。能掌握它的族群繁荣昌盛；不能者早已灭绝。
 
-The result is a universe deeply academic in nature, one where progress depends on comprehension, and knowledge itself determines survival.
+于是，这个宇宙成了一座极度学术化的世界——在这里，知识本身便是生存的条件。
 
-Welcome to the Continuum. 
-## Fields of Study
+欢迎来到——「连续体」（The Continuum）。
+## 学术领域
 ---
-The Continuum is vast, but its laws are consistent. Every discipline, from metaphysics to biology, stems from the same foundation: the study of how reality maintains coherence between the physical and the magical.
+连续体浩瀚无边，却在统一的法则下自洽。从形而上的哲学到生物学的奥秘，一切学科都源于同一根基——对“现实如何在物质与魔力之间保持一致性”的研究。
 
-Scholars divide this knowledge into broad fields, each dedicated to understanding a different aspect of existence.
+学者们将这庞大的知识体系分为若干主要领域，每一门学科都致力于理解存在的不同侧面。
 
-**[[en/Continuum Physics/index|Continuum Physics]]:** 
-The foundational science of the universe.
+**[[zh/Continuum Physics/index|连续体物理学（Continuum Physics）]]**：
+宇宙的根基之学。
 
-**[[Thaumatopathology]]:**
-The medical science of magic-related disorders.
-## Universe Compendia
+**[[魔咒病理学（Thaumatopathology）]]**：
+研究与魔力相关疾病的医科学。
+## 宇宙纲要
 ---
-Beyond its sciences, the Continuum is shaped by the civilizations, histories, and philosophies that grew from its pursuit of knowledge. These entries record the living world: he people, institutions, and ideas that define how the universe understands itself.
+除了科学体系之外，连续体的形态也由其文明、历史与哲学所塑造。这些条目记录了一个有机的世界——包括那些塑造宇宙自我认知的人类、制度与思想。
 
-**[[World Order]]**:
-The governing structure of the Continuum.
+**[[世界秩序（World Order）]]**:
+连续体的治理结构。

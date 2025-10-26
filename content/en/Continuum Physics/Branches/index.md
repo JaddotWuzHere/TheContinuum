@@ -7,7 +7,7 @@ title: Branches of Continuum Physics
 
 These disciplines are not independent sciences but derivative expressions of the same coherent manifold, each a frame into the Continuum viewed through a distinct domain of manifestation.
 
-While only a few branches have been formally codified, it is understood that the Continuum gives rise to a vast taxonomy of physical and metaphysical regimes yet unnamed. What follows are among the earliest and most developed fields of study.
+While only a few branches have been formally defined, it is understood that the Continuum gives rise to a vast taxonomy of physical and metaphysical regimes yet unnamed. What follows are among the earliest and most developed fields of study.
 ## Branches
 ---
 #### Manaphysics
