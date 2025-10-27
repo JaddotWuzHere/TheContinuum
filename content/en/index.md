@@ -1,5 +1,5 @@
 ---
-title: Welcome to the Continuum
+title: Welcome
 ---
 > [!epigraph]
 > "All things exist not apart, but as tokens of the same unbroken whole."

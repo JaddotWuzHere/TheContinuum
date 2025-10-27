@@ -1,5 +1,5 @@
 ---
-title: Bienvenue dans le Continuum.
+title: Bienvenue
 ---
 > [!epigraph]
 > « Toutes choses n’existent pas séparément, mais comme des symboles d’un même tout indivisible. »
