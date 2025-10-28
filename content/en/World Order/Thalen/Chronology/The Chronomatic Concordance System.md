@@ -17,7 +17,7 @@ The Chronomatic Concordance thus became the cornerstone of Thalenic order.
 ---
 
 |  Symbol  |    Term    | Definition                                                                                 |
-| :------: | :--------: | ------------------------------------------------------------------------------------------ |
+| :------ | :-------- | ------------------------------------------------------------------------------------------ |
 | $\Sigma$ |  Periodon  | The grand cycle of history and record, derived from Thalen’s natural resonant oscillation. |
 | $\Theta$ | Repertoire | One-seventh of a periodon; the tonal and climatic phase within the greater cycle.          |
 |  $\Phi$  |   Opera    | The principal beat of civil life, divided internally into four movements.                  |
@@ -96,7 +96,7 @@ These alternating periodons ensure that the long-term average of temporal accele
 Each repertoire corresponds to a distinct harmonic of the temporal wave. Thalenic scholars classify and name them according to their temporal character and bias, each possessing a positive and negative form depending on parity:
 
 | No. | Positive Bias ($\Theta^+$) | Negative Bias ($\Theta^-$) |
-| :-: | :-------------------------: | :-------------------------: |
+| :- | :------------------------- | :------------------------- |
 |  I  | **Apertura**               | **Clausura**               |
 | II  | **Radiance**               | **Eclipse**                |
 | III | **Vivace**                 | **Lento**                  |
