@@ -60,6 +60,7 @@ where:
 - $\varphi$ — current movement
 - $d$ — measured drift
 - $n$ — absolute value of drift score.
+
 The exponent of $\Theta$ denotes bias of temper, while the exponent of $\Xi$ denotes bias of drift.
 
 These forms vary slightly between disciplines but retain uniform hierarchy and ratio throughout Thalenic recordkeeping.
@@ -107,13 +108,13 @@ Each repertoire corresponds to a distinct harmonic of the temporal wave. Thaleni
 
 Each repertoire defines a characteristic bias curve of time’s acceleration within the periodon. As the wave rises and falls, the flow of causality subtly quickens or slows, affecting processes that rely on temporal consistency.
 #### Intermissions and Crescendos
-At the transition between two repertoires, where the temporal wave crosses its midpoint and the temper momentarily reaches 0, the system enters an intermission.
+At the transition between two repertoires, where the temporal wave crosses equilibrium and the temper momentarily reaches 0, the system enters an intermission.
 
-During an intermission, the flow of time is perfectly balanced, neither accelerating nor decelerating. Temporal distortion approaches zero, and all chronometric instruments synchronize most readily with the Horaxian Standard.
+During an intermission, the flow of time is perfectly balanced, neither accelerating nor decelerating, and all chronometric instruments synchronize most readily with the Horaxian Standard.
 
-Conversely, at the midpoint of each half-wave, where the temper reaches its greatest magnitude, the system enters a crescendo.
+Conversely, at the midpoint of each repertoire, where the temper reaches its greatest magnitude, the system enters a crescendo.
 
-Here, temporal change is at its extreme, producing measurable effects in mana flow and field coherence. Many magical or mechanical systems experience heightened volatility during these intervals, and most Concordant institutions schedule calibrations to avoid them.
+Here, the rate of temporal change is at its extreme, producing measurable effects in mana flow and field coherence. Many magical or mechanical systems experience heightened volatility during these intervals, and most Concordant institutions schedule calibrations to avoid them.
 
 *(For more detail, see: **[[Astrology]]**)*
 ## Drift and Synchronization
