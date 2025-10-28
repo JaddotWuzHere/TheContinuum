@@ -32,3 +32,18 @@
   text-align: right !important;
   margin-top: 0.5em !important;
 }
+
+table {
+  width: 96%;
+  max-width: 100%;
+  table-layout: auto;
+  border-collapse: collapse;
+}
+
+table th,
+table td {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  text-align: left;
+  padding: 0.5rem 1rem;
+}

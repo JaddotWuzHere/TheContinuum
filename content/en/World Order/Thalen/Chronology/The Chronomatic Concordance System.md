@@ -2,10 +2,9 @@
 subtitle: STPX Calendar
 ---
 > [!epigraph]
-> "When the Horaxian Bells together toll,
-> Thalen moves as one in soul."
+> “The living are my marionettes, their deaths my ovation. The melody is not theirs—it is mine, a song sewn through their veins. And while the stage burns, the performance endures, for I have not released the baton.”
 > 
-> — Motto of the Chronomatic Concordance, inscripted on the original Concord of Horaxis
+> — "The Puppeteer", unknown origin
 ## Overview
 ---
 The Chronomatic Concordance, also known as the STPX Calendar, is the official temporal system used across the entirety of **[[Thalen]]**. It represents one of the most enduring legacies of the **[[The Concordant Reform|Concordant Reform]]**, the intellectual unification of Thalen’s many civilizations under a single measure of time based on observable physical resonance.
@@ -16,12 +15,13 @@ The Chronomatic Concordance thus became the cornerstone of Thalenic order.
 ## Structure of Time
 ---
 
-|  Symbol  |    Term    | Definition                                                                                 |
-| :------ | :-------- | ------------------------------------------------------------------------------------------ |
+|  Symbol  | Term | Definition                                                                                 |
+| :------ | :---- | ------------------------------------------------------------------------------------------ |
 | $\Sigma$ |  Periodon  | The grand cycle of history and record, derived from Thalen’s natural resonant oscillation. |
 | $\Theta$ | Repertoire | One-seventh of a periodon; the tonal and climatic phase within the greater cycle.          |
 |  $\Phi$  |   Opera    | The principal beat of civil life, divided internally into four movements.                  |
 |  $\Xi$   |   Drift    | The deviation of a local clock or region from the Horaxian Standard                        |
+
 Each periodon ($\Sigma$) comprises of seven repertoires ($\Theta$), and each repertoire contains twenty-one operas ($\Phi$). 
 
 The Thalenic calendar therefore follows a rhythmic structure of 7 : 21 : 4, chosen for both its mathematical stability and its symbolic association with balance and continuity.
@@ -96,21 +96,22 @@ These alternating periodons ensure that the long-term average of temporal accele
 Each repertoire corresponds to a distinct harmonic of the temporal wave. Thalenic scholars classify and name them according to their temporal character and bias, each possessing a positive and negative form depending on parity:
 
 | No. | Positive Bias ($\Theta^+$) | Negative Bias ($\Theta^-$) |
-| :- | :------------------------- | :------------------------- |
-|  I  | **Apertura**               | **Clausura**               |
+|:--- |:-------------------------- |:-------------------------- |
+| I   | **Apertura**               | **Clausura**               |
 | II  | **Radiance**               | **Eclipse**                |
 | III | **Vivace**                 | **Lento**                  |
 | IV  | **Anthem**                 | **Elegy**                  |
-|  V  | **Resonata**               | **Dissonata**              |
+| V   | **Resonata**               | **Dissonata**              |
 | VI  | **Reprise**                | **Diminuition**            |
 | VII | **Finale**                 | **Overture**               |
+
 Each repertoire defines a characteristic bias curve of time’s acceleration within the periodon. As the wave rises and falls, the flow of causality subtly quickens or slows, affecting processes that rely on temporal consistency.
 #### Intermissions and Crescendos
-At the transition between two repertoires, where the temporal wave crosses zero acceleration, the system enters an intermission.
+At the transition between two repertoires, where the temporal wave crosses its midpoint and the temper momentarily reaches 0, the system enters an intermission.
 
-During an Intermission, the rate of causality is momentarily balanced; temporal distortion reaches zero, and all chronometric instruments synchronize most easily with the Horaxian Standard. These intervals mark the most stable and predictable conditions for both physical and arcane processes.
+During an intermission, the flow of time is perfectly balanced, neither accelerating nor decelerating. Temporal distortion approaches zero, and all chronometric instruments synchronize most readily with the Horaxian Standard.
 
-Conversely, at the midpoint of each half-wave, where the acceleration of time reaches its greatest magnitude, the system enters a Crescendo.
+Conversely, at the midpoint of each half-wave, where the temper reaches its greatest magnitude, the system enters a crescendo.
 
 Here, temporal change is at its extreme, producing measurable effects in mana flow and field coherence. Many magical or mechanical systems experience heightened volatility during these intervals, and most Concordant institutions schedule calibrations to avoid them.
 
