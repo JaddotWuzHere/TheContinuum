@@ -2,7 +2,7 @@
 subtitle: STPX Calendar
 ---
 > [!epigraph]
-> “The living are my marionettes, their deaths my ovation. The melody is not theirs—it is mine, a song sewn through their veins. And while the stage burns, the performance endures, for I have not released the baton.”
+> “The living are my marionettes, their deaths my applause. The melody is not theirs—it is mine, a song needled through their veins. And while the stage burns, the performance endures, for I have not released the baton.”
 > 
 > — "The Puppeteer", unknown origin
 ## Overview
