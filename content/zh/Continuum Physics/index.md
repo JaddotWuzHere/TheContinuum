@@ -1,141 +1,142 @@
 ---
-title: Continuum Physics
+title: 恒宙物理学
 ---
-## Introduction THIS IS CHINESE VERSION
+## 引言
 ---
-### The Continuum
-The Continuum is the unified field framework that constitutes all existence, encompassing every **[[zh/Continuum Physics/Domain|domain]]** of reality within a single, coherent manifold. It is not a separate dimension, but the substrate from which all dimensions, energies, and fields arise.
-Every known domain represents a distinct manifestation of the Continuum’s underlying structure. These domains differ in composition and behavior, yet remain inseparably linked through shared energetic and geometric foundations.
+### 恒宙
+「恒宙」是构成一切存在的统一场框架，它将现实中的每个 **[[zh/Continuum Physics/Domain|层域]]** （domain）汇聚于同一自洽的流形之中。它并非独立的维度，而是万维、万能、万场的共同基底——一切维度与能量、所有场与形，皆源于此。
 
-Within the Continuum, each domain constitutes a self consistent field system characterized by its own energy form, constants, and coupling behavior. Energy and information can transfer between domains, but no process can violate the invariants that preserve the Continuum’s total balance.
+恒宙中的每一个层域，都是其底层结构的独特显化。这些层域在组成与行为上各不相同，却因共享的能量与几何基础而不可分割。
 
-The Continuum is thus the unified substrate of all phenomena. 
-### Continuum Physics
-Continuum physics is the formal study of the fundamental structure and governing principles of the Continuum. It seeks to describe how energy, information, and geometry behave across every domain, and how their interactions preserve the coherence of existence itself. By examining the Continuum as a total system rather than as isolated planes, it provides the theoretical foundation upon which all other fields ultimately rest.
+在恒宙之内，每个层域皆是一个自洽的场系统，具有自身的能量形态、常数与耦合特征。能量与信息可以在层域间传递，但无任何过程能违背维系恒宙总体平衡的不变律。
 
-Much like classic physics, Continuum physics derives its framework from a discrete set of universal invariants known as the Fundamental Laws of the Continuum. These laws define not the behavior of any single field, but the immutable constraints each domain in the Continuum must follow.
-## The Fundamental Laws of the Continuum
+因此，恒宙乃是一切现象的统一基质。
+### 恒宙物理学
+恒宙物理学是对恒宙之根本结构与支配原理的形式化研究。其目标是揭示能量、信息与几何在各层域中的行为，以及它们的相互作用如何维持存在自身的相干与秩序。恒宙物理学并非将各层域割裂研究，而是将恒宙视为一个整体系统，从整体中推演其法则，从而为一切其他学科奠定理论基础。
+
+如同古典物理学一般，恒宙物理学的框架源自一组离散而普适的不变量，被称为「恒宙基本法则」。
+这些法则并不描述某一特定场的行为，而定义了恒宙中每个层域都必须遵循的不可变约束。
+## 恒宙基本法则
 ---
-### I. Law of Continuum Conservation
+### I. 恒宙守恒律
 > [!epigraph]
-> “All attainment entails its due; the universe forgets nothing.”
+> “一切所得皆有其偿；宇宙从不遗忘。”
 > 
-> — René Valcourt, "Le Tissu de l’Infini", published Φ3.71:329Ξ2
+> —— 雷内·瓦尔古（René Valcourt），《无限之织》，刊于 Φ3.71:329Ξ2
 
-##### Statement:
-> The total energetic and informational content of the Continuum remains invariant. Energy may transform between domains, but the aggregate sum across all domains is conserved.
-##### Formal Expression:
+##### 命题：
+> 恒宙的总能量与信息含量保持不变。能量可在各层域间转化，但其总体之和恒为常量。
+##### 数学形式：
 $$
 \sum_{i=1}^{n} \Delta E_i = 0
 $$
-where:
-- $E_i$ — energy (or equivalent conserved quantity) of the $i$-th domain
-- $n$ — number of domains within the Continuum
-##### Description:
-The Law of Continuum Conservation establishes the Continuum itself as the fundamental closed system. Energy, information, or coherence may flow freely between active domains, yet the total sum of these quantities across the Continuum remains constant. This principle defines the unified conservation framework underlying all domain interactions and ensures that the Continuum’s coherence is never lost but only redistributed.
-### II. Law of Continuum Symmetry
+其中：
+- $E_i$ —— 第 $i$ 个层域的能量（或等价守恒量）
+- $n$ —— 恒宙中的层域数量
+##### 说明：
+恒宙守恒律确立了恒宙自身为最根本的闭合系统。能量、信息与相干可在活跃层域间自由流动，但其总量在恒宙整体中始终保持恒定。此原理定义了所有层域交互的统一守恒框架，确保恒宙的相干性从未消失，只会被重新分配。
+### II. 恒宙对称律
 > [!epigraph]
-> “The wise see no difference between heaven and hell, for every sculpture is carved by the same unseen hand.” 
+> “智者不分天堂与地狱，因万形皆出于同一无形之手。”
 > 
->  — Unknown
-##### Statement:
-> The governing equations of all domains retain identical form under Continuum transformation; only local constants and coupling parameters differ.
-##### Description:
-The Law of Continuum Symmetry establishes the structural unity of the Continuum. Despite varying local parameters, each domain remains isomorphic in its physical formulation, ensuring that transformations between domains preserve the same fundamental laws. Differences observed between domains arise not from distinct laws, but from divergent constants, coupling behaviors, or dimensional expressions within the same underlying Continuum structure.
-### III. Law of Continuum Causality
+>  —— 佚名
+##### 命题：
+> 各层域的支配方程在恒宙变换下保持同形；差异仅存在于局部常数与耦合参数之中。
+##### 说明：
+恒宙对称律揭示了恒宙的结构统一性。尽管各层域参数有异，其物理形式仍保持同构，确保层域间的变换遵循相同的根本法则。层域间的差别并非源于不同法则，而是恒宙底层结构中常数、耦合或维度表现的差异。
+### III. 恒宙因果律
 > [!epigraph]
-> "The arrow remembers only its flight, never the bow that loosed it."
+> “箭只记得飞行，不记得那放弦的弓。”
 > 
-> — Mathilde Koenig
-##### Statement: 
-> Causal order is invariant throughout the Continuum. An effect cannot precede its initiating cause, regardless of the domains involved.
-##### Description:
-The Law of Continuum Causality defines a universal temporal framework that governs all interactions within the Continuum. While trans-domain interactions may occur across differing phase reference frames, each remains bound by a finite propagation limit, termed the speed of coherence, a generalization of the speed of light across domains.
+> —— 玛蒂尔达·克尼希（Mathilde Koenig）
+##### 命题：
+> 因果次序在恒宙中具有不变性。任何效应皆不得先于其原因，无论涉入何种层域。
+##### 说明：
+恒宙因果律确立了支配一切交互的普遍时间框架。跨层域作用虽可发生于不同相位参照系，但皆受限于有限传播速度——称为「相干速」，即光速在恒宙层面的推广。
 
-This law ensures that causal influence flows unidirectionally, preserving temporal consistency even across trans-phase boundaries. In essence, no domain can retroactively alter the state of another; the Continuum upholds causality as a fundamental invariant of its structure.
-### IV. Law of Entropic Consistency
+此法则确保因果影响仅能单向传播，即便跨越相位边界，亦维持时间一致性。换言之，任何层域皆无法逆向改变他域状态；  恒宙将因果性视为其结构的根本不变量。
+### IV. 熵一致律
 > [!epigraph]
-> "None can escape chaos."
+> “无人能逃避湮灭。”
 > 
-> — Unknown
-##### Statement:
-> The total entropy of the Continuum cannot decrease. Any localized decrease in disorder must be offset by an equal or greater increase elsewhere within the domain set.
-##### Formal Expression:
+> —— 佚名
+##### 命题：
+> 恒宙的总熵不可减少。任一局部区域的有序增加，必伴随另一处同等或更大的无序增长。
+##### 数学形式：
 $$
 \sum_{i=1}^{n} \frac{dS_i}{dt} \ge 0
 $$
-where:
-- $S_i$ — entropy of the $i$-th domain
-- $n$ — number of domains within the Continuum
-##### Description:
-The Law of Entropic Consistency generalizes the Second Law of Thermodynamics to encompass all domains of existence. When order is imposed in one region, an equivalent measure of disorder must emerge elsewhere, preserving the Continuum’s net entropic balance.
+其中：
+- $S_i$ —— 第 $i$ 个层域的熵
+- $n$ —— 恒宙中的层域数量
+##### 说明：
+熵一致律将热力学第二定律推广至一切存在层域。当秩序在一处被建立，另一处的混沌必然增加，以维持恒宙整体的熵平衡。
 
-No act of order is free from entropic cost; each carries an inherent entropic debt that must be repaid through compensatory decay or turbulence in another domain. Thus, long-term equilibrium of the Continuum is maintained not through stasis, but through the perpetual redistribution of disorder.
-### V. Law of Phase Relativity
+任何秩序的创造皆有其代价——每一份秩序都背负着熵之债，须以衰变或湍动在他域偿还。故恒宙的长期平衡并非静止，而是混沌的永恒再分配。
+### V. 相位相对律
 > [!epigraph]
-> “Many have sought the single clock by which all worlds might be timed, yet none have found it. Each observer swears by his own, and in their disagreement lies the truest measure of reality.”
+> “众人皆寻那可测万界的唯一之钟，然无一得之。各自信其时，而分歧之中，藏着现实最真之度量。”
 >
-> — Professor Erasmus Valehart, "On Temporal Relativity", delivered before the Imperial Institute of Erevale, Φ4.33:118Ξ3
-##### Statement:
-> Measurements of time, energy, and coherence are relative to the observer’s local domain and phase frame. No absolute frame of reference exists within the Continuum.
-##### Description:
-The Law of Phase Relativity extends the principles of relativity to trans-domain contexts.
-Temporal flow, coherence, and perceived energy vary according to the observer’s phase reference frame, governed by local field conditions. 
+> —— 艾拉斯谟·瓦尔哈特教授（Erasmus Valehart），《论时间相对性》，于帝国艾瑞维尔学院演讲，Φ4.33:118Ξ3
+##### 命题：
+> 时间、能量与相干的测量皆相对，取决于观察者所在层域与相位参照系；恒宙中不存在绝对的参考框架。
+##### 说明：
+相位相对律将相对论原理扩展至跨层域体系。时间流速、相干度与能量感知皆因局部场条件而异。
 
-As these parameters diverge between domains, relative distortions manifest, producing effects such as **[[Mana Time Dilation|mana time dilation]]** and **[[en/Continuum Physics/Branches/Manaphysics/index#4. Law of Phase Hysteresis|mana hysteresis]]**. Thus, observation and causality remain consistent within each frame, yet differ across domains, ensuring that no universal synchronization exists within the Continuum.
-### VI. Law of Field Continuity
+当这些参数在层域间发生偏差时，会出现诸如 **[[Mana Time Dilation|魔力时间膨胀]]** 与 **[[zh/Continuum Physics/Branches/Manaphysics/index#4. Law of Phase Hysteresis|魔力滞相]]** 等效应。因此，观测与因果虽在各参照系内保持一致，却在层域间互异，确保恒宙中不存在普遍的同步。
+### VI. 场连续律
 > [!epigraph]
-> "They told *me*. I heard them when everything became quiet. It remembers, that emptiness... it was—it was *listening*. Let *go* of me, you damn bastards!"
+> “他们说的是真的……当一切都安静下来的时候，我听见了！那空洞——它在听！它在听我！放开我！你们这些畜生！听见没有？！放开我！
 > 
-> — Survivor of the Fracture of Concordance, Φ4.02:039Ξ3
-##### Statement:
-> All fields within the Continuum are continuous and differentiable; discontinuities represent regions of phase collapse or void.
-##### Formal Expression:
+> —— 协调裂隙事件幸存者，Φ4.02:039Ξ3
+##### 命题：
+> 恒宙中的所有场皆连续且可微；不连续区域代表相位坍缩或虚无之地。
+##### 数学形式：
 $$
-\nabla \cdot F_i = 0, \quad \frac{\partial F_i}{\partial t} \text{ continuous on } \mathcal{C}
+\nabla \cdot F_i = 0, \quad \frac{\partial F_i}{\partial t} \text{ 在 } \mathcal{C} \text{上连续}
 $$
-where:
-- $F_i$ — field quantity in domain $i$
-- $\mathcal{C}$ — the total Continuum manifold
-##### Description:
-The Law of Field Continuity ensures mathematical and energetic coherence across all domains of the Continuum. Flux, density, and phase gradients remain smooth throughout stable regions, preserving the integrity of energy and information flow between domains.
+其中：
+- $F_i$ —— 第 $i$ 个层域的场量
+- $\mathcal{C}$ —— 恒宙整体流形
+##### 说明：
+场连续律确保恒宙中各层域的数学与能量一致性。通量、密度与相位梯度在稳定区域内保持平滑，从而维持能量与信息流的完整性。
 
-Where continuity breaks, the field ceases to conserve local flux, leading to phenomena such as **[[Mana Anomalies|mana void]]** or **[[Mana Anomalies|rifts]]**. Such discontinuities mark regions where the governing equations of the Continuum fail, signifying the breakdown of coherent field behavior and the onset of localized instability.
-### VII. Law of Dimensional Reciprocity
+当连续性被破坏时，局部通量不再守恒，产生诸如 **[[Mana Anomalies|魔力虚空]]** 或 **[[Mana Anomalies|裂隙]]** 等现象. 此类不连续区域标志着恒宙方程的失效，象征相干场行为的崩解与局部不稳定的出现。
+### VII. 维度互映律
 > [!epigraph]
-> When one world bends, the rest must breathe with it. Space is no solitary fabric but a tapestry under shared tension—pull one thread, and the whole design trembles.
+> “一界弯曲，其余皆随之呼吸。空间非孤布之织，而是共张之网；扯动一线，整个图景皆随之震颤。”
 > 
-> — From the Bible of Truth, Verse II
-##### Statement:
-> Each domain of the Continuum defines the geometry of others; curvature or density in one induces reciprocal distortions across the rest.
-##### Formal Expression:
+> —— 《真理经》第二章
+##### 命题：
+> 恒宙中的每个层域都定义着他域的几何；一域的曲率或密度变化，将在其他层域中引发相应的变形。
+##### 数学形式：
 $$
 R_i \leftrightarrow \Phi_j, \quad \forall (i, j) \in \mathcal{C}
 $$
-where:
-- $R_i$ — geometric or curvature tensor of domain $i$
-- $\Phi_j$ — field potential or energy distribution of domain $j$
-- $\mathcal{C}$ — the total Continuum manifold
-##### Description:
-The Law of Dimensional Reciprocity establishes the geometric interdependence of all domains within the Continuum. Energy concentration, mass density, or field resonance within one domain alters the curvature and topology of the others, maintaining a dynamic equilibrium of form and influence. In essence, space, energy, and consciousness are not separate constructs, but reciprocally woven dimensions of one coherent manifold.
-## VIII. Law of Domain Emergence 
+其中：
+- $R_i$ —— 第 $i$ 个层域的几何或曲率张量
+- $\Phi_j$ —— 第 $j$ 个层域的场势或能量分布
+- $\mathcal{C}$ —— 恒宙整体流形
+##### 说明：
+维度互映律确立了恒宙中所有层域的几何互依性。某一层域内的能量集中、质量密度或场共振会改变他域的曲率与拓扑结构，维持形与势的动态平衡。
+
+本质上，空间、能量与意识并非彼此独立的构造，而是同一流形中相互交织的维度。
+## VIII. 层域生成律
 > [!epigraph]
-> "Reality begets creation."
+> “实在自生万象。”
 > 
-> — Unknown
-##### Statement:
-> New domains may manifest when interdomain complexity surpasses a critical coherence threshold, enabling the Continuum to stabilize a novel field configuration.
-##### Formal Expression:
+> —— 佚名
+##### 命题：
+> 当层域间的复杂度超越临界相干阈值时，恒宙将自发稳定新的场构型，从而诞生新的层域。
+##### 数学形式：
 $$
 C_{\text{inter}} > C_{\text{crit}} \implies D_{n+1}
 $$
 where:
-- $C_{inter}$ — collective coherence between existing domains
-- $C_{crit}$ — critical threshold of coherence required for domain formation
-- $D_{n+1}$ — emergent domain arising from Continuum bifurcation
-##### Description:
-The Law of Domain Emergence describes how the Continuum evolves by self organization.
-When the resonance coupling between existing domains reaches sufficient coherence, the system may bifurcate, manifesting a new stable field mode that becomes a distinct domain of existence.
+- $C_{inter}$ —— 现有层域间的整体相干度
+- $C_{crit}$ —— 形成新层域所需的临界相干阈值
+- $D_{n+1}$ —— 由恒宙分支产生的新层域
+##### 说明：
+层域生成律描述了恒宙通过自组织实现演化的机制。当既有层域之间的共振耦合达到足够相干时，体系可能发生分岔，显化出新的稳定场态，成为独立存在的层域。
 
-This process allows reality itself to expand its dimensional framework. In essence, as interdomain interactions grow in complexity, the Continuum can generate new layers of physics, each born from the harmonization of those that came before.
-
+此过程使现实得以扩展自身的维度框架。本质上，随着跨层域交互的复杂度提升，恒宙能够生成新的物理层次，每一层皆由前序和谐所孕生。

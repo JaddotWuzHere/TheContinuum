@@ -1,21 +1,23 @@
 ---
-title: Welcome
+title: Prologue
 ---
 > [!epigraph]
 > "All things exist not apart, but as tokens of the same unbroken whole."
 > 
 > — Unknown
-## Introduction
+## Preface
 ---
-This is not Earth, nor is it a distant future of it. In fact, Earth doesn't exist at all. Yet the same familiar laws of matter, motion, and energy still hold true. 
+This is no myth. 
 
-But alongside them exists another fundamental property of reality—mana.
+This is a universe that needs no gods to govern its laws; the same familiar principles of matter, motion, and energy persist.
+
+But alongside those principles exists another fundamental property of reality—mana.
 
 Here, magic is not myth or miracle, but an additional layer of physics integrated into the same natural order. Its discovery reshaped every science, and every civilization that followed. Every species that learned to wield it developed; those that did not disappeared. 
 
 Born from magic's relentless demand of intellect, this is a universe ruled by scholarship, one where knowledge itself determines survival.
 
-Welcome to the Continuum. 
+**Welcome to the Continuum.** 
 ## Fields of Study
 ---
 The Continuum is vast, but its laws are consistent. Every discipline, from metaphysics to biology, stems from the same foundation: the study of how reality maintains coherence between the physical and the magical.

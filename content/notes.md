@@ -130,3 +130,9 @@ Fragments of dialogue or recovered recordings from an investigation.
 > _Audio Transcript 09-14-R: “Don’t go near the mirror. It’s... it’s breathing.”_
 
 Grounds the supernatural in procedural realism — horror through routine.
+
+
+生者皆吾傀儡，死声化作喝彩。  
+此曲非彼所奏，血线贯穿心海。  
+舞台焚而不灭，余音仍绕尘埃。  
+吾尚执持指杖，演出永不衰败。

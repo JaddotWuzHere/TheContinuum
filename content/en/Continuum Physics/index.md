@@ -5,6 +5,7 @@ title: Continuum Physics
 ---
 ### The Continuum
 The Continuum is the unified field framework that constitutes all existence, encompassing every **[[en/Continuum Physics/Domain|domain]]** of reality within a single, coherent manifold. It is not a separate dimension, but the substrate from which all dimensions, energies, and fields arise.
+
 Every known domain represents a distinct manifestation of the Continuum’s underlying structure. These domains differ in composition and behavior, yet remain inseparably linked through shared energetic and geometric foundations.
 
 Within the Continuum, each domain constitutes a self consistent field system characterized by its own energy form, constants, and coupling behavior. Energy and information can transfer between domains, but no process can violate the invariants that preserve the Continuum’s total balance.
@@ -55,7 +56,7 @@ The Law of Continuum Causality defines a universal temporal framework that gover
 This law ensures that causal influence flows unidirectionally, preserving temporal consistency even across trans-phase boundaries. In essence, no domain can retroactively alter the state of another; the Continuum upholds causality as a fundamental invariant of its structure.
 ### IV. Law of Entropic Consistency
 > [!epigraph]
-> "None can escape chaos."
+> "None can escape ruin."
 > 
 > — Unknown
 ##### Statement:

@@ -1,26 +1,26 @@
 ---
-title: Branches of Continuum Physics
+title: 恒宙物理学的领域
 ---
-## Overview
+## 概述
 ---
-**[[en/Continuum Physics/index|Continuum physics]]**, as a unified framework, encompasses an expansive hierarchy of specialized disciplines. Each branch isolates and formalizes the behavior of a particular field, phase, or coupling within the Continuum while remaining bound by the **[[en/Continuum Physics/index#The Fundamental Laws of the Continuum|Fundamental Laws]]**.
+**[[zh/Continuum Physics/index|恒宙物理学]]** 作为一个统一的理论框架，涵盖了庞大而层次分明的学科体系。每一门分支学科都在恒宙之中，独立地抽离并形式化某一特定的场、相位或耦合行为，但同时仍受制于 **[[zh/Continuum Physics/index#The Fundamental Laws of the Continuum|恒宙基本法则]]** 的约束.
 
-These disciplines are not independent sciences but derivative expressions of the same coherent manifold, each a frame into the Continuum viewed through a distinct domain of manifestation.
+这些分支并非互相独立的科学体系，而是同一恒宙流形下的派生表达——每一门学科，皆为透过不同显化领域所观察到的恒宙之投影。
 
-While only a few branches have been formally codified, it is understood that the Continuum gives rise to a vast taxonomy of physical and metaphysical regimes yet unnamed. What follows are among the earliest and most developed fields of study.
-## Branches
+虽然目前仅有少数分支被正式确立，但普遍认为，恒宙自身孕育着无数尚未命名的物理与形而上体系。以下所列，乃是其中最早确立、亦最为完善的研究领域。
+## 领域
 ---
-#### Manaphysics
-**Focus:** Dynamics of the mana field and its trans-phase interaction with matter and consciousness. It attempts to describe the behavior of mana as both a physical and informational medium.
+#### 魔力物理学（Manaphysics）
+**研究焦点**： 魔力场的动力学，以及其与物质与意识之间的跨相位交互。该学科致力于描述魔力作为一种物理与信息媒介的行为规律。
 
-Manaphysics investigates the resonance structure of manaspace, governing how mana manifests, circulates, and exchanges energy across domains.
+魔力物理学研究魔力空间（manaspace）的共振结构，以阐明魔力如何在不同领域间显化、流动与进行能量交换。
 
-In practical terms, manaphysics underlies all known magical phenomena.
+在实践意义上，魔力物理学构成了一切已知魔法现象的理论基础。
 
-*(For more detail, see: **[[en/Continuum Physics/Branches/Manaphysics/index|Manaphysics]]**)*
-#### Anachysis
-**Focus:** Coherence, identity, and the metaphysical mechanics of life. Anachysics studies the anima field and its coupling to mana through the Source, forming the theoretical basis of consciousness, will, and transcendence.
+*(详见：**[[zh/Continuum Physics/Branches/Manaphysics/index|魔力物理学]]**)*
+#### 灵核物理学（Anachysics）
+**研究焦点**： 生命的相干性、个体性与形而上力学。灵核物理学探讨灵质场（anima field），以及其通过源点（Source）与魔力场的耦合，以建立关于意识、意志与超越的理论根基。
 
-It defines how souls maintain continuity, evolve coherence, and interact with the Continuum through feedback and phase-lock stability.
+它揭示了灵魂如何维持连续性、如何演化其相干性，并通过反馈与相位锁定机制与恒宙保持稳定交互。
 
-*(For more detail, see: **[[en/Continuum Physics/Branches/Anachysics/index|Anachysics]]**)*
+*(详见：**[[zh/Continuum Physics/Branches/Anachysics/index|灵核物理学]]**)*

@@ -1,10 +1,7 @@
----
-subtitle: STPX Calendar
----
 > [!epigraph]
 > “The living are my marionettes, their deaths my applause. The melody is not theirs—it is mine, a song needled through their veins. And while the stage burns, the performance endures, for I have not released the baton.”
 > 
-> — "The Puppeteer", unknown origin
+> — Unknown
 ## Overview
 ---
 The Chronomatic Concordance, also known as the STPX Calendar, is the official temporal system used across the entirety of **[[Thalen]]**. It represents one of the most enduring legacies of the **[[The Concordant Reform|Concordant Reform]]**, the intellectual unification of Thalen’s many civilizations under a single measure of time based on observable physical resonance.
@@ -40,12 +37,12 @@ Thalenic chronometry employs three registers of notation across disciplines:
 #### Scientific Notation
 Used in measurement and navigation:
 $$
-\Sigma p : \Theta r^{\pm}_\theta:\Phi o.\varphi : \Xi d
+\Sigma p : \Theta r^{\pm}_\theta:\Phi o.\varphi : \Xi^\pm_n
 $$
 #### Formal Notation
 Used in civic records and official documentation:
 $$
-\Sigma p:\Theta^\pm_r: \Phi o^\varphi : \Xi^\pm_n
+\Sigma p:\Theta r^\pm: \Phi o^\varphi : \Xi n
 $$
 #### Commonhand Notation
 Used in everyday situations:
@@ -73,14 +70,14 @@ Thalenic society divides each opera into four movements ($\varphi$).
 - Interlude
 - Reverie
 
-Movements are not treated as separate temporal units, but as indices within an Opera, used for greater granularity in scheduling and instrumentation.
+Movements are not treated as separate temporal units, but as indices within an opera, used for greater granularity in scheduling and instrumentation.
 ## Temper and Repertoires
 ---
 Within each periodon, time does not pass uniformly. Its flow subtly accelerates and decelerates according to a harmonic oscillation known as the temporal wave, a fundamental rhythm of causality measurable through chronometric instrumentation.
 
 The instantaneous direction of this acceleration defines the temper of that moment. Mathematically, it can be represented as:
 $$
-\text{temper} = \frac{d}{d\theta}\text{sin}(\theta)
+\text{temper} = \frac{d}{d\theta}\text{sin}(\theta)=\text{cos}(\theta)
 $$
 where:
 - $\theta$ — current temporal phase
@@ -126,12 +123,10 @@ This recalibration brings every civic timepiece into harmony with the Horaxian S
 #### Measurement of Drift
 Drift is defined as a scalar ratio between a local time standard and the Grand XXXX Standard. Its drift score is calculated using the following function:
 $$
-\text{score}(x)=\lfloor\text{raw}(x)\rfloor, \qquad \text{raw}(x) = \operatorname{sgn}(x - 1) \, A \left( e^{\frac{B}{d}} - 1 \right)
+\text{score}(x)=\lfloor\text{raw}(x)\rfloor, \qquad \text{raw}(x) = \operatorname{sgn}(x) \, (0.003) \left( e^{\frac{6.5}{d}} - 1 \right)
 $$
 where:
 - $x$ — measured drift, $\in (-1, 1)$
-- $A$ — $0.0030$
-- $B$ — $6.5$
 - $d$ — $\text{min}(x+1, -x+1)$.
 
 A drift score of 2 can be interpreted as negligible, while a drift score of 30 can be noticeable; a drift score higher than 100 can prove to be disastrous. 
