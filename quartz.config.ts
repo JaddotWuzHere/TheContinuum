@@ -30,15 +30,20 @@ const config: QuartzConfig = {
       },
       colors: {
         lightMode: {
-          light: "#faf8f8",
-          lightgray: "#e5e5e5",
-          gray: "#b8b8b8",
-          darkgray: "#4e4e4e",
-          dark: "#2b2b2b",
-          secondary: "#284b63",
-          tertiary: "#84a59d",
-          highlight: "rgba(143, 159, 169, 0.15)",
-          textHighlight: "#fff23688",
+          // Base coal + ink range
+          light: "#0f1116",       // coal black (ui base)
+          lightgray: "#393639",   // smoked steel
+          gray: "#646464",        // aged metal
+          darkgray: "#d4d4d4",    // parchment ash
+          dark: "#ebebec",        // pale parchment edge
+
+          // Accent metals (brass lives in CSS variables)
+          secondary: "#8b6f3a",   // burnished brass
+          tertiary: "#b08d57",    // polished brass/bronze tone
+
+          // Effects
+          highlight: "rgba(143, 159, 169, 0.15)", // subtle fog glint
+          textHighlight: "#b3aa0288",            // gold shimmer
         },
         darkMode: {
           light: "#161618",

@@ -118,6 +118,8 @@ export default (() => {
             return resource
           }
         })}
+
+        <script defer src="/static/parallax.js?v=3"></script>
       </head>
     )
   }

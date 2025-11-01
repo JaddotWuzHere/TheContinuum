@@ -1,38 +1,46 @@
 @use "./base.scss";
 
-.callout[data-callout="epigraph"] .callout-title {
-  display: none !important;
+/* =========================================================
+   PALETTE
+   ========================================================= */
+
+   
+:root {
+  --gold-h: 44;
+  --gold-s: 78%;
+  --gold-l: 46%;
+
+  --gold-hi: hsl(var(--gold-h) var(--gold-s) 62%);
+  --gold-md: hsl(var(--gold-h) var(--gold-s) 46%);
+  --gold-dk: hsl(var(--gold-h) var(--gold-s) 32%);
+
+  --gold-strong: .95;
+  --gold-mid: .75;
+  --gold-soft: .55;
+
+  --ink: #1f1f23;
+  --brass: var(--gold-md);
 }
 
-.callout[data-callout="epigraph"] {
-  background: transparent !important;
-  box-shadow: none !important;
-  border: none !important;
-  --callout-bg: transparent;              
-  --callout-border: transparent;         
+@media (prefers-color-scheme: dark) {
+  :root {
+    --gold-h: 45;
+    --gold-s: 85%;
+    --gold-l: 52%;
 
-  border-left: 3px solid #666666 !important;
-  padding-left: 1em !important;
-  margin: 1em 0 !important;
-  color: #666666;   
+    --gold-hi: hsl(var(--gold-h) var(--gold-s) 68%);
+    --gold-md: hsl(var(--gold-h) var(--gold-s) 52%);
+    --gold-dk: hsl(var(--gold-h) var(--gold-s) 34%);
+
+    --gold-strong: .9;
+    --gold-mid: .7;
+    --gold-soft: .5;
+  }
 }
 
-.callout[data-callout="epigraph"] .callout-content {
-  background: transparent !important;
-}
-
-.callout[data-callout="epigraph"] .callout-content > p:first-child {
-  font-style: normal !important;
-  color: #666666 !important;
-}
-
-.callout[data-callout="epigraph"] .callout-content > p:last-child {
-  font-style: italic !important;
-  color: #888888 !important;
-  text-align: right !important;
-  margin-top: 0.5em !important;
-}
-
+/* =========================================================
+   TABLES
+   ========================================================= */
 table {
   width: 96%;
   max-width: 100%;
@@ -45,5 +53,409 @@ table td {
   word-wrap: break-word;
   overflow-wrap: break-word;
   text-align: left;
-  padding: 0.5rem 1rem;
+  padding: .5rem 1rem;
+}
+
+article p:has(+ ul) { margin-bottom: .2rem; }
+article p + ul { margin-top: .1rem; }
+article :is(h1, h2, h3, h4, h5, h6) { margin-bottom: 0 !important; }
+
+/* =========================================================
+   EPIGRAPH CALLOUT
+   ========================================================= */
+.callout[data-callout="epigraph"] .callout-title {
+  display: none !important;
+}
+
+.callout[data-callout="epigraph"],
+.callout[data-callout="epigraph"] .callout-content {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+  --callout-bg: transparent !important;
+  --callout-border: transparent !important;
+}
+
+.callout[data-callout="epigraph"] {
+  position: relative;
+  padding-left: 1em !important;
+  margin: 1em 0 !important;
+  color: var(--ink);
+}
+
+.callout[data-callout="epigraph"]::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 4px;
+  bottom: 4px;
+  width: 4px;
+  border-radius: 999px;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    hsl(var(--gold-h) var(--gold-s) 62% / var(--gold-strong)) 0%,
+    hsl(var(--gold-h) var(--gold-s) 46% / var(--gold-mid)) 55%,
+    hsl(var(--gold-h) var(--gold-s) 32% / var(--gold-soft)) 100%
+  );
+}
+
+.callout[data-callout="epigraph"] .callout-content { background: transparent !important; }
+.callout[data-callout="epigraph"] .callout-content > p { margin: 0 !important; }
+.callout[data-callout="epigraph"] .callout-content > p + p { margin-top: .35em !important; }
+
+.callout[data-callout="epigraph"] .callout-content > p:first-child {
+  font-style: normal !important;
+  line-height: 1.05 !important;
+  color: hsl(var(--gold-h) var(--gold-s) 46% / .92) !important;
+  font-family: "EBGaramond", "STXINGKA", serif;
+  font-size: 1.12em;
+  letter-spacing: .01em;
+  font-weight: 500;
+}
+
+.callout[data-callout="epigraph"] .callout-content > p:last-child {
+  font-style: italic !important;
+  line-height: 1 !important;
+  text-align: right !important;
+  color: hsl(var(--gold-h) var(--gold-s) 34% / .78) !important;
+  font-family: "EBGaramond", "STXINGKA", serif;
+  font-size: 1.2em;
+  letter-spacing: .02em;
+}
+
+@supports (-webkit-background-clip: text) or (background-clip: text) {
+  .callout[data-callout="epigraph"] .callout-content > p:first-child {
+    background-image: linear-gradient(
+      90deg,
+      hsl(var(--gold-h) var(--gold-s) 44% / .95) 0%,
+      hsl(calc(var(--gold-h) + 6) var(--gold-s) 58% / .95) 50%,
+      hsl(var(--gold-h) var(--gold-s) 44% / .95) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent !important;
+    text-shadow: none !important;
+  }
+
+  .callout[data-callout="epigraph"] .callout-content > p:last-child {
+    background-image: linear-gradient(
+      90deg,
+      hsl(var(--gold-h) var(--gold-s) 36% / .85) 0%,
+      hsl(calc(var(--gold-h) + 8) var(--gold-s) 50% / .75) 50%,
+      hsl(var(--gold-h) var(--gold-s) 36% / .85) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent !important;
+    text-shadow: none !important;
+  }
+}
+
+/* =========================================================
+   FONTS
+   ========================================================= */
+@font-face {
+  font-family: "EBGaramond";
+  src: url("/static/fonts/EBGaramond-VariableFont_wght.ttf") format("truetype");
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SentyWEN2017";
+  src: url("/static/fonts/SentyWEN2017.ttf") format("truetype");
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "ZhiMangXing";
+  src: url("/static/fonts/ZhiMangXing-Regular.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "STXINGKA";
+  src: url("/static/fonts/STXINGKA.TTF") format("truetype");
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "LXGWWenKai";
+  src: url("/static/fonts/LXGWWenKai-Regular.ttf") format("truetype");
+  font-style: normal;
+  font-display: swap;
+}
+
+/* =========================================================
+   LANGUAGE TYPOGRAPHY
+   ========================================================= */
+html:lang(en) body {
+  font-family: "EBGaramond", serif;
+  font-size: 1.2em;
+}
+
+html[lang|="zh"] body {
+  font-family: "EBGaramond", "LXGWWenKai", serif;
+
+  ul { font-size: 1.1em; }
+  p  { font-size: 1.3em; }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--header-font, "EBGaramond", "SentyWEN2017", serif);
+    letter-spacing: 0;
+  }
+
+  .callout[data-callout="epigraph"] .callout-content > p:first-child {
+    line-height: 1;
+    font-family: "EBGaramond", "STXINGKA", serif;
+    font-size: 1.5em;
+  }
+
+  .callout[data-callout="epigraph"] .callout-content > p:last-child {
+    line-height: 1;
+    font-family: "EBGARAMOND", "STXINGKA", serif;
+  }
+
+  h1 { font-size: 3.4rem; }
+  h2 { font-size: 2.8rem; }
+  h3 { font-size: 2.2rem; }
+  h4, h5, h6 { font-size: 1.6rem; }
+}
+
+/* =========================================================
+   BLOCKQUOTES + HR
+   ========================================================= */
+.page article blockquote {
+  position: relative;
+  padding-left: 1em;
+  border-radius: 4px;
+  display: block;
+  line-height: 1.3;
+  border-left: none !important;
+  background: none !important;
+}
+
+.page article blockquote::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 4px;
+  bottom: 4px;
+  width: 4px;
+  border-radius: 999px;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    hsl(var(--gold-h) var(--gold-s) 62% / var(--gold-strong)) 0%,
+    hsl(var(--gold-h) var(--gold-s) 46% / var(--gold-mid)) 55%,
+    hsl(var(--gold-h) var(--gold-s) 32% / var(--gold-soft)) 100%
+  );
+}
+
+.page article > *:first-child { margin-top: 0; }
+.page article blockquote > *:first-child { margin-top: 0 !important; }
+.page article blockquote > *:last-child  { margin-bottom: 0 !important; }
+.page article blockquote > p { margin: 0 !important; }
+
+.page article :is(h1, h2, h3, h4, h5, h6) { margin-bottom: .2rem !important; }
+.page article :is(h1, h2, h3, h4, h5, h6) + :is(p, blockquote) { margin-top: .1rem !important; }
+.page article :is(h1, h2, h3, h4, h5, h6) + hr { margin-top: .2rem !important; }
+
+hr {
+  width: 100%;
+  margin: 1.6rem auto 2rem;
+  height: 4px;
+  border: none;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    hsl(calc(var(--gold-h) - 20) var(--gold-s) 34% / 0) 0%,
+    hsl(calc(var(--gold-h) - 12) var(--gold-s) 44% / .35) 8%,
+    hsl(calc(var(--gold-h) -  6) var(--gold-s) 56% / .60) 18%,
+    hsl(var(--gold-h) var(--gold-s) 70% / .85) 32%,
+    hsl(var(--gold-h) var(--gold-s) 87%) 50%,
+    hsl(var(--gold-h) var(--gold-s) 70% / .85) 68%,
+    hsl(calc(var(--gold-h) -  6) var(--gold-s) 56% / .60) 82%,
+    hsl(calc(var(--gold-h) - 12) var(--gold-s) 44% / .35) 92%,
+    hsl(calc(var(--gold-h) - 20) var(--gold-s) 34% / 0) 100%
+  );
+  filter:
+    drop-shadow(0 0 1px hsl(var(--gold-h) var(--gold-s) 75% / .55))
+    drop-shadow(0 0 4px hsl(var(--gold-h) var(--gold-s) 75% / .20));
+}
+
+/* =========================================================
+   BACKGROUND + STYLING
+   ========================================================= */
+
+:root {
+  --scrollY: 0px;
+
+  --y-fast: calc(var(--scrollY) * -1.85);
+  --y-med:  calc(var(--scrollY) * -1.20);
+  --y-slow: calc(var(--scrollY) * -0.58);
+
+  --rayA: hsl(var(--gold-h) var(--gold-s) 86% / .22);
+  --rayB: hsl(var(--gold-h) var(--gold-s) 82% / .17);
+  --rayC: hsl(var(--gold-h) var(--gold-s) 78% / .14);
+
+  --degA: 14deg;
+  --degB: 10deg;
+  --degC: 7deg;
+
+  --offA:  0deg;
+  --offB:  4deg;
+  --offC: -5deg;
+
+  --bloom: 36px;
+  --strength: 0.85;
+}
+
+html {
+  background: linear-gradient(180deg, #0b0e13 0%, #10141b 55%, #0b0e13 100%) no-repeat;
+}
+
+#quartz-body,
+.page,
+.center,
+.center > article,
+main,
+.content,
+.content > * {
+  background: transparent !important;
+}
+:is(#quartz-body, .content, .page, .center, main) {
+  position: relative;
+  z-index: 1;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+
+  background-blend-mode: screen, screen, screen, screen;
+  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
+  background-attachment: scroll, fixed, fixed, fixed;
+
+  filter: blur(var(--bloom)) saturate(104%) contrast(103%);
+  mix-blend-mode: screen;
+  opacity: var(--strength);
+
+  -webkit-mask-image:
+    radial-gradient(
+      160% 140% at 0% 0%,
+      #000 0%,
+      #000 38%,
+      rgba(0, 0, 0, .85) 55%,
+      rgba(0, 0, 0, .40) 75%,
+      transparent 100%
+    ),
+    linear-gradient(
+      to right,
+      #000 0%,
+      #000 62%,
+      rgba(0, 0, 0, .6) 80%,
+      transparent 96%
+    );
+  -webkit-mask-composite: source-in, intersect;
+          mask-image:
+    radial-gradient(
+      160% 140% at 0% 0%,
+      #000 0%,
+      #000 38%,
+      rgba(0, 0, 0, .85) 55%,
+      rgba(0, 0, 0, .40) 75%,
+      transparent 100%
+    ),
+    linear-gradient(
+      to right,
+      #000 0%,
+      #000 62%,
+      rgba(0, 0, 0, .6) 80%,
+      transparent 96%
+    );
+}
+
+body::after {
+  filter: blur(36px) brightness(1.05) saturate(110%) contrast(96%);
+  opacity: 0.7;
+
+  background-image:
+    radial-gradient(240% 300% at -15% -42%, rgba(255, 225, 160, .034), transparent 75%),
+
+    /* R1 */
+    conic-gradient(
+      from 134deg at -30% -52%,
+      transparent 0turn,
+      hsl(var(--gold-h) calc(var(--gold-s) + 7%) 74% / .26) 0turn 10.5deg,
+      transparent 10.5deg 1turn
+    ),
+
+    /* R2 */
+    conic-gradient(
+      from 136deg at -22% -36%,
+      transparent 0turn,
+      hsl(var(--gold-h) calc(var(--gold-s) + 6%) 68% / .22) 0turn 8deg,
+      transparent 8deg 1turn
+    ),
+
+    /* R3 */
+    conic-gradient(
+      from 132deg at -12% -58%,
+      transparent 0turn,
+      hsl(var(--gold-h) calc(var(--gold-s) + 8%) 70% / .18) 0turn 4.5deg,
+      transparent 4.5deg 1turn
+    ),
+
+    /* R4 */
+    conic-gradient(
+      from 137deg at -28% -8%,
+      transparent 0turn,
+      hsl(var(--gold-h) calc(var(--gold-s) + 5%) 62% / .12) 0turn 12deg,
+      transparent 12deg 1turn
+    ),
+
+    /* R5 */
+    conic-gradient(
+      from 138deg at 0% -30%,
+      transparent 0turn,
+      hsl(var(--gold-h) calc(var(--gold-s) + 8%) 74% / .17) 0turn 3.5deg,
+      transparent 3.5deg 1turn
+    ),
+
+    /* R6 */
+    conic-gradient(
+      from 139deg at -10% 6%,
+      transparent 0turn,
+      hsl(var(--gold-h) calc(var(--gold-s) + 9%) 72% / .25) 0turn 3deg,
+      transparent 4deg 1turn
+    );
+
+  background-position:
+    left top,                               /* ambient */
+    left calc(var(--y-fast) * 0.30 - 2vh),  /* R1 */
+    left calc(var(--y-med)  * 0.18 + 28vh),  /* R2 */
+    left calc(var(--y-slow) * 0.10 - 10vh), /* R3 */
+    left calc(var(--y-fast) * 0.08 + 18vh), /* R4 */
+    left calc(var(--y-med)  * 0.22 - 6vh),  /* R5 */
+    left calc(var(--y-slow) * 0.10 + 0vh); /* R6 */
+
+  background-size:
+    130% 130%,  /* ambient */
+    320% 320%,  /* R1 */
+    300% 300%,  /* R2 */
+    340% 340%,  /* R3 */
+    380% 380%,  /* R4 */
+    260% 260%,  /* R5 */
+    310% 310%;  /* R6 */
 }

@@ -4,7 +4,7 @@ title: Continuum Physics
 ## Introduction
 ---
 ### The Continuum
-The Continuum is the unified field framework that constitutes all existence, encompassing every **[[en/Continuum Physics/Domain|domain]]** of reality within a single, coherent manifold. It is not a separate dimension, but the substrate from which all dimensions, energies, and fields arise.
+The Continuum is the unified field framework that constitutes all existence, encompassing every **[[en/Continuum Physics/Domain|domain]]** of reality within a single, coherent manifold. It is not a separate dimension, but the substrate from which all energies, and fields arise.
 
 Every known domain represents a distinct manifestation of the Continuum’s underlying structure. These domains differ in composition and behavior, yet remain inseparably linked through shared energetic and geometric foundations.
 

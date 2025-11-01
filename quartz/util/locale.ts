@@ -18,3 +18,4 @@ export function toI18nLocale(lang: "en" | "zh" | "fr"): Parameters<typeof i18n>[
       return "en-US" as Parameters<typeof i18n>[0]
   }
 }
+
