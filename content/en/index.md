@@ -7,13 +7,13 @@ title: Prologue
 > — Unknown
 ## Preface
 ---
-This is no myth. 
+This is no fantasy. 
 
-This is a universe that needs no gods to govern its laws; the same familiar principles of matter, motion, and energy persist.
+This is a universe that needs no gods to govern its laws, as the same familiar principles of matter, motion, and energy persist.
 
 But alongside those principles exists another fundamental property of reality—mana.
 
-Here, magic is not myth or miracle, but an additional layer of physics integrated into the same natural order. Its discovery reshaped every science, and every civilization that followed. Every species that learned to wield it developed; those that did not disappeared. 
+Here, magic is not myth nor miracle, but an additional layer of physics integrated into the same natural order. Its discovery reshaped every science and every civilization that followed. Every species that learned to wield it became stronger; those that did not perished. 
 
 Born from magic's relentless demand of intellect, this is a universe ruled by scholarship, one where knowledge itself determines survival.
 

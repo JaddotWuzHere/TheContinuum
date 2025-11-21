@@ -1,6 +1,35 @@
 ---
 draft: true
 ---
+## 4 Pillars
+---
+**Aevum**
+Attribute: Order
+Idea: Eyes of the universe
+Associated superpower: Horaxis, City of Hours
+Known for: Timekeeping, architecture, navigation
+
+**Noesis**
+Attribute: Knowledge
+Idea: Mind of the universe
+Associated superpower: Aletheia, Citadel of Truth
+Known for: Study, record keeping, theory
+
+**Kratos**
+Attribute: Strength
+Idea: Body of the universe
+Associated superpower: Thalakar, Iron Throne
+Known for: Industry, warfare, engineering
+
+**Pneuma**
+Attribute: Will
+Idea: Heart of the universe
+Associated superpower: Elyndra, Sanctum of the Gods
+Known for: summoning, medicine, health
+## World government
+---
+**Eirenarch**
+
 ## Date system
 ---
 $\Sigma$ -> 588 Earth days ("year") - **Periodon**
