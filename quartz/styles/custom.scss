@@ -319,7 +319,7 @@ hr {
   --offB:  4deg;
   --offC: -5deg;
 
-  --bloom: 36px;
+  --bloom: 20px;
   --strength: 0.85;
 }
 
@@ -343,7 +343,7 @@ main,
 
 #parallax-root .layer {
   position: absolute;
-  top: -20vh;
+  top: -55vh;
   left: 0;
   width: 100vw;
   height: auto;
@@ -361,8 +361,6 @@ main,
 }
 
 #parallax-root .back  { opacity: 0.75; }
-#parallax-root .mid  { opacity: .68 ; }
-#parallax-root .front { opacity: .50; }
 
 .corner-image {
   position: fixed;
@@ -380,31 +378,6 @@ main,
   position: relative;
   z-index: 1;
 }
-
-/* --- BLACK PANEL --- */
-.page {
-  position: relative;
-  background: rgba(0, 0, 0, 0.82);
-}
-
-.page::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: -1;
-
-  background: linear-gradient(
-    to right,
-    transparent 0%,
-    rgba(0, 0, 0, 0.0) 10%,
-    rgba(0, 0, 0, 0.60) 30%,
-    rgba(0, 0, 0, 0.60) 70%,
-    rgba(0, 0, 0, 0.0) 90%,
-    transparent 100%
-  );
-}
-
 
 /* --- LAYERING --- */
 #parallax-root { position: fixed; inset: 0; z-index: -3; pointer-events: none; isolation: isolate; }
@@ -424,7 +397,7 @@ main,
   mix-blend-mode: screen;
   background-blend-mode: screen, screen, screen, screen;
   background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
-  background-attachment: scroll, fixed, fixed, fixed;
+  background-attachment: scroll, scroll, scroll, scroll;
 
   --aR1:.26; --aR2:.22; --aR3:.18; --aR4:.25; --aR5:.19; --aR6:.21;
   --offR1:0vh; --offR2:0vh; --offR3:0vh; --offR4:0vh; --offR5:0vh; --offR6:0vh;
