@@ -4,7 +4,6 @@
    PALETTE
    ========================================================= */
 
-   
 :root {
   --gold-h: 44;
   --gold-s: 78%;
@@ -319,7 +318,7 @@ hr {
   --offB:  4deg;
   --offC: -5deg;
 
-  --bloom: 20px;
+  --bloom: 36px;
   --strength: 0.85;
 }
 
@@ -347,7 +346,7 @@ main,
   left: 0;
   width: 100vw;
   height: auto;
-  aspect-ratio: 1 / 3;  
+  aspect-ratio: 1 / 3;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -361,6 +360,8 @@ main,
 }
 
 #parallax-root .back  { opacity: 0.75; }
+#parallax-root .mid   { opacity: .68; }
+#parallax-root .front { opacity: .50; }
 
 .corner-image {
   position: fixed;
@@ -397,7 +398,7 @@ main,
   mix-blend-mode: screen;
   background-blend-mode: screen, screen, screen, screen;
   background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
-  background-attachment: scroll, scroll, scroll, scroll;
+  background-attachment: scroll, fixed, fixed, fixed;
 
   --aR1:.26; --aR2:.22; --aR3:.18; --aR4:.25; --aR5:.19; --aR6:.21;
   --offR1:0vh; --offR2:0vh; --offR3:0vh; --offR4:0vh; --offR5:0vh; --offR6:0vh;
@@ -423,21 +424,21 @@ main,
     conic-gradient(from 139deg at -10% 6%, transparent 0turn,
                    hsl(var(--gold-h) calc(var(--gold-s) + 9%) 72% / var(--aR6)) 0turn 3deg, transparent 4deg 1turn);
 
-background-position:
-  left top,
-  left calc(var(--y-fast) * 0.35 - 12vh + var(--offR1)),
-  left calc(var(--y-med)  * 0.12 + 34vh + var(--offR2)),
-  left calc(var(--y-slow) * 0.26 -  4vh + var(--offR3)),
-  left calc(var(--y-fast) * 0.05 + 22vh + var(--offR4)),
-  left calc(var(--y-med)  * 0.18 - 16vh + var(--offR5)),
-  left calc(var(--y-slow) * 0.31 +  6vh + var(--offR6));
+  background-position:
+    left top,
+    left calc(var(--y-fast) * 0.35 - 12vh + var(--offR1)),
+    left calc(var(--y-med)  * 0.12 + 34vh + var(--offR2)),
+    left calc(var(--y-slow) * 0.26 -  4vh + var(--offR3)),
+    left calc(var(--y-fast) * 0.05 + 22vh + var(--offR4)),
+    left calc(var(--y-med)  * 0.18 - 16vh + var(--offR5)),
+    left calc(var(--y-slow) * 0.31 +  6vh + var(--offR6));
 
   background-size:
     130% 130%, 320% 320%, 300% 300%, 340% 340%, 380% 380%, 260% 260%, 310% 310%;
 }
 
 /* =========================================================
-   PERFORMANCE SETTINGS
+   PERFORMANCE SETTINGS / FX SLIDER
    ========================================================= */
 
 #fx-settings {
@@ -447,17 +448,27 @@ background-position:
   z-index: 9999;
   font-size: .8rem;
   font-family: "EBGaramond", sans-serif;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
 }
 
+/* Button: animates a bit left/right */
 #fx-settings-toggle {
   padding: .3rem .7rem;
   border-radius: 999px;
   border: 1px solid hsl(var(--gold-h) var(--gold-s) 60% / .6);
-  background: rgba(0,0,0,.75);
+  background: rgba(0, 0, 0, 0.75); 
   color: #f7f7f7;
   cursor: pointer;
-}
 
+  transform: translateX(0);
+
+  /* SLOWER close (default state) */
+ transition: transform 0.6s cubic-bezier(0.8, 0.4, 0.4, 0.8);}
+
+/* Panel: slides from the right */
 #fx-settings-panel {
   margin-top: .35rem;
   padding: .5rem .7rem;
@@ -465,7 +476,14 @@ background-position:
   background: rgba(0,0,0,.85);
   border: 1px solid rgba(255,255,255,.08);
   min-width: 200px;
-  display: none;
+
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(140%);  /* off-screen to the right */
+
+  transition:
+    transform 0.6s cubic-bezier(1, 0.36, 0.61, 0.22),
+    opacity   0.35s ease-in;
 }
 
 #fx-settings-panel label {
@@ -481,15 +499,32 @@ background-position:
   margin-left: 0.4rem;
 }
 
-/* open/close */
-#fx-settings[data-open="1"] #fx-settings-panel {
-  display: block;
+/* OPEN STATE */
+/* Faster open: override transition timing here */
+#fx-settings[data-open="1"] #fx-settings-toggle {
+  transform: translateX(-160px);
+
+  /* FASTER open */
+  transition: transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
-html[data-no-rays] {
-  #rays {
-    display: none !important;
-  }
+#fx-settings[data-open="1"] #fx-settings-panel {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(0);
+
+  /* FASTER open */
+  transition:
+    transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1),
+    opacity   0.25s linear;
+}
+
+/* =========================================================
+   EFFECT FLAGS
+   ========================================================= */
+
+html[data-no-rays] #rays {
+  display: none !important;
 }
 
 html[data-no-flicker] #rays {
@@ -500,7 +535,6 @@ html[data-no-flicker] #rays {
 html[data-no-bg-parallax] #parallax-root .layer {
   transform: none !important;
 }
-
 
 html[data-no-ray-parallax] #rays {
   background-attachment: scroll;
