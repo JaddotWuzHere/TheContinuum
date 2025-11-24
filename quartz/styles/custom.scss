@@ -454,7 +454,6 @@ main,
   align-items: flex-end;
 }
 
-/* Button: animates a bit left/right */
 #fx-settings-toggle {
   padding: .3rem .7rem;
   border-radius: 999px;
@@ -465,10 +464,9 @@ main,
 
   transform: translateX(0);
 
-  /* SLOWER close (default state) */
- transition: transform 0.6s cubic-bezier(0.8, 0.4, 0.4, 0.8);}
+ // Button close
+ transition: transform 0.6s cubic-bezier(1, 0.45, 0.61, 1);}
 
-/* Panel: slides from the right */
 #fx-settings-panel {
   margin-top: .35rem;
   padding: .5rem .7rem;
@@ -479,10 +477,11 @@ main,
 
   opacity: 0;
   pointer-events: none;
-  transform: translateX(140%);  /* off-screen to the right */
+  transform: translateX(160px); 
 
+  // Panel close
   transition:
-    transform 0.6s cubic-bezier(1, 0.36, 0.61, 0.22),
+    transform 0.6s cubic-bezier(1, 0.8, 0.8, 1),
     opacity   0.35s ease-in;
 }
 
@@ -499,12 +498,10 @@ main,
   margin-left: 0.4rem;
 }
 
-/* OPEN STATE */
-/* Faster open: override transition timing here */
 #fx-settings[data-open="1"] #fx-settings-toggle {
   transform: translateX(-160px);
 
-  /* FASTER open */
+ // Button open
   transition: transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
@@ -513,9 +510,9 @@ main,
   pointer-events: auto;
   transform: translateX(0);
 
-  /* FASTER open */
+  // Panel open
   transition:
-    transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1),
+    transform 1s cubic-bezier(0.22, 0.61, 0.36, 1),
     opacity   0.25s linear;
 }
 
