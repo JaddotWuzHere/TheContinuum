@@ -59,6 +59,25 @@ export default {
     contentMeta: {
       readingTime: ({ minutes }) => `${minutes}分钟阅读`,
     },
+    fxSettings: {
+      settingsButton: "⚙ 设置",
+      settingsTitle: "设置",
+
+      appearanceSection: "外观",
+      performanceSection: "性能",
+      languageSection: "语言",
+
+      themeLabel: "主题",
+      themeSystem: "系统（即将推出）",
+      themeLight: "浅色",
+      themeDark: "深色",
+
+      disableRays: "禁用光线",
+      disableRayMove: "禁用光线移动",
+      disableFlicker: "禁用光线闪烁",
+      disableRayParallax: "禁用光线视差",
+      disableBgParallax: "禁用背景视差",
+    }
   },
   pages: {
     rss: {
@@ -81,5 +100,8 @@ export default {
       showingFirst: ({ count }) => `显示前${count}个标签。`,
       totalTags: ({ count }) => `总共有${count}个标签。`,
     },
+  },
+  layout: {
+    pageTitleSuffix: " | 以魔为实",
   },
 } as const satisfies Translation

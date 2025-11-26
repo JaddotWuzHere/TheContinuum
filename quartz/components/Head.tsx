@@ -24,8 +24,13 @@ export default (() => {
     ;(cfg as any).locale = htmlLang             
     const dict = i18n(htmlLang)
 
-    const titleSuffix = cfg.pageTitleSuffix ?? ""
-    const title = (fileData.frontmatter?.title ?? dict.propertyDefaults.title) + titleSuffix
+    const t = i18n(locale)
+
+    const titleSuffix =
+      t.layout?.pageTitleSuffix ?? cfg.pageTitleSuffix ?? ""
+
+    const title =
+      (fileData.frontmatter?.title ?? t.propertyDefaults.title) + titleSuffix
     const description =
       fileData.frontmatter?.socialDescription ??
       fileData.frontmatter?.description ??

@@ -62,6 +62,22 @@ export interface Translation {
     contentMeta: {
       readingTime: (variables: { minutes: number }) => string
     }
+    fxSettings: {
+      settingsButton: string
+      settingsTitle: string
+      appearanceSection: string
+      performanceSection: string
+      languageSection: string
+      themeLabel: string
+      themeSystem: string
+      themeLight: string
+      themeDark: string
+      disableRays: string
+      disableRayMove: string
+      disableFlicker: string
+      disableRayParallax: string
+      disableBgParallax: string
+    }
   }
   pages: {
     rss: {
@@ -84,5 +100,8 @@ export interface Translation {
       showingFirst: (variables: { count: number }) => string
       totalTags: (variables: { count: number }) => string
     }
+  }
+  layout?: {
+    pageTitleSuffix?: string
   }
 }

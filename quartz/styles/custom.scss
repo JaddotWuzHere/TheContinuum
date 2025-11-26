@@ -227,10 +227,10 @@ html[lang|="zh"] body {
     font-family: "EBGARAMOND", "STXINGKA", serif;
   }
 
-  h1 { font-size: 3.4rem; }
-  h2 { font-size: 2.8rem; }
-  h3 { font-size: 2.2rem; }
-  h4, h5, h6 { font-size: 1.6rem; }
+  h1 { font-size: 3rem; }
+  h2 { font-size: 2.6rem; }
+  h3 { font-size: 2rem; }
+  h4, h5, h6 { font-size: 1.5rem; }
 }
 
 /* =========================================================
@@ -438,7 +438,7 @@ main,
 }
 
 /* =========================================================
-   PERFORMANCE SETTINGS / FX SLIDER
+   SETTINGS
    ========================================================= */
 
 #fx-settings {
@@ -485,24 +485,108 @@ main,
     opacity   0.35s ease-in;
 }
 
-#fx-settings-panel label {
+/* --- PANEL --- */
+
+#fx-settings-panel {
+  margin-top: .35rem;
+  padding: .6rem .8rem;
+  border-radius: .6rem;
+  background: rgba(0, 0, 0, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  min-width: 220px;
+
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(160px);
+
+  font-size: 0.8rem;
+  color: #e5e7eb;
+
+  // Panel close
+  transition:
+    transform 0.6s cubic-bezier(1, 0.8, 0.8, 1),
+    opacity   0.35s ease-in;
+}
+
+.fx-panel-title {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  opacity: 0.7;
+  margin-bottom: 0.4rem;
+  color: hsl(var(--gold-h) var(--gold-s) 70% / 0.9);
+}
+
+.fx-panel-section {
+  padding-top: 0.45rem;
+  margin-top: 0.45rem;
+  border-top: 1px solid rgba(148, 163, 184, 0.35);
+}
+
+.fx-panel-section:first-of-type {
+  margin-top: 0.2rem;
+  padding-top: 0.3rem;
+}
+
+.fx-panel-section-title {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  opacity: 0.6;
+  margin-bottom: 0.3rem;
+  color: hsl(var(--gold-h) var(--gold-s) 75% / 0.85);
+}
+
+.fx-panel-row {
   display: flex;
   align-items: center;
-  gap: .4rem;
-  margin-bottom: .25rem;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.28rem;
   cursor: pointer;
 }
 
-#fx-settings-panel input[type="checkbox"] {
+.fx-panel-row span {
+  flex: 1 1 auto;
+}
+
+.fx-panel-row input[type="checkbox"] {
   accent-color: hsl(var(--gold-h) var(--gold-s) 60%);
-  margin-left: 0.4rem;
+  width: 0.95rem;
+  height: 0.95rem;
+}
+
+#fx-settings-panel select {
+  font: inherit;
+  font-size: 0.78rem;
+  padding: 0.22rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.8);
+  background: rgba(15, 23, 42, 0.95);
+  color: #e5e7eb;
+  cursor: not-allowed; // temp disabled
+  min-width: 7.5rem;
+}
+
+#fx-settings-panel select:disabled {
+  opacity: 0.6;
+}
+
+#fx-settings-panel select:focus-visible {
+  outline: 2px solid hsl(var(--gold-h) var(--gold-s) 70% / 0.9);
+  outline-offset: 1px;
+}
+
+.fx-panel-row .lang-switcher {
+  justify-content: flex-end;
+  width: 100%;
 }
 
 #fx-settings[data-open="1"] #fx-settings-toggle {
   transform: translateX(-160px);
 
  // Button open
-  transition: transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1);
+  transition: transform 0.6s cubic-bezier(0.3, 0.61, 0.36, 1);
 }
 
 #fx-settings[data-open="1"] #fx-settings-panel {

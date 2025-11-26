@@ -59,6 +59,25 @@ export default {
     contentMeta: {
       readingTime: ({ minutes }) => `${minutes} min read`,
     },
+        fxSettings: {
+      settingsButton: "⚙ Settings",
+      settingsTitle: "Settings",
+
+      appearanceSection: "Appearance",
+      performanceSection: "Performance",
+      languageSection: "Language",
+
+      themeLabel: "Theme",
+      themeSystem: "System (coming soon)",
+      themeLight: "Light",
+      themeDark: "Dark",
+
+      disableRays: "Disable rays entirely",
+      disableRayMove: "Disable ray moving",
+      disableFlicker: "Disable ray flickering",
+      disableRayParallax: "Disable ray parallax",
+      disableBgParallax: "Disable background parallax",
+    },
   },
   pages: {
     rss: {
@@ -81,5 +100,8 @@ export default {
       showingFirst: ({ count }) => `처음 ${count}개의 태그`,
       totalTags: ({ count }) => `총 ${count}개의 태그를 찾았습니다.`,
     },
+  },
+  layout: {
+    pageTitleSuffix: " | Magic made reality",
   },
 } as const satisfies Translation

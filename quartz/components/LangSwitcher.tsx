@@ -1,5 +1,6 @@
 import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } from "./types"
 
+
 const css = `
 .lang-switcher {
   display: inline-flex; align-items: center; gap: .5rem;

@@ -60,6 +60,25 @@ export default {
     contentMeta: {
       readingTime: ({ minutes }) => `время чтения ~${minutes} мин.`,
     },
+        fxSettings: {
+      settingsButton: "⚙ Settings",
+      settingsTitle: "Settings",
+
+      appearanceSection: "Appearance",
+      performanceSection: "Performance",
+      languageSection: "Language",
+
+      themeLabel: "Theme",
+      themeSystem: "System (coming soon)",
+      themeLight: "Light",
+      themeDark: "Dark",
+
+      disableRays: "Disable rays entirely",
+      disableRayMove: "Disable ray moving",
+      disableFlicker: "Disable ray flickering",
+      disableRayParallax: "Disable ray parallax",
+      disableBgParallax: "Disable background parallax",
+    },
   },
   pages: {
     rss: {
@@ -85,6 +104,9 @@ export default {
         `Показыва${getForm(count, "ется", "ются", "ются")} ${count} тег${getForm(count, "", "а", "ов")}`,
       totalTags: ({ count }) => `Всего ${count} тег${getForm(count, "", "а", "ов")}`,
     },
+  },
+  layout: {
+    pageTitleSuffix: " | Magic made reality",
   },
 } as const satisfies Translation
 

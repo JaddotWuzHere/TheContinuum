@@ -59,6 +59,25 @@ export default {
     contentMeta: {
       readingTime: ({ minutes }) => `${minutes} min read`,
     },
+    fxSettings: {
+      settingsButton: "⚙ Settings",
+      settingsTitle: "Settings",
+
+      appearanceSection: "Appearance",
+      performanceSection: "Performance",
+      languageSection: "Language",
+
+      themeLabel: "Theme",
+      themeSystem: "System (coming soon)",
+      themeLight: "Light",
+      themeDark: "Dark",
+
+      disableRays: "Disable rays",
+      disableRayMove: "Disable ray movement",
+      disableFlicker: "Disable ray flicker",
+      disableRayParallax: "Disable ray parallax",
+      disableBgParallax: "Disable background parallax",
+    },
   },
   pages: {
     rss: {
@@ -84,4 +103,7 @@ export default {
       totalTags: ({ count }) => `Found ${count} total tags.`,
     },
   },
+  layout: {
+    pageTitleSuffix: " | Magic made reality",
+  },          
 } as const satisfies Translation
