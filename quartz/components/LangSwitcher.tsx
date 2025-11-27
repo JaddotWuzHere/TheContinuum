@@ -33,7 +33,6 @@ const css = `
   width: 14px; height: 14px; opacity: .65;
 }
 
-/* Dark mode tweaks (Quartz sets body[data-theme="dark"]) */
 :root[data-theme="dark"] .lang-switcher select {
   background: #0b1220; color: #e5e7eb;
   border-color: #334155;
@@ -50,20 +49,47 @@ const script = `
   const sel = document.getElementById("lang-select");
   if (!sel) return;
 
-  const path = window.location.pathname;
-  const m = path.match(/^\\/(en|zh|fr)\\/(.*)$/);
-  const current = (m && m[1]) || "en";
-  const rest = (m && m[2]) || "";
+  const SUPPORTED = ["en", "zh", "fr"];
 
-  sel.value = current;
+  function getParts() {
+    return window.location.pathname.split("/");
+  }
+
+  function findLang(parts) {
+    for (let i = 1; i < parts.length; i++) {
+      if (SUPPORTED.includes(parts[i])) {
+        return { index: i, lang: parts[i] };
+      }
+    }
+    return { index: -1, lang: "en" };
+  }
+
+  const initialParts = getParts();
+  const { index: initialIdx, lang: currentLang } = findLang(initialParts);
+  sel.value = currentLang;
 
   sel.addEventListener("change", () => {
-    const lang = sel.value; // "en" | "zh" | "fr"
-    const target = "/" + lang + "/" + rest;
+    const newLang = sel.value;   // "en" | "zh" | "fr"
+    const parts = getParts();
+    let { index: langIdx } = findLang(parts);
+
+    if (langIdx === -1) {
+      if (parts.length > 2 && parts[1] !== "") {
+        parts.splice(2, 0, newLang);
+      } else {
+        parts.splice(1, 0, newLang);
+      }
+    } else {
+      parts[langIdx] = newLang;
+    }
+
+    const target = parts.join("/") || "/";
+
     window.location.href = target;
   });
 })();
-`
+`;
+
 
 export default (() => {
   const LanguageSwitcher: QuartzComponent = (_props: QuartzComponentProps) => {
