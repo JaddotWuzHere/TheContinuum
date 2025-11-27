@@ -211,58 +211,6 @@ Body.afterDOMLoaded = [
     });
   })();
   `,
-
-  // =========================
-  // PARALLAX
-  // =========================
-  `
-  (function () {
-    const root = document.querySelector("#parallax-root");
-    if (!root) return;
-
-    const layers = Array.from(root.querySelectorAll(".layer"));
-
-    let ticking = false;
-    let lastY = 0;
-
-    function applyScroll() {
-      const html = document.documentElement;
-      const noBg = html.hasAttribute("data-no-bg-parallax");
-
-      layers.forEach(el => {
-        const speed = noBg
-          ? 0
-          : parseFloat(el.getAttribute("data-speed") || "0") || 0;
-
-        el.style.transform = "translate3d(0, " + (-lastY * speed) + "px, 0)";
-      });
-
-      const gear = document.getElementById("corner-parallax");
-      if (gear) {
-        const gSpeed = noBg
-          ? 0
-          : parseFloat(gear.getAttribute("data-speed") || "0") || 0;
-
-        gear.style.transform =
-          "translate3d(0, " + (-lastY * gSpeed) + "px, 0)";
-      }
-
-      ticking = false;
-    }
-
-    function onScroll() {
-      lastY = window.scrollY || window.pageYOffset || 0;
-      if (!ticking) {
-        ticking = true;
-        requestAnimationFrame(applyScroll);
-      }
-    }
-
-    window.addEventListener("scroll", onScroll, { passive: true });
-    lastY = window.scrollY || window.pageYOffset || 0;
-    applyScroll();
-  })();
-  `
 ].filter(Boolean).join(";\n");   // ignore empty langAfter if any
 
 
