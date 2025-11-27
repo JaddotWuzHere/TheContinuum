@@ -104,7 +104,7 @@ const Body: QuartzComponent = (props: QuartzComponentProps) => {
 
       {/* Parallax root */}
       <div id="parallax-root" aria-hidden="true">
-        <div class="layer back" data-speed="0.2"></div>
+        <div class="layer back" data-speed="0.1"></div>
       </div>
 
       <div id="rays" aria-hidden="true"></div>

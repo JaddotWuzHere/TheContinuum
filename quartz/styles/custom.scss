@@ -318,8 +318,8 @@ hr {
   --offB:  4deg;
   --offC: -5deg;
 
-  --bloom: 36px;
-  --strength: 0.85;
+  --bloom: 26px;
+  --strength: 0.7;
 }
 
 html {
@@ -342,7 +342,7 @@ main,
 
 #parallax-root .layer {
   position: absolute;
-  top: -55vh;
+  top: -52vh;
   left: 0;
   width: 100vw;
   height: auto;
@@ -359,21 +359,7 @@ main,
   background-size: 100% auto;
 }
 
-#parallax-root .back  { opacity: 0.75; }
-#parallax-root .mid   { opacity: .68; }
-#parallax-root .front { opacity: .50; }
-
-.corner-image {
-  position: fixed;
-  top: -350px;
-  right: 1rem;
-  width: 1000px;
-  height: auto;
-  z-index: -1;
-  pointer-events: none;
-  will-change: transform;
-  transform: translateY(calc(var(--scrollY) * -0.3));
-}
+#parallax-root .back  { opacity: 0.68; }
 
 .center {
   position: relative;
@@ -399,10 +385,6 @@ main,
   background-blend-mode: screen, screen, screen, screen;
   background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
   background-attachment: scroll, fixed, fixed, fixed;
-
-  --aR1:.26; --aR2:.22; --aR3:.18; --aR4:.25; --aR5:.19; --aR6:.21;
-  --offR1:0vh; --offR2:0vh; --offR3:0vh; --offR4:0vh; --offR5:0vh; --offR6:0vh;
-  --bloom:36px; --strength:.7;
 
   filter: blur(var(--bloom)) brightness(1.05) saturate(110%) contrast(96%);
   opacity: var(--strength);
