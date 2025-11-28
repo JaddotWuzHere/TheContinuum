@@ -149,6 +149,21 @@ Body.afterDOMLoaded = [
       localStorage.setItem(KEY, JSON.stringify(state));
     }
 
+    function applyAdaptiveDefaults(state) {
+      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const lowPowerHints = window.devicePixelRatio <= 1 || window.innerWidth < 900;
+
+      if (state["no-bg-parallax"] === undefined && (prefersReducedMotion || lowPowerHints)) {
+        state["no-bg-parallax"] = true;
+      }
+
+      if (state["no-ray-parallax"] === undefined && prefersReducedMotion) {
+        state["no-ray-parallax"] = true;
+      }
+
+      return state;
+    }
+
     // Parent/child relationships
     function normalizeState(state) {
       const raySubs = ["no-ray-move", "no-flicker", "no-ray-parallax"];
@@ -190,7 +205,7 @@ Body.afterDOMLoaded = [
       });
     }
 
-    let state = normalizeState(loadState());
+    let state = normalizeState(applyAdaptiveDefaults(loadState()));
     applyState(state);
 
     btn?.addEventListener("click", () => {

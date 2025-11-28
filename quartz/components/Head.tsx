@@ -124,7 +124,7 @@ export default (() => {
           }
         })}
 
-        <script defer src="/static/parallax.js?v=3"></script>
+        <script defer src="/static/parallax.js?v=4"></script>
       </head>
     )
   }

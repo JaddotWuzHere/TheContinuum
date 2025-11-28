@@ -3,6 +3,9 @@
   const doc = document;
   const html = doc.documentElement;
 
+  const MAX_SPEED = 0.18;
+  const MIN_SCROLL_DELTA = 2;
+
   let lastY = 0;
   let ticking = false;
   let targets;
@@ -34,6 +37,11 @@
     return targets;
   }
 
+  function clampSpeed(speed) {
+    if (!Number.isFinite(speed)) return 0;
+    return Math.min(Math.max(speed, -MAX_SPEED), MAX_SPEED);
+  }
+
   function applyFrame(y) {
     if (!Number.isFinite(y)) return;
 
@@ -47,7 +55,7 @@
     set.layers.forEach((el) => {
       const speed = noBg
         ? 0
-        : parseFloat(el.getAttribute("data-speed") || "0") || 0;
+        : clampSpeed(parseFloat(el.getAttribute("data-speed") || "0") || 0);
 
       el.style.transform = `translate3d(0, ${-y * speed}px, 0)`;
     });
@@ -56,7 +64,7 @@
     if (gear) {
       const gSpeed = noBg
         ? 0
-        : parseFloat(gear.getAttribute("data-speed") || "0") || 0;
+        : clampSpeed(parseFloat(gear.getAttribute("data-speed") || "0") || 0);
 
       gear.style.transform = `translate3d(0, ${-y * gSpeed}px, 0)`;
     }
@@ -64,7 +72,7 @@
 
   function queueUpdate(force = false) {
     const y = Math.round(readScrollY());
-    if (!force && y === lastY) return;
+    if (!force && Math.abs(y - lastY) < MIN_SCROLL_DELTA) return;
     lastY = y;
 
     if (!ticking) {
