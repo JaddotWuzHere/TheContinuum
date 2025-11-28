@@ -318,7 +318,7 @@ hr {
   --offB:  4deg;
   --offC: -5deg;
 
-  --bloom: 23px;
+  --bloom: 26px;
   --strength: 0.7;
 }
 
@@ -381,9 +381,7 @@ main,
     radial-gradient(160% 140% at 0% 0%, #000 0%, #000 38%, rgba(0,0,0,.85) 55%, rgba(0,0,0,.40) 75%, transparent 100%),
     linear-gradient(to right, #000 0%, #000 62%, rgba(0,0,0,.6) 80%, transparent 96%);
 
-//  mix-blend-mode: screen;
-mix-blend-mode: normal;
-opacity: var(--strength);
+  mix-blend-mode: screen;
   background-blend-mode: screen, screen, screen, screen;
   background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
   background-attachment: scroll, fixed, fixed, fixed;
@@ -404,9 +402,9 @@ opacity: var(--strength);
     conic-gradient(from 137deg at -28% -8%, transparent 0turn,
                    hsl(var(--gold-h) calc(var(--gold-s) + 5%) 62% / var(--aR4)) 0turn 12deg, transparent 12deg 1turn),
     conic-gradient(from 138deg at 0% -30%, transparent 0turn,
-                   hsl(var(--gold-h) calc(var(--gold-s) + 8%) 74% / var(--aR5)) 0turn 3.5deg, transparent 3.5deg 1turn);
-    //conic-gradient(from 139deg at -10% 6%, transparent 0turn,
-    //               hsl(var(--gold-h) calc(var(--gold-s) + 9%) 72% / var(--aR6)) 0turn 3deg, transparent 4deg 1turn);
+                   hsl(var(--gold-h) calc(var(--gold-s) + 8%) 74% / var(--aR5)) 0turn 3.5deg, transparent 3.5deg 1turn),
+    conic-gradient(from 139deg at -10% 6%, transparent 0turn,
+                   hsl(var(--gold-h) calc(var(--gold-s) + 9%) 72% / var(--aR6)) 0turn 3deg, transparent 4deg 1turn);
 
   background-position:
     left top,

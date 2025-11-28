@@ -22,21 +22,6 @@
     const doc = document;
     const root = doc.documentElement;
 
-    // Respect OS-level reduced motion
-    const reduceMotion =
-      window.matchMedia &&
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-    // If the user or OS explicitly wants no motion, bail early.
-    if (reduceMotion || root.hasAttribute("data-no-rays")) {
-      el.style.opacity = "0";
-      // Optionally zero alphas so the gradients are effectively off.
-      for (let i = 1; i <= 6; i++) {
-        el.style.setProperty(`--aR${i}`, "0");
-      }
-      return;
-    }
-
     const N = 6;
 
     const T_ALPHA    = [52, 60, 68, 56, 64, 72];
@@ -84,9 +69,6 @@
     };
 
     const t0 = performance.now() / 1000;
-
-    const noRayParallax = root.hasAttribute("data-no-ray-parallax");
-
     for (let i = 0; i < N; i++) {
       const a0 = ALPHA_BASE[i] + 0.5 * ALPHA_AMP[i];
       aSmooth[i] = a0;
@@ -99,175 +81,100 @@
     el.style.willChange = "background-position, background-image, filter, opacity";
     const MIN_A = 0.04, MAX_A = 0.24;
 
-    // === New: throttle and proper flag handling ===
     let rafId = 0;
-    let lastUpdate = 0;
-    const FRAME_INTERVAL = 1 / 30; // ~30 FPS is enough
-
     const tick = () => {
-      // If user turns rays off while running, stop immediately
-      if (root.hasAttribute("data-no-rays")) {
-        el.style.opacity = "0";
-        for (let i = 1; i <= N; i++) {
-          el.style.setProperty(`--aR${i}`, "0");
-        }
-        cancelAnimationFrame(rafId);
-        rafId = 0;
-        return;
-      }
-
-      const now = performance.now() / 1000;
-      const dt = now - lastUpdate;
-
-      // Throttle heavy work to ~30fps
-      if (lastUpdate && dt < FRAME_INTERVAL) {
-        rafId = requestAnimationFrame(tick);
-        return;
-      }
-      lastUpdate = now;
-
-      // Read scrollY once; parallax.js can also set --scrollY,
-      // but this keeps rays in sync if used standalone.
       const y =
         (doc.scrollingElement && doc.scrollingElement.scrollTop) ||
-        doc.scrollTop ||
-        window.scrollY ||
-        0;
+        doc.scrollTop || window.scrollY || 0;
+      root.style.setProperty("--scrollY", `${y.toFixed(1)}px`);
 
-      const noFlicker = root.hasAttribute("data-no-flicker");
-      const noRayParallax = root.hasAttribute("data-no-ray-parallax");
+      const t = performance.now() / 1000;
 
-      // === Burst scheduling (skip if noFlicker) ===
-      if (!noFlicker) {
-        for (let i = 0; i < N; i++) {
-          if (now >= nextBurst[i] && now > burstEnd[i]) {
-            if (activeBurstCount(now) < MAX_CONCURRENT_BURSTS) {
-              armBurst(i, now);
-            } else {
-              nextBurst[i] = now + (0.4 + Math.random() * 0.8);
-            }
+      for (let i = 0; i < N; i++) {
+        if (t >= nextBurst[i] && t > burstEnd[i]) {
+          if (activeBurstCount(t) < MAX_CONCURRENT_BURSTS) {
+            armBurst(i, t);
+          } else {
+            nextBurst[i] = t + (0.4 + Math.random() * 0.8);
           }
         }
       }
 
-      // === Per-ray update ===
       for (let i = 0; i < N; i++) {
-        const tw = now + DRIFT[i] * now * 0.2 + (y * 0.0009 * (i + 1));
+        const tw = t + DRIFT[i] * t * 0.2 + (y * 0.0009 * (i + 1));
 
         let fGate = 0;
-        let baseTarget, mean;
-
-        if (!noFlicker) {
-          if (now >= burstStart[i] && now <= burstEnd[i]) {
-            const uBurst = (now - burstStart[i]) / (burstEnd[i] - burstStart[i]);
-            fGate = Math.pow(Math.sin(Math.PI * uBurst), 0.7);
-          }
-
-          const pulse = Math.sin(
-            (2 * Math.PI * tw) / T_ALPHA[i] + PHI_ALPHA[i]
-          );
-          baseTarget =
-            ALPHA_BASE[i] + ALPHA_AMP[i] * (0.5 + 0.5 * pulse);
-
-          const meanDrop = 0.55 * fGate;
-          mean = baseTarget * (1 - meanDrop);
-        } else {
-          // Cheap mode: simple slow breathing, no bursts / cuts
-          const pulse = Math.sin(
-            (2 * Math.PI * tw) / T_ALPHA[i] + PHI_ALPHA[i]
-          );
-          baseTarget =
-            ALPHA_BASE[i] + ALPHA_AMP[i] * (0.5 + 0.5 * pulse);
-          mean = baseTarget;
+        if (t >= burstStart[i] && t <= burstEnd[i]) {
+          const u = (t - burstStart[i]) / (burstEnd[i] - burstStart[i]);
+          fGate = Math.pow(Math.sin(Math.PI * u), 0.7);
         }
 
-        let aTarget;
-        const lambdaQuiet = 0.96;
-        const lambdaBurst = 0.55;
-        let lambda = lambdaQuiet;
+        const pulse = Math.sin((2 * Math.PI * tw) / T_ALPHA[i] + PHI_ALPHA[i]);
+        const baseTarget = ALPHA_BASE[i] + ALPHA_AMP[i] * (0.5 + 0.5 * pulse);
 
-        if (!noFlicker) {
-          const k1 = 4.8 + 0.5 * i;
-          const k2 = 7.2 + 0.3 * i;
-          const s1 = Math.sin(tw * k1);
-          const s2 = Math.sin(tw * k2 + 1.234);
-          const sq = (x) => (x >= 0 ? 1 : -1);
-          const flickerNoise =
-            fGate > 0
-              ? 0.6 * sq(s1) + 0.4 * sq(s2)
-              : 0.6 * s1 + 0.4 * s2;
+        const meanDrop = 0.55 * fGate;
+        const mean = baseTarget * (1 - meanDrop);
 
-          const jitterNow = fGate * JITTER[i] * BURST_BOOST[i];
+        const k1 = 4.8 + 0.5 * i;
+        const k2 = 7.2 + 0.3 * i;
+        const s1 = Math.sin(tw * k1);
+        const s2 = Math.sin(tw * k2 + 1.234);
+        const sq = (x) => (x >= 0 ? 1 : -1);
+        const flickerNoise = fGate > 0
+          ? (0.6 * sq(s1) + 0.4 * sq(s2))
+          : (0.6 * s1     + 0.4 * s2);
 
-          let flash = 0;
-          const fs = flashStart[i];
-          if (fs >= 0 && now >= fs && now <= fs + FLASH_LEN) {
-            const v = (now - fs) / FLASH_LEN;
-            const hann = 0.5 - 0.5 * Math.cos(2 * Math.PI * v);
-            flash = FLASH_GAIN * hann;
-          }
-
-          if (now >= nextCut[i]) {
-            const inHzMin = 12,
-              inHzMax = 20;
-            const outHzMin = 0.8,
-              outHzMax = 1.5;
-            const rate =
-              fGate > 0
-                ? inHzMin + Math.random() * (inHzMax - inHzMin)
-                : outHzMin + Math.random() * (outHzMax - outHzMin);
-            nextCut[i] = now + 1 / rate;
-
-            if (fGate > 0) {
-              cut[i] = Math.random() < 0.55 ? 0.2 : 1.0;
-            } else {
-              cut[i] = Math.random() < 0.2 ? 0.55 : 1.0;
-            }
-          }
-
-          const dimTerm = JITTER[i] * 0.5 * Math.abs(flickerNoise);
-          aTarget = mean - dimTerm - flash;
-          aTarget *= cut[i];
-
-          lambda = fGate > 0 ? lambdaBurst : lambdaQuiet;
-        } else {
-          // No flicker: no random cuts or bursts
-          cut[i] = 1.0;
-          aTarget = mean;
-          lambda = lambdaQuiet;
+        const jitterNow = fGate * JITTER[i] * BURST_BOOST[i];
+        let flash = 0;
+        const fs = flashStart[i];
+        if (fs >= 0 && t >= fs && t <= fs + FLASH_LEN) {
+          const v = (t - fs) / FLASH_LEN;
+          const hann = 0.5 - 0.5 * Math.cos(2 * Math.PI * v);
+          flash = FLASH_GAIN * hann;
         }
 
+        if (t >= nextCut[i]) {
+          const inHzMin = 12, inHzMax = 20;
+          const outHzMin = 0.8, outHzMax = 1.5;
+          const rate = fGate > 0
+            ? (inHzMin + Math.random() * (inHzMax - inHzMin))
+            : (outHzMin + Math.random() * (outHzMax - outHzMin));
+          nextCut[i] = t + (1 / rate);
+
+          if (fGate > 0) {
+            cut[i] = Math.random() < 0.55 ? 0.20 : 1.0;
+          } else {
+            cut[i] = Math.random() < 0.20 ? 0.55 : 1.0;
+          }
+        }
+
+        const dimTerm = jitterNow * 0.5 * Math.abs(flickerNoise);
+        let aTarget = mean - dimTerm - flash;
+        aTarget *= cut[i];
         aTarget = Math.max(MIN_A, Math.min(MAX_A, aTarget));
 
+        const lambdaQuiet = 0.96;
+        const lambdaBurst = 0.55;
+        const lambda = fGate > 0 ? lambdaBurst : lambdaQuiet;
         aSmooth[i] = lambda * aSmooth[i] + (1 - lambda) * aTarget;
         el.style.setProperty(`--aR${i + 1}`, aSmooth[i].toFixed(3));
 
-        // Only animate ray offsets if parallax is enabled
-        if (!noRayParallax) {
-          const u = saw01(tw / T_OFF[i] + PHI_OFF[i] / (2 * Math.PI));
-          const eased = Math.pow(easeInOutSine01(u), GAMMA);
-          const off = MIN_VH[i] + (MAX_VH[i] - MIN_VH[i]) * eased;
-          el.style.setProperty(`--offR${i + 1}`, `${off.toFixed(2)}vh`);
-        }
+        const u = saw01(tw / T_OFF[i] + PHI_OFF[i] / (2 * Math.PI));
+        const eased = Math.pow(easeInOutSine01(u), GAMMA);
+        const off = MIN_VH[i] + (MAX_VH[i] - MIN_VH[i]) * eased;
+        el.style.setProperty(`--offR${i + 1}`, `${off.toFixed(2)}vh`);
       }
-
 
       rafId = requestAnimationFrame(tick);
     };
 
-    // Start loop
     rafId = requestAnimationFrame(tick);
 
     document.addEventListener(
       "visibilitychange",
       () => {
-        if (document.hidden) {
-          if (rafId) cancelAnimationFrame(rafId);
-          rafId = 0;
-        } else if (!root.hasAttribute("data-no-rays") && !rafId) {
-          lastUpdate = 0; // reset throttle
-          rafId = requestAnimationFrame(tick);
-        }
+        if (document.hidden) cancelAnimationFrame(rafId);
+        else rafId = requestAnimationFrame(tick);
       },
       { passive: true }
     );
