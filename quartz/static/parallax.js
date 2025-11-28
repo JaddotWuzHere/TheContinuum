@@ -52,6 +52,8 @@
 
     const noBg = html.hasAttribute("data-no-bg-parallax");
 
+    if (noBg && !force) return;
+
     set.layers.forEach((el) => {
       const speed = noBg
         ? 0
@@ -72,6 +74,10 @@
 
   function queueUpdate(force = false) {
     const y = Math.round(readScrollY());
+    const noBg = html.hasAttribute("data-no-bg-parallax");
+
+    if (noBg && !force) return;
+
     if (!force && Math.abs(y - lastY) < MIN_SCROLL_DELTA) return;
     lastY = y;
 
@@ -79,7 +85,7 @@
       ticking = true;
       requestAnimationFrame(() => {
         ticking = false;
-        applyFrame(lastY);
+        applyFrame(lastY, force);
       });
     }
   }

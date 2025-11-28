@@ -82,11 +82,28 @@
     const MIN_A = 0.04, MAX_A = 0.24;
 
     let rafId = 0;
+    let running = false;
+
+    const shouldParallax = () => !root.hasAttribute("data-no-ray-parallax");
+    const shouldFlicker = () => !root.hasAttribute("data-no-flicker");
+    const shouldDraw = () => {
+      if (root.hasAttribute("data-no-rays")) return false;
+      return shouldParallax() || shouldFlicker();
+    };
+
     const tick = () => {
-      const y =
-        (doc.scrollingElement && doc.scrollingElement.scrollTop) ||
-        doc.scrollTop || window.scrollY || 0;
-      root.style.setProperty("--scrollY", `${y.toFixed(1)}px`);
+    if (!running) return;
+
+      const parallaxOn = shouldParallax();
+      const flickerOn = shouldFlicker();
+
+      let y = 0;
+      if (parallaxOn) {
+        y =
+          (doc.scrollingElement && doc.scrollingElement.scrollTop) ||
+          doc.scrollTop || window.scrollY || 0;
+        root.style.setProperty("--scrollY", `${y.toFixed(1)}px`);
+      }
 
       const t = performance.now() / 1000;
 
@@ -115,46 +132,51 @@
         const meanDrop = 0.55 * fGate;
         const mean = baseTarget * (1 - meanDrop);
 
-        const k1 = 4.8 + 0.5 * i;
-        const k2 = 7.2 + 0.3 * i;
-        const s1 = Math.sin(tw * k1);
-        const s2 = Math.sin(tw * k2 + 1.234);
-        const sq = (x) => (x >= 0 ? 1 : -1);
-        const flickerNoise = fGate > 0
-          ? (0.6 * sq(s1) + 0.4 * sq(s2))
-          : (0.6 * s1     + 0.4 * s2);
+        let aTarget = mean;
 
-        const jitterNow = fGate * JITTER[i] * BURST_BOOST[i];
-        let flash = 0;
-        const fs = flashStart[i];
-        if (fs >= 0 && t >= fs && t <= fs + FLASH_LEN) {
-          const v = (t - fs) / FLASH_LEN;
-          const hann = 0.5 - 0.5 * Math.cos(2 * Math.PI * v);
-          flash = FLASH_GAIN * hann;
-        }
+        if (flickerOn) {
+          const k1 = 4.8 + 0.5 * i;
+          const k2 = 7.2 + 0.3 * i;
+          const s1 = Math.sin(tw * k1);
+          const s2 = Math.sin(tw * k2 + 1.234);
+          const sq = (x) => (x >= 0 ? 1 : -1);
+          const flickerNoise = fGate > 0
+            ? (0.6 * sq(s1) + 0.4 * sq(s2))
+            : (0.6 * s1     + 0.4 * s2);
 
-        if (t >= nextCut[i]) {
-          const inHzMin = 12, inHzMax = 20;
-          const outHzMin = 0.8, outHzMax = 1.5;
-          const rate = fGate > 0
-            ? (inHzMin + Math.random() * (inHzMax - inHzMin))
-            : (outHzMin + Math.random() * (outHzMax - outHzMin));
-          nextCut[i] = t + (1 / rate);
-
-          if (fGate > 0) {
-            cut[i] = Math.random() < 0.55 ? 0.20 : 1.0;
-          } else {
-            cut[i] = Math.random() < 0.20 ? 0.55 : 1.0;
+          const jitterNow = fGate * JITTER[i] * BURST_BOOST[i];
+          let flash = 0;
+          const fs = flashStart[i];
+          if (fs >= 0 && t >= fs && t <= fs + FLASH_LEN) {
+            const v = (t - fs) / FLASH_LEN;
+            const hann = 0.5 - 0.5 * Math.cos(2 * Math.PI * v);
+            flash = FLASH_GAIN * hann;
           }
+
+          if (t >= nextCut[i]) {
+            const inHzMin = 12, inHzMax = 20;
+            const outHzMin = 0.8, outHzMax = 1.5;
+            const rate = fGate > 0
+              ? (inHzMin + Math.random() * (inHzMax - inHzMin))
+              : (outHzMin + Math.random() * (outHzMax - outHzMin));
+            nextCut[i] = t + (1 / rate);
+
+            if (fGate > 0) {
+              cut[i] = Math.random() < 0.55 ? 0.20 : 1.0;
+            } else {
+              cut[i] = Math.random() < 0.20 ? 0.55 : 1.0;
+            }
+          }
+
+          const dimTerm = jitterNow * 0.5 * Math.abs(flickerNoise);
+          aTarget = mean - dimTerm - flash;
+          aTarget *= cut[i];
         }
 
-        const dimTerm = jitterNow * 0.5 * Math.abs(flickerNoise);
-        let aTarget = mean - dimTerm - flash;
-        aTarget *= cut[i];
         aTarget = Math.max(MIN_A, Math.min(MAX_A, aTarget));
 
         const lambdaQuiet = 0.96;
-        const lambdaBurst = 0.55;
+        const lambdaBurst = flickerOn ? 0.55 : 0.75;
         const lambda = fGate > 0 ? lambdaBurst : lambdaQuiet;
         aSmooth[i] = lambda * aSmooth[i] + (1 - lambda) * aTarget;
         el.style.setProperty(`--aR${i + 1}`, aSmooth[i].toFixed(3));
@@ -168,15 +190,40 @@
       rafId = requestAnimationFrame(tick);
     };
 
-    rafId = requestAnimationFrame(tick);
+    const start = () => {
+      if (running || !shouldDraw()) return;
+      running = true;
+      rafId = requestAnimationFrame(tick);
+    };
+
+    const stop = () => {
+      running = false;
+      cancelAnimationFrame(rafId);
+    };
+
+    start();
 
     document.addEventListener(
       "visibilitychange",
       () => {
-        if (document.hidden) cancelAnimationFrame(rafId);
-        else rafId = requestAnimationFrame(tick);
+        if (document.hidden) {
+          stop();
+        } else {
+          start();
+        }
       },
       { passive: true }
     );
+
+    new MutationObserver(() => {
+      if (shouldDraw()) {
+        start();
+      } else {
+        stop();
+      }
+    }).observe(root, {
+      attributes: true,
+      attributeFilter: ["data-no-rays", "data-no-ray-parallax", "data-no-flicker"],
+    });
   });
 })();
