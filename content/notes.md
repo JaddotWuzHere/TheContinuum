@@ -29,6 +29,61 @@ Known for: summoning, medicine, health
 ## World government
 ---
 **Eirenarch**
+## Horaxis
+---
+#### Identity
+Government is impersonal; permanent
+Power in systems, not individuals
+Citizens are governed for, not with
+(Not a democracy)
+#### Governing philosophy
+Order is mercy, instability is cruelty
+Correction is framed as benovelence
+Longevity = legitimacy
+(if a system has been around for a long time it's believe to be "correct")
+#### Structure of government
+technocratic bureaucratic state
+No single ruler or head
+There are some notable figures but no one has absolute power
+Authority is split across councils, registries, offices, etc
+All positions appointed internally
+Promotions/etc require tenure or institutional sponsorship or tons of dedicated time and proven reliability
+#### Citizens
+administrative subjects
+no voting or policy influence
+Political participation is discouraged
+Civic duty = compliance + reporting deviations
+#### Law and justice
+Consistency, not fairness
+Rights only exist as procedures
+Decisions are final
+Citizens cannot reject or challenge foundational doctrines
+"Is this correct?" not "Is this fair?" or "just?"
+security is always presence but quiet and unemotional
+#### Authority
+skews old due to selection pressure
+youth= instability
+novelty = risk
+Predictability valued over brilliance
+This leads to friction with Aletheia
+Emotional restraint expected in public life
+#### Timekeeping
+Time is socially enforced, schedules moralized
+Delays are treated as failures of misalignment
+bells/clocks regulate daily life
+officials have greater flexibility than citizens
+Not illegal to be early or late, just "noted"
+#### Architecture
+Symmetric, simple yet elegant, repetitive, marble/quartz type shit
+human scale is intentionally diminished
+People should feel "placed" not watched
+#### Power corruption
+Not bribery, but stuff like selective enforcement, preferential treatment, etc
+Sort of "brainwashing" the public
+Fear is ambient not explicit
+Citizens aren't panicked but careful
+They fear being flagged, "investigated/reviewed", delayed indefinitely (no opportunities), being "noticed"
+Horaxis isn't intentionally cruel, but "correct"
 
 ## Date system
 ---
