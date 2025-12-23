@@ -1,0 +1,16 @@
+html:lang(en) body {
+  font-family: "EBGaramond", serif;
+  font-size: 1.2em;
+}
+
+html[lang|="zh"] body {
+  font-family: "EBGaramond", "LXGWWenKai", serif;
+
+  p { font-size: 1.3em; }
+  ul { font-size: 1.1em; }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: "EBGaramond", "SentyWEN2017", serif;
+    letter-spacing: 0;
+  }
+}

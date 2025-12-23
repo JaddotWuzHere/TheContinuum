@@ -1,0 +1,72 @@
+:root {
+  /* --- GOLD PALETTE --- */
+  --gold-h: 44;
+  --gold-s: 78%;
+  --gold-l: 46%;
+
+  --gold-hi: hsl(var(--gold-h) var(--gold-s) 62%);
+  --gold-md: hsl(var(--gold-h) var(--gold-s) 46%);
+  --gold-dk: hsl(var(--gold-h) var(--gold-s) 32%);
+
+  --gold-strong: .95;
+  --gold-mid: .75;
+  --gold-soft: .55;
+
+  --ink: #1f1f23;
+  --brass: var(--gold-md);
+
+  /* --- PARALLAX / RAYS --- */
+  --scrollY: 0px;
+
+  --y-fast: calc(var(--scrollY) * -1.85);
+  --y-med:  calc(var(--scrollY) * -1.20);
+  --y-slow: calc(var(--scrollY) * -0.58);
+
+  --rayA: hsl(var(--gold-h) var(--gold-s) 86% / .22);
+  --rayB: hsl(var(--gold-h) var(--gold-s) 82% / .17);
+  --rayC: hsl(var(--gold-h) var(--gold-s) 78% / .14);
+
+  --bloom: 18px;
+  --strength: 0.62;
+
+  /* --- EXPLORER --- */
+  --explorer-w: 520px;
+  --explorer-peek: 48px;
+
+  --explorer-z: 10000;
+  --explorer-z-scrim: 10000;
+  --explorer-z-drawer: 10001;
+  --explorer-z-handle: 10002;
+
+  --explorer-bg: rgba(10, 12, 18, 0.7);
+  --explorer-brd: hsl(var(--gold-h) var(--gold-s) 46% / .28);
+
+  --explorer-hover-bg: rgba(255,255,255,.04);
+
+  /* --- HOVER SWEEPS --- */
+  --silver-1: rgba(140,150,165,.14);
+  --silver-2: rgba(185,200,220,.24);
+  --silver-3: rgba(248,252,255,.44);
+  --silver-4: rgba(170,185,205,.30);
+
+  --gold-1: hsl(calc(var(--gold-h) + 8) 65% 42% / .16);
+  --gold-2: hsl(calc(var(--gold-h) + 10) 72% 58% / .28);
+  --gold-3: hsl(calc(var(--gold-h) + 12) 76% 80% / .44);
+  --gold-4: hsl(calc(var(--gold-h) + 9) 70% 64% / .34);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --gold-h: 45;
+    --gold-s: 85%;
+    --gold-l: 52%;
+
+    --gold-hi: hsl(var(--gold-h) var(--gold-s) 68%);
+    --gold-md: hsl(var(--gold-h) var(--gold-s) 52%);
+    --gold-dk: hsl(var(--gold-h) var(--gold-s) 34%);
+
+    --gold-strong: .9;
+    --gold-mid: .7;
+    --gold-soft: .5;
+  }
+}

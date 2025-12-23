@@ -1,0 +1,223 @@
+html {
+  background: linear-gradient(
+    180deg,
+    #0b0e13 0%,
+    #10141b 55%,
+    #0b0e13 100%
+  ) no-repeat;
+}
+
+#quartz-body,
+.page,
+.center,
+.center > article,
+main,
+.content,
+.content > * {
+  background: transparent !important;
+}
+
+:is(#quartz-body, .content, .page, .center, main) {
+  position: relative;
+  z-index: 1;
+}
+
+/* Parallax BG */
+
+#parallax-root {
+  position: fixed;
+  inset: 0;
+  z-index: -3;
+  pointer-events: none;
+  isolation: isolate;
+
+  transition:
+    filter 0.6s cubic-bezier(0.12, 0.85, 0.25, 1),
+    transform 0.75s cubic-bezier(0.12, 0.85, 0.25, 1);
+}
+
+#parallax-root .layer {
+  position: absolute;
+  top: -52vh;
+  left: 0;
+  width: 100vw;
+  height: auto;
+  aspect-ratio: 1 / 3;
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  will-change: transform;
+}
+
+#parallax-root .back {
+  background-image: url("/static/bg/bg_top.png");
+  background-position: top center;
+  background-size: 100% auto;
+  opacity: 0.68;
+}
+
+/* Blur */
+
+.center {
+  transition:
+    filter 0.6s cubic-bezier(0.12, 0.85, 0.25, 1),
+    transform 0.75s cubic-bezier(0.12, 0.85, 0.25, 1);
+}
+
+html[data-explorer-open="1"] .center {
+  filter: blur(3px) brightness(0.85);
+  transform: scale(0.975);
+}
+
+html[data-explorer-open="1"] #parallax-root {
+  filter: blur(6px) brightness(0.85);
+  transform: scale(0.8);
+}
+
+/* Rays */
+
+#rays {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+
+  -webkit-mask-image:
+    radial-gradient(
+      160% 140% at 0% 0%,
+      #000 0%,
+      #000 38%,
+      rgba(0,0,0,.85) 55%,
+      rgba(0,0,0,.40) 75%,
+      transparent 100%
+    ),
+    linear-gradient(
+      to right,
+      #000 0%,
+      #000 62%,
+      rgba(0,0,0,.6) 80%,
+      transparent 96%
+    );
+
+  -webkit-mask-composite: source-in, intersect;
+          mask-image:
+    radial-gradient(
+      160% 140% at 0% 0%,
+      #000 0%,
+      #000 38%,
+      rgba(0,0,0,.85) 55%,
+      rgba(0,0,0,.40) 75%,
+      transparent 100%
+    ),
+    linear-gradient(
+      to right,
+      #000 0%,
+      #000 62%,
+      rgba(0,0,0,.6) 80%,
+      transparent 96%
+    );
+
+  mix-blend-mode: screen;
+  background-blend-mode: screen, screen, screen, screen;
+  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
+  background-attachment: scroll, fixed, fixed, fixed;
+
+  filter:
+    blur(var(--bloom))
+    brightness(1.05)
+    saturate(110%)
+    contrast(96%);
+
+  opacity: var(--strength);
+
+  background-image:
+    radial-gradient(
+      240% 300% at -15% -42%,
+      rgba(255,225,160,.034),
+      transparent 75%
+    ),
+
+    conic-gradient(
+      from 134deg at -30% -52%,
+      transparent 0turn,
+      hsl(var(--gold-h) calc(var(--gold-s) + 7%) 74% / var(--aR1)) 0turn 10.5deg,
+      transparent 10.5deg 1turn
+    ),
+    conic-gradient(
+      from 136deg at -22% -36%,
+      transparent 0turn,
+      hsl(var(--gold-h) calc(var(--gold-s) + 6%) 68% / var(--aR2)) 0turn 8deg,
+      transparent 8deg 1turn
+    ),
+    conic-gradient(
+      from 132deg at -12% -58%,
+      transparent 0turn,
+      hsl(var(--gold-h) calc(var(--gold-s) + 8%) 70% / var(--aR3)) 0turn 4.5deg,
+      transparent 4.5deg 1turn
+    ),
+    conic-gradient(
+      from 137deg at -28% -8%,
+      transparent 0turn,
+      hsl(var(--gold-h) calc(var(--gold-s) + 5%) 62% / var(--aR4)) 0turn 12deg,
+      transparent 12deg 1turn
+    ),
+    conic-gradient(
+      from 138deg at 0% -30%,
+      transparent 0turn,
+      hsl(var(--gold-h) calc(var(--gold-s) + 8%) 74% / var(--aR5)) 0turn 3.5deg,
+      transparent 3.5deg 1turn
+    ),
+    conic-gradient(
+      from 139deg at -10% 6%,
+      transparent 0turn,
+      hsl(var(--gold-h) calc(var(--gold-s) + 9%) 72% / var(--aR6)) 0turn 3deg,
+      transparent 4deg 1turn
+    );
+
+  background-position:
+    left top,
+    left calc(var(--y-fast) * 0.35 - 12vh),
+    left calc(var(--y-med)  * 0.12 + 34vh),
+    left calc(var(--y-slow) * 0.26 -  4vh),
+    left calc(var(--y-fast) * 0.05 + 22vh),
+    left calc(var(--y-med)  * 0.18 - 16vh),
+    left calc(var(--y-slow) * 0.31 +  6vh);
+
+  background-size:
+    130% 130%,
+    320% 320%,
+    300% 300%,
+    340% 340%,
+    380% 380%,
+    260% 260%,
+    310% 310%;
+}
+
+/* FX Flags */
+
+html[data-no-rays] #rays {
+  display: none !important;
+}
+
+html[data-no-flicker] #rays {
+  animation: none !important;
+  transition: none !important;
+}
+
+html[data-no-bg-parallax] #parallax-root .layer {
+  transform: none !important;
+}
+
+html[data-no-ray-parallax] #rays {
+  background-attachment: scroll;
+  background-position:
+    left top,
+    left -12vh,
+    left 34vh,
+    left -4vh,
+    left 22vh,
+    left -16vh,
+    left 6vh;
+}

@@ -1,0 +1,58 @@
+.page article blockquote {
+  position: relative;
+  padding-left: 1em;
+  border-radius: 4px;
+  display: block;
+  line-height: 1.3;
+  border-left: none !important;
+  background: none !important;
+}
+
+.page article blockquote::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 4px;
+  bottom: 4px;
+  width: 4px;
+  border-radius: 999px;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    hsl(var(--gold-h) var(--gold-s) 62% / var(--gold-strong)) 0%,
+    hsl(var(--gold-h) var(--gold-s) 46% / var(--gold-mid)) 55%,
+    hsl(var(--gold-h) var(--gold-s) 32% / var(--gold-soft)) 100%
+  );
+}
+
+.page article > *:first-child { margin-top: 0; }
+.page article blockquote > *:first-child { margin-top: 0 !important; }
+.page article blockquote > *:last-child  { margin-bottom: 0 !important; }
+.page article blockquote > p { margin: 0 !important; }
+
+.page article :is(h1, h2, h3, h4, h5, h6) { margin-bottom: .2rem !important; }
+.page article :is(h1, h2, h3, h4, h5, h6) + :is(p, blockquote) { margin-top: .1rem !important; }
+.page article :is(h1, h2, h3, h4, h5, h6) + hr { margin-top: .2rem !important; }
+
+hr {
+  width: 100%;
+  margin: 1.6rem auto 2rem;
+  height: 4px;
+  border: none;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    hsl(calc(var(--gold-h) - 20) var(--gold-s) 34% / 0) 0%,
+    hsl(calc(var(--gold-h) - 12) var(--gold-s) 44% / .35) 8%,
+    hsl(calc(var(--gold-h) -  6) var(--gold-s) 56% / .60) 18%,
+    hsl(var(--gold-h) var(--gold-s) 70% / .85) 32%,
+    hsl(var(--gold-h) var(--gold-s) 87%) 50%,
+    hsl(var(--gold-h) var(--gold-s) 70% / .85) 68%,
+    hsl(calc(var(--gold-h) -  6) var(--gold-s) 56% / .60) 82%,
+    hsl(calc(var(--gold-h) - 12) var(--gold-s) 44% / .35) 92%,
+    hsl(calc(var(--gold-h) - 20) var(--gold-s) 34% / 0) 100%
+  );
+  filter:
+    drop-shadow(0 0 1px hsl(var(--gold-h) var(--gold-s) 75% / .55))
+    drop-shadow(0 0 4px hsl(var(--gold-h) var(--gold-s) 75% / .20));
+}
