@@ -76,6 +76,16 @@ html[data-explorer-open="1"] #parallax-root {
   transform: scale(0.8);
 }
 
+html[data-settings-open="1"] .center {
+  filter: blur(3px) brightness(0.85);
+  transform: scale(0.975);
+}
+
+html[data-settings-open="1"] #parallax-root {
+  filter: blur(6px) brightness(0.85);
+  transform: scale(0.8);
+}
+
 /* Rays */
 
 #rays {

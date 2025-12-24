@@ -12,5 +12,10 @@
 
 /* systems */
 @use "./systems/background";
-@use "./systems/settings";
 @use "./systems/explorer";
+@use "./systems/settings";
+
+/* force CSS emission */
+html {
+  box-sizing: border-box;
+}

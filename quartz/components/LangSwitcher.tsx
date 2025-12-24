@@ -43,7 +43,7 @@ const css = `
 }
 `
 
-// Plain JS: handles en / zh / fr
+// handles en / zh / fr
 const script = `
 ;(() => {
   const sel = document.getElementById("lang-select");
