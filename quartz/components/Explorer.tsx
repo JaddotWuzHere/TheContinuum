@@ -60,12 +60,8 @@ const defaultOptions: Options = {
   order: ["filter", "map", "sort"],
 }
 
-export type FolderState = {
-  path: string
-  collapsed: boolean
-}
-
 let numExplorers = 0
+
 export default ((userOpts?: Partial<Options>) => {
   const opts: Options = { ...defaultOptions, ...userOpts }
   const { OverflowList, overflowListAfterDOMLoaded } = OverflowListFactory()
@@ -74,7 +70,7 @@ export default ((userOpts?: Partial<Options>) => {
     const { cfg, displayClass, fileData } = props
     const id = `explorer-${numExplorers++}`
 
-    const lang = localeFromSlug(fileData?.slug ?? "/en/")  // "en" | "zh" | "fr"
+    const lang = localeFromSlug(fileData?.slug ?? "/en/")
     type I18nLocale = Parameters<typeof i18n>[0]
     const locale = (
       lang === "zh" ? "zh-CN" :
@@ -95,14 +91,23 @@ export default ((userOpts?: Partial<Options>) => {
           mapFn: opts.mapFn.toString(),
         })}
       >
+        {/* -------- Explorer Title Header -------- */}
+        <div class="explorer-header">
+          <h2 class="explorer-title">Explorer</h2>
+        </div>
+
+        {/* -------- Folder Tree Content -------- */}
         <div id={id} class="explorer-content" aria-expanded={false} role="group">
           <OverflowList class="explorer-ul" />
         </div>
+
+        {/* -------- Templates -------- */}
         <template id="template-file">
           <li>
             <a href="#"></a>
           </li>
         </template>
+
         <template id="template-folder">
           <li>
             <div class="folder-container">

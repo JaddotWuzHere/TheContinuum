@@ -1,0 +1,398 @@
+/* =========================================================
+   SETTINGS PANEL
+   ========================================================= */
+
+:root {
+  --settings-w: 420px;
+  --settings-peek: 48px;
+
+  --settings-z: 11000;
+  --settings-z-scrim:  calc(var(--settings-z) + 0);
+  --settings-z-drawer: calc(var(--settings-z) + 1);
+  --settings-z-handle: calc(var(--settings-z) + 2);
+}
+
+:root {
+  --settings-silver-1: var(--silver-1, rgba(140, 150, 165, 0.14));
+  --settings-silver-2: var(--silver-2, rgba(185, 200, 220, 0.24));
+  --settings-silver-3: var(--silver-3, rgba(248, 252, 255, 0.44));
+  --settings-silver-4: var(--silver-4, rgba(170, 185, 205, 0.30));
+
+  --settings-gold-1: var(--gold-1, hsl(calc(var(--gold-h) + 8) 65% 42% / 0.16));
+  --settings-gold-2: var(--gold-2, hsl(calc(var(--gold-h) + 10) 72% 58% / 0.28));
+  --settings-gold-3: var(--gold-3, hsl(calc(var(--gold-h) + 12) 76% 80% / 0.44));
+  --settings-gold-4: var(--gold-4, hsl(calc(var(--gold-h) + 9) 70% 64% / 0.34));
+}
+
+/* ---- Scrim ---- */
+
+.continuum-settings-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: var(--settings-z-scrim);
+
+  background: rgba(0, 0, 0, 0.35);
+
+  backdrop-filter: blur(0);
+  -webkit-backdrop-filter: blur(0);
+
+  opacity: 0;
+  pointer-events: none;
+
+  transition:
+    opacity 0.25s ease,
+    backdrop-filter 0.45s cubic-bezier(0.1, 0.9, 0.2, 1);
+}
+
+html[data-settings-open="1"] .continuum-settings-scrim {
+  opacity: 1;
+  pointer-events: auto;
+
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* ---- Handle ---- */
+
+.continuum-settings-handle {
+  position: fixed;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%) translateX(calc(-1 * var(--settings-peek)));
+  z-index: var(--settings-z-handle);
+
+  width: 3.1rem;
+  height: 22rem;
+
+  display: grid;
+  place-items: center;
+
+  padding: 0;
+  border-radius: 1.2rem 0 0 1.2rem;
+
+  border: 1px solid hsl(var(--gold-h) var(--gold-s) 58% / .45);
+
+  background: rgba(10, 12, 18, 1);
+  color: #e5e7eb;
+
+  cursor: pointer;
+  user-select: none;
+
+  transition:
+    height 1.2s cubic-bezier(0.1, 0.85, 0.2, 1),
+    border-radius 0.45s cubic-bezier(0.22, 0.61, 0.36, 1),
+    transform 0.8s cubic-bezier(0.22, 0.61, 0.36, 1),
+    filter 0.25s ease;
+}
+
+html[data-settings-open="1"] .continuum-settings-handle {
+  height: 12.5rem;
+  border-radius: 0.9rem 0 0 0.9rem;
+  transform: translateY(-50%) translateX(calc(0px - var(--settings-w)));
+}
+
+.continuum-settings-handle:hover { filter: brightness(1.12); }
+
+.continuum-settings-handle .label {
+  font-family: "EBGaramond", serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+
+  writing-mode: vertical-rl;
+  transform: none;
+
+  background-image: linear-gradient(
+    180deg,
+    hsl(var(--gold-h) var(--gold-s) 40% / .95) 0%,
+    hsl(calc(var(--gold-h) + 6) var(--gold-s) 62% / .95) 50%,
+    hsl(var(--gold-h) var(--gold-s) 40% / .95) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 0 6px hsl(var(--gold-h) var(--gold-s) 70% / .18));
+}
+
+/* ---- Drawer ---- */
+
+.settings-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: var(--settings-z-drawer);
+
+  height: 100dvh;
+  width: var(--settings-w);
+
+  background: rgba(10, 12, 18, 0.78);
+  border-left: 1px solid hsl(var(--gold-h) var(--gold-s) 46% / .28);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  padding: .75rem .85rem 1rem;
+
+  transform: translateX(calc(var(--settings-w) - var(--settings-peek)));
+  transition: transform 0.8s cubic-bezier(0.22, 0.61, 0.36, 1);
+
+  overflow: hidden;
+}
+
+html[data-settings-open="1"] .settings-panel {
+  transform: translateX(0);
+}
+
+.settings-inner {
+  max-height: 100dvh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+
+  width: calc(100% - var(--settings-peek) - 24px);
+
+  margin-left: auto;
+  margin-right: 0;
+}
+
+
+/* ---- Header ---- */
+
+.settings-header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+
+  padding-inline: .25rem;
+  padding-top: .1rem;
+  padding-bottom: .3rem;
+
+  border-bottom: 1px solid hsl(var(--gold-h) var(--gold-s) 30% / .45);
+}
+
+.settings-title {
+  margin: 0;
+
+  text-align: right;
+
+  font-family: "EBGaramond", serif;
+  font-weight: 800;
+  font-size: 1.5rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+
+  background-image: linear-gradient(
+    90deg,
+    hsl(var(--gold-h) var(--gold-s) 48% / .98) 0%,
+    hsl(calc(var(--gold-h) + 10) var(--gold-s) 72% / .98) 40%,
+    hsl(var(--gold-h) var(--gold-s) 88% / .98) 70%,
+    hsl(calc(var(--gold-h) + 6) var(--gold-s) 64% / .95) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+
+  text-shadow:
+    0 0 10px hsl(var(--gold-h) var(--gold-s) 70% / .18),
+    0 0 18px rgba(0, 0, 0, 0.8);
+}
+
+.settings-section {
+  border-top: 1px solid hsl(var(--gold-h) var(--gold-s) 32% / .35);
+  padding-top: .65rem;
+  padding-inline: .2rem;
+}
+
+.settings-section-title {
+  margin: 0 0 .35rem 0;
+  font-family: "MerriweatherSans", system-ui, -apple-system, BlinkMacSystemFont;
+  font-weight: 600;
+  font-size: .9rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  text-align: center;
+  color: rgba(210, 215, 232, 0.95);
+}
+
+/* =========================================================
+   SETTINGS ROWS
+   ========================================================= */
+
+.settings-language-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: .25rem;
+}
+
+.settings-language-row .lang-switcher,
+.settings-language-row > * {
+  margin-left: auto;
+}
+
+.fx-toggle {
+  position: relative;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: flex-start;
+  gap: .6rem;
+
+  width: 100%;
+  padding: .22rem .32rem;
+
+  border: none;
+  outline: none;
+  background: transparent;
+  cursor: pointer;
+
+  text-align: right;
+  font: inherit;
+  color: rgba(210, 210, 230, 0.9);
+
+  border-radius: .6rem;
+
+  transition:
+    transform .18s ease,
+    filter .18s ease;
+}
+
+.fx-toggle-label {
+  flex: 1 1 auto;
+  min-width: 0;
+
+  font-family: "EBGaramond", serif;
+  font-weight: 600;
+  font-size: 1rem;
+
+  text-align: right;
+  white-space: normal;
+  overflow-wrap: break-word;
+
+  color: rgba(226, 232, 255, 0.94);
+}
+
+.fx-toggle:hover {
+  transform: translateX(-6px);
+}
+
+/* pill effect */
+.fx-toggle::after {
+  content: "";
+  position: absolute;
+  inset: 0.06rem -0.35rem;
+  border-radius: .55rem;
+  pointer-events: none;
+  opacity: 0;
+
+  background-size: 220% 100%;
+  background-position: 100% 50%;
+
+  background-image: linear-gradient(
+    270deg,
+    transparent 0%,
+    transparent 24%,
+    var(--settings-silver-1) 40%,
+    var(--settings-silver-2) 54%,
+    var(--settings-silver-3) 62.5%,
+    var(--settings-silver-4) 74%,
+    transparent 100%
+  );
+
+  filter: saturate(90%) brightness(1.04) contrast(1.08);
+
+  transition:
+    opacity .2s ease,
+    background-position .45s ease;
+}
+
+.fx-toggle:hover::after,
+.fx-toggle[data-state="on"]::after {
+  opacity: 1;
+  background-position: 0% 50%;
+}
+
+/* =========================================================
+   TOGGLE SWITCH
+   ========================================================= */
+
+.fx-toggle-switch {
+  position: relative;
+  flex: 0 0 auto;
+
+  width: 2.6rem;
+  height: 1.32rem;
+  border-radius: 999px;
+
+  display: flex;
+  align-items: center;
+
+  padding: 0 .14rem;
+
+  background: rgba(11, 15, 25, 0.94);
+  border: 1px solid hsl(var(--gold-h) var(--gold-s) 40% / .45);
+
+  box-shadow:
+    inset 0 0 0 1px rgba(0, 0, 0, 0.8),
+    0 0 0 rgba(0, 0, 0, 0);
+
+  transition:
+    background .2s ease,
+    border-color .2s ease,
+    box-shadow .25s ease;
+}
+
+.fx-toggle-thumb {
+  width: 1.02rem;
+  height: 1.02rem;
+  border-radius: 999px;
+
+  background-image: radial-gradient(
+    circle at 30% 20%,
+    rgba(255, 255, 255, 0.92),
+    rgba(215, 220, 235, 0.96) 45%,
+    rgba(165, 175, 195, 0.98) 100%
+  );
+
+  box-shadow:
+    0 0 0.5px rgba(255, 255, 255, 0.75),
+    0 0 6px rgba(0, 0, 0, 0.9);
+
+  transform: translateX(0);
+  transition:
+    transform .22s cubic-bezier(0.22, 0.61, 0.36, 1),
+    box-shadow .22s ease;
+}
+
+/* ---- ON STATE ---- */
+
+.fx-toggle[data-state="on"] .fx-toggle-switch {
+  background: hsl(calc(var(--gold-h) + 8) var(--gold-s) 34% / 0.35);
+  border-color: hsl(calc(var(--gold-h) + 6) var(--gold-s) 70% / .85);
+  box-shadow:
+    inset 0 0 1px rgba(0, 0, 0, 0.8),
+    0 0 10px hsl(calc(var(--gold-h) + 8) 80% 70% / 0.35);
+}
+
+.fx-toggle[data-state="on"] .fx-toggle-thumb {
+  transform: translateX(-1.1rem);
+
+  box-shadow:
+    0 0 1px rgba(255, 255, 255, 0.9),
+    0 0 10px hsl(calc(var(--gold-h) + 10) 85% 75% / 0.7);
+}
+
+/* Accessibility */
+.fx-toggle:focus-visible {
+  outline: 2px solid hsl(calc(var(--gold-h) + 10) var(--gold-s) 70% / .6);
+  outline-offset: 2px;
+}
+
+/* Blur Explorer when open */
+html[data-explorer-open="1"] .settings-panel,
+html[data-explorer-open="1"] .continuum-settings-handle {
+  filter: blur(2px) brightness(0.7);
+  pointer-events: none;
+  cursor: default;
+}

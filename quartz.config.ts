@@ -30,7 +30,7 @@ const config: QuartzConfig = {
       colors: {
         lightMode: {
           // Base coal + ink range
-          light: "#0f1116",       // coal black (ui base)
+          light: "#030705",       // coal black (ui base)
           lightgray: "#393639",   // smoked steel
           gray: "#646464",        // aged metal
           darkgray: "#d4d4d4",    // parchment ash

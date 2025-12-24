@@ -88,7 +88,7 @@ html[data-explorer-open="1"] .continuum-explorer-handle {
 .continuum-explorer-handle:hover { filter: brightness(1.12); }
 
 .continuum-explorer-handle .label {
-  font-family: "EBGaramond", serif;
+  font-family: "EBGaramond";
   font-weight: 700;
   font-size: 1.25rem;
   letter-spacing: .08em;
@@ -108,6 +108,48 @@ html[data-explorer-open="1"] .continuum-explorer-handle {
   color: transparent;
   filter: drop-shadow(0 0 6px hsl(var(--gold-h) var(--gold-s) 70% / .18));
 }
+
+/* ---- Explorer header ---- */
+
+.explorer-header {
+  padding-inline: .4rem;
+  padding-top: .4rem;
+  padding-bottom: .35rem;
+}
+
+.explorer-title {
+  margin: 0;
+  font-family: "EBGaramond", serif;
+  font-weight: 800;
+  font-size: 1.35rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+
+  background-image: linear-gradient(
+    90deg,
+    hsl(var(--gold-h) var(--gold-s) 46% / .98) 0%,
+    hsl(calc(var(--gold-h) + 8) var(--gold-s) 72% / .98) 45%,
+    hsl(var(--gold-h) var(--gold-s) 86% / .98) 75%,
+    hsl(calc(var(--gold-h) + 4) var(--gold-s) 62% / .95) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+
+  text-shadow:
+    0 0 8px hsl(var(--gold-h) var(--gold-s) 70% / .15),
+    0 0 14px rgba(0, 0, 0, 0.85);
+
+  border-bottom: 1px solid hsl(var(--gold-h) var(--gold-s) 28% / .4);
+  padding-bottom: .3rem;
+}
+
+/* Keep header + content away from the peek strip on the right */
+.explorer-header,
+.explorer .explorer-content {
+  max-width: calc(100% - var(--explorer-peek) - 24px);
+}
+
 
 /* ---- Drawer ---- */
 
@@ -258,9 +300,8 @@ html[data-explorer-open="1"] .explorer { transform: translateX(0); }
 .explorer a.folder-title:visited,
 .explorer a.folder-title:active,
 .explorer a.folder-title:focus-visible {
-  font-family: "MerriweatherSans";
-  font-weight: "600";
-  font-size: 1.01rem;
+  font-family: "SchibstedGrotesk";
+  font-size: 0.98rem;
   text-decoration: none !important;
 
   background-image: linear-gradient(
@@ -496,4 +537,12 @@ html[data-explorer-open="1"] .explorer { transform: translateX(0); }
   margin-left: 1.05rem;
   padding-left: .55rem;
   border-left: 1px solid hsl(var(--gold-h) var(--gold-s) 40% / .18);
+}
+
+/* Blur Settings when open */
+html[data-settings-open="1"] .explorer,
+html[data-settings-open="1"] .continuum-explorer-handle {
+  filter: blur(2px) brightness(0.7);
+  pointer-events: none;
+  cursor: default;
 }

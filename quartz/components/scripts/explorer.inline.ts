@@ -129,7 +129,24 @@ function setupExplorerDrawer() {
     root.hasAttribute("data-explorer-open") ? close() : open()
   }
 
-  handle.addEventListener("click", toggle)
+  handle.addEventListener("click", () => {
+    const root = document.documentElement
+
+    // If SETTINGS is open, treat this click as "click outside":
+    // close settings, do NOT open explorer yet.
+    if (root.hasAttribute("data-settings-open")) {
+      root.removeAttribute("data-settings-open")
+      try {
+        localStorage.setItem("continuum-settings-drawer", "closed")
+      } catch {
+        // ignore storage errors
+      }
+      return
+    }
+
+    // Otherwise, normal toggle
+    toggle()
+  })
   scrim.addEventListener("click", close)
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") close()
