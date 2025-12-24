@@ -6,11 +6,27 @@ html:lang(en) body {
 html[lang|="zh"] body {
   font-family: "EBGaramond", "LXGWWenKai", serif;
 
-  p { font-size: 1.3em; }
   ul { font-size: 1.1em; }
+  p  { font-size: 1.3em; }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: "EBGaramond", "SentyWEN2017", serif;
+    font-family: var(--header-font, "EBGaramond", "SentyWEN2017", serif);
     letter-spacing: 0;
   }
+
+  .callout[data-callout="epigraph"] .callout-content > p:first-child {
+    line-height: 1;
+    font-family: "EBGaramond", "STXINGKA", serif;
+    font-size: 1.5em;
+  }
+
+  .callout[data-callout="epigraph"] .callout-content > p:last-child {
+    line-height: 1;
+    font-family: "EBGARAMOND", "STXINGKA", serif;
+  }
+
+  h1 { font-size: 3rem; }
+  h2 { font-size: 2.6rem; }
+  h3 { font-size: 2rem; }
+  h4, h5, h6 { font-size: 1.5rem; }
 }
