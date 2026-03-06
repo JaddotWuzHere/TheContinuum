@@ -137,6 +137,9 @@ html[data-settings-open="1"] .continuum-settings-handle {
   transition: transform 0.8s cubic-bezier(0.22, 0.61, 0.36, 1);
 
   overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
 }
 
 html[data-settings-open="1"] .settings-panel {
@@ -144,19 +147,30 @@ html[data-settings-open="1"] .settings-panel {
 }
 
 .settings-inner {
-  max-height: 100dvh;
-  overflow-y: auto;
-  overflow-x: hidden;
+  flex: 1;
+  min-height: 0;
+
+  overflow: visible;
+
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
 
   width: calc(100% - var(--settings-peek) - 24px);
-
   margin-left: auto;
   margin-right: 0;
 }
 
+.settings-scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
 
 /* ---- Header ---- */
 
@@ -234,9 +248,9 @@ html[data-settings-open="1"] .settings-panel {
 .fx-toggle {
   position: relative;
   display: flex;
-  flex-direction: row-reverse;
+  flex-direction: row; 
   align-items: center;
-  justify-content: flex-start;
+  justify-content: flex-end;
   gap: .6rem;
 
   width: 100%;
@@ -281,7 +295,7 @@ html[data-settings-open="1"] .settings-panel {
 .fx-toggle::after {
   content: "";
   position: absolute;
-  inset: 0.06rem -0.35rem;
+  inset: 0.06rem -0rem;
   border-radius: .55rem;
   pointer-events: none;
   opacity: 0;
@@ -365,34 +379,87 @@ html[data-settings-open="1"] .settings-panel {
     box-shadow .22s ease;
 }
 
-/* ---- ON STATE ---- */
+/* ---- ON ---- */
 
 .fx-toggle[data-state="on"] .fx-toggle-switch {
-  background: hsl(calc(var(--gold-h) + 8) var(--gold-s) 34% / 0.35);
+  background: hsl(calc(var(--gold-h) + 8) var(--gold-s) 40% / 0.45);
   border-color: hsl(calc(var(--gold-h) + 6) var(--gold-s) 70% / .85);
   box-shadow:
     inset 0 0 1px rgba(0, 0, 0, 0.8),
-    0 0 10px hsl(calc(var(--gold-h) + 8) 80% 70% / 0.35);
+    0 0 4px hsl(calc(var(--gold-h) + 8) 80% 70% / 0.35);
 }
 
 .fx-toggle[data-state="on"] .fx-toggle-thumb {
-  transform: translateX(-1.1rem);
+  transform: translateX(1.5rem);
 
   box-shadow:
     0 0 1px rgba(255, 255, 255, 0.9),
-    0 0 10px hsl(calc(var(--gold-h) + 10) 85% 75% / 0.7);
+    0 0 4px hsl(calc(var(--gold-h) + 10) 85% 75% / 0.35);
 }
 
-/* Accessibility */
 .fx-toggle:focus-visible {
   outline: 2px solid hsl(calc(var(--gold-h) + 10) var(--gold-s) 70% / .6);
   outline-offset: 2px;
 }
 
-/* Blur Explorer when open */
 html[data-explorer-open="1"] .settings-panel,
 html[data-explorer-open="1"] .continuum-settings-handle {
   filter: blur(2px) brightness(0.7);
   pointer-events: none;
   cursor: default;
+}
+
+.settings-section-language .settings-language-row {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.fx-toggle.fx-toggle-child {
+  opacity: 0.92;
+}
+
+.fx-toggle[data-locked="1"] {
+  cursor: not-allowed;
+  opacity: 0.62;
+  transform: none !important;
+}
+
+.fx-toggle[data-locked="1"]::after {
+  opacity: 0;
+}
+
+.fx-toggle.fx-toggle-child .fx-toggle-switch {
+  transform: scale(.86);
+  transform-origin: right center;
+  filter: saturate(.85);
+}
+
+.fx-toggle.fx-toggle-parent {
+  padding-bottom: .45rem;
+}
+
+.fx-toggle.fx-toggle-parent::before {
+  content: "";
+  position: absolute;
+  left: 1.0rem;
+  right: 1.0rem;
+  bottom: .18rem;
+  height: 1px;
+
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    hsl(var(--gold-h) var(--gold-s) 60% / .55) 18%,
+    hsl(calc(var(--gold-h) + 7) var(--gold-s) 72% / .65) 50%,
+    hsl(var(--gold-h) var(--gold-s) 60% / .55) 82%,
+    transparent 100%
+  );
+
+  opacity: .9;
+  pointer-events: none;
+}
+
+.fx-toggle.fx-toggle-child .fx-toggle-label {
+  opacity: .88;
+  font-weight: 500;
 }

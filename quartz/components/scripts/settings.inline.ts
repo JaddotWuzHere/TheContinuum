@@ -1,5 +1,3 @@
-// quartz/components/scripts/settings.inline.ts
-
 let settingsInitialized = false
 
 function setupSettingsDrawer() {
@@ -9,7 +7,6 @@ function setupSettingsDrawer() {
   const root = document.documentElement
   const KEY = "continuum-settings-drawer"
 
-  // Create handle if missing
   if (!document.querySelector(".continuum-settings-handle")) {
     const handle = document.createElement("button")
     handle.type = "button"
@@ -18,7 +15,6 @@ function setupSettingsDrawer() {
     handle.innerHTML = `<span class="label">Settings</span>`
     document.body.appendChild(handle)
 
-    // Create scrim
     const scrim = document.createElement("div")
     scrim.className = "continuum-settings-scrim"
     scrim.setAttribute("aria-hidden", "true")
@@ -42,19 +38,15 @@ function setupSettingsDrawer() {
     handle.addEventListener("click", () => {
       const root = document.documentElement
 
-      // If EXPLORER is open, treat this click as "click outside":
-      // close explorer, do NOT open settings yet.
       if (root.hasAttribute("data-explorer-open")) {
         root.removeAttribute("data-explorer-open")
         try {
           localStorage.setItem("continuum-explorer-drawer", "closed")
         } catch {
-          // ignore storage errors
         }
         return
       }
 
-      // Otherwise, normal toggle
       toggle()
     })
     scrim.addEventListener("click", close)
@@ -69,11 +61,9 @@ function setupSettingsDrawer() {
       open()
     }
 
-    // Close on prenav
     document.addEventListener("prenav", () => close())
   }
 
-  // Move panel to body so it sits level with explorer
   const panel = document.querySelector(".settings-panel")
   if (panel && panel.parentElement !== document.body) {
     document.body.appendChild(panel)
@@ -85,22 +75,61 @@ function setupSettingsDrawer() {
 function setupSettingsToggles() {
   const toggles = document.querySelectorAll<HTMLButtonElement>(".fx-toggle")
 
+  const isOn = (btn: HTMLElement) => btn.getAttribute("data-state") === "on"
+  const setOn = (btn: HTMLElement, on: boolean) =>
+    btn.setAttribute("data-state", on ? "on" : "off")
+
+  const setLocked = (btn: HTMLElement, locked: boolean) => {
+    if (locked) btn.setAttribute("data-locked", "1")
+    else btn.removeAttribute("data-locked")
+  }
+
+  const getChildren = (parentSetting: string) =>
+    Array.from(
+      document.querySelectorAll<HTMLButtonElement>(
+        `.fx-toggle[data-parent="${parentSetting}"]`,
+      ),
+    )
+
+  const syncLocksFromParent = (parentSetting: string) => {
+    const parent = document.querySelector<HTMLButtonElement>(
+      `.fx-toggle[data-setting="${parentSetting}"]`,
+    )
+    if (!parent) return
+    const children = getChildren(parentSetting)
+
+    if (isOn(parent)) {
+      children.forEach((c) => {
+        setOn(c, true)
+        setLocked(c, true)
+      })
+    } else {
+      children.forEach((c) => setLocked(c, false))
+    }
+  }
+
+  syncLocksFromParent("disableRays")
+
   toggles.forEach((btn) => {
     if ((btn as any)._settingsInit === true) return
     ;(btn as any)._settingsInit = true
 
     btn.addEventListener("click", (evt) => {
-      // don't let the click bubble to anything weird
       evt.stopPropagation()
 
-      const current = btn.getAttribute("data-state") === "on"
+      if (btn.getAttribute("data-locked") === "1") return
+
+      const current = isOn(btn)
       const next = !current
-      btn.setAttribute("data-state", next ? "on" : "off")
+      setOn(btn, next)
+
+      if (btn.getAttribute("data-setting") === "disableRays") {
+        syncLocksFromParent("disableRays")
+      }
     })
   })
 }
 
-// When SPA nav fires, ensure drawer exists and toggles are wired.
 document.addEventListener("nav", () => {
   setupSettingsDrawer()
 })

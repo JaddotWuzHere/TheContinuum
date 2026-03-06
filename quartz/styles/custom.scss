@@ -14,8 +14,9 @@
 @use "./systems/background";
 @use "./systems/explorer";
 @use "./systems/settings";
+@use "./systems/langSwitcher.scss";
 
-/* force CSS emission */
+/* force CSS */
 html {
   box-sizing: border-box;
 }
