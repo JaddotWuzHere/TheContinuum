@@ -1,70 +1,89 @@
-let settingsInitialized = false
-
 function setupSettingsDrawer() {
-  if (settingsInitialized) return
-  settingsInitialized = true
-
   const root = document.documentElement
   const KEY = "continuum-settings-drawer"
 
-  if (!document.querySelector(".continuum-settings-handle")) {
-    const handle = document.createElement("button")
+  let handle = document.querySelector<HTMLButtonElement>(".continuum-settings-handle")
+  let scrim = document.querySelector<HTMLDivElement>(".continuum-settings-scrim")
+
+  const open = () => {
+    root.setAttribute("data-settings-open", "1")
+    try {
+      localStorage.setItem(KEY, "open")
+    } catch {}
+  }
+
+  const close = () => {
+    root.removeAttribute("data-settings-open")
+    try {
+      localStorage.setItem(KEY, "closed")
+    } catch {}
+  }
+
+  const toggle = () => {
+    if (root.hasAttribute("data-settings-open")) close()
+    else open()
+  }
+
+  if (!handle) {
+    handle = document.createElement("button")
     handle.type = "button"
     handle.className = "continuum-settings-handle"
     handle.setAttribute("aria-label", "Toggle settings")
     handle.innerHTML = `<span class="label">Settings</span>`
     document.body.appendChild(handle)
+  }
 
-    const scrim = document.createElement("div")
+  if (!scrim) {
+    scrim = document.createElement("div")
     scrim.className = "continuum-settings-scrim"
     scrim.setAttribute("aria-hidden", "true")
     document.body.appendChild(scrim)
+  }
 
-    const open = () => {
-      root.setAttribute("data-settings-open", "1")
-      localStorage.setItem(KEY, "open")
-    }
-
-    const close = () => {
-      root.removeAttribute("data-settings-open")
-      localStorage.setItem(KEY, "closed")
-    }
-
-    const toggle = () => {
-      if (root.hasAttribute("data-settings-open")) close()
-      else open()
-    }
+  if (!(handle as any)._settingsBound) {
+    ;(handle as any)._settingsBound = true
 
     handle.addEventListener("click", () => {
-      const root = document.documentElement
-
       if (root.hasAttribute("data-explorer-open")) {
         root.removeAttribute("data-explorer-open")
         try {
           localStorage.setItem("continuum-explorer-drawer", "closed")
-        } catch {
-        }
+        } catch {}
         return
       }
 
       toggle()
     })
+  }
+
+  if (!(scrim as any)._settingsBound) {
+    ;(scrim as any)._settingsBound = true
     scrim.addEventListener("click", close)
+  }
 
+  if (!(document as any)._settingsEscBound) {
+    ;(document as any)._settingsEscBound = true
     document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") {
-        close()
-      }
+      if (e.key === "Escape") close()
     })
+  }
 
-    if (localStorage.getItem(KEY) === "open") {
-      open()
-    }
-
+  if (!(document as any)._settingsPrenavBound) {
+    ;(document as any)._settingsPrenavBound = true
     document.addEventListener("prenav", () => close())
   }
 
-  const panel = document.querySelector(".settings-panel")
+  try {
+    if (localStorage.getItem(KEY) === "open") {
+      open()
+    } else {
+      close()
+    }
+  } catch {
+    close()
+  }
+
+  const panel = document.querySelector<HTMLElement>(".settings-panel")
   if (panel && panel.parentElement !== document.body) {
     document.body.appendChild(panel)
   }
@@ -109,7 +128,9 @@ function setupSettingsToggles() {
       if (!key) return
       state[key] = isOn(btn)
     })
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state))
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state))
+    } catch {}
   }
 
   const applyRootFlags = () => {
@@ -153,11 +174,9 @@ function setupSettingsToggles() {
         if (key in saved) setOn(btn, !!saved[key])
       })
     }
-  } catch {
-  }
+  } catch {}
 
   syncLocksFromParent("disableRays")
-
   applyRootFlags()
   saveSettings()
 
@@ -170,8 +189,7 @@ function setupSettingsToggles() {
 
       if (btn.getAttribute("data-locked") === "1") return
 
-      const current = isOn(btn)
-      const next = !current
+      const next = !isOn(btn)
       setOn(btn, next)
 
       if (btn.getAttribute("data-setting") === "disableRays") {
