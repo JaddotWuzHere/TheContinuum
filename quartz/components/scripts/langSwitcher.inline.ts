@@ -1,5 +1,8 @@
 (() => {
   function initLangSwitcher(root: HTMLElement): void {
+    if ((root as any)._langSwitcherInit) return
+    ;(root as any)._langSwitcherInit = true
+
     const trigger = root.querySelector<HTMLButtonElement>(".lang-trigger")
     const select =
       root.querySelector<HTMLSelectElement>(".lang-select-native") ??
@@ -21,9 +24,7 @@
 
     function navigateToLang(lang: string): void {
       const url = new URL(window.location.href)
-
       const parts = url.pathname.split("/").filter(Boolean)
-
       const supported = new Set(["en", "zh", "fr"])
       const first = parts[0]
 
@@ -33,7 +34,8 @@
         parts.unshift(lang)
       }
 
-      url.pathname = "/" + parts.join("/") + (url.pathname.endsWith("/") ? "/" : "")
+      const hadTrailingSlash = url.pathname.endsWith("/")
+      url.pathname = "/" + parts.join("/") + (hadTrailingSlash ? "/" : "")
       window.location.assign(url.toString())
     }
 
@@ -50,8 +52,7 @@
       }
 
       if (chosen) {
-        const label =
-          chosen.querySelector("span")?.textContent?.trim() || value
+        const label = chosen.querySelector("span")?.textContent?.trim() || value
         safeTrigger.textContent = label
       }
     }
@@ -62,6 +63,7 @@
 
     safeSelect.value = current
     setActiveByValue(current)
+    setOpen(false)
 
     safeTrigger.addEventListener("click", (ev: MouseEvent) => {
       ev.stopPropagation()
@@ -76,9 +78,7 @@
         if (!lang) return
 
         safeSelect.value = lang
-        safeSelect.dispatchEvent(
-          new Event("change", { bubbles: true }),
-        )
+        safeSelect.dispatchEvent(new Event("change", { bubbles: true }))
 
         setActiveByValue(lang)
         setOpen(false)
@@ -96,7 +96,40 @@
     })
   }
 
-  document
-    .querySelectorAll<HTMLElement>(".lang-switcher")
-    .forEach(initLangSwitcher)
+  function runLangSwitchers(): void {
+    document
+      .querySelectorAll<HTMLElement>(".lang-switcher")
+      .forEach((root) => {
+        const parts = window.location.pathname.split("/").filter(Boolean)
+        const supported = new Set(["en", "zh", "fr"])
+        const current = supported.has(parts[0]) ? parts[0] : "en"
+
+        const trigger = root.querySelector<HTMLButtonElement>(".lang-trigger")
+        const select =
+          root.querySelector<HTMLSelectElement>(".lang-select-native") ??
+          root.querySelector<HTMLSelectElement>("select")
+        const items = Array.from(
+          root.querySelectorAll<HTMLButtonElement>(".lang-menu-item"),
+        )
+
+        if (trigger && select && items.length > 0) {
+          select.value = current
+          for (const item of items) {
+            if (item.dataset.lang === current) {
+              item.setAttribute("data-active", "1")
+              const label =
+                item.querySelector("span")?.textContent?.trim() || current
+              trigger.textContent = label
+            } else {
+              item.setAttribute("data-active", "0")
+            }
+          }
+        }
+
+        initLangSwitcher(root)
+      })
+  }
+
+  runLangSwitchers()
+  document.addEventListener("nav", runLangSwitchers)
 })()
