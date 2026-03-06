@@ -73,7 +73,10 @@ function setupSettingsDrawer() {
 }
 
 function setupSettingsToggles() {
+  const root = document.documentElement
   const toggles = document.querySelectorAll<HTMLButtonElement>(".fx-toggle")
+
+  const STORAGE_KEY = "continuum-fx-settings"
 
   const isOn = (btn: HTMLElement) => btn.getAttribute("data-state") === "on"
   const setOn = (btn: HTMLElement, on: boolean) =>
@@ -91,11 +94,43 @@ function setupSettingsToggles() {
       ),
     )
 
+  const settingToRootAttr: Record<string, string> = {
+    disableRays: "data-no-rays",
+    disableMovement: "data-no-ray-movement",
+    disableFlickering: "data-no-flicker",
+    disableParallax: "data-no-ray-parallax",
+    disableBackgroundParallax: "data-no-bg-parallax",
+  }
+
+  const saveSettings = () => {
+    const state: Record<string, boolean> = {}
+    toggles.forEach((btn) => {
+      const key = btn.getAttribute("data-setting")
+      if (!key) return
+      state[key] = isOn(btn)
+    })
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state))
+  }
+
+  const applyRootFlags = () => {
+    toggles.forEach((btn) => {
+      const key = btn.getAttribute("data-setting")
+      if (!key) return
+
+      const attr = settingToRootAttr[key]
+      if (!attr) return
+
+      if (isOn(btn)) root.setAttribute(attr, "1")
+      else root.removeAttribute(attr)
+    })
+  }
+
   const syncLocksFromParent = (parentSetting: string) => {
     const parent = document.querySelector<HTMLButtonElement>(
       `.fx-toggle[data-setting="${parentSetting}"]`,
     )
     if (!parent) return
+
     const children = getChildren(parentSetting)
 
     if (isOn(parent)) {
@@ -108,7 +143,23 @@ function setupSettingsToggles() {
     }
   }
 
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY)
+    if (raw) {
+      const saved = JSON.parse(raw) as Record<string, boolean>
+      toggles.forEach((btn) => {
+        const key = btn.getAttribute("data-setting")
+        if (!key) return
+        if (key in saved) setOn(btn, !!saved[key])
+      })
+    }
+  } catch {
+  }
+
   syncLocksFromParent("disableRays")
+
+  applyRootFlags()
+  saveSettings()
 
   toggles.forEach((btn) => {
     if ((btn as any)._settingsInit === true) return
@@ -126,6 +177,9 @@ function setupSettingsToggles() {
       if (btn.getAttribute("data-setting") === "disableRays") {
         syncLocksFromParent("disableRays")
       }
+
+      applyRootFlags()
+      saveSettings()
     })
   })
 }

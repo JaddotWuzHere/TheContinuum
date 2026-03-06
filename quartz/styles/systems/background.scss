@@ -188,12 +188,12 @@ html[data-settings-open="1"] #parallax-root {
 
   background-position:
     left top,
-    left calc(var(--y-fast) * 0.35 - 12vh),
-    left calc(var(--y-med)  * 0.12 + 34vh),
-    left calc(var(--y-slow) * 0.26 -  4vh),
-    left calc(var(--y-fast) * 0.05 + 22vh),
-    left calc(var(--y-med)  * 0.18 - 16vh),
-    left calc(var(--y-slow) * 0.31 +  6vh);
+    left calc(var(--y-fast) * 0.35 - 12vh + var(--offR1, 0vh)),
+    left calc(var(--y-med)  * 0.12 + 34vh + var(--offR2, 0vh)),
+    left calc(var(--y-slow) * 0.26 -  4vh + var(--offR3, 0vh)),
+    left calc(var(--y-fast) * 0.05 + 22vh + var(--offR4, 0vh)),
+    left calc(var(--y-med)  * 0.18 - 16vh + var(--offR5, 0vh)),
+    left calc(var(--y-slow) * 0.31 +  6vh + var(--offR6, 0vh));
 
   background-size:
     130% 130%,

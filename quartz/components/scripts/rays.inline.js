@@ -86,16 +86,18 @@
 
     const shouldParallax = () => !root.hasAttribute("data-no-ray-parallax");
     const shouldFlicker = () => !root.hasAttribute("data-no-flicker");
+    const shouldMove = () => !root.hasAttribute("data-no-ray-movement");
     const shouldDraw = () => {
       if (root.hasAttribute("data-no-rays")) return false;
       return shouldParallax() || shouldFlicker();
     };
 
     const tick = () => {
-    if (!running) return;
+      if (!running) return;
 
       const parallaxOn = shouldParallax();
       const flickerOn = shouldFlicker();
+      const movementOn = shouldMove();
 
       let y = 0;
       if (parallaxOn) {
@@ -181,9 +183,14 @@
         aSmooth[i] = lambda * aSmooth[i] + (1 - lambda) * aTarget;
         el.style.setProperty(`--aR${i + 1}`, aSmooth[i].toFixed(3));
 
-        const u = saw01(tw / T_OFF[i] + PHI_OFF[i] / (2 * Math.PI));
-        const eased = Math.pow(easeInOutSine01(u), GAMMA);
-        const off = MIN_VH[i] + (MAX_VH[i] - MIN_VH[i]) * eased;
+        let off = 0;
+
+        if (movementOn) {
+          const u = saw01(tw / T_OFF[i] + PHI_OFF[i] / (2 * Math.PI));
+          const eased = Math.pow(easeInOutSine01(u), GAMMA);
+          off = MIN_VH[i] + (MAX_VH[i] - MIN_VH[i]) * eased;
+        }
+
         el.style.setProperty(`--offR${i + 1}`, `${off.toFixed(2)}vh`);
       }
 
@@ -223,7 +230,12 @@
       }
     }).observe(root, {
       attributes: true,
-      attributeFilter: ["data-no-rays", "data-no-ray-parallax", "data-no-flicker"],
+      attributeFilter: [
+        "data-no-rays",
+        "data-no-ray-parallax",
+        "data-no-flicker",
+        "data-no-ray-movement",
+      ],
     });
   });
 })();

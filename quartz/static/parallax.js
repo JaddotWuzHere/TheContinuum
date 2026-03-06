@@ -42,7 +42,7 @@
     return Math.min(Math.max(speed, -MAX_SPEED), MAX_SPEED);
   }
 
-  function applyFrame(y) {
+  function applyFrame(y, force = false) {
     if (!Number.isFinite(y)) return;
 
     html.style.setProperty("--scrollY", `${y}px`);
