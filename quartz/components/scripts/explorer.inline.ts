@@ -176,6 +176,9 @@ function toggleFolder(evt: MouseEvent) {
   folderOuter.classList.toggle("open")
   const isOpen = folderOuter.classList.contains("open")
 
+  folderContainer.dataset.open = isOpen ? "true" : "false"
+  folderContainer.setAttribute("aria-expanded", isOpen ? "true" : "false")
+
   const folderPath = folderContainer.dataset.folderpath as FullSlug | undefined
   if (folderPath) {
     const currentFolderState = currentExplorerState.find((item) => item.path === folderPath)
@@ -255,6 +258,8 @@ function createFolderNode(
   if (!isCollapsed || folderIsPrefixOfCurrentSlug) {
     folderOuter.classList.add("open")
   }
+
+  folderContainer.dataset.open = (!isCollapsed || folderIsPrefixOfCurrentSlug) ? "true" : "false"
 
   for (const child of node.children) {
     const childNode = child.isFolder
@@ -344,10 +349,16 @@ async function setupExplorer(currentSlug: FullSlug) {
     const scrollTop = sessionStorage.getItem("explorerScrollTop")
     if (scrollTop) {
       explorerUl.scrollTop = parseInt(scrollTop)
+      explorerUl.scrollLeft = 0
     } else {
       const activeElement = explorerUl.querySelector(".active") as HTMLElement | null
       if (activeElement) {
-        activeElement.scrollIntoView({ behavior: "smooth" })
+        const targetTop = Math.max(0, activeElement.offsetTop - explorerUl.clientHeight * 0.25)
+        explorerUl.scrollTo({
+          top: targetTop,
+          behavior: "smooth",
+        })
+        explorerUl.scrollLeft = 0
       }
     }
 

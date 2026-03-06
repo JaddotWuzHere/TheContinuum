@@ -473,12 +473,12 @@ html[data-explorer-open="1"] .explorer { transform: translateX(0); }
 
 .explorer .folder-icon * { pointer-events: none; }
 
-.explorer li:has(> .folder-container + .folder-outer:not(.open)) .folder-icon {
+.explorer .folder-container[data-open="false"] .folder-icon {
   --_rot: -90deg;
   filter: brightness(0.9);
 }
 
-.explorer li:has(> .folder-container + .folder-outer.open) .folder-icon {
+.explorer .folder-container[data-open="true"] .folder-icon {
   --_rot: 0deg;
   filter: brightness(1.1);
 }
