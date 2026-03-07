@@ -1,80 +1,458 @@
 @use "../../styles/variables.scss" as *;
 
-@keyframes dropin {
-  0% {
+@keyframes popover-fade {
+  from {
     opacity: 0;
     visibility: hidden;
+    transform: translateY(6px) scale(0.985);
   }
-  1% {
-    opacity: 0;
-  }
-  100% {
+
+  to {
     opacity: 1;
     visibility: visible;
+    transform: translateY(0) scale(1);
   }
 }
 
 .popover {
   z-index: 999;
   position: fixed;
-  overflow: visible;
-  padding: 1rem;
   left: 0;
   top: 0;
-  will-change: transform;
+  padding: 1rem;
+  overflow: visible;
+  will-change: left, top, opacity, transform;
+
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(6px) scale(0.985);
+
+  transition:
+    opacity 0.18s ease,
+    visibility 0.18s ease,
+    transform 0.18s ease;
 
   & > .popover-inner {
     position: relative;
-    width: 30rem;
-    max-height: 20rem;
-    padding: 0 1rem 1rem 1rem;
-    font-weight: initial;
-    font-style: initial;
-    line-height: normal;
-    font-size: initial;
-    font-family: var(--bodyFont);
-    border: 1px solid var(--lightgray);
-    background-color: var(--light);
-    border-radius: 5px;
-    box-shadow: 6px 6px 36px 0 rgba(0, 0, 0, 0.25);
+    width: min(37rem, calc(100vw - 3rem));
+    max-height: min(38rem, calc(100vh - 4rem));
+    padding: 1.15rem 1.35rem 1.25rem;
+
     overflow: auto;
     overscroll-behavior: contain;
-    white-space: normal;
-    user-select: none;
-    cursor: default;
+
+    color: var(--darkgray);
+    font-family: var(--bodyFont), "EB Garamond", serif;
+    font-size: 1rem;
+    line-height: 1.6;
+    line-height: 1.58;
+
+    &,
+    & * {
+      font-family: inherit;
+    }
+
+    text-rendering: optimizeLegibility;
+    font-kerning: normal;
+
+    background:
+      radial-gradient(
+        circle at top center,
+        hsl(var(--gold-h) 72% 62% / 0.08) 0%,
+        transparent 38%
+      ),
+      linear-gradient(
+        180deg,
+        rgba(13, 13, 12, 0.94) 0%,
+        rgba(8, 8, 8, 0.975) 58%,
+        rgba(12, 11, 10, 0.96) 100%
+      );
+
+    backdrop-filter: blur(14px) saturate(1.05);
+    -webkit-backdrop-filter: blur(14px) saturate(1.05);
+
+    border: 1px solid hsl(var(--gold-h) 42% 46% / 0.34);
+    border-radius: 14px;
+
+    box-shadow:
+      0 24px 60px rgba(0, 0, 0, 0.58),
+      0 0 0 1px rgba(255, 233, 170, 0.05) inset,
+      0 0 28px hsl(var(--gold-h) 72% 60% / 0.08);
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 1rem;
+      right: 1rem;
+      top: 0.72rem;
+      height: 1px;
+      border-radius: 999px;
+      background: linear-gradient(
+        90deg,
+        transparent 0%,
+        hsl(var(--gold-h) 62% 58% / 0.18) 14%,
+        hsl(var(--gold-h) 92% 78% / 0.72) 50%,
+        hsl(var(--gold-h) 62% 58% / 0.18) 86%,
+        transparent 100%
+      );
+      pointer-events: none;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      pointer-events: none;
+      box-shadow:
+        inset 0 1px 0 rgba(255, 236, 186, 0.06),
+        inset 0 -1px 0 rgba(212, 176, 94, 0.05);
+    }
+
+    p,
+    ul,
+    text,
+    a,
+    tr,
+    td,
+    li,
+    ol,
+    .katex,
+    .math,
+    .typst-doc,
+    .typst-doc * {
+      color: var(--darkgray);
+      fill: var(--darkgray);
+      overflow-wrap: break-word;
+      text-wrap: pretty;
+    }
+
+    p {
+      margin-top: 0;
+      margin-bottom: 0.9rem;
+    }
+
+    strong {
+      font-weight: $semiBoldWeight;
+    }
+
+    p > strong {
+      color: var(--dark);
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    thead {
+      color: var(--dark);
+      font-family: var(--headerFont);
+      font-weight: $semiBoldWeight;
+      line-height: 1.16;
+      letter-spacing: -0.01em;
+      margin-bottom: 0;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      &[id] > a[href^="#"] {
+        margin-left: 0.45rem;
+        opacity: 0;
+        transition: opacity 0.18s ease;
+        transform: translateY(-0.05rem);
+        font-family: var(--codeFont);
+        user-select: none;
+      }
+
+      &[id]:hover > a {
+        opacity: 1;
+      }
+
+      &:not([id]) > a[role="anchor"] {
+        display: none;
+      }
+    }
+
+    h1 {
+      font-size: 1.62rem;
+      margin-top: 0.15rem;
+      margin-bottom: 0.95rem;
+    }
+
+    h2 {
+      font-size: 1.25rem;
+      margin-top: 1.7rem;
+      margin-bottom: 0.8rem;
+      padding-bottom: 0.38rem;
+      border-bottom: 1px solid hsl(var(--gold-h) 42% 46% / 0.18);
+    }
+
+    h3 {
+      font-size: 1.06rem;
+      margin-top: 1.45rem;
+      margin-bottom: 0.72rem;
+    }
+
+    h4,
+    h5,
+    h6 {
+      font-size: 0.98rem;
+      margin-top: 1.25rem;
+      margin-bottom: 0.65rem;
+    }
+
+    ul,
+    ol {
+      padding-left: 1.35rem;
+      margin-bottom: 0.95rem;
+    }
+
+    li {
+      margin-bottom: 0.3rem;
+    }
+
+    li > * {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    blockquote {
+      margin: 1rem 0;
+      padding: 0.12rem 0 0.12rem 1rem;
+      border-left: 2px solid hsl(var(--gold-h) 54% 56% / 0.44);
+      background: linear-gradient(
+        90deg,
+        hsl(var(--gold-h) 52% 54% / 0.06),
+        transparent 72%
+      );
+    }
+
+    a {
+      font-weight: $semiBoldWeight;
+      text-decoration: none;
+      transition:
+        color 0.28s ease,
+        text-shadow 0.28s ease,
+        background-position 0.55s ease,
+        border-color 0.28s ease;
+      color: hsl(var(--gold-h) 58% 62%);
+
+      &:hover {
+        color: hsl(var(--gold-h) 82% 78%);
+      }
+
+      &.internal {
+        position: relative;
+        display: inline;
+        padding: 0;
+        border-radius: 0;
+        line-height: 1.35rem;
+
+        background: linear-gradient(
+          100deg,
+          hsl(var(--gold-h) 40% 50%) 0%,
+          hsl(var(--gold-h) 56% 60%) 38%,
+          hsl(var(--gold-h) 78% 74%) 50%,
+          hsl(var(--gold-h) 56% 60%) 62%,
+          hsl(var(--gold-h) 38% 48%) 100%
+        );
+        background-size: 220% 100%;
+        background-position: 100% 0;
+
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        color: transparent;
+
+        text-shadow: 0 0 0.35rem hsl(var(--gold-h) 60% 64% / 0.08);
+
+        &::after {
+          content: "";
+          position: absolute;
+          left: 0;
+          bottom: -0.08em;
+          width: 100%;
+          height: 1px;
+          transform: scaleX(0);
+          transform-origin: left;
+          transition:
+            transform 0.32s ease,
+            opacity 0.32s ease,
+            box-shadow 0.32s ease;
+          opacity: 0.7;
+          background: linear-gradient(
+            90deg,
+            hsl(var(--gold-h) 42% 52% / 0.15) 0%,
+            hsl(var(--gold-h) 78% 74% / 0.95) 50%,
+            hsl(var(--gold-h) 42% 52% / 0.15) 100%
+          );
+          box-shadow: 0 0 8px hsl(var(--gold-h) 78% 74% / 0.16);
+        }
+
+        &:hover {
+          background-image: linear-gradient(
+            100deg,
+            hsl(var(--gold-h) 58% 60%) 0%,
+            hsl(var(--gold-h) 82% 72%) 38%,
+            hsl(var(--gold-h) 100% 86%) 50%,
+            hsl(var(--gold-h) 82% 72%) 62%,
+            hsl(var(--gold-h) 56% 58%) 100%
+          );
+          background-position: 0% 0;
+
+          -webkit-background-clip: text;
+          background-clip: text;
+          -webkit-text-fill-color: transparent;
+          color: transparent;
+
+          text-shadow: 0 0 0.35rem hsl(var(--gold-h) 88% 80% / 0.12);
+
+          &::after {
+            transform: scaleX(1);
+            opacity: 1;
+          }
+        }
+
+        &.broken {
+          color: hsl(var(--gold-h) 20% 52% / 0.55);
+          background: none;
+          -webkit-background-clip: initial;
+          background-clip: initial;
+          -webkit-text-fill-color: currentColor;
+          text-shadow: none;
+          opacity: 0.72;
+
+          &:hover {
+            opacity: 0.92;
+          }
+
+          &::after {
+            background: hsl(var(--gold-h) 12% 44% / 0.4);
+            box-shadow: none;
+          }
+        }
+
+        &:has(> img) {
+          background: transparent;
+          color: inherit;
+          -webkit-text-fill-color: initial;
+          text-shadow: none;
+
+          &::after {
+            display: none;
+          }
+        }
+
+        &.tag-link {
+          &::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            pointer-events: none;
+
+            background:
+              radial-gradient(
+                circle at 50% -28%,
+                rgba(255, 224, 150, 0.12),
+                transparent 52%
+              ),
+              radial-gradient(
+                circle at 50% 128%,
+                rgba(212, 176, 94, 0.08),
+                transparent 50%
+              );
+
+            box-shadow:
+              inset 0 1px 0 rgba(255, 236, 186, 0.08),
+              inset 0 0 0 1px rgba(212, 176, 94, 0.14);
+
+            pointer-events: none;
+          }
+        }
+      }
+
+      &.external .external-icon {
+        transition: transform 0.2s ease;
+      }
+
+      &:hover .external-icon {
+        transform: translateX(1px) translateY(-1px);
+      }
+    }
+
+    hr {
+      border: none;
+      height: 1px;
+      margin: 1rem 0;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        hsl(var(--gold-h) 48% 56% / 0.42),
+        transparent
+      );
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+      border-radius: 10px;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
+    }
+
+    &::-webkit-scrollbar {
+      width: 10px;
+      height: 10px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.025);
+      border-radius: 999px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      border-radius: 999px;
+      border: 2px solid transparent;
+      background-clip: padding-box;
+      background: linear-gradient(
+        180deg,
+        hsl(var(--gold-h) 26% 30% / 0.95),
+        hsl(var(--gold-h) 42% 48% / 0.95)
+      );
+      box-shadow: 0 0 8px hsl(var(--gold-h) 70% 68% / 0.08);
+    }
+
+    scrollbar-width: thin;
+    scrollbar-color:
+      hsl(var(--gold-h) 40% 50% / 0.85)
+      rgba(255, 255, 255, 0.04);
   }
 
   & > .popover-inner[data-content-type] {
-    &[data-content-type*="pdf"],
     &[data-content-type*="image"] {
       padding: 0;
-      max-height: 100%;
-    }
 
-    &[data-content-type*="image"] {
       img {
-        margin: 0;
-        border-radius: 0;
-        display: block;
+        border-radius: 14px;
       }
     }
 
     &[data-content-type*="pdf"] {
+      padding: 0;
+
       iframe {
         width: 100%;
+        border: 0;
+        border-radius: 14px;
       }
     }
   }
-
-  h1 {
-    font-size: 1.5rem;
-  }
-
-  visibility: hidden;
-  opacity: 0;
-  transition:
-    opacity 0.3s ease,
-    visibility 0.3s ease;
 
   @media all and ($mobile) {
     display: none !important;
@@ -83,7 +461,5 @@
 
 .active-popover,
 .popover:hover {
-  animation: dropin 0.3s ease;
-  animation-fill-mode: forwards;
-  animation-delay: 0.2s;
+  animation: popover-fade 0.18s ease forwards;
 }

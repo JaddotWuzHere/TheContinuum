@@ -14,59 +14,96 @@
 
 .callout[data-callout="epigraph"] {
   position: relative;
-  padding-left: 1em !important;
-  margin: 1em 0 !important;
+  margin: 1.15em 0 !important;
+  padding: 0.9em 1.1em 0.9em 1.25em !important;
   color: var(--ink);
+  border-radius: 10px;
+  overflow: hidden;
+
+  background:
+    linear-gradient(
+      90deg,
+      hsl(var(--gold-h) var(--gold-s) 22% / 0.14) 0%,
+      hsl(var(--gold-h) var(--gold-s) 14% / 0.08) 28%,
+      transparent 100%
+    );
+
+  border: 1px solid hsl(var(--gold-h) var(--gold-s) 40% / 0.18) !important;
+
+  box-shadow:
+    inset 0 1px 0 hsl(var(--gold-h) var(--gold-s) 68% / 0.06),
+    inset 0 -1px 0 hsl(var(--gold-h) var(--gold-s) 20% / 0.10),
+    0 0 18px hsl(var(--gold-h) var(--gold-s) 45% / 0.08) !important;
 }
 
 .callout[data-callout="epigraph"]::before {
   content: "";
   position: absolute;
-  left: 0;
-  top: 4px;
-  bottom: 4px;
-  width: 4px;
+  left: 0.7em;
+  top: 0.7em;
+  bottom: 0.7em;
+  width: 2px;
   border-radius: 999px;
   pointer-events: none;
+
   background: linear-gradient(
     to bottom,
-    hsl(var(--gold-h) var(--gold-s) 62% / var(--gold-strong)) 0%,
-    hsl(var(--gold-h) var(--gold-s) 46% / var(--gold-mid)) 55%,
-    hsl(var(--gold-h) var(--gold-s) 32% / var(--gold-soft)) 100%
+    transparent 0%,
+    hsl(var(--gold-h) var(--gold-s) 72% / 0.85) 18%,
+    hsl(var(--gold-h) var(--gold-s) 52% / 0.75) 50%,
+    hsl(var(--gold-h) var(--gold-s) 36% / 0.45) 82%,
+    transparent 100%
   );
+
+  box-shadow:
+    0 0 8px hsl(var(--gold-h) var(--gold-s) 60% / 0.22),
+    0 0 2px hsl(var(--gold-h) var(--gold-s) 70% / 0.3);
 }
 
-.callout[data-callout="epigraph"] .callout-content { background: transparent !important; }
-.callout[data-callout="epigraph"] .callout-content > p { margin: 0 !important; }
-.callout[data-callout="epigraph"] .callout-content > p + p { margin-top: .35em !important; }
+
+
+.callout[data-callout="epigraph"] .callout-content {
+  background: transparent !important;
+}
+
+.callout[data-callout="epigraph"] .callout-content > p {
+  margin: 0 !important;
+}
+
+.callout[data-callout="epigraph"] .callout-content > p + p {
+  margin-top: 0.42em !important;
+}
 
 .callout[data-callout="epigraph"] .callout-content > p:first-child {
+  padding-left: 0.15em;
   font-style: normal !important;
-  line-height: 1.05 !important;
-  color: hsl(var(--gold-h) var(--gold-s) 46% / .92) !important;
+  line-height: 1.15 !important;
+  color: hsl(var(--gold-h) var(--gold-s) 46% / 0.92) !important;
   font-family: "EBGaramond", "STXINGKA", serif;
   font-size: 1.12em;
-  letter-spacing: .01em;
+  letter-spacing: 0.01em;
   font-weight: 500;
+  text-shadow: 0 0 10px hsl(var(--gold-h) var(--gold-s) 45% / 0.08);
 }
 
 .callout[data-callout="epigraph"] .callout-content > p:last-child {
   font-style: italic !important;
-  line-height: 1 !important;
+  line-height: 1.05 !important;
   text-align: right !important;
-  color: hsl(var(--gold-h) var(--gold-s) 34% / .78) !important;
+  color: hsl(var(--gold-h) var(--gold-s) 34% / 0.76) !important;
   font-family: "EBGaramond", "STXINGKA", serif;
-  font-size: 1.2em;
-  letter-spacing: .02em;
+  font-size: 1.08em;
+  letter-spacing: 0.02em;
+  opacity: 0.92;
 }
 
 @supports (-webkit-background-clip: text) or (background-clip: text) {
   .callout[data-callout="epigraph"] .callout-content > p:first-child {
     background-image: linear-gradient(
       90deg,
-      hsl(var(--gold-h) var(--gold-s) 44% / .95) 0%,
-      hsl(calc(var(--gold-h) + 6) var(--gold-s) 58% / .95) 50%,
-      hsl(var(--gold-h) var(--gold-s) 44% / .95) 100%
+      hsl(var(--gold-h) var(--gold-s) 42% / 0.96) 0%,
+      hsl(calc(var(--gold-h) + 5) var(--gold-s) 62% / 0.98) 48%,
+      hsl(var(--gold-h) var(--gold-s) 43% / 0.94) 100%
     );
     -webkit-background-clip: text;
     background-clip: text;
@@ -77,9 +114,9 @@
   .callout[data-callout="epigraph"] .callout-content > p:last-child {
     background-image: linear-gradient(
       90deg,
-      hsl(var(--gold-h) var(--gold-s) 36% / .85) 0%,
-      hsl(calc(var(--gold-h) + 8) var(--gold-s) 50% / .75) 50%,
-      hsl(var(--gold-h) var(--gold-s) 36% / .85) 100%
+      hsl(var(--gold-h) var(--gold-s) 33% / 0.82) 0%,
+      hsl(calc(var(--gold-h) + 6) var(--gold-s) 48% / 0.78) 50%,
+      hsl(var(--gold-h) var(--gold-s) 33% / 0.82) 100%
     );
     -webkit-background-clip: text;
     background-clip: text;

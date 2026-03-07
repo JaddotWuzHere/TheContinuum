@@ -1,11 +1,12 @@
 .page article blockquote {
   position: relative;
   padding-left: 1em;
-  border-radius: 4px;
+  border-radius: 0;
   display: block;
   line-height: 1.3;
-  border-left: none !important;
-  background: none !important;
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
 }
 
 .page article blockquote::before {
@@ -14,15 +15,20 @@
   left: 0;
   top: 4px;
   bottom: 4px;
-  width: 4px;
+  width: 2px;
   border-radius: 999px;
   pointer-events: none;
   background: linear-gradient(
     to bottom,
-    hsl(var(--gold-h) var(--gold-s) 62% / var(--gold-strong)) 0%,
-    hsl(var(--gold-h) var(--gold-s) 46% / var(--gold-mid)) 55%,
-    hsl(var(--gold-h) var(--gold-s) 32% / var(--gold-soft)) 100%
+    transparent 0%,
+    hsl(210 10% 82% / 0.9) 18%,
+    hsl(210 7% 62% / 0.82) 50%,
+    hsl(210 6% 40% / 0.45) 82%,
+    transparent 100%
   );
+  box-shadow:
+    0 0 8px hsl(210 10% 80% / 0.16),
+    0 0 2px hsl(210 10% 90% / 0.18);
 }
 
 .page article > *:first-child { margin-top: 0; }
@@ -33,26 +39,3 @@
 .page article :is(h1, h2, h3, h4, h5, h6) { margin-bottom: .2rem !important; }
 .page article :is(h1, h2, h3, h4, h5, h6) + :is(p, blockquote) { margin-top: .1rem !important; }
 .page article :is(h1, h2, h3, h4, h5, h6) + hr { margin-top: .2rem !important; }
-
-hr {
-  width: 100%;
-  margin: 1.6rem auto 2rem;
-  height: 4px;
-  border: none;
-  border-radius: 999px;
-  background: linear-gradient(
-    90deg,
-    hsl(calc(var(--gold-h) - 20) var(--gold-s) 34% / 0) 0%,
-    hsl(calc(var(--gold-h) - 12) var(--gold-s) 44% / .35) 8%,
-    hsl(calc(var(--gold-h) -  6) var(--gold-s) 56% / .60) 18%,
-    hsl(var(--gold-h) var(--gold-s) 70% / .85) 32%,
-    hsl(var(--gold-h) var(--gold-s) 87%) 50%,
-    hsl(var(--gold-h) var(--gold-s) 70% / .85) 68%,
-    hsl(calc(var(--gold-h) -  6) var(--gold-s) 56% / .60) 82%,
-    hsl(calc(var(--gold-h) - 12) var(--gold-s) 44% / .35) 92%,
-    hsl(calc(var(--gold-h) - 20) var(--gold-s) 34% / 0) 100%
-  );
-  filter:
-    drop-shadow(0 0 1px hsl(var(--gold-h) var(--gold-s) 75% / .55))
-    drop-shadow(0 0 4px hsl(var(--gold-h) var(--gold-s) 75% / .20));
-}
