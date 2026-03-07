@@ -66,22 +66,16 @@ main,
     transform 0.75s cubic-bezier(0.12, 0.85, 0.25, 1);
 }
 
-html[data-explorer-open="1"] .center {
+html[data-explorer-open="1"] .center,
+html[data-settings-open="1"] .center,
+html[data-search-open="1"] .center {
   filter: blur(3px) brightness(0.85);
   transform: scale(0.975);
 }
 
-html[data-explorer-open="1"] #parallax-root {
-  filter: blur(6px) brightness(0.85);
-  transform: scale(0.8);
-}
-
-html[data-settings-open="1"] .center {
-  filter: blur(3px) brightness(0.85);
-  transform: scale(0.975);
-}
-
-html[data-settings-open="1"] #parallax-root {
+html[data-explorer-open="1"] #parallax-root,
+html[data-settings-open="1"] #parallax-root,
+html[data-search-open="1"] #parallax-root {
   filter: blur(6px) brightness(0.85);
   transform: scale(0.8);
 }

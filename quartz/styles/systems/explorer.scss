@@ -115,6 +115,10 @@ html[data-explorer-open="1"] .continuum-explorer-handle {
   padding-inline: .4rem;
   padding-top: .4rem;
   padding-bottom: .35rem;
+
+  display: flex;
+  flex-direction: column;
+  gap: .7rem;
 }
 
 .explorer-title {
@@ -144,12 +148,77 @@ html[data-explorer-open="1"] .continuum-explorer-handle {
   padding-bottom: .3rem;
 }
 
-/* Keep header + content away from the peek strip on the right */
+.explorer-search-row {
+  width: 100%;
+}
+
+.explorer .explorer-search-row .search {
+  min-width: 0;
+  max-width: none;
+  width: 100%;
+}
+
+.explorer .explorer-search-row .search-button {
+  width: 100%;
+  height: 2.25rem;
+  border-radius: 0.7rem;
+  padding: 0 0.8rem 0 0.55rem;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.035),
+      rgba(255, 255, 255, 0.015)
+    ),
+    rgba(8, 10, 16, 0.72);
+
+  border: 1px solid hsl(var(--gold-h) var(--gold-s) 42% / 0.24);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.035),
+    0 8px 24px rgba(0, 0, 0, 0.22);
+
+  transition:
+    border-color 0.18s ease,
+    background 0.18s ease,
+    box-shadow 0.18s ease,
+    transform 0.18s ease;
+}
+
+.explorer .explorer-search-row .search-button:hover {
+  border-color: hsl(var(--gold-h) var(--gold-s) 58% / 0.38);
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.05),
+      rgba(255, 255, 255, 0.02)
+    ),
+    rgba(10, 12, 18, 0.82);
+}
+
+.explorer .explorer-search-row .search-button:active {
+  transform: translateY(1px);
+}
+
+.explorer .explorer-search-row .search-button p {
+  color: rgba(214, 216, 225, 0.72);
+  font-family: "EBGaramond", serif;
+  font-size: 1.05rem;
+}
+
+.explorer .explorer-search-row .search-button svg {
+  width: 17px;
+  min-width: 17px;
+  margin-right: 0.45rem;
+}
+
+.explorer .explorer-search-row .search-button .search-path {
+  stroke: hsl(var(--gold-h) var(--gold-s) 72% / 0.9);
+}
+
 .explorer-header,
 .explorer .explorer-content {
   max-width: calc(100% - var(--explorer-peek) - 24px);
 }
-
 
 /* ---- Drawer ---- */
 

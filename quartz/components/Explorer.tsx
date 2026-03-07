@@ -1,13 +1,18 @@
 import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } from "./types"
 import style from "./styles/explorer.scss"
+import searchStyle from "./styles/search.scss"
 import { localeFromSlug } from "../util/locale"
 
 // @ts-ignore
 import script from "./scripts/explorer.inline"
+// @ts-ignore
+import searchScript from "./scripts/search.inline"
+
 import { classNames } from "../util/lang"
 import { i18n } from "../i18n"
 import { FileTrieNode } from "../util/fileTrie"
 import OverflowListFactory from "./OverflowList"
+import SearchFactory from "./Search"
 import { concatenateResources } from "../util/resources"
 
 type OrderEntries = "sort" | "filter" | "map"
@@ -65,9 +70,10 @@ let numExplorers = 0
 export default ((userOpts?: Partial<Options>) => {
   const opts: Options = { ...defaultOptions, ...userOpts }
   const { OverflowList, overflowListAfterDOMLoaded } = OverflowListFactory()
+  const SidebarSearch = SearchFactory()
 
   const Explorer: QuartzComponent = (props: QuartzComponentProps) => {
-    const { cfg, displayClass, fileData } = props
+    const { displayClass, fileData } = props
     const id = `explorer-${numExplorers++}`
 
     const lang = localeFromSlug(fileData?.slug ?? "/en/")
@@ -91,17 +97,18 @@ export default ((userOpts?: Partial<Options>) => {
           mapFn: opts.mapFn.toString(),
         })}
       >
-        {/* -------- Explorer Title Header -------- */}
         <div class="explorer-header">
           <h2 class="explorer-title">Explorer</h2>
+
+          <div class="explorer-search-row">
+            <SidebarSearch {...props} />
+          </div>
         </div>
 
-        {/* -------- Folder Tree Content -------- */}
         <div id={id} class="explorer-content" aria-expanded={false} role="group">
           <OverflowList class="explorer-ul" />
         </div>
 
-        {/* -------- Templates -------- */}
         <template id="template-file">
           <li>
             <a href="#"></a>
@@ -140,7 +147,12 @@ export default ((userOpts?: Partial<Options>) => {
     )
   }
 
-  Explorer.css = style
-  Explorer.afterDOMLoaded = concatenateResources(script, overflowListAfterDOMLoaded)
+  Explorer.css = concatenateResources(style, searchStyle)
+  Explorer.afterDOMLoaded = concatenateResources(
+    script,
+    searchScript,
+    overflowListAfterDOMLoaded,
+  )
+
   return Explorer
 }) satisfies QuartzComponentConstructor

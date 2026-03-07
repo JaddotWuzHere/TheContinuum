@@ -25,6 +25,23 @@ body {
   border-radius: 5px;
 }
 
+html[data-search-open="1"],
+html[data-explorer-open="1"],
+html[data-settings-open="1"] {
+  overflow: hidden;
+  height: 100vh;
+  overscroll-behavior: none;
+}
+
+html[data-search-open="1"] body,
+html[data-explorer-open="1"] body,
+html[data-settings-open="1"] body {
+  overflow: hidden;
+  height: 100vh;
+  overscroll-behavior: none;
+  touch-action: none;
+}
+
 p,
 ul,
 text,
