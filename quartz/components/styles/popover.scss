@@ -42,16 +42,9 @@
     overscroll-behavior: contain;
 
     color: var(--darkgray);
-    font-family: var(--bodyFont), "EB Garamond", serif;
+    font-family: var(--bodyFont);
     font-size: 1rem;
-    line-height: 1.6;
     line-height: 1.58;
-
-    &,
-    & * {
-      font-family: inherit;
-    }
-
     text-rendering: optimizeLegibility;
     font-kerning: normal;
 
@@ -78,6 +71,16 @@
       0 24px 60px rgba(0, 0, 0, 0.58),
       0 0 0 1px rgba(255, 233, 170, 0.05) inset,
       0 0 28px hsl(var(--gold-h) 72% 60% / 0.08);
+
+    scrollbar-width: thin;
+    scrollbar-color:
+      hsl(var(--gold-h) 40% 50% / 0.85)
+      rgba(255, 255, 255, 0.04);
+
+    &,
+    & * {
+      font-family: inherit;
+    }
 
     &::before {
       content: "";
@@ -356,7 +359,6 @@
             inset: 0;
             border-radius: inherit;
             pointer-events: none;
-
             background:
               radial-gradient(
                 circle at 50% -28%,
@@ -368,11 +370,9 @@
                 rgba(212, 176, 94, 0.08),
                 transparent 50%
               );
-
             box-shadow:
               inset 0 1px 0 rgba(255, 236, 186, 0.08),
               inset 0 0 0 1px rgba(212, 176, 94, 0.14);
-
             pointer-events: none;
           }
         }
@@ -427,11 +427,6 @@
       );
       box-shadow: 0 0 8px hsl(var(--gold-h) 70% 68% / 0.08);
     }
-
-    scrollbar-width: thin;
-    scrollbar-color:
-      hsl(var(--gold-h) 40% 50% / 0.85)
-      rgba(255, 255, 255, 0.04);
   }
 
   & > .popover-inner[data-content-type] {
@@ -462,4 +457,13 @@
 .active-popover,
 .popover:hover {
   animation: popover-fade 0.18s ease forwards;
+}
+
+.popover .breadcrumb-container {
+  margin-bottom: 0.9rem;
+}
+
+.popover .breadcrumb-container + h1,
+.popover .breadcrumb-container + h2 {
+  margin-top: 0.6rem;
 }
