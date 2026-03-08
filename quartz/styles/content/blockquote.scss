@@ -36,6 +36,10 @@
 .page article blockquote > *:last-child  { margin-bottom: 0 !important; }
 .page article blockquote > p { margin: 0 !important; }
 
-.page article :is(h1, h2, h3, h4, h5, h6) { margin-bottom: .2rem !important; }
-.page article :is(h1, h2, h3, h4, h5, h6) + :is(p, blockquote) { margin-top: .1rem !important; }
-.page article :is(h1, h2, h3, h4, h5, h6) + hr { margin-top: .2rem !important; }
+.page article :is(h1, h2, h3, h4, h5, h6) + :is(p, blockquote) {
+  margin-top: 0.2rem !important;
+}
+
+.page article :is(h1, h2, h3, h4, h5, h6) + hr {
+  margin-top: 0.9rem !important;
+}

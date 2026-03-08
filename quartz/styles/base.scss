@@ -519,30 +519,66 @@ h6 {
 }
 
 // typography improvements
-h1 {
-  font-size: 1.75rem;
-  margin-top: 2.25rem;
-  margin-bottom: 1rem;
-}
-
-h2 {
-  font-size: 1.4rem;
-  margin-top: 1.9rem;
-  margin-bottom: 1rem;
-}
-
-h3 {
-  font-size: 1.12rem;
-  margin-top: 1.62rem;
-  margin-bottom: 1rem;
-}
-
+h1,
+h2,
+h3,
 h4,
 h5,
 h6 {
+  line-height: 1.15;
+  letter-spacing: 0.01em;
+  position: relative;
+}
+
+h1 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-top: 2.8rem;
+  margin-bottom: 1.25rem;
+  letter-spacing: 0.015em;
+  text-shadow: 0 0 12px hsl(var(--gold-h) var(--gold-s) 70% / 0.08);
+}
+
+h2 {
+  font-size: 1.72rem;
+  font-weight: 650;
+  margin-top: 2.35rem;
+  margin-bottom: 1.1rem;
+  letter-spacing: 0.012em;
+  text-shadow: 0 0 10px hsl(var(--gold-h) var(--gold-s) 70% / 0.05);
+}
+
+h3 {
+  font-size: 1.34rem;
+  font-weight: 620;
+  margin-top: 2rem;
+  margin-bottom: 0.95rem;
+  letter-spacing: 0.01em;
+}
+
+h4 {
+  font-size: 1.12rem;
+  font-weight: 600;
+  margin-top: 1.7rem;
+  margin-bottom: 0.8rem;
+}
+
+h5 {
   font-size: 1rem;
-  margin-top: 1.5rem;
-  margin-bottom: 1rem;
+  font-weight: 600;
+  margin-top: 1.45rem;
+  margin-bottom: 0.72rem;
+  opacity: 0.96;
+}
+
+h6 {
+  font-size: 0.92rem;
+  font-weight: 600;
+  margin-top: 1.25rem;
+  margin-bottom: 0.65rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  opacity: 0.82;
 }
 
 figure[data-rehype-pretty-code-figure] {
@@ -807,7 +843,7 @@ iframe.pdf {
 
 hr {
   width: 100%;
-  margin: 1.6rem auto 2rem;
+  margin: 2.15rem auto 2.45rem;
   height: 4px;
   border: none;
   border-radius: 999px;
@@ -826,4 +862,8 @@ hr {
   filter:
     drop-shadow(0 0 1px hsl(var(--gold-h) var(--gold-s) 75% / .55))
     drop-shadow(0 0 4px hsl(var(--gold-h) var(--gold-s) 75% / .20));
+}
+
+.page article :is(h1, h2, h3, h4, h5, h6) + hr {
+  margin-top: 0.9rem;
 }
