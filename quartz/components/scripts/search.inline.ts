@@ -260,7 +260,7 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
       }
 
       container.addEventListener("transitionend", onTransitionEnd)
-      window.setTimeout(done, 300)
+      window.setTimeout(done, 250)
     })
   }
 
