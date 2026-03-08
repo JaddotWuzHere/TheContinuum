@@ -47,12 +47,8 @@ export default ((opts?: Partial<BreadcrumbOptions>) => {
       return null
     }
 
-    const crumbs: CrumbData[] = pathNodes.map((node, idx) => {
+    let crumbs: CrumbData[] = pathNodes.map((node, idx) => {
       const crumb = formatCrumb(node.displayName, fileData.slug!, simplifySlug(node.slug))
-
-      if (idx === 0) {
-        crumb.displayName = options.rootName
-      }
 
       if (idx === pathNodes.length - 1) {
         crumb.path = ""
@@ -61,8 +57,14 @@ export default ((opts?: Partial<BreadcrumbOptions>) => {
       return crumb
     })
 
+    crumbs = crumbs.slice(1)
+
     if (!options.showCurrentPage) {
       crumbs.pop()
+    }
+
+    if (crumbs.length === 0) {
+      return null
     }
 
     return (

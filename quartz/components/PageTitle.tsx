@@ -5,10 +5,14 @@ import { classNames } from "../util/lang"
 const PageTitle: QuartzComponent = ({ fileData, displayClass }: QuartzComponentProps) => {
   const baseDir = pathToRoot(fileData.slug!)
 
+  const first = fileData.slug?.split("/")[0]?.toLowerCase()
+  const lang = first === "zh" ? "zh" : first === "fr" ? "fr" : "en"
+  const homeHref = `${baseDir}/${lang}/`
+
   return (
     <h2 class={classNames(displayClass, "page-title")}>
       <div class="page-title-visual">
-        <a href={baseDir} class="page-title-link" aria-label="The Continuum home">
+        <a href={homeHref} class="page-title-link" aria-label="The Continuum home">
           <span class="page-title-logo-frame">
             <img src={`${baseDir}/static/text.png`} alt="The Continuum" class="page-title-logo" />
           </span>
@@ -58,6 +62,46 @@ PageTitle.css = `
   height: auto;
   margin: 0;
   border-radius: 0;
+}
+
+body[data-slug="404"] .page-title {
+  display: flex;
+  justify-content: center;
+}
+
+body[data-slug="404"] .page-title-logo-frame {
+  transform: none;
+}
+
+body[data-slug="404"] .page-footer {
+  display: flex;
+  justify-content: center;
+}
+
+body[data-slug="404"] .page-footer .page-title {
+  width: auto;
+  text-align: center;
+}
+
+body[data-slug="404"] .page-footer .page-title-visual {
+  display: flex;
+  justify-content: center;
+  width: auto;
+}
+
+body[data-slug="404"] .page-footer .page-title-link {
+  display: inline-flex;
+  justify-content: center;
+  width: auto;
+}
+
+body[data-slug="404"] .page-footer .page-title-logo-frame {
+  transform: none;
+  width: auto;
+}
+
+body[data-slug="404"] .page-footer .page-title-logo {
+  margin: 0 auto;
 }
 `
 

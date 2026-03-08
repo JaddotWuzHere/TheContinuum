@@ -867,3 +867,36 @@ hr {
 .page article :is(h1, h2, h3, h4, h5, h6) + hr {
   margin-top: 0.9rem;
 }
+
+.continuum-404-title-footer {
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+  width: 100%;
+}
+
+.continuum-404-title-footer .page-title {
+  width: auto;
+  text-align: center;
+}
+
+.continuum-404-title-footer .page-title-visual {
+  display: flex;
+  justify-content: center;
+  width: auto;
+}
+
+.continuum-404-title-footer .page-title-link {
+  display: inline-flex;
+  justify-content: center;
+  width: auto;
+}
+
+.continuum-404-title-footer .page-title-logo-frame {
+  transform: none;
+  width: auto;
+}
+
+.continuum-404-title-footer .page-title-logo {
+  margin: 0 auto;
+}
