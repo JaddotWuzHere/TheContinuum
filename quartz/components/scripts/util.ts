@@ -44,3 +44,42 @@ export async function fetchCanonical(url: URL): Promise<Response> {
   const [_, redirect] = text.match(canonicalRegex) ?? []
   return redirect ? fetch(`${new URL(redirect, url)}`) : res
 }
+
+let scrollLockDepth = 0
+let lockedScrollY = 0
+
+export function lockPageScroll() {
+  scrollLockDepth += 1
+  if (scrollLockDepth > 1) return
+
+  lockedScrollY = window.scrollY || document.documentElement.scrollTop || 0
+
+  document.documentElement.setAttribute("data-page-scroll-locked", "1")
+  document.documentElement.style.setProperty("--scroll-lock-top", `-${lockedScrollY}px`)
+}
+
+export function unlockPageScroll() {
+  if (scrollLockDepth === 0) return
+
+  scrollLockDepth -= 1
+  if (scrollLockDepth > 0) return
+
+  const html = document.documentElement
+  const body = document.body
+
+  html.removeAttribute("data-page-scroll-locked")
+  html.style.removeProperty("--scroll-lock-top")
+
+  const previousScrollBehavior = html.style.scrollBehavior
+  const previousBodyScrollBehavior = body.style.scrollBehavior
+
+  html.style.scrollBehavior = "auto"
+  body.style.scrollBehavior = "auto"
+
+  window.scrollTo(0, lockedScrollY)
+
+  requestAnimationFrame(() => {
+    html.style.scrollBehavior = previousScrollBehavior
+    body.style.scrollBehavior = previousBodyScrollBehavior
+  })
+}

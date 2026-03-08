@@ -1,6 +1,7 @@
 import { FileTrieNode } from "../../util/fileTrie"
 import { FullSlug, resolveRelative, simplifySlug } from "../../util/path"
 import { ContentDetails } from "../../plugins/emitters/contentIndex"
+import { lockPageScroll, unlockPageScroll } from "./util"
 
 type MaybeHTMLElement = HTMLElement | undefined
 
@@ -119,10 +120,12 @@ function setupExplorerDrawer() {
 
   const open = () => {
     root.setAttribute("data-explorer-open", "1")
+    lockPageScroll()
     localStorage.setItem(KEY, "open")
   }
   const close = () => {
     root.removeAttribute("data-explorer-open")
+    unlockPageScroll()
     localStorage.setItem(KEY, "closed")
   }
   const toggle = () => {

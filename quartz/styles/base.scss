@@ -25,19 +25,17 @@ body {
   border-radius: 5px;
 }
 
-html[data-search-open="1"],
-html[data-explorer-open="1"],
-html[data-settings-open="1"] {
+html[data-page-scroll-locked="1"] {
   overflow: hidden;
-  height: 100vh;
   overscroll-behavior: none;
 }
 
-html[data-search-open="1"] body,
-html[data-explorer-open="1"] body,
-html[data-settings-open="1"] body {
+html[data-page-scroll-locked="1"] body {
+  position: fixed;
+  inset: 0;
+  top: var(--scroll-lock-top, 0px);
+  width: 100%;
   overflow: hidden;
-  height: 100vh;
   overscroll-behavior: none;
   touch-action: none;
 }

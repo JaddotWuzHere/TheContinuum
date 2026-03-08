@@ -1,3 +1,5 @@
+import { lockPageScroll, unlockPageScroll } from "./util"
+
 function setupSettingsDrawer() {
   const root = document.documentElement
   const KEY = "continuum-settings-drawer"
@@ -7,6 +9,7 @@ function setupSettingsDrawer() {
 
   const open = () => {
     root.setAttribute("data-settings-open", "1")
+    lockPageScroll()
     try {
       localStorage.setItem(KEY, "open")
     } catch {}
@@ -14,6 +17,7 @@ function setupSettingsDrawer() {
 
   const close = () => {
     root.removeAttribute("data-settings-open")
+    unlockPageScroll()
     try {
       localStorage.setItem(KEY, "closed")
     } catch {}
@@ -44,8 +48,10 @@ function setupSettingsDrawer() {
     ;(handle as any)._settingsBound = true
 
     handle.addEventListener("click", () => {
+
       if (root.hasAttribute("data-explorer-open")) {
         root.removeAttribute("data-explorer-open")
+        unlockPageScroll()
         try {
           localStorage.setItem("continuum-explorer-drawer", "closed")
         } catch {}

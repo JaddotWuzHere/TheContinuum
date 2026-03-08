@@ -1,6 +1,6 @@
 import FlexSearch, { DefaultDocumentSearchResults } from "flexsearch"
 import { ContentDetails } from "../../plugins/emitters/contentIndex"
-import { registerEscapeHandler, removeAllChildren } from "./util"
+import { registerEscapeHandler, removeAllChildren, lockPageScroll, unlockPageScroll } from "./util"
 import { FullSlug, normalizeRelativeURLs, resolveRelative } from "../../util/path"
 
 interface Item {
@@ -65,6 +65,7 @@ const tokenizeTerm = (term: string) => {
 
 function closeExplorerDrawer() {
   document.documentElement.removeAttribute("data-explorer-open")
+  unlockPageScroll()
   try {
     localStorage.setItem("continuum-explorer-drawer", "closed")
   } catch {
@@ -74,6 +75,7 @@ function closeExplorerDrawer() {
 
 function closeSettingsDrawer() {
   document.documentElement.removeAttribute("data-settings-open")
+  unlockPageScroll()
   try {
     localStorage.setItem("continuum-settings-drawer", "closed")
   } catch {
@@ -227,6 +229,7 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
         container.classList.remove("active")
         container.classList.remove("animating-out")
         document.documentElement.removeAttribute("data-search-open")
+        lockPageScroll()
         searchBar.value = ""
         if (sidebar) sidebar.style.zIndex = ""
         removeAllChildren(results)
@@ -270,6 +273,7 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
     closeExplorerDrawer()
     closeSettingsDrawer()
     document.documentElement.setAttribute("data-search-open", "1")
+    lockPageScroll()
 
     if (sidebar) sidebar.style.zIndex = "1"
 
