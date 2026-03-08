@@ -229,7 +229,7 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
         container.classList.remove("active")
         container.classList.remove("animating-out")
         document.documentElement.removeAttribute("data-search-open")
-        lockPageScroll()
+        unlockPageScroll()
         searchBar.value = ""
         if (sidebar) sidebar.style.zIndex = ""
         removeAllChildren(results)

@@ -1,5 +1,6 @@
 export function registerEscapeHandler(outsideContainer: HTMLElement | null, cb: () => void) {
   if (!outsideContainer) return
+
   function click(this: HTMLElement, e: HTMLElementEventMap["click"]) {
     if (e.target !== this) return
     e.preventDefault()
@@ -38,24 +39,95 @@ export async function fetchCanonical(url: URL): Promise<Response> {
     return res
   }
 
-  // reading the body can only be done once, so we need to clone the response
-  // to allow the caller to read it if it's was not a redirect
   const text = await res.clone().text()
   const [_, redirect] = text.match(canonicalRegex) ?? []
   return redirect ? fetch(`${new URL(redirect, url)}`) : res
 }
 
 let scrollLockDepth = 0
-let lockedScrollY = 0
+
+const blockedKeys = new Set([
+  "ArrowUp",
+  "ArrowDown",
+  "ArrowLeft",
+  "ArrowRight",
+  "PageUp",
+  "PageDown",
+  "Home",
+  "End",
+  " ",
+])
+
+function getScrollableAncestor(target: EventTarget | null): HTMLElement | null {
+  if (!(target instanceof Element)) return null
+
+  const scrollableSelectors = [
+    ".results-container",
+    ".preview-container",
+    ".settings-scroll",
+    ".explorer",
+    ".settings-panel",
+    ".search-layout",
+    ".search-container",
+  ]
+
+  for (const selector of scrollableSelectors) {
+    const el = target.closest(selector) as HTMLElement | null
+    if (!el) continue
+
+    const style = window.getComputedStyle(el)
+    const canScrollY =
+      (style.overflowY === "auto" || style.overflowY === "scroll") &&
+      el.scrollHeight > el.clientHeight
+
+    if (canScrollY) return el
+  }
+
+  return null
+}
+
+function canScrollElement(el: HTMLElement, deltaY: number): boolean {
+  if (deltaY < 0) {
+    return el.scrollTop > 0
+  }
+
+  if (deltaY > 0) {
+    return el.scrollTop + el.clientHeight < el.scrollHeight
+  }
+
+  return true
+}
+
+function preventWheel(e: WheelEvent) {
+  const scrollable = getScrollableAncestor(e.target)
+  if (scrollable && canScrollElement(scrollable, e.deltaY)) return
+  e.preventDefault()
+}
+
+function preventTouchMove(e: TouchEvent) {
+  const scrollable = getScrollableAncestor(e.target)
+  if (scrollable) return
+  e.preventDefault()
+}
+
+function preventKeyScroll(e: KeyboardEvent) {
+  if (!blockedKeys.has(e.key)) return
+
+  const scrollable = getScrollableAncestor(e.target)
+  if (scrollable) return
+
+  e.preventDefault()
+}
 
 export function lockPageScroll() {
   scrollLockDepth += 1
   if (scrollLockDepth > 1) return
 
-  lockedScrollY = window.scrollY || document.documentElement.scrollTop || 0
-
   document.documentElement.setAttribute("data-page-scroll-locked", "1")
-  document.documentElement.style.setProperty("--scroll-lock-top", `-${lockedScrollY}px`)
+
+  window.addEventListener("wheel", preventWheel, { passive: false })
+  window.addEventListener("touchmove", preventTouchMove, { passive: false })
+  window.addEventListener("keydown", preventKeyScroll, { passive: false })
 }
 
 export function unlockPageScroll() {
@@ -64,22 +136,9 @@ export function unlockPageScroll() {
   scrollLockDepth -= 1
   if (scrollLockDepth > 0) return
 
-  const html = document.documentElement
-  const body = document.body
+  document.documentElement.removeAttribute("data-page-scroll-locked")
 
-  html.removeAttribute("data-page-scroll-locked")
-  html.style.removeProperty("--scroll-lock-top")
-
-  const previousScrollBehavior = html.style.scrollBehavior
-  const previousBodyScrollBehavior = body.style.scrollBehavior
-
-  html.style.scrollBehavior = "auto"
-  body.style.scrollBehavior = "auto"
-
-  window.scrollTo(0, lockedScrollY)
-
-  requestAnimationFrame(() => {
-    html.style.scrollBehavior = previousScrollBehavior
-    body.style.scrollBehavior = previousBodyScrollBehavior
-  })
+  window.removeEventListener("wheel", preventWheel)
+  window.removeEventListener("touchmove", preventTouchMove)
+  window.removeEventListener("keydown", preventKeyScroll)
 }

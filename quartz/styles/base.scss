@@ -26,18 +26,11 @@ body {
 }
 
 html[data-page-scroll-locked="1"] {
-  overflow: hidden;
   overscroll-behavior: none;
 }
 
 html[data-page-scroll-locked="1"] body {
-  position: fixed;
-  inset: 0;
-  top: var(--scroll-lock-top, 0px);
-  width: 100%;
-  overflow: hidden;
   overscroll-behavior: none;
-  touch-action: none;
 }
 
 p,
