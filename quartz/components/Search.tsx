@@ -17,6 +17,7 @@ export default ((userOpts?: Partial<SearchOptions>) => {
   const Search: QuartzComponent = ({ displayClass, cfg }: QuartzComponentProps) => {
     const opts = { ...defaultOptions, ...userOpts }
     const searchPlaceholder = i18n(cfg.locale).components.search.searchBarPlaceholder
+
     return (
       <div class={classNames(displayClass, "search")}>
         <button class="search-button">
@@ -29,16 +30,23 @@ export default ((userOpts?: Partial<SearchOptions>) => {
           </svg>
           <p>{i18n(cfg.locale).components.search.title}</p>
         </button>
+
         <div class="search-container">
           <div class="search-space">
-            <input
-              autocomplete="off"
-              class="search-bar"
-              name="search"
-              type="text"
-              aria-label={searchPlaceholder}
-              placeholder={searchPlaceholder}
-            />
+            <div class="search-bar-frame">
+              <div class="search-bar-runic-line search-bar-runic-line-top" />
+              <div class="search-bar-runic-line search-bar-runic-line-bottom" />
+
+              <input
+                autocomplete="off"
+                class="search-bar"
+                name="search"
+                type="text"
+                aria-label={searchPlaceholder}
+                placeholder={searchPlaceholder}
+              />
+            </div>
+
             <div class="search-layout" data-preview={opts.enablePreview}></div>
           </div>
         </div>

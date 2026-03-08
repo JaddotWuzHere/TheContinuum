@@ -181,6 +181,13 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
 
   const sidebar = searchElement.closest(".sidebar") as HTMLElement | null
 
+  const searchSpace = container.querySelector(".search-space") as HTMLElement
+  if (!searchSpace) return
+
+  const searchPanel =
+    (container.querySelector(".search-layout") as HTMLElement | null) ??
+    searchSpace
+
   if (container.parentElement !== document.body) {
     document.body.appendChild(container)
   }
@@ -206,34 +213,55 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
     appendLayout(preview)
   }
 
-  function hideSearch() {
-    if (!container.classList.contains("active") || isClosing) return
+  function hideSearch(options?: { skipFocus?: boolean }): Promise<void> {
+    if (!container.classList.contains("active") || isClosing) {
+      return Promise.resolve()
+    }
+
     isClosing = true
-
     container.classList.remove("animating-in")
+    container.classList.add("animating-out")
 
-    const finishClose = () => {
-      container.classList.remove("active")
-      document.documentElement.removeAttribute("data-search-open")
-      searchBar.value = ""
-      if (sidebar) sidebar.style.zIndex = ""
-      removeAllChildren(results)
-      if (preview) {
-        removeAllChildren(preview)
+    return new Promise((resolve) => {
+      const finishClose = () => {
+        container.classList.remove("active")
+        container.classList.remove("animating-out")
+        document.documentElement.removeAttribute("data-search-open")
+        searchBar.value = ""
+        if (sidebar) sidebar.style.zIndex = ""
+        removeAllChildren(results)
+        if (preview) {
+          removeAllChildren(preview)
+        }
+        searchLayout.classList.remove("display-results")
+        searchType = "basic"
+        currentSearchTerm = ""
+        currentHover = null
+        isClosing = false
+
+        if (!options?.skipFocus) {
+          searchButton.focus()
+        }
+
+        resolve()
       }
-      searchLayout.classList.remove("display-results")
-      searchType = "basic"
-      isClosing = false
-      searchButton.focus()
-    }
 
-    const onTransitionEnd = (e: TransitionEvent) => {
-      if (e.target !== container) return
-      container.removeEventListener("transitionend", onTransitionEnd)
-      finishClose()
-    }
+      let finished = false
+      const done = () => {
+        if (finished) return
+        finished = true
+        container.removeEventListener("transitionend", onTransitionEnd)
+        finishClose()
+      }
 
-    container.addEventListener("transitionend", onTransitionEnd)
+      const onTransitionEnd = (e: TransitionEvent) => {
+        if (e.target !== container) return
+        done()
+      }
+
+      container.addEventListener("transitionend", onTransitionEnd)
+      window.setTimeout(done, 300)
+    })
   }
 
   function showSearch(searchTypeNew: SearchType) {
@@ -247,13 +275,22 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
 
     isClosing = false
     container.classList.remove("animating-in")
+    container.classList.remove("animating-out")
     container.classList.add("active")
 
     void container.offsetWidth
 
     cancelAnimationFrame(openRaf)
-    openRaf = requestAnimationFrame(() => {
+    openRaf = requestAnimationFrame(async () => {
       container.classList.add("animating-in")
+      searchBar.value = ""
+      currentSearchTerm = ""
+      removeAllChildren(results)
+      if (preview) {
+        removeAllChildren(preview)
+      }
+      searchLayout.classList.add("display-results")
+      await displayResults([])
       searchBar.focus()
     })
   }
@@ -360,14 +397,16 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
       ${htmlTags}
       <p class="card-description">${content}</p>
     `
-    itemTile.addEventListener("click", (event) => {
-      if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return
-      hideSearch()
-    })
 
-    const handler = (event: MouseEvent) => {
+    const onClick = async (event: MouseEvent) => {
       if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return
-      hideSearch()
+
+      event.preventDefault()
+      event.stopPropagation()
+
+      const targetUrl = new URL(itemTile.href, window.location.toString())
+      await hideSearch({ skipFocus: true })
+      await window.spaNavigate(targetUrl)
     }
 
     async function onMouseEnter(ev: MouseEvent) {
@@ -378,8 +417,9 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
 
     itemTile.addEventListener("mouseenter", onMouseEnter)
     window.addCleanup(() => itemTile.removeEventListener("mouseenter", onMouseEnter))
-    itemTile.addEventListener("click", handler)
-    window.addCleanup(() => itemTile.removeEventListener("click", handler))
+
+    itemTile.addEventListener("click", onClick)
+    window.addCleanup(() => itemTile.removeEventListener("click", onClick))
 
     return itemTile
   }
@@ -387,10 +427,17 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
   async function displayResults(finalResults: Item[]) {
     removeAllChildren(results)
     if (finalResults.length === 0) {
-      results.innerHTML = `<a class="result-card no-match">
-          <h3>No results.</h3>
-          <p>Try another search term?</p>
-      </a>`
+      const isEmptyQuery = currentSearchTerm.trim() === ""
+
+      results.innerHTML = isEmptyQuery
+        ? `<a class="result-card no-match">
+            <h3>Begin searching.</h3>
+            <p>Enter a term to search for records.</p>
+          </a>`
+        : `<a class="result-card no-match">
+            <h3>No matching record.</h3>
+            <p>The index contains no entry for that term.</p>
+          </a>`
     } else {
       results.append(...finalResults.map(resultToHTML))
     }
@@ -432,10 +479,16 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
     const innerDiv = await fetchContent(slug).then((contents) =>
       contents.flatMap((el) => [...highlightHTML(currentSearchTerm, el as HTMLElement).children]),
     )
+
+    const previewBadge = document.createElement("div")
+    previewBadge.classList.add("preview-badge")
+    previewBadge.textContent = "RECORD PREVIEW"
+
     previewInner = document.createElement("div")
     previewInner.classList.add("preview-inner")
     previewInner.append(...innerDiv)
-    preview.replaceChildren(previewInner)
+
+    preview.replaceChildren(previewBadge, previewInner)
 
     const highlights = [...preview.getElementsByClassName("highlight")].sort(
       (a, b) => b.innerHTML.length - a.innerHTML.length,
@@ -446,7 +499,7 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
   async function onType(e: HTMLElementEventMap["input"]) {
     if (!searchLayout || !index) return
     currentSearchTerm = (e.target as HTMLInputElement).value
-    searchLayout.classList.toggle("display-results", currentSearchTerm !== "")
+    searchLayout.classList.add("display-results")
     searchType = currentSearchTerm.startsWith("#") ? "tags" : "basic"
 
     let searchResults: DefaultDocumentSearchResults<Item>
@@ -505,6 +558,22 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
 
   searchBar.addEventListener("input", onType)
   window.addCleanup(() => searchBar.removeEventListener("input", onType))
+
+  const onDocumentPointerDown = (e: PointerEvent) => {
+    if (!container.classList.contains("active")) return
+
+    const target = e.target as Node | null
+    if (!target) return
+
+    if (!searchSpace.contains(target)) {
+      hideSearch()
+    }
+  }
+
+  document.addEventListener("pointerdown", onDocumentPointerDown, true)
+  window.addCleanup(() =>
+    document.removeEventListener("pointerdown", onDocumentPointerDown, true),
+  )
 
   registerEscapeHandler(container, hideSearch)
   await fillDocument(data)
