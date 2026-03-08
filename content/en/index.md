@@ -1,5 +1,5 @@
 ---
-title: Prologue
+title: Genesis
 ---
 > [!epigraph]
 > "All things exist not apart, but as tokens of the same unbroken whole."

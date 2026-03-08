@@ -1,0 +1,232 @@
+{
+  "main": {
+    "id": "bdd2f926a4d0e71a",
+    "type": "split",
+    "children": [
+      {
+        "id": "27ab86b9b182ee9c",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "673f4e45a9163d81",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "en/Continuum Physics/index.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "index"
+            }
+          }
+        ]
+      },
+      {
+        "id": "2d57ea013678e50f",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "6fa41d0edf427e90",
+            "type": "leaf",
+            "state": {
+              "type": "graph",
+              "state": {},
+              "icon": "lucide-git-fork",
+              "title": "Graph view"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "89f362abf84e4347",
+    "type": "split",
+    "children": [
+      {
+        "id": "2b50cf1a8299189a",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "10a8c9e096150dd9",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "2c2550e20c4ef688",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "400a392d2c453487",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 254.5
+  },
+  "right": {
+    "id": "fdb4b890a14def48",
+    "type": "split",
+    "children": [
+      {
+        "id": "8b7d42210136174b",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "9d042d5bdc132dcf",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "en/Continuum Physics/index.md",
+                "collapseAll": true,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks for index"
+            }
+          },
+          {
+            "id": "f2465e9b3c0d58f1",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "Mana.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from Mana"
+            }
+          },
+          {
+            "id": "fedac11f4b52ac16",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "e843a33e9705cb0d",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "Mana.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline of Mana"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "bases:Create new base": false,
+      "table-editor-obsidian:Advanced Tables Toolbar": false
+    }
+  },
+  "active": "673f4e45a9163d81",
+  "lastOpenFiles": [
+    "en/index.md",
+    "en/Continuum Physics/index.md",
+    "en/Continuum Physics/Branches/Anachysics/index.md",
+    "en/Continuum Physics/Branches/Manaphysics/Mana.md",
+    "en/Continuum Physics/Branches/Manaphysics/index.md",
+    "notes.md",
+    "en/World Order/Thalen/Societal Structure/The Four Great Pillars of Thalen.md",
+    "en/World Order/Thalen/Societal Structure/index.md",
+    "World Order.md",
+    "en/World Order/Thalen/Philosophy and Thought/Concordance.md",
+    "en/World Order/Thalen/The Archives/Concord of Horaxis.md",
+    "en/World Order/Thalen/Societal Structure",
+    "zh/Continuum Physics/index.md",
+    "zh/Continuum Physics/Branches/Manaphysics/index.md",
+    "zh/Continuum Physics/Branches/index.md",
+    "zh/index.md",
+    "en/Continuum Physics/Branches/index.md",
+    "en/World Order/Thalen/Chronology/The Chronomatic Concordance System.md",
+    "en/World Order/Thalen/The Archives/index.md",
+    "en/World Order/Thalen/The Archives",
+    "en/Continuum Physics/Branches/Anachysics/Source.md",
+    "en/World Order/Thalen/Philosophy and Thought/index.md",
+    "en/World Order/Thalen/Philosophy and Thought",
+    "en/World Order/Thalen/Chronology",
+    "en/World Order/Thalen/index.md",
+    "en/World Order/Thalen",
+    "en/World Order/index.md",
+    "fr/index.md",
+    "en/Continuum Physics/Branches/Anachysics/Soul.md",
+    "en/Continuum Physics/Domain.md",
+    "zh/notes.md",
+    "fr/Continuum Physics/Branches/Manaphysics",
+    "fr/Continuum Physics/Branches/Anachysics",
+    "fr/Continuum Physics/Branches",
+    "fr/World Order",
+    "fr/Continuum Physics",
+    "Pasted image 20251024001425.png",
+    "Pasted image 20251019222302.png",
+    "Untitled.canvas",
+    "Pasted image 20251018231348.png",
+    "Pasted image 20251018231346.png"
+  ]
+}
