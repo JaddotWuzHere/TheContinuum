@@ -222,13 +222,16 @@ export function renderPage(
     </div>
   )
 
-  const RightComponent = (
-    <div class="right sidebar">
-      {right.map((BodyComponent) => (
-        <BodyComponent {...componentData} />
-      ))}
-    </div>
-  )
+  const RightComponent =
+    right.length > 0 ? (
+      <div class="right sidebar">
+        {right.map((BodyComponent) => (
+          <BodyComponent {...componentData} />
+        ))}
+      </div>
+    ) : (
+      <div class="right sidebar right-spacer" />
+    )
 
   const lang = componentData.fileData.frontmatter?.lang ?? cfg.locale?.split("-")[0] ?? "en"
   const direction = i18n(cfg.locale).direction ?? "ltr"

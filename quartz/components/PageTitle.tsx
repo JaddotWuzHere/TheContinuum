@@ -51,7 +51,7 @@ PageTitle.css = `
   display: block;
   width: max-content;
   overflow: visible;
-  transform: translateX(-6rem);
+  transform: translateX(-1.8rem);
   transform-origin: left center;
 }
 
