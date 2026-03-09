@@ -1,7 +1,7 @@
 > [!epigraph]
 > “The living are my marionettes, their deaths my applause. The melody is not theirs—it is mine, a song needled through their veins. And while the stage burns, the performance endures, for I have not released the baton.”
 > 
-> — Unknown
+> — Provenance disputed; widely believed to be the voice of Time
 ## Overview
 ---
 The Chronomatic Concordance, also known as the STPX Calendar, is the official temporal system used across the entirety of **[[Thalen]]**. It represents one of the most enduring legacies of the **[[The Concordant Reform|Concordant Reform]]**, the intellectual unification of Thalen’s many civilizations under a single measure of time based on observable physical resonance.

@@ -3,64 +3,178 @@
 .toc {
   display: flex;
   flex-direction: column;
-  overflow-y: hidden;
-  min-height: 1.4rem;
-  flex: 0 0.5 auto;
-  &:has(button.toc-header.collapsed) {
-    flex: 0 1 1.4rem;
-  }
+  padding: 1rem 1rem 0.95rem;
+
+  border-radius: 1rem;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(18, 17, 14, 0.82) 0%,
+      rgba(12, 12, 12, 0.78) 100%
+    ),
+    linear-gradient(
+      135deg,
+      rgba(160, 125, 50, 0.06) 0%,
+      rgba(160, 125, 50, 0.015) 35%,
+      rgba(0, 0, 0, 0) 100%
+    );
+  border: 1px solid rgba(180, 140, 60, 0.2);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 230, 170, 0.045),
+    0 8px 24px rgba(0, 0, 0, 0.16);
+
+  position: relative;
+  overflow: hidden;
+}
+
+.toc::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 225, 160, 0.025) 0%,
+    rgba(255, 225, 160, 0.008) 18%,
+    rgba(255, 225, 160, 0) 45%
+  );
 }
 
 button.toc-header {
-  background-color: transparent;
+  background: transparent;
   border: none;
-  text-align: left;
-  cursor: pointer;
   padding: 0;
-  color: var(--dark);
-  display: flex;
-  align-items: center;
+  margin: 0;
+  cursor: default;
 
-  & h3 {
-    font-size: 1rem;
-    display: inline-block;
-    margin: 0;
-  }
-
-  & .fold {
-    margin-left: 0.5rem;
-    transition: transform 0.3s ease;
-    opacity: 0.8;
-  }
-
-  &.collapsed .fold {
-    transform: rotateZ(-90deg);
-  }
+  display: block;
+  width: 100%;
+  position: relative;
+  z-index: 1;
 }
 
-ul.toc-content.overflow {
+button.toc-header h3 {
+  margin: 0 0 0.9rem 0;
+
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  line-height: 1.1;
+
+  text-align: center;
+  text-transform: uppercase;
+
+  color: rgba(228, 208, 158, 0.92);
+  text-shadow: 0 0 10px rgba(255, 220, 140, 0.05);
+}
+
+button.toc-header h3::after {
+  content: "";
+  display: block;
+  width: 38%;
+  margin: 0.55rem auto 0;
+
+  height: 1px;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(190,150,70,0.35),
+    transparent
+  );
+}
+
+button.toc-header .fold {
+  display: none !important;
+}
+
+ul.toc-content {
   list-style: none;
+  margin: 0;
+  padding: 0 0 0 0.7rem;
   position: relative;
-  margin: 0.5rem 0;
-  padding: 0;
-  max-height: calc(100% - 2rem);
-  overscroll-behavior: contain;
+  z-index: 1;
+  overflow: hidden;
+  min-width: 0;
+}
+
+ul.toc-content::before {
+  content: "";
+  position: absolute;
+  left: 0.1rem;
+  top: 0.15rem;
+  bottom: 0.15rem;
+  width: 1px;
+  background: linear-gradient(
+    180deg,
+    rgba(190, 150, 70, 0.22) 0%,
+    rgba(190, 150, 70, 0.08) 100%
+  );
+}
+
+.toc li {
   list-style: none;
+  margin: 0.18rem 0;
+  position: relative;
+  min-width: 0;
+}
 
-  & > li > a {
-    color: var(--dark);
-    opacity: 0.35;
-    transition:
-      0.5s ease opacity,
-      0.3s ease color;
-    &.in-view {
-      opacity: 0.75;
-    }
-  }
+.toc a {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
 
-  @for $i from 0 through 6 {
-    & .depth-#{$i} {
-      padding-left: calc(1rem * #{$i});
-    }
+  color: rgba(215, 206, 185, 0.8);
+  text-decoration: none;
+  font-size: 0.92rem;
+  line-height: 1.35;
+
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+
+  padding: 0.24rem 0.45rem;
+  border-radius: 0.45rem;
+  position: relative;
+
+  transition:
+    color 0.18s ease,
+    background-color 0.18s ease,
+    transform 0.18s ease;
+}
+
+.toc a:hover {
+  color: rgba(255, 232, 185, 0.96);
+  background: rgba(180, 140, 60, 0.08);
+  transform: translateX(2px);
+}
+
+.toc a.in-view {
+  color: rgba(255, 238, 198, 1);
+  background: linear-gradient(
+    90deg,
+    rgba(180, 140, 60, 0.16) 0%,
+    rgba(180, 140, 60, 0.05) 100%
+  );
+}
+
+.toc a.in-view::before {
+  content: "";
+  position: absolute;
+  left: -0.62rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0.28rem;
+  height: 0.28rem;
+  border-radius: 999px;
+  background: rgba(240, 205, 125, 0.9);
+  box-shadow: 0 0 8px rgba(240, 205, 125, 0.2);
+}
+
+@for $i from 0 through 6 {
+  .toc .depth-#{$i} {
+    margin-left: calc(0.46rem * #{$i});
   }
 }
