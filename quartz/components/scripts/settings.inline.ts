@@ -1,9 +1,11 @@
-import { lockPageScroll, unlockPageScroll } from "./util"
+import { installNoScrollZoneGuards, lockPageScroll, unlockPageScroll } from "./util"
 
 function setupSettingsDrawer() {
+  installNoScrollZoneGuards()
+
   const root = document.documentElement
   const KEY = "continuum-settings-drawer"
-
+  
   let handle = document.querySelector<HTMLButtonElement>(".continuum-settings-handle")
   let scrim = document.querySelector<HTMLDivElement>(".continuum-settings-scrim")
 

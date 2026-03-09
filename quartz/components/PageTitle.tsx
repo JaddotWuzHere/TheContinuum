@@ -62,6 +62,20 @@ PageTitle.css = `
   height: auto;
   margin: 0;
   border-radius: 0;
+
+  transition:
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.35s ease,
+    opacity 0.35s ease;
+}
+
+.page-title-link:hover .page-title-logo {
+  transform: translateY(-1px) scale(1.025);
+
+  filter:
+    brightness(1.08)
+    drop-shadow(0 0 10px rgba(240, 210, 140, 0.15))
+    drop-shadow(0 0 20px rgba(240, 210, 140, 0.08));
 }
 
 body[data-slug="404"] .page-title {
@@ -103,6 +117,8 @@ body[data-slug="404"] .page-footer .page-title-logo-frame {
 body[data-slug="404"] .page-footer .page-title-logo {
   margin: 0 auto;
 }
+
+
 `
 
 export default (() => PageTitle) satisfies QuartzComponentConstructor

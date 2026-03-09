@@ -58,6 +58,50 @@ const blockedKeys = new Set([
   " ",
 ])
 
+const noScrollZoneSelectors = [
+  ".page-title",
+  ".page-title-visual",
+  ".toc",
+  ".backlinks",
+  ".continuum-explorer-handle",
+  ".continuum-settings-handle",
+  ".explorer",
+  ".settings-panel",
+].join(", ")
+
+function preventWheelInNoScrollZone(e: WheelEvent) {
+  const el = e.target as Element | null
+  if (!el?.closest(noScrollZoneSelectors)) return
+
+  if (el.closest(".explorer-content") || el.closest(".settings-content")) return
+
+  e.preventDefault()
+}
+
+function preventTouchMoveInNoScrollZone(e: TouchEvent) {
+  const el = e.target as Element | null
+  if (!el?.closest(noScrollZoneSelectors)) return
+
+  if (el.closest(".explorer-content") || el.closest(".settings-content")) return
+
+  e.preventDefault()
+}
+
+export function installNoScrollZoneGuards() {
+  if ((document as any)._continuumNoScrollZoneGuardsBound) return
+  ;(document as any)._continuumNoScrollZoneGuardsBound = true
+
+  window.addEventListener("wheel", preventWheelInNoScrollZone, {
+    passive: false,
+    capture: true,
+  })
+
+  window.addEventListener("touchmove", preventTouchMoveInNoScrollZone, {
+    passive: false,
+    capture: true,
+  })
+}
+
 function getScrollableAncestor(target: EventTarget | null): HTMLElement | null {
   if (!(target instanceof Element)) return null
 
