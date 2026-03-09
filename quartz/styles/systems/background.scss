@@ -71,7 +71,13 @@ html[data-settings-open="1"] .center,
 html[data-search-open="1"] .center,
 html[data-explorer-open="1"] .page-title-visual,
 html[data-settings-open="1"] .page-title-visual,
-html[data-search-open="1"] .page-title-visual {
+html[data-search-open="1"] .page-title-visual,
+html[data-explorer-open="1"] .toc,
+html[data-settings-open="1"] .toc,
+html[data-search-open="1"] .toc,
+html[data-explorer-open="1"] .backlinks,
+html[data-settings-open="1"] .backlinks,
+html[data-search-open="1"] .backlinks {
   filter: blur(3px) brightness(0.85);
   transform: scale(0.975);
 }
