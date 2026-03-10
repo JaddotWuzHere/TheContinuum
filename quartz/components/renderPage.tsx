@@ -214,13 +214,14 @@ export function renderPage(
   const Header = HeaderConstructor()
   const Body = BodyConstructor()
 
-  const LeftComponent = (
-    <div class="left sidebar">
-      {left.map((BodyComponent) => (
-        <BodyComponent {...componentData} />
-      ))}
-    </div>
-  )
+  const LeftComponent =
+    left.length > 0 ? (
+      <div class="left sidebar">
+        {left.map((BodyComponent) => (
+          <BodyComponent {...componentData} />
+        ))}
+      </div>
+    ) : null
 
   const RightComponent =
     right.length > 0 ? (
@@ -229,9 +230,7 @@ export function renderPage(
           <BodyComponent {...componentData} />
         ))}
       </div>
-    ) : (
-      <div class="right sidebar right-spacer" />
-    )
+    ) : null
 
   const lang = componentData.fileData.frontmatter?.lang ?? cfg.locale?.split("-")[0] ?? "en"
   const direction = i18n(cfg.locale).direction ?? "ltr"

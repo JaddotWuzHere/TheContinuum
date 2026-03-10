@@ -14,6 +14,20 @@
   }
 }
 
+@keyframes popover-fade-out {
+  from {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+  }
+
+  to {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(6px) scale(0.985);
+  }
+}
+
 .popover {
   z-index: 999;
   position: fixed;
@@ -25,12 +39,7 @@
 
   visibility: hidden;
   opacity: 0;
-  transform: translateY(6px) scale(0.985);
-
-  transition:
-    opacity 0.18s ease,
-    visibility 0.18s ease,
-    transform 0.18s ease;
+  pointer-events: none;
 
   & > .popover-inner {
     position: relative;
@@ -40,6 +49,7 @@
 
     overflow: auto;
     overscroll-behavior: contain;
+    pointer-events: auto;
 
     color: var(--darkgray);
     font-family: var(--bodyFont);
@@ -85,20 +95,11 @@
     &::before {
       content: "";
       position: absolute;
-      left: 1rem;
-      right: 1rem;
-      top: 0.72rem;
-      height: 1px;
-      border-radius: 999px;
-      background: linear-gradient(
-        90deg,
-        transparent 0%,
-        hsl(var(--gold-h) 62% 58% / 0.18) 14%,
-        hsl(var(--gold-h) 92% 78% / 0.72) 50%,
-        hsl(var(--gold-h) 62% 58% / 0.18) 86%,
-        transparent 100%
-      );
-      pointer-events: none;
+      left: 0;
+      right: 0;
+      top: -24px;
+      height: 24px;
+      pointer-events: auto;
     }
 
     &::after {
@@ -143,7 +144,29 @@
       color: var(--dark);
     }
 
-    h1,
+    h1 {
+      font-family: "Cinzel", serif;
+
+      font-size: 2.6rem;
+      font-weight: 600;
+
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+
+      background: linear-gradient(
+        90deg,
+        #ffffff,
+        #f1d38a
+      );
+
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+
+      text-shadow:
+        0 0 6px rgba(255, 215, 120, 0.15);
+    }
+
+
     h2,
     h3,
     h4,
@@ -454,9 +477,17 @@
   }
 }
 
-.active-popover,
-.popover:hover {
+.active-popover {
   animation: popover-fade 0.18s ease forwards;
+}
+
+.closing-popover {
+  animation: popover-fade-out 0.16s ease-in forwards;
+  pointer-events: none;
+}
+
+.popover:hover {
+  pointer-events: auto;
 }
 
 .popover .breadcrumb-container {
