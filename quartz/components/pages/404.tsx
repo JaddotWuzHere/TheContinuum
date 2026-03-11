@@ -1,5 +1,66 @@
 import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } from "../types"
 
+const notFoundScript = `
+function setup404Page() {
+  const homeLink = document.getElementById("localized-home-link")
+  const backLink = document.getElementById("localized-back-link")
+
+  const fallbackHome = "/en/"
+  let lang = "en"
+  let first = window.location.pathname.replace(/^\\/+/, "").split("/")[0]
+
+  if (first) {
+    first = first.toLowerCase()
+    if (first === "zh") lang = "zh"
+    else if (first === "fr") lang = "fr"
+  }
+
+  const localizedHome =
+    lang === "zh"
+      ? "/zh/"
+      : lang === "fr"
+        ? "/fr/"
+        : "/en/"
+
+  if (homeLink) {
+    homeLink.setAttribute("href", localizedHome)
+  }
+
+  if (backLink) {
+    backLink.setAttribute("href", localizedHome)
+
+    const onBackClick = function (e) {
+      e.preventDefault()
+      e.stopPropagation()
+
+      if (window.history.length > 1) {
+        window.history.back()
+        return
+      }
+
+      window.location.assign(localizedHome || fallbackHome)
+    }
+
+    backLink.addEventListener("click", onBackClick)
+    window.addCleanup(() => backLink.removeEventListener("click", onBackClick))
+  }
+
+  const root = document.documentElement
+  root.removeAttribute("data-explorer-open")
+  root.removeAttribute("data-settings-open")
+  root.removeAttribute("data-search-open")
+
+  try {
+    localStorage.setItem("continuum-explorer-drawer", "closed")
+    localStorage.setItem("continuum-settings-drawer", "closed")
+  } catch (_) {}
+
+}
+
+document.addEventListener("nav", setup404Page)
+setup404Page()
+`
+
 const NotFound: QuartzComponent = ({ cfg }: QuartzComponentProps) => {
   const fallbackHome = "/en/"
 
@@ -16,70 +77,33 @@ const NotFound: QuartzComponent = ({ cfg }: QuartzComponentProps) => {
           The requested record is not available for viewing.
         </p>
 
-        <a
-          id="localized-home-link"
-          class="continuum-404-button"
-          href={fallbackHome}
-          data-en-home="/en/"
-          data-zh-home="/zh/"
-          data-fr-home="/fr/"
-        >
-          Return to Genesis
-        </a>
+        <div class="continuum-404-actions">
+          <a
+            id="localized-back-link"
+            class="continuum-404-button"
+            href={fallbackHome}
+            data-router-ignore
+          >
+            Go Back
+          </a>
+
+          <a
+            id="localized-home-link"
+            class="continuum-404-button"
+            href={fallbackHome}
+            data-en-home="/en/"
+            data-zh-home="/zh/"
+            data-fr-home="/fr/"
+          >
+            Return to Genesis
+          </a>
+        </div>
       </div>
-
-      <script
-        dangerouslySetInnerHTML={{
-          __html: `
-            (function () {
-              var link = document.getElementById("localized-home-link");
-              if (link) {
-                var first = window.location.pathname.replace(/^\\/+/, "").split("/")[0]?.toLowerCase();
-                var lang = first === "zh" ? "zh" : first === "fr" ? "fr" : "en";
-
-                var target =
-                  lang === "zh"
-                    ? link.getAttribute("data-zh-home")
-                    : lang === "fr"
-                      ? link.getAttribute("data-fr-home")
-                      : link.getAttribute("data-en-home");
-
-                if (target) {
-                  link.setAttribute("href", target);
-                }
-              }
-
-              var root = document.documentElement;
-              root.removeAttribute("data-explorer-open");
-              root.removeAttribute("data-settings-open");
-              root.removeAttribute("data-search-open");
-
-              try {
-                localStorage.setItem("continuum-explorer-drawer", "closed");
-                localStorage.setItem("continuum-settings-drawer", "closed");
-              } catch (_) {}
-
-              var selectors = [
-                ".continuum-explorer-handle",
-                ".continuum-settings-handle",
-                ".continuum-explorer-scrim",
-                ".continuum-settings-scrim",
-                ".explorer",
-                ".settings-panel"
-              ];
-
-              selectors.forEach(function (selector) {
-                document.querySelectorAll(selector).forEach(function (el) {
-                  el.remove();
-                });
-              });
-            })();
-          `,
-        }}
-      />
     </article>
   )
 }
+
+NotFound.afterDOMLoaded = notFoundScript
 
 NotFound.css = `
 .continuum-404 {
@@ -145,6 +169,12 @@ body[data-slug="404"] .continuum-settings-scrim,
 body[data-slug="404"] .explorer,
 body[data-slug="404"] .settings-panel {
   display: none !important;
+}
+
+.continuum-404-actions {
+  display: flex;
+  justify-content: center;
+  gap: 0.7rem;
 }
 `
 

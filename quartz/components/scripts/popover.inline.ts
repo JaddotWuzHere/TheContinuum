@@ -255,16 +255,24 @@ async function mouseEnterHandler(this: HTMLAnchorElement, event: MouseEvent) {
   }, 400)
 }
 
+function linkClickHandler() {
+  clearActivePopover()
+}
+
 document.addEventListener("nav", () => {
+  clearActivePopover()
+
   const links = [...document.querySelectorAll("a.internal")] as HTMLAnchorElement[]
 
   for (const link of links) {
     link.addEventListener("mouseenter", mouseEnterHandler)
     link.addEventListener("mouseleave", linkMouseLeaveHandler)
+    link.addEventListener("click", linkClickHandler)
 
     window.addCleanup(() => {
       link.removeEventListener("mouseenter", mouseEnterHandler)
       link.removeEventListener("mouseleave", linkMouseLeaveHandler)
+      link.removeEventListener("click", linkClickHandler)
     })
   }
 })
