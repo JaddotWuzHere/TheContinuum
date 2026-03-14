@@ -35,6 +35,8 @@ export const defaultListPageLayout: PageLayout = {
     Component.PageTitle(),
     Component.MobileOnly(Component.Spacer()),
     Component.Explorer(),
+    Component.DesktopOnly(Component.TableOfContents()),
+    Component.Backlinks(),
   ],
   right: [],
 }
