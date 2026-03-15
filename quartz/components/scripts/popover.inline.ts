@@ -157,6 +157,8 @@ async function mouseEnterHandler(this: HTMLAnchorElement, event: MouseEvent) {
       popoverElement.removeEventListener("mouseleave", popoverMouseLeaveHandler)
       popoverElement.addEventListener("mouseenter", popoverMouseEnterHandler)
       popoverElement.addEventListener("mouseleave", popoverMouseLeaveHandler)
+      popoverElement.removeEventListener("click", popoverClickHandler)
+      popoverElement.addEventListener("click", popoverClickHandler)
 
       void setPosition(popoverElement)
 
@@ -253,6 +255,17 @@ async function mouseEnterHandler(this: HTMLAnchorElement, event: MouseEvent) {
 
     showPopover(popoverElement, popoverInner)
   }, 400)
+}
+
+function popoverClickHandler(event: MouseEvent) {
+  const target = event.target as HTMLElement | null
+  if (!target) return
+
+  const clickedLink = target.closest("a") as HTMLAnchorElement | null
+  if (!clickedLink) return
+
+  event.preventDefault()
+  event.stopPropagation()
 }
 
 function linkClickHandler() {
