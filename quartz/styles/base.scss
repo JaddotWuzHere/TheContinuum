@@ -92,7 +92,7 @@ a {
     color: hsl(var(--gold-h) 82% 78%);
   }
 
-  &.internal {
+  &.internal:not([role="anchor"]):not([href^="#"]) {
     position: relative;
     display: inline;
     padding: 0.02rem 0.22rem;
@@ -501,15 +501,28 @@ h4,
 h5,
 h6 {
   &[id] > a[href^="#"] {
-    margin: 0 0.5rem;
+    margin-left: 0.5rem;
     opacity: 0;
     transition: opacity 0.2s ease;
     transform: translateY(-0.1rem);
     font-family: var(--codeFont);
     user-select: none;
+    color: var(--dark);
+    -webkit-text-fill-color: currentColor;
+    background: none;
+    text-shadow: none;
+    padding: 0;
+    border-radius: 0;
+    line-height: 1;
   }
 
-  &[id]:hover > a {
+  &[id] > a[href^="#"]::after {
+    display: none;
+  }
+
+  &[id]:hover > a[href^="#"],
+  &[id] > a[href^="#"]:hover,
+  &[id] > a[href^="#"]:focus-visible {
     opacity: 1;
   }
 

@@ -84,6 +84,42 @@ function linkMouseLeaveHandler(this: HTMLAnchorElement, event: MouseEvent) {
   schedulePopoverClose()
 }
 
+/*
+Removes header anchor icons (# link icons)
+*/
+function stripHeaderAnchorsFromPopover(root: ParentNode) {
+  root.querySelectorAll('a[href^="#"], a[role="anchor"]').forEach((anchor) => {
+    const el = anchor as HTMLAnchorElement
+
+    const parentTag = el.parentElement?.tagName
+    const isHeadingAnchor =
+      parentTag === "H1" ||
+      parentTag === "H2" ||
+      parentTag === "H3" ||
+      parentTag === "H4" ||
+      parentTag === "H5" ||
+      parentTag === "H6"
+
+    if (isHeadingAnchor || el.getAttribute("role") === "anchor") {
+      el.remove()
+    }
+  })
+}
+
+/*
+Neutralizes links so they no longer behave as links
+(no browser URL preview, no navigation)
+*/
+function neutralizeLinksInPopover(root: ParentNode) {
+  root.querySelectorAll("a[href]").forEach((anchor) => {
+    const el = anchor as HTMLAnchorElement
+
+    el.dataset.originalHref = el.href
+    el.removeAttribute("href")
+    el.style.cursor = "default"
+  })
+}
+
 async function mouseEnterHandler(this: HTMLAnchorElement, event: MouseEvent) {
   const link = this
   const { clientX, clientY } = event
@@ -157,8 +193,6 @@ async function mouseEnterHandler(this: HTMLAnchorElement, event: MouseEvent) {
       popoverElement.removeEventListener("mouseleave", popoverMouseLeaveHandler)
       popoverElement.addEventListener("mouseenter", popoverMouseEnterHandler)
       popoverElement.addEventListener("mouseleave", popoverMouseLeaveHandler)
-      popoverElement.removeEventListener("click", popoverClickHandler)
-      popoverElement.addEventListener("click", popoverClickHandler)
 
       void setPosition(popoverElement)
 
@@ -220,8 +254,6 @@ async function mouseEnterHandler(this: HTMLAnchorElement, event: MouseEvent) {
             popoverInner.appendChild(pdf)
             break
           }
-          default:
-            break
         }
         break
       }
@@ -229,6 +261,7 @@ async function mouseEnterHandler(this: HTMLAnchorElement, event: MouseEvent) {
       default: {
         const contents = await response.text()
         const html = p.parseFromString(contents, "text/html")
+
         normalizeRelativeURLs(html, targetUrl)
 
         html.querySelectorAll("[id]").forEach((el) => {
@@ -239,12 +272,13 @@ async function mouseEnterHandler(this: HTMLAnchorElement, event: MouseEvent) {
         if (elts.length === 0) return
 
         elts.forEach((elt) => popoverInner.appendChild(elt))
+
+        stripHeaderAnchorsFromPopover(popoverInner)
+        neutralizeLinksInPopover(popoverInner)
       }
     }
 
-    if (document.getElementById(popoverId)) {
-      return
-    }
+    if (document.getElementById(popoverId)) return
 
     document.body.appendChild(popoverElement)
 
@@ -255,17 +289,6 @@ async function mouseEnterHandler(this: HTMLAnchorElement, event: MouseEvent) {
 
     showPopover(popoverElement, popoverInner)
   }, 400)
-}
-
-function popoverClickHandler(event: MouseEvent) {
-  const target = event.target as HTMLElement | null
-  if (!target) return
-
-  const clickedLink = target.closest("a") as HTMLAnchorElement | null
-  if (!clickedLink) return
-
-  event.preventDefault()
-  event.stopPropagation()
 }
 
 function linkClickHandler() {
