@@ -1,0 +1,159 @@
+@media print {
+
+  @page {
+    margin: 0.7in;
+  }
+
+  html, body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+    filter: none !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    backdrop-filter: none !important;
+    background-image: none !important;
+  }
+
+  #parallax-root,
+  #rays,
+  .left.sidebar,
+  .right.sidebar,
+  .explorer,
+  .toc,
+  .backlinks,
+  .settings-panel,
+  .continuum-settings-scrim,
+  .continuum-settings-handle,
+  .continuum-explorer-scrim,
+  .continuum-explorer-handle,
+  .page-footer,
+  .continuum-footer,
+  .tags,
+  .popover,
+  .search-button,
+  .darkmode,
+  .reader-mode {
+    display: none !important;
+  }
+
+  #quartz-root,
+  #quartz-body,
+  .page,
+  .center,
+  article {
+    display: block !important;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  hr {
+    display: none !important;
+  }
+
+  .breadcrumb-container,
+  .page-title {
+    display: none !important;
+  }
+
+  .article-title {
+    color: #000 !important;
+    margin-bottom: 1rem !important;
+    page-break-after: avoid;
+  }
+
+  article,
+  article * {
+    color: #000 !important;
+    background: transparent !important;
+    -webkit-text-fill-color: #000 !important;
+  }
+
+  a, a:visited {
+    color: #000 !important;
+    text-decoration: underline !important;
+    background: none !important;
+    border: none !important;
+  }
+
+  a.internal::before,
+  a.internal::after,
+  a.external::before,
+  a.external::after {
+    display: none !important;
+    content: none !important;
+  }
+
+  a.external[href]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.9em;
+    word-break: break-all;
+  }
+
+  pre, code {
+    background: transparent !important;
+    color: #000 !important;
+    border: 1px solid #ccc !important;
+  }
+
+  pre {
+    padding: 0.7rem !important;
+    white-space: pre-wrap !important;
+    break-inside: avoid;
+  }
+
+  /* remove Quartz blockquote decorations */
+  .page article blockquote {
+    padding: 0 !important;
+    margin: 1em 0 !important;
+    border: none !important;
+    background: none !important;
+  }
+
+  .page article blockquote::before,
+  .page article blockquote::after {
+    display: none !important;
+  }
+
+  .callout,
+  .callout-content {
+    border: none !important;
+    background: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+  }
+
+  .callout-title {
+    display: none !important;
+  }
+
+  .callout[data-callout="epigraph"] p:first-child {
+    font-style: italic !important;
+  }
+
+  .callout[data-callout="epigraph"] p:last-child {
+    text-align: right !important;
+    font-style: italic !important;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid;
+  }
+
+  img, table, pre, blockquote {
+    break-inside: avoid;
+  }
+
+  p, li {
+    orphans: 3;
+    widows: 3;
+  }
+
+}
