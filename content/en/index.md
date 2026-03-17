@@ -2,7 +2,7 @@
 title: Genesis
 ---
 > [!epigraph]
-> "Nothing exists alone."
+> "It did not choose to begin. It simply did—and from that first, indifferent moment, came everything that would ever hunger, burn, or cease."
 > 
 > — Unknown
 ## Prologue

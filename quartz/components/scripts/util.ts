@@ -157,6 +157,15 @@ function preventTouchMove(e: TouchEvent) {
 function preventKeyScroll(e: KeyboardEvent) {
   if (!blockedKeys.has(e.key)) return
 
+  const target = e.target as HTMLElement | null
+  if (
+    target instanceof HTMLInputElement ||
+    target instanceof HTMLTextAreaElement ||
+    target?.isContentEditable
+  ) {
+    return
+  }
+
   const scrollable = getScrollableAncestor(e.target)
   if (scrollable) return
 

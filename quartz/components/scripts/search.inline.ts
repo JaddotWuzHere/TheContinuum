@@ -50,6 +50,12 @@ const fetchContentCache: Map<FullSlug, Element[]> = new Map()
 const contextWindowWords = 30
 const numSearchResults = 8
 const numTagResults = 5
+const SEARCH_RENDER_DEBOUNCE_MS = 150
+type ResultAnimationMode = "full" | "soft" | "none"
+
+function wait(ms: number) {
+  return new Promise<void>((resolve) => window.setTimeout(resolve, ms))
+}
 
 const tokenizeTerm = (term: string) => {
   const tokens = term.split(/\s+/).filter((t) => t.trim() !== "")
@@ -110,6 +116,7 @@ function highlight(searchTerm: string, text: string, trim?: boolean) {
     tokenizedText = tokenizedText.slice(startIndex, endIndex)
   }
 
+  const originalLength = tokenizedText.length
   const slice = tokenizedText
     .map((tok) => {
       for (const searchTok of tokenizedTerms) {
@@ -122,9 +129,7 @@ function highlight(searchTerm: string, text: string, trim?: boolean) {
     })
     .join(" ")
 
-  return `${startIndex === 0 ? "" : "..."}${slice}${
-    endIndex === tokenizedText.length - 1 ? "" : "..."
-  }`
+  return `${startIndex === 0 ? "" : "..."}${slice}${endIndex === originalLength - 1 ? "" : "..."}`
 }
 
 function highlightHTML(searchTerm: string, el: HTMLElement) {
@@ -148,9 +153,9 @@ function highlightHTML(searchTerm: string, el: HTMLElement) {
       const spanContainer = document.createElement("span")
       let lastIndex = 0
       for (const match of matches) {
-        const matchIndex = nodeText.indexOf(match, lastIndex)
+        const matchIndex = nodeText.toLowerCase().indexOf(match.toLowerCase(), lastIndex)
         spanContainer.appendChild(document.createTextNode(nodeText.slice(lastIndex, matchIndex)))
-        spanContainer.appendChild(createHighlightSpan(match))
+        spanContainer.appendChild(createHighlightSpan(nodeText.slice(matchIndex, matchIndex + match.length)))
         lastIndex = matchIndex + match.length
       }
       spanContainer.appendChild(document.createTextNode(nodeText.slice(lastIndex)))
@@ -186,10 +191,6 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
   const searchSpace = container.querySelector(".search-space") as HTMLElement
   if (!searchSpace) return
 
-  const searchPanel =
-    (container.querySelector(".search-layout") as HTMLElement | null) ??
-    searchSpace
-
   if (container.parentElement !== document.body) {
     document.body.appendChild(container)
   }
@@ -201,6 +202,10 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
 
   let isClosing = false
   let openRaf = 0
+  let previewToken = 0
+  let searchDebounceTimer: number | null = null
+  let searchRequestToken = 0
+  let hasRenderedSearchResults = false
 
   const enablePreview = searchLayout.dataset.preview === "true"
   let preview: HTMLDivElement | undefined = undefined
@@ -232,14 +237,23 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
         unlockPageScroll()
         searchBar.value = ""
         if (sidebar) sidebar.style.zIndex = ""
+        if (searchDebounceTimer !== null) {
+          window.clearTimeout(searchDebounceTimer)
+          searchDebounceTimer = null
+        }
+        searchRequestToken++
+        hasRenderedSearchResults = false
+        results.classList.remove("results-refreshing", "results-animate-full", "results-animate-soft")
         removeAllChildren(results)
         if (preview) {
           removeAllChildren(preview)
+          preview.classList.remove("preview-switching-out", "preview-switching-in")
         }
         searchLayout.classList.remove("display-results")
         searchType = "basic"
         currentSearchTerm = ""
         currentHover = null
+        previewToken++
         isClosing = false
 
         if (!options?.skipFocus) {
@@ -289,17 +303,25 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
       container.classList.add("animating-in")
       searchBar.value = ""
       currentSearchTerm = ""
+      hasRenderedSearchResults = false
+      searchRequestToken++
+      if (searchDebounceTimer !== null) {
+        window.clearTimeout(searchDebounceTimer)
+        searchDebounceTimer = null
+      }
+      results.classList.remove("results-refreshing", "results-animate-full", "results-animate-soft")
       removeAllChildren(results)
       if (preview) {
         removeAllChildren(preview)
+        preview.classList.remove("preview-switching-out", "preview-switching-in")
       }
       searchLayout.classList.add("display-results")
-      await displayResults([])
+      await displayResults([], "none")
       searchBar.focus()
     })
   }
 
-  let currentHover: HTMLInputElement | null = null
+  let currentHover: HTMLElement | null = null
   async function shortcutHandler(e: HTMLElementEventMap["keydown"]) {
     if (e.key === "k" && (e.ctrlKey || e.metaKey) && !e.shiftKey) {
       e.preventDefault()
@@ -322,12 +344,12 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
     if (!container.classList.contains("active")) return
     if (e.key === "Enter" && !e.isComposing) {
       if (results.contains(document.activeElement)) {
-        const active = document.activeElement as HTMLInputElement
+        const active = document.activeElement as HTMLElement
         if (active.classList.contains("no-match")) return
         await displayPreview(active)
         active.click()
       } else {
-        const anchor = document.getElementsByClassName("result-card")[0] as HTMLInputElement | null
+        const anchor = document.getElementsByClassName("result-card")[0] as HTMLElement | null
         if (!anchor || anchor.classList.contains("no-match")) return
         await displayPreview(anchor)
         anchor.click()
@@ -337,8 +359,8 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
       if (results.contains(document.activeElement)) {
         const currentResult = currentHover
           ? currentHover
-          : (document.activeElement as HTMLInputElement | null)
-        const prevResult = currentResult?.previousElementSibling as HTMLInputElement | null
+          : (document.activeElement as HTMLElement | null)
+        const prevResult = currentResult?.previousElementSibling as HTMLElement | null
         currentResult?.classList.remove("focus")
         prevResult?.focus()
         if (prevResult) currentHover = prevResult
@@ -347,14 +369,18 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
     } else if (e.key === "ArrowDown" || e.key === "Tab") {
       e.preventDefault()
       if (document.activeElement === searchBar || currentHover !== null) {
-        const firstResult = currentHover
+        const currentResult = currentHover
           ? currentHover
-          : (document.getElementsByClassName("result-card")[0] as HTMLInputElement | null)
-        const secondResult = firstResult?.nextElementSibling as HTMLInputElement | null
-        firstResult?.classList.remove("focus")
-        secondResult?.focus()
-        if (secondResult) currentHover = secondResult
-        await displayPreview(secondResult)
+          : (document.getElementsByClassName("result-card")[0] as HTMLElement | null)
+        const nextResult =
+          document.activeElement === searchBar
+            ? currentResult
+            : (currentResult?.nextElementSibling as HTMLElement | null)
+
+        currentResult?.classList.remove("focus")
+        nextResult?.focus()
+        if (nextResult) currentHover = nextResult
+        await displayPreview(nextResult)
       }
     }
   }
@@ -413,14 +439,18 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
       await window.spaNavigate(targetUrl)
     }
 
-    async function onMouseEnter(ev: MouseEvent) {
-      if (!ev.target) return
-      const target = ev.target as HTMLInputElement
-      await displayPreview(target)
+    async function onMouseEnter() {
+      currentHover?.classList.remove("focus")
+      itemTile.classList.add("focus")
+      currentHover = itemTile
+      await displayPreview(itemTile)
     }
 
     itemTile.addEventListener("mouseenter", onMouseEnter)
     window.addCleanup(() => itemTile.removeEventListener("mouseenter", onMouseEnter))
+
+    itemTile.addEventListener("focus", onMouseEnter)
+    window.addCleanup(() => itemTile.removeEventListener("focus", onMouseEnter))
 
     itemTile.addEventListener("click", onClick)
     window.addCleanup(() => itemTile.removeEventListener("click", onClick))
@@ -428,7 +458,86 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
     return itemTile
   }
 
-  async function displayResults(finalResults: Item[]) {
+
+  async function runSearch(term: string, requestToken: number) {
+    if (!searchLayout || !index) return
+
+    let effectiveSearchType: SearchType = term.startsWith("#") ? "tags" : "basic"
+    let effectiveTerm = term
+
+    let searchResults: DefaultDocumentSearchResults<Item>
+    if (effectiveSearchType === "tags") {
+      effectiveTerm = effectiveTerm.substring(1).trim()
+      const separatorIndex = effectiveTerm.indexOf(" ")
+      if (separatorIndex !== -1) {
+        const tag = effectiveTerm.substring(0, separatorIndex)
+        const query = effectiveTerm.substring(separatorIndex + 1).trim()
+
+        searchResults = await index.searchAsync({
+          query,
+          limit: Math.max(numSearchResults, 10000),
+          index: ["title", "content"],
+          tag: { tags: tag },
+        })
+
+        for (const searchResult of searchResults) {
+          searchResult.result = searchResult.result.slice(0, numSearchResults)
+        }
+
+        effectiveSearchType = "basic"
+        effectiveTerm = query
+      } else {
+        searchResults = await index.searchAsync({
+          query: effectiveTerm,
+          limit: numSearchResults,
+          index: ["tags"],
+        })
+      }
+    } else {
+      searchResults = await index.searchAsync({
+        query: effectiveTerm,
+        limit: numSearchResults,
+        index: ["title", "content"],
+      })
+    }
+
+    if (requestToken !== searchRequestToken || !container.classList.contains("active")) {
+      return
+    }
+
+    searchType = effectiveSearchType
+    currentSearchTerm = effectiveTerm
+
+    const getByField = (field: string): number[] => {
+      const resultsForField = searchResults.filter((x) => x.field === field)
+      return resultsForField.length === 0 ? [] : ([...resultsForField[0].result] as number[])
+    }
+
+    const allIds: Set<number> = new Set([
+      ...getByField("title"),
+      ...getByField("content"),
+      ...getByField("tags"),
+    ])
+
+    const finalResults = [...allIds].map((id) => formatForDisplay(currentSearchTerm, id))
+
+    const animationMode: ResultAnimationMode = hasRenderedSearchResults ? "soft" : "full"
+    await displayResults(finalResults, animationMode)
+    hasRenderedSearchResults = true
+  }
+
+  async function displayResults(
+    finalResults: Item[],
+    animationMode: ResultAnimationMode = "soft",
+  ) {
+    results.classList.remove("results-refreshing", "results-animate-full", "results-animate-soft")
+
+    if (animationMode === "full") {
+      results.classList.add("results-animate-full")
+    } else if (animationMode === "soft") {
+      results.classList.add("results-refreshing", "results-animate-soft")
+    }
+
     removeAllChildren(results)
     if (finalResults.length === 0) {
       const isEmptyQuery = currentSearchTerm.trim() === ""
@@ -446,12 +555,20 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
       results.append(...finalResults.map(resultToHTML))
     }
 
+    requestAnimationFrame(() => {
+      results.classList.remove("results-refreshing")
+    })
+
     if (finalResults.length === 0 && preview) {
+      previewToken++
       removeAllChildren(preview)
+      preview.classList.remove("preview-switching-out", "preview-switching-in")
+      currentHover = null
     } else {
-      const firstChild = results.firstElementChild as HTMLElement
+      const firstChild = results.firstElementChild as HTMLElement | null
+      if (!firstChild) return
       firstChild.classList.add("focus")
-      currentHover = firstChild as HTMLInputElement
+      currentHover = firstChild
       await displayPreview(firstChild)
     }
   }
@@ -479,10 +596,31 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
 
   async function displayPreview(el: HTMLElement | null) {
     if (!searchLayout || !enablePreview || !el || !preview) return
+    if (el.classList.contains("no-match")) {
+      previewToken++
+      removeAllChildren(preview)
+      preview.classList.remove("preview-switching-out", "preview-switching-in")
+      return
+    }
+
     const slug = el.id as FullSlug
+    const thisToken = ++previewToken
+
+    if (preview.childElementCount > 0) {
+      preview.classList.remove("preview-switching-in")
+      preview.classList.add("preview-switching-out")
+      await wait(140)
+    }
+
+    if (thisToken !== previewToken) return
+
     const innerDiv = await fetchContent(slug).then((contents) =>
-      contents.flatMap((el) => [...highlightHTML(currentSearchTerm, el as HTMLElement).children]),
+      contents.flatMap((contentEl) => [
+        ...highlightHTML(currentSearchTerm, contentEl as HTMLElement).children,
+      ]),
     )
+
+    if (thisToken !== previewToken) return
 
     const previewBadge = document.createElement("div")
     previewBadge.classList.add("preview-badge")
@@ -494,63 +632,36 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
 
     preview.replaceChildren(previewBadge, previewInner)
 
+    preview.classList.remove("preview-switching-out")
+    preview.classList.add("preview-switching-in")
+
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        preview.classList.remove("preview-switching-in")
+      })
+    })
+
     const highlights = [...preview.getElementsByClassName("highlight")].sort(
       (a, b) => b.innerHTML.length - a.innerHTML.length,
     )
     highlights[0]?.scrollIntoView({ block: "start" })
   }
 
-  async function onType(e: HTMLElementEventMap["input"]) {
+  function onType(e: HTMLElementEventMap["input"]) {
     if (!searchLayout || !index) return
-    currentSearchTerm = (e.target as HTMLInputElement).value
+
+    const rawTerm = (e.target as HTMLInputElement).value
+    currentSearchTerm = rawTerm
     searchLayout.classList.add("display-results")
-    searchType = currentSearchTerm.startsWith("#") ? "tags" : "basic"
 
-    let searchResults: DefaultDocumentSearchResults<Item>
-    if (searchType === "tags") {
-      currentSearchTerm = currentSearchTerm.substring(1).trim()
-      const separatorIndex = currentSearchTerm.indexOf(" ")
-      if (separatorIndex != -1) {
-        const tag = currentSearchTerm.substring(0, separatorIndex)
-        const query = currentSearchTerm.substring(separatorIndex + 1).trim()
-        searchResults = await index.searchAsync({
-          query: query,
-          limit: Math.max(numSearchResults, 10000),
-          index: ["title", "content"],
-          tag: { tags: tag },
-        })
-        for (let searchResult of searchResults) {
-          searchResult.result = searchResult.result.slice(0, numSearchResults)
-        }
-        searchType = "basic"
-        currentSearchTerm = query
-      } else {
-        searchResults = await index.searchAsync({
-          query: currentSearchTerm,
-          limit: numSearchResults,
-          index: ["tags"],
-        })
-      }
-    } else {
-      searchResults = await index.searchAsync({
-        query: currentSearchTerm,
-        limit: numSearchResults,
-        index: ["title", "content"],
-      })
+    if (searchDebounceTimer !== null) {
+      window.clearTimeout(searchDebounceTimer)
     }
 
-    const getByField = (field: string): number[] => {
-      const results = searchResults.filter((x) => x.field === field)
-      return results.length === 0 ? [] : ([...results[0].result] as number[])
-    }
-
-    const allIds: Set<number> = new Set([
-      ...getByField("title"),
-      ...getByField("content"),
-      ...getByField("tags"),
-    ])
-    const finalResults = [...allIds].map((id) => formatForDisplay(currentSearchTerm, id))
-    await displayResults(finalResults)
+    const requestToken = ++searchRequestToken
+    searchDebounceTimer = window.setTimeout(() => {
+      void runSearch(rawTerm, requestToken)
+    }, SEARCH_RENDER_DEBOUNCE_MS)
   }
 
   document.addEventListener("keydown", shortcutHandler)
@@ -570,7 +681,7 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
     if (!target) return
 
     if (!searchSpace.contains(target)) {
-      hideSearch()
+      void hideSearch()
     }
   }
 
@@ -585,7 +696,6 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
 
 /**
  * Fills flexsearch document with data
- * @param index index to fill
  * @param data data to fill index with
  */
 let indexPopulated = false
@@ -594,9 +704,10 @@ async function fillDocument(data: ContentIndex) {
   let id = 0
   const promises: Array<Promise<unknown>> = []
   for (const [slug, fileData] of Object.entries<ContentDetails>(data)) {
+    const docId = id++
     promises.push(
-      index.addAsync(id++, {
-        id,
+      index.addAsync(docId, {
+        id: docId,
         slug: slug as FullSlug,
         title: fileData.title,
         content: fileData.content,

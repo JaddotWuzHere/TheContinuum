@@ -37,6 +37,7 @@
   .tags,
   .popover,
   .search-button,
+  .search-container,
   .darkmode,
   .reader-mode {
     display: none !important;
@@ -109,7 +110,6 @@
     break-inside: avoid;
   }
 
-  /* remove Quartz blockquote decorations */
   .page article blockquote {
     padding: 0 !important;
     margin: 1em 0 !important;
