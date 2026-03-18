@@ -63,11 +63,13 @@ article {
   > mjx-container.MathJax,
   blockquote > div > mjx-container.MathJax {
     display: flex;
+
     > svg {
       margin-left: auto;
       margin-right: auto;
     }
   }
+
   blockquote > div > mjx-container.MathJax > svg {
     margin-top: 1rem;
     margin-bottom: 1rem;
@@ -257,34 +259,41 @@ a {
 }
 
 .desktop-only {
-  display: initial;
+  display: none;
+
   &.flex-component {
-    display: flex;
-  }
-  @media all and ($mobile) {
-    &.flex-component {
-      display: none;
-    }
     display: none;
+  }
+
+  @media all and ($desktop) {
+    display: initial;
+
+    &.flex-component {
+      display: flex;
+    }
   }
 }
 
 .mobile-only {
   display: none;
+
   &.flex-component {
     display: none;
   }
+
   @media all and ($mobile) {
+    display: initial;
+
     &.flex-component {
       display: flex;
     }
-    display: initial;
   }
 }
 
 .page {
-  max-width: calc(#{map.get($breakpoints, desktop)} + 300px);
+  max-width: 1800;
   margin: 0 auto;
+
   & article {
     & > h1 {
       font-size: 2rem;
@@ -318,26 +327,20 @@ a {
     column-gap: #{map.get($desktopGrid, columnGap)};
     row-gap: #{map.get($desktopGrid, rowGap)};
     grid-template-areas: #{map.get($desktopGrid, templateAreas)};
+    padding-left: $desktopLeftSafeGutter;
+    padding-right: $desktopRightSafeGutter;
+    box-sizing: border-box;
 
-    @media all and ($tablet) {
-      grid-template-columns: #{map.get($tabletGrid, templateColumns)};
-      grid-template-rows: #{map.get($tabletGrid, templateRows)};
-      column-gap: #{map.get($tabletGrid, columnGap)};
-      row-gap: #{map.get($tabletGrid, rowGap)};
-      grid-template-areas: #{map.get($tabletGrid, templateAreas)};
-    }
     @media all and ($mobile) {
-      grid-template-columns: #{map.get($mobileGrid, templateColumns)};
-      grid-template-rows: #{map.get($mobileGrid, templateRows)};
-      column-gap: #{map.get($mobileGrid, columnGap)};
-      row-gap: #{map.get($mobileGrid, rowGap)};
-      grid-template-areas: #{map.get($mobileGrid, templateAreas)};
-    }
-
-    @media all and not ($desktop) {
-      padding: 0 1rem;
-    }
-    @media all and ($mobile) {
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-rows: auto auto auto;
+      grid-template-areas:
+        "grid-header"
+        "grid-center"
+        "grid-footer";
+      column-gap: 0;
+      row-gap: 0;
+      padding-inline: 1rem;
       margin: 0 auto;
     }
 
@@ -355,15 +358,22 @@ a {
       z-index: 1;
       grid-area: grid-sidebar-left;
       flex-direction: column;
+
       @media all and ($mobile) {
-        gap: 0;
-        align-items: center;
-        position: initial;
-        display: flex;
-        height: unset;
-        flex-direction: row;
+        grid-area: grid-center;
+        position: static;
+        display: block;
+        height: 0;
         padding: 0;
-        padding-top: 2rem;
+        margin: 0;
+        overflow: visible;
+        pointer-events: none;
+      }
+
+      @media all and ($mobile) {
+        & > * {
+          pointer-events: auto;
+        }
       }
     }
 
@@ -371,25 +381,30 @@ a {
       grid-area: grid-sidebar-right;
       margin-right: 0;
       flex-direction: column;
+
       @media all and ($mobile) {
         margin-left: inherit;
         margin-right: inherit;
       }
-      @media all and not ($desktop) {
+
+      @media all and ($mobile) {
         position: initial;
         height: unset;
         width: 100%;
         flex-direction: row;
         padding: 0;
+
         & > * {
           flex: 1;
           max-height: 24rem;
         }
+
         & > .toc {
           display: none;
         }
       }
     }
+
     & .page-header,
     & .page-footer {
       margin-top: 1rem;
@@ -398,6 +413,7 @@ a {
     & .page-header {
       grid-area: grid-header;
       margin: $topSpacing 0 0 0;
+
       @media all and ($mobile) {
         margin-top: 0;
         padding: 0;
@@ -418,14 +434,29 @@ a {
       min-width: 100%;
       margin-left: auto;
       margin-right: auto;
-      @media all and ($tablet) {
-        margin-right: 0;
+    }
+
+    @media all and ($mobile) {
+      & .page-header,
+      & .center,
+      & footer {
+        width: min(100%, 68rem);
+        min-width: 0;
+        margin-left: auto;
+        margin-right: auto;
+        box-sizing: border-box;
+        padding-inline: clamp(2.6rem, 5vw, 3.4rem);
       }
-      @media all and ($mobile) {
-        margin-right: 0;
-        margin-left: 0;
+
+      & .page-header {
+        margin-top: 2rem;
+      }
+
+      & .page-footer {
+        margin-top: 2rem;
       }
     }
+
     & footer {
       margin-left: 0;
     }
@@ -531,7 +562,6 @@ h6 {
   }
 }
 
-// typography improvements
 h1,
 h2,
 h3,
@@ -720,6 +750,7 @@ td {
 
 tr {
   border-bottom: 1px solid var(--lightgray);
+
   &:last-child {
     border-bottom: none;
   }
@@ -767,7 +798,6 @@ ol.overflow {
   width: 100%;
   margin-bottom: 0;
 
-  // clearfix
   content: "";
   clear: both;
 
@@ -813,16 +843,15 @@ iframe.pdf {
 }
 
 ::selection {
-  background: rgba(212,175,55,0.28);
+  background: rgba(212, 175, 55, 0.28);
   color: #fff;
-  text-shadow: 0 0 4px rgba(212,175,55,0.25);
+  text-shadow: 0 0 4px rgba(212, 175, 55, 0.25);
 }
 
 ::-moz-selection {
   background: rgba(212, 175, 55, 0.35);
   color: #f5f5f5;
 }
-
 
 * {
   scrollbar-width: thin;
@@ -863,18 +892,18 @@ hr {
   background: linear-gradient(
     90deg,
     hsl(calc(var(--gold-h) - 20) var(--gold-s) 34% / 0) 0%,
-    hsl(calc(var(--gold-h) - 12) var(--gold-s) 44% / .35) 8%,
-    hsl(calc(var(--gold-h) -  6) var(--gold-s) 56% / .60) 18%,
-    hsl(var(--gold-h) var(--gold-s) 70% / .85) 32%,
+    hsl(calc(var(--gold-h) - 12) var(--gold-s) 44% / 0.35) 8%,
+    hsl(calc(var(--gold-h) - 6) var(--gold-s) 56% / 0.60) 18%,
+    hsl(var(--gold-h) var(--gold-s) 70% / 0.85) 32%,
     hsl(var(--gold-h) var(--gold-s) 87%) 50%,
-    hsl(var(--gold-h) var(--gold-s) 70% / .85) 68%,
-    hsl(calc(var(--gold-h) -  6) var(--gold-s) 56% / .60) 82%,
-    hsl(calc(var(--gold-h) - 12) var(--gold-s) 44% / .35) 92%,
+    hsl(var(--gold-h) var(--gold-s) 70% / 0.85) 68%,
+    hsl(calc(var(--gold-h) - 6) var(--gold-s) 56% / 0.60) 82%,
+    hsl(calc(var(--gold-h) - 12) var(--gold-s) 44% / 0.35) 92%,
     hsl(calc(var(--gold-h) - 20) var(--gold-s) 34% / 0) 100%
   );
   filter:
-    drop-shadow(0 0 1px hsl(var(--gold-h) var(--gold-s) 75% / .55))
-    drop-shadow(0 0 4px hsl(var(--gold-h) var(--gold-s) 75% / .20));
+    drop-shadow(0 0 1px hsl(var(--gold-h) var(--gold-s) 75% / 0.55))
+    drop-shadow(0 0 4px hsl(var(--gold-h) var(--gold-s) 75% / 0.20));
 }
 
 .page article :is(h1, h2, h3, h4, h5, h6) + hr {
@@ -956,9 +985,7 @@ body[data-slug="404"] .page-footer {
   margin-bottom: 20rem;
 }
 
-/* soften link background in Firefox only */
 @-moz-document url-prefix() {
-
   a.internal:not([role="anchor"]):not([href^="#"]) {
     background-image:
       linear-gradient(
@@ -994,5 +1021,4 @@ body[data-slug="404"] .page-footer {
         hsl(var(--gold-h) 42% 26% / 0.16) 100%
       ) !important;
   }
-
 }
