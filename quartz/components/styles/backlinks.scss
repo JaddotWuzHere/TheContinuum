@@ -117,15 +117,9 @@
   z-index: 1;
   min-width: 0;
   max-width: 100%;
-  overflow: visible !important;
-  max-height: none !important;
 
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-
-.backlinks ul::-webkit-scrollbar {
-  display: none;
+  overflow: hidden;
+  max-height: 100%;
 }
 
 .backlinks ul::before {

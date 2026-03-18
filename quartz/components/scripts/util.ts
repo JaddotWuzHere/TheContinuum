@@ -69,11 +69,22 @@ const noScrollZoneSelectors = [
   ".settings-panel",
 ].join(", ")
 
+function isAllowedNestedScrollTarget(el: Element | null): boolean {
+  if (!el) return false
+
+  return Boolean(
+    el.closest(".explorer-content") ||
+      el.closest(".settings-content") ||
+      el.closest(".toc .overflow") ||
+      el.closest(".backlinks .overflow"),
+  )
+}
+
 function preventWheelInNoScrollZone(e: WheelEvent) {
   const el = e.target as Element | null
   if (!el?.closest(noScrollZoneSelectors)) return
 
-  if (el.closest(".explorer-content") || el.closest(".settings-content")) return
+  if (isAllowedNestedScrollTarget(el)) return
 
   e.preventDefault()
 }
@@ -82,7 +93,7 @@ function preventTouchMoveInNoScrollZone(e: TouchEvent) {
   const el = e.target as Element | null
   if (!el?.closest(noScrollZoneSelectors)) return
 
-  if (el.closest(".explorer-content") || el.closest(".settings-content")) return
+  if (isAllowedNestedScrollTarget(el)) return
 
   e.preventDefault()
 }
