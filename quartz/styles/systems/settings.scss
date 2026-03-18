@@ -463,3 +463,16 @@ html[data-explorer-open="1"] .continuum-settings-handle {
   opacity: .88;
   font-weight: 500;
 }
+
+html[data-no-animations="1"] *,
+html[data-no-animations="1"] *::before,
+html[data-no-animations="1"] *::after {
+  animation-duration: 0s !important;
+  animation-delay: 0s !important;
+  animation-iteration-count: 1 !important;
+
+  transition-duration: 0s !important;
+  transition-delay: 0s !important;
+
+  scroll-behavior: auto !important;
+}

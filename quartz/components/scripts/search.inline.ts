@@ -50,7 +50,7 @@ const fetchContentCache: Map<FullSlug, Element[]> = new Map()
 const contextWindowWords = 30
 const numSearchResults = 8
 const numTagResults = 5
-const SEARCH_RENDER_DEBOUNCE_MS = 150
+const SEARCH_RENDER_DEBOUNCE_MS = 315
 type ResultAnimationMode = "full" | "soft" | "none"
 
 function wait(ms: number) {

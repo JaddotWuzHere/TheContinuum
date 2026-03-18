@@ -12,7 +12,6 @@ import LanguageSwitcherCtor from "./LangSwitcher"
 import { i18n } from "../i18n"
 import { concatenateResources } from "../util/resources"
 
-// Instantiate LangSwitcher once, grab its resources
 const LangSwitcher = LanguageSwitcherCtor()
 const langCss = (LangSwitcher as any).css ?? ""
 const langAfter = (LangSwitcher as any).afterDOMLoaded ?? ""
@@ -40,6 +39,18 @@ const SettingsImpl: QuartzComponent = (props: QuartzComponentProps) => {
         {/* PERFORMANCE SECTION */}
         <section class="settings-section settings-section-performance">
           <h3 class="settings-section-title">{perfTitle}</h3>
+
+          <button
+            type="button"
+            class="fx-toggle fx-toggle-parent"
+            data-setting="disableAnimations"
+            data-state="off"
+          >
+            <span class="fx-toggle-label">Disable Animations</span>
+            <span class="fx-toggle-switch" aria-hidden="true">
+              <span class="fx-toggle-thumb" />
+            </span>
+          </button>
 
           <button
             type="button"
@@ -110,7 +121,6 @@ const SettingsImpl: QuartzComponent = (props: QuartzComponentProps) => {
           <h3 class="settings-section-title">{langTitle}</h3>
 
           <div class="settings-language-row">
-            {/* IMPORTANT: LangSwitcher gets full Quartz props */}
             <LangSwitcher {...props} />
           </div>
         </section>
@@ -122,10 +132,8 @@ const SettingsImpl: QuartzComponent = (props: QuartzComponentProps) => {
 export default (() => {
   const Settings: QuartzComponent = SettingsImpl
 
-  // Combine settings CSS + LangSwitcher CSS
   Settings.css = `${style}\n${langCss}`
 
-  // Run settings script AND LangSwitcher script after DOM
   Settings.afterDOMLoaded = concatenateResources(script, langAfter)
 
   return Settings

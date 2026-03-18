@@ -50,7 +50,6 @@ function setupSettingsDrawer() {
     ;(handle as any)._settingsBound = true
 
     handle.addEventListener("click", () => {
-
       if (root.hasAttribute("data-explorer-open")) {
         root.removeAttribute("data-explorer-open")
         unlockPageScroll()
@@ -122,6 +121,7 @@ function setupSettingsToggles() {
     )
 
   const settingToRootAttr: Record<string, string> = {
+    disableAnimations: "data-no-animations",
     disableRays: "data-no-rays",
     disableMovement: "data-no-ray-movement",
     disableFlickering: "data-no-flicker",
