@@ -50,7 +50,7 @@ html[data-explorer-open="1"] .continuum-explorer-scrim {
 
 .continuum-explorer-handle {
   position: fixed;
-  top: 50%;
+  top: 50svh;
   left: 0;
   transform: translateY(-50%) translateX(var(--explorer-peek));
   z-index: var(--explorer-z-handle);
@@ -228,7 +228,7 @@ html[data-explorer-open="1"] .continuum-explorer-handle {
   left: 0;
   z-index: var(--explorer-z-drawer);
 
-  height: 100dvh;
+  height: 100lvh;
   width: var(--explorer-w);
 
   background: var(--explorer-bg);
@@ -248,7 +248,7 @@ html[data-explorer-open="1"] .continuum-explorer-handle {
 html[data-explorer-open="1"] .explorer { transform: translateX(0); }
 
 .explorer :is(.explorer-content, .explorer-ul) {
-  max-height: 100dvh;
+  max-height: 100lvh;
   overflow: auto;
   max-width: calc(100% - 50px - var(--explorer-gutter));
   overflow-y: auto;
@@ -521,13 +521,33 @@ html[data-explorer-open="1"] .explorer { transform: translateX(0); }
 
 .explorer .folder-container { align-items: flex-start; }
 
+.explorer .folder-toggle {
+  appearance: none;
+  -webkit-appearance: none;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+
+  flex: 0 0 auto;
+  align-self: flex-start;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0.32rem;
+  margin: 0.23rem 0 0 -0.18rem;
+
+  border-radius: 0.45rem;
+}
+
 .explorer .folder-icon {
   cursor: pointer;
   color: hsl(var(--gold-h) var(--gold-s) 70% / .75);
 
   flex: 0 0 auto;
-  margin-top: 0.55rem;
-  align-self: flex-start;
+  margin-top: 0;
+  align-self: center;
 
   --_rot: 0deg;
   --_scale: 1;
@@ -538,6 +558,10 @@ html[data-explorer-open="1"] .explorer { transform: translateX(0); }
   transition:
     transform 0.32s cubic-bezier(0.22, 0.61, 0.36, 1),
     filter 0.22s ease;
+}
+
+.explorer .folder-toggle:active .folder-icon {
+  --_scale: 0.92;
 }
 
 .explorer .folder-icon * { pointer-events: none; }

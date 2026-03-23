@@ -26,10 +26,14 @@ main,
 
 #parallax-root {
   position: fixed;
-  inset: 0;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100lvh;
   z-index: -3;
   pointer-events: none;
   isolation: isolate;
+  overflow: hidden;
 
   transition:
     filter 0.6s cubic-bezier(0.12, 0.85, 0.25, 1),
@@ -38,7 +42,7 @@ main,
 
 #parallax-root .layer {
   position: absolute;
-  top: -52vh;
+  top: -52svh;
   left: 0;
   width: 100vw;
   height: auto;
@@ -93,7 +97,10 @@ html[data-search-open="1"] #parallax-root {
 
 #rays {
   position: fixed;
-  inset: 0;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100lvh;
   z-index: -2;
   pointer-events: none;
 
@@ -191,12 +198,12 @@ html[data-search-open="1"] #parallax-root {
 
   background-position:
     left top,
-    left calc(var(--y-fast) * 0.35 - 12vh + var(--offR1, 0vh)),
-    left calc(var(--y-med)  * 0.12 + 34vh + var(--offR2, 0vh)),
-    left calc(var(--y-slow) * 0.26 -  4vh + var(--offR3, 0vh)),
-    left calc(var(--y-fast) * 0.05 + 22vh + var(--offR4, 0vh)),
-    left calc(var(--y-med)  * 0.18 - 16vh + var(--offR5, 0vh)),
-    left calc(var(--y-slow) * 0.31 +  6vh + var(--offR6, 0vh));
+    left calc(var(--y-fast) * 0.35 - 12svh + var(--offR1, 0svh)),
+    left calc(var(--y-med)  * 0.12 + 34svh + var(--offR2, 0svh)),
+    left calc(var(--y-slow) * 0.26 -  4svh + var(--offR3, 0svh)),
+    left calc(var(--y-fast) * 0.05 + 22svh + var(--offR4, 0svh)),
+    left calc(var(--y-med)  * 0.18 - 16svh + var(--offR5, 0svh)),
+    left calc(var(--y-slow) * 0.31 +  6svh + var(--offR6, 0svh));
 
   background-size:
     130% 130%,
@@ -227,10 +234,10 @@ html[data-no-ray-parallax] #rays {
   background-attachment: scroll;
   background-position:
     left top,
-    left -12vh,
-    left 34vh,
-    left -4vh,
-    left 22vh,
-    left -16vh,
-    left 6vh;
+    left -12svh,
+    left 34svh,
+    left -4svh,
+    left 22svh,
+    left -16svh,
+    left 6svh;
 }

@@ -165,10 +165,10 @@ function toggleFolder(evt: MouseEvent) {
   const target = evt.target as HTMLElement | null
   if (!target) return
 
-  const icon = target.closest("svg.folder-icon") as SVGElement | null
-  if (!icon) return
+  const toggle = target.closest(".folder-toggle, svg.folder-icon") as HTMLElement | null
+  if (!toggle) return
 
-  const folderContainer = icon.closest(".folder-container") as HTMLElement | null
+  const folderContainer = toggle.closest(".folder-container") as HTMLElement | null
   if (!folderContainer) return
 
   const folderOuter = folderContainer.nextElementSibling as HTMLElement | null
@@ -381,6 +381,14 @@ async function setupExplorer(currentSlug: FullSlug) {
         button.addEventListener("click", toggleFolder)
         window.addCleanup(() => button.removeEventListener("click", toggleFolder))
       }
+    }
+
+    const folderToggles = explorer.getElementsByClassName(
+      "folder-toggle",
+    ) as HTMLCollectionOf<HTMLElement>
+    for (const toggle of folderToggles) {
+      toggle.addEventListener("click", toggleFolder)
+      window.addCleanup(() => toggle.removeEventListener("click", toggleFolder))
     }
 
     const folderIcons = explorer.getElementsByClassName(

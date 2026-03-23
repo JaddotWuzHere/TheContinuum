@@ -56,7 +56,7 @@ html[data-settings-open="1"] .continuum-settings-scrim {
 
 .continuum-settings-handle {
   position: fixed;
-  top: 50%;
+  top: 50svh;
   right: 0;
   transform: translateY(-50%) translateX(calc(-1 * var(--settings-peek)));
   z-index: var(--settings-z-handle);
@@ -123,7 +123,7 @@ html[data-settings-open="1"] .continuum-settings-handle {
   right: 0;
   z-index: var(--settings-z-drawer);
 
-  height: 100dvh;
+  height: 100lvh;
   width: var(--settings-w);
 
   background: rgba(10, 12, 18, 0.78);
