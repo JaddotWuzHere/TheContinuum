@@ -948,6 +948,8 @@ body[data-slug="404"] #quartz-body {
   grid-template-areas:
     "grid-center"
     "grid-footer" !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
 }
 
 body[data-slug="404"] .center {
@@ -973,8 +975,15 @@ body[data-slug="404"] .continuum-404 {
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100%;
   padding: 3rem 1rem 1rem;
   box-sizing: border-box;
+}
+
+body[data-slug="404"] .continuum-404-inner {
+  width: fit-content;
+  max-width: 480px;
+  margin: 0 auto;
 }
 
 body[data-slug="404"] footer {

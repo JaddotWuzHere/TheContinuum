@@ -25,7 +25,7 @@
     function navigateToLang(lang: string): void {
       const url = new URL(window.location.href)
       const parts = url.pathname.split("/").filter(Boolean)
-      const supported = new Set(["en", "zh", "fr"])
+      const supported = new Set(["en", "zh", "fr", "ja"])
       const first = parts[0]
 
       if (supported.has(first)) {
@@ -58,7 +58,7 @@
     }
 
     const parts = window.location.pathname.split("/").filter(Boolean)
-    const supported = new Set(["en", "zh", "fr"])
+    const supported = new Set(["en", "zh", "fr", "ja"])
     const current = supported.has(parts[0]) ? parts[0] : "en"
 
     safeSelect.value = current
@@ -101,7 +101,7 @@
       .querySelectorAll<HTMLElement>(".lang-switcher")
       .forEach((root) => {
         const parts = window.location.pathname.split("/").filter(Boolean)
-        const supported = new Set(["en", "zh", "fr"])
+        const supported = new Set(["en", "zh", "fr", "ja"])
         const current = supported.has(parts[0]) ? parts[0] : "en"
 
         const trigger = root.querySelector<HTMLButtonElement>(".lang-trigger")

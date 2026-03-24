@@ -115,6 +115,9 @@ NotFound.css = `
 .continuum-404-inner {
   text-align: center;
   max-width: 480px;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .continuum-404-code {

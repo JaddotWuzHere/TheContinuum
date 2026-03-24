@@ -56,6 +56,7 @@ const LangSwitcherImpl: QuartzComponent = (_props: QuartzComponentProps) => {
           <option value="en">English</option>
           <option value="zh">中文</option>
           <option value="fr">Français</option>
+          <option value="ja">日本語</option>
         </select>
 
         {/* Chevron */}
@@ -106,6 +107,17 @@ const LangSwitcherImpl: QuartzComponent = (_props: QuartzComponentProps) => {
           >
             <span>Français</span>
             <span class="lang-code">FR</span>
+          </button>
+
+          <button
+            class="lang-menu-item"
+            type="button"
+            role="option"
+            data-lang="ja"
+            data-active="0"
+          >
+            <span>日本語</span>
+            <span class="lang-code">JA</span>
           </button>
         </div>
       </div>
