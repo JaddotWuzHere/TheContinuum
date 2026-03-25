@@ -7,28 +7,27 @@ title: Genesis
 > — Unknown
 ## Prologue
 ---
-This is no fantasy. 
+The laws were never written.
 
-This is a universe that needs no gods to govern its laws, as the same familiar principles of matter, motion, and energy persist.
+They do not require witness. Nor agreement, for that matter. They only hold, as they have held before the first civilization named them, and as they will hold long after the last one forgets. 
 
-But alongside those principles exists another fundamental property of reality—mana.
+Mana is among them, and with it, everything that would come to be called magic. What may have once been believed to be a miracle bestowed upon sentia by gods is no more than a property of reality as fundamental as the rest. Knowledge of it did not come without consequence, however—what ends with ignorance is, in many cases, simply silence. 
 
-Here, magic is not myth nor miracle, but an additional layer of physics integrated into the same natural order. Its discovery reshaped every science and every civilization that followed. Every species that learned to wield it became stronger; those that did not perished. 
+Over time, the discovery of mana reveals a condition: to understand, to interact. To interact, to control. Those who learned this reshaped the world to their will; those who did not are remembered only as absence. 
 
-Born from magic's relentless demand of intellect, this is a universe ruled by scholarship, one where knowledge itself determines survival.
+Magic does not distribute itself equally, and neither does its understanding. In this sense the universe is not ruled by scholarship so much as it is culled by it—knowledge accumulates only where it can be borne.
 
-**Welcome to the Continuum.** 
-## Fields of Study
----
-The Continuum is vast, but its laws are consistent. Every discipline, from metaphysics to biology, stems from the same foundation: the study of how reality maintains coherence between the physical and the magical.
+The universe offers no judgement. It extends no mercy to the unprepared and no recognition to those who endure. All that exists is subject to the same order. Nothing is freely created.
 
-Scholars divide this knowledge into broad fields, each dedicated to understanding a different aspect of existence.
-###### [[en/Continuum Physics/index|Continuum Physics]] 
-The foundational science of the universe.
-###### [[Thaumatopathology]]
-The medical science of magic-related disorders.
+Nothing is exempt.
 ## Universe Compendium
 ---
-Beyond its sciences, the Continuum is shaped by the civilizations, histories, and philosophies that grew from its pursuit of knowledge. These entries record the living world, such as the people, institutions, and ideas that define how the universe understands itself.
-###### [[World Order]]
-The governing structure of the Continuum.
+The Continuum is not approached through a single discipline, rather it is through distinct paths of inquiry. It is an organized entry point, a structure imposed on a body of knowledge that does not, by nature, organize itself. All of knowledge is divided into four areas, each defined less by strict boundary than by orientation.
+#### [[High Principia]]
+High Principia concerns itself with the underlying structure of reality, such as the physics of the universe and the mathematics that describe it. These are fields defined by rigor, and hold no interest in utility. They carry the accumulated weight of every civilization that has attempted to describe the universe.
+#### [[Praxis]]
+Praxis concerns itself with what can be done. It is pertained with construction, control, execution; the focus lies in turning knowledge into systems that operate within the constraints of reality. While High Principia determines the limits of the universe, Praxis is the practice of approaching them.
+#### [[World Order]]
+World Order concerns itself with structures the emerge when knowledge is unevenly retained. It addresses the systems by which civilizations have organized themselves, such as how power is held, how time is counted, how populations are divided and governed. It is indifferent to whether these structures were just or wise, but rather what they were, how they functioned, and what their presence or absence produced.
+#### [[The Archives]]
+The Archives concerns itself with discovery, conflict, and thought. It encompasses the accumulated record of the universe. Their purpose is ensure the continuity of knowledge. In a place where knowledge determines survival, what is remembered is as important as what is discovered. What is held in The Archives is not always complete, not always accurate, and not always meant to be read.
