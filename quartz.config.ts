@@ -11,6 +11,7 @@ const config: QuartzConfig = {
   configuration: {
     pageTitle: "The Continuum",
     pageTitleSuffix: " | Magic made reality",
+    baseUrl: "continuumarchives.com",
     enableSPA: true,
     enablePopovers: true,
     analytics: {
