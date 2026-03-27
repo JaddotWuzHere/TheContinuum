@@ -1,34 +1,33 @@
 ---
-title: Genesis (Japanese Translation Placeholder)
+title: 端緒
 ---
 > [!epigraph]
-> "It did not choose to begin. It simply did—and from that first, indifferent moment, came everything that would ever hunger, burn, or cease."
+> 「はじめの無関心な一瞬から、飢え、燃え、あるいは尽きるすべてが生まれた。」
 > 
-> — Unknown
-## Prologue
+> ——著者不詳
+## 序章
 ---
-This is no fantasy. 
+法則は、書かれたことがない。
 
-This is a universe that needs no gods to govern its laws, as the same familiar principles of matter, motion, and energy persist.
+証人を必要とせず、合意をも必要としない。法則はただ在る。最初の文明がそれを名付ける以前から在り、最後の文明がそれを忘れた後も、なお在り続ける。
 
-But alongside those principles exists another fundamental property of reality—mana.
+魔素もその一つであり、それとともに魔法と呼ばれるすべてのものもまたそうである。知類の神々から授けられた奇跡であると信じられていたものは、他の諸性質と同様に根本的な現実の属性に過ぎない。しかし、その認識は代償なく得られたものではない。無知のうちに終わるものは、多くの場合、ただの沈黙である。
 
-Here, magic is not myth nor miracle, but an additional layer of physics integrated into the same natural order. Its discovery reshaped every science and every civilization that followed. Every species that learned to wield it became stronger; those that did not perished. 
+やがて、魔素の発見はある条件を示す。理解することは、関与することである。関与することは、制御することである。それを学んだ者は世界をその意のままに改めた。学ばなかった者は、不在としてのみ記憶される。
 
-Born from magic's relentless demand of intellect, this is a universe ruled by scholarship, one where knowledge itself determines survival.
+魔法はあまねく分配されない。その理解もまた同様である。その意味において、宇宙は知識によって統治されているのではなく、知識によって淘汰されている。知識は、それを担い得るところにのみ蓄積される。
 
-**Welcome to the Continuum.** 
-## Fields of Study
+宇宙は裁かない。備えなき者に慈悲を与えず、存続する者に承認を与えない。存在するすべてのものは同一の秩序に従う。自由に生じるものは何もない。
+
+例外は存在しない。
+## 宇宙綱要
 ---
-The Continuum is vast, but its laws are consistent. Every discipline, from metaphysics to biology, stems from the same foundation: the study of how reality maintains coherence between the physical and the magical.
-
-Scholars divide this knowledge into broad fields, each dedicated to understanding a different aspect of existence.
-###### [[en/Continuum Physics/index|Continuum Physics]] 
-The foundational science of the universe.
-###### [[Thaumatopathology]]
-The medical science of magic-related disorders.
-## Universe Compendium
----
-Beyond its sciences, the Continuum is shaped by the civilizations, histories, and philosophies that grew from its pursuit of knowledge. These entries record the living world, such as the people, institutions, and ideas that define how the universe understands itself.
-###### [[World Order]]
-The governing structure of the Continuum.
+永界は単一の学問分野によってではなく、複数の探究の経路を通じて捉えられる。それは組織化された入口であり、本来それ自体では体系化されない知の集積に課せられた構造である。すべての知識は四つの領域に分けられ、それぞれは厳密な境界ではなく、探究の方向性によって定義される。
+#### [[高等原理]]
+高等原理は現実の根本的構造を扱う。宇宙の物理学と、それを記述する数学が含まれる。これらは厳密性によって定義される分野であり、実用性とは無関係である。宇宙を記述しようとしたあらゆる文明の重みを担う。
+#### [[実践]]
+実践は何が為し得るかを扱う。構築、制御、実行に及ぶ。現実の制約の内部で機能するシステムへと知識を転換する。高等原理が宇宙の限界を定めるのに対し、実践はその限界に近づく営みである。
+#### [[世界秩序]]
+世界秩序は、知識が不均等に保持されたときに現れる構造を扱う。文明が自らを組織してきた諸体系を扱う。すなわち、権力がいかに保持され、時間がいかに計られ、人口がいかに区分され、いかに統治されるかである。それらの構造が公正であったか、賢明であったかには関与しない。それが何であったか、いかに機能したか、その存在あるいは不在が何を生み出したかのみを問う。
+#### [[記録殿]]
+記録殿は発見、衝突、そして思想を扱う。それは宇宙に蓄積された記録の総体であり、知識の連続性を確保することを目的とする。知識が生存を決定する場において、何が記憶されるかは、何が発見されるかと同様に重要である。記録殿が保持するものは、必ずしも完全ではなく、必ずしも正確でもなく、また必ずしも読まれることを意図されたものでもない。

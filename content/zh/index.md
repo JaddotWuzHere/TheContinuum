@@ -1,34 +1,33 @@
 ---
-title: Genesis (Chinese Translation Placeholder)
+title: 初章
 ---
 > [!epigraph]
-> "It did not choose to begin. It simply did—and from that first, indifferent moment, came everything that would ever hunger, burn, or cease."
+> 「……而自那最初、漠然的一刻，万物由此而生——皆将饥渴、燃烧，或归于消寂。」
 > 
-> — Unknown
-## Prologue
+> ——佚名
+## 序章
 ---
-This is no fantasy. 
+法则从未书写。
 
-This is a universe that needs no gods to govern its laws, as the same familiar principles of matter, motion, and energy persist.
+它们无需见证者，亦无需认可。它们只是存在——早在第一个文明为其命名之前如此，亦将在最后一个文明将其遗忘之后仍然如此。
 
-But alongside those principles exists another fundamental property of reality—mana.
+魔质在其列，连同一切此后被称作魔法的事物。曾被视为神明赐予智类的奇迹，不过是与其他万物一样根本的现实属性。然而，对它的认知并非无代价而来——无知而涉者，必归于沉默。
 
-Here, magic is not myth nor miracle, but an additional layer of physics integrated into the same natural order. Its discovery reshaped every science and every civilization that followed. Every species that learned to wield it became stronger; those that did not perished. 
+随着时间推移，对魔质的发现揭示了一个规律：理解，意味着互动；互动，意味着掌控。那些习得此道者重塑了世界以遂其意志；而那些未能习得者，仅以缺席之名被记述。
 
-Born from magic's relentless demand of intellect, this is a universe ruled by scholarship, one where knowledge itself determines survival.
+魔法并不均等分布，其理解亦然。从这个意义上说，宇宙并非由学识所统治，而是被学识所淘汰——知识唯在可承载之处积聚。
 
-**Welcome to the Continuum.** 
-## Fields of Study
+宇宙无意审判。它不怜悯无备者，也不认可存留者。一切存在皆受同一秩序的支配。没有什么是凭空创造的。
+
+没有什么是例外。
+## 宇宙纲要
 ---
-The Continuum is vast, but its laws are consistent. Every discipline, from metaphysics to biology, stems from the same foundation: the study of how reality maintains coherence between the physical and the magical.
-
-Scholars divide this knowledge into broad fields, each dedicated to understanding a different aspect of existence.
-###### [[en/Continuum Physics/index|Continuum Physics]] 
-The foundational science of the universe.
-###### [[Thaumatopathology]]
-The medical science of magic-related disorders.
-## Universe Compendium
----
-Beyond its sciences, the Continuum is shaped by the civilizations, histories, and philosophies that grew from its pursuit of knowledge. These entries record the living world, such as the people, institutions, and ideas that define how the universe understands itself.
-###### [[World Order]]
-The governing structure of the Continuum.
+恒宙并非经由单一学科得以接近，而是经由各异的探究路径。它是一处有序的入口，是加诸于本不自成体系之知识之上的结构。一切知识分为四域，其界定与其说在于边界，不如说在于取向。
+#### [[高等原理]]
+高等原理关注现实的深层结构，诸如宇宙之物理法则及其所依之数学。这是以严谨性为本的领域，与实用无涉。它承载着一切试图描述宇宙之文明所积累之重。
+#### [[实践]]
+实践关注何事可为。它关涉建构、掌控与执行；其焦点在于将知识转化为在现实约束之内运作的系统。若说高等原理划定了宇宙的极限，实践便是不断趋近其极限之途。
+#### [[世界秩序]]
+世界秩序关注知识被不均等保留时所涌现的结构。它探讨文明据以组织自身的系统——权力如何被持有，时间如何被计量，人口如何被划分与治理。它对其是否公正或明智不加裁断，而只关注其为何、如何运作，以及其存续或缺失所致之果。
+#### [[档案殿]]
+档案殿关注发现、冲突与思想。它涵盖宇宙中所积累的全部记录，其存在为使知识得以延续。在一处以知识定存亡之境，所记与所发现，同等重要。档案殿中所存之物，未必完备，未必准确，亦未必供阅。
