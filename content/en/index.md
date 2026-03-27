@@ -1,5 +1,6 @@
 ---
 title: Genesis
+socialdescription: ... And from that first, indifferent moment, came everything that would ever hunger, burn, or cease.
 ---
 > [!epigraph]
 > "... And from that first, indifferent moment, came everything that would ever hunger, burn, or cease."
