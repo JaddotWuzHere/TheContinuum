@@ -87,10 +87,7 @@
     const shouldParallax = () => !root.hasAttribute("data-no-ray-parallax");
     const shouldFlicker = () => !root.hasAttribute("data-no-flicker");
     const shouldMove = () => !root.hasAttribute("data-no-ray-movement");
-    const shouldDraw = () => {
-      if (root.hasAttribute("data-no-rays")) return false;
-      return shouldParallax() || shouldFlicker();
-    };
+    const shouldDraw = () => !root.hasAttribute("data-no-rays");
 
     const tick = () => {
       if (!running) return;

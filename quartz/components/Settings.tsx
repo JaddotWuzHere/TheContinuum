@@ -24,10 +24,6 @@ const SettingsImpl: QuartzComponent = (props: QuartzComponentProps) => {
   const perfTitle = "Performance"
   const langTitle = t.components.fxSettings.languageSection ?? "Language"
 
-  const labelParticles = "Fancy particles"
-  const labelShadows = "Soft shadows"
-  const labelAnimations = "Fancy animations"
-
   return (
     <aside class="settings-panel" aria-label={title}>
       <div class="settings-inner">
@@ -69,7 +65,7 @@ const SettingsImpl: QuartzComponent = (props: QuartzComponentProps) => {
             class="fx-toggle fx-toggle-child"
             data-parent="disableRays"
             data-setting="disableMovement"
-            data-state="on"
+            data-state="false"
           >
             <span class="fx-toggle-label">Disable Movement</span>
             <span class="fx-toggle-switch" aria-hidden="true">
@@ -82,7 +78,7 @@ const SettingsImpl: QuartzComponent = (props: QuartzComponentProps) => {
             class="fx-toggle fx-toggle-child"
             data-parent="disableRays"
             data-setting="disableFlickering"
-            data-state="on"
+            data-state="false"
           >
             <span class="fx-toggle-label">Disable Flickering</span>
             <span class="fx-toggle-switch" aria-hidden="true">
@@ -95,7 +91,7 @@ const SettingsImpl: QuartzComponent = (props: QuartzComponentProps) => {
             class="fx-toggle fx-toggle-child"
             data-parent="disableRays"
             data-setting="disableParallax"
-            data-state="on"
+            data-state="false"
           >
             <span class="fx-toggle-label">Disable Parallax</span>
             <span class="fx-toggle-switch" aria-hidden="true">

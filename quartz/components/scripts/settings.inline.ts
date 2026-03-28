@@ -186,7 +186,6 @@ function setupSettingsToggles() {
 
   syncLocksFromParent("disableRays")
   applyRootFlags()
-  saveSettings()
 
   toggles.forEach((btn) => {
     if ((btn as any)._settingsInit === true) return

@@ -1,9 +1,9 @@
 ---
 title: Genesis
-description: "... And from that first, indifferent moment, came everything that would ever hunger, burn, or cease."
+description: "...And from that first, indifferent moment, came everything that would ever hunger, burn, or cease."
 ---
 > [!epigraph]
-> "... And from that first, indifferent moment, came everything that would ever hunger, burn, or cease."
+> "...And from that first, indifferent moment, came everything that would ever hunger, burn, or cease."
 > 
 > — Unknown
 ## Prologue
