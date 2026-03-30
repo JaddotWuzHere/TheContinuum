@@ -33,6 +33,18 @@ export default ((userOpts?: Partial<SearchOptions>) => {
 
         <div class="search-container">
           <div class="search-space">
+            <div class="search-header">
+
+              <button
+                class="search-close-button"
+                type="button"
+                aria-label="Close search"
+              >
+                <span class="search-close-button-icon" aria-hidden="true">↶</span>
+                <span class="search-close-button-label">Return</span>
+              </button>
+            </div>
+
             <div class="search-bar-frame">
               <div class="search-bar-runic-line search-bar-runic-line-top" />
               <div class="search-bar-runic-line search-bar-runic-line-bottom" />

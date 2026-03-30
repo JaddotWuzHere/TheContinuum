@@ -26,11 +26,6 @@ export function removeAllChildren(node: HTMLElement) {
   }
 }
 
-// AliasRedirect emits HTML redirects which also have the link[rel="canonical"]
-// containing the URL it's redirecting to.
-// Extracting it here with regex is _probably_ faster than parsing the entire HTML
-// with a DOMParser effectively twice (here and later in the SPA code), even if
-// way less robust - we only care about our own generated redirects after all.
 const canonicalRegex = /<link rel="canonical" href="([^"]*)">/
 
 export async function fetchCanonical(url: URL): Promise<Response> {
@@ -43,8 +38,6 @@ export async function fetchCanonical(url: URL): Promise<Response> {
   const [_, redirect] = text.match(canonicalRegex) ?? []
   return redirect ? fetch(`${new URL(redirect, url)}`) : res
 }
-
-let scrollLockDepth = 0
 
 const blockedKeys = new Set([
   "ArrowUp",
@@ -153,56 +146,126 @@ function canScrollElement(el: HTMLElement, deltaY: number): boolean {
   return true
 }
 
-function preventWheel(e: WheelEvent) {
-  const scrollable = getScrollableAncestor(e.target)
-  if (scrollable && canScrollElement(scrollable, e.deltaY)) return
-  e.preventDefault()
+type PageScrollLockGuards = {
+  wheel: (e: WheelEvent) => void
+  touchmove: (e: TouchEvent) => void
+  keydown: (e: KeyboardEvent) => void
 }
 
-function preventTouchMove(e: TouchEvent) {
-  const scrollable = getScrollableAncestor(e.target)
-  if (scrollable) return
-  e.preventDefault()
-}
+function getPageScrollLockGuards(): PageScrollLockGuards {
+  const w = window as any
 
-function preventKeyScroll(e: KeyboardEvent) {
-  if (!blockedKeys.has(e.key)) return
-
-  const target = e.target as HTMLElement | null
-  if (
-    target instanceof HTMLInputElement ||
-    target instanceof HTMLTextAreaElement ||
-    target?.isContentEditable
-  ) {
-    return
+  if (w.__continuumPageScrollLockGuards) {
+    return w.__continuumPageScrollLockGuards as PageScrollLockGuards
   }
 
-  const scrollable = getScrollableAncestor(e.target)
-  if (scrollable) return
+  const guards: PageScrollLockGuards = {
+    wheel: (e: WheelEvent) => {
+      const scrollable = getScrollableAncestor(e.target)
+      if (scrollable && canScrollElement(scrollable, e.deltaY)) return
+      e.preventDefault()
+    },
 
-  e.preventDefault()
+    touchmove: (e: TouchEvent) => {
+      const scrollable = getScrollableAncestor(e.target)
+      if (scrollable) return
+      e.preventDefault()
+    },
+
+    keydown: (e: KeyboardEvent) => {
+      if (!blockedKeys.has(e.key)) return
+
+      const target = e.target as HTMLElement | null
+      if (
+        target instanceof HTMLInputElement ||
+        target instanceof HTMLTextAreaElement ||
+        target?.isContentEditable
+      ) {
+        return
+      }
+
+      const scrollable = getScrollableAncestor(e.target)
+      if (scrollable) return
+
+      e.preventDefault()
+    },
+  }
+
+  w.__continuumPageScrollLockGuards = guards
+  return guards
+}
+
+function shouldKeepPageScrollLocked() {
+  const root = document.documentElement
+  return (
+    root.hasAttribute("data-search-open") ||
+    root.hasAttribute("data-settings-open") ||
+    root.hasAttribute("data-explorer-open")
+  )
+}
+
+function applyHardScrollLock() {
+  const html = document.documentElement
+  const body = document.body
+
+  html.setAttribute("data-page-scroll-locked", "1")
+  html.style.overflow = "hidden"
+  body.style.overflow = "hidden"
+  body.style.touchAction = "none"
+}
+
+function clearHardScrollLock() {
+  const html = document.documentElement
+  const body = document.body
+
+  html.removeAttribute("data-page-scroll-locked")
+  html.style.removeProperty("overflow")
+  body.style.removeProperty("overflow")
+  body.style.removeProperty("touch-action")
+}
+
+function bindPageScrollLockGuards() {
+  const w = window as any
+  if (w.__continuumPageScrollLockBound) return
+  w.__continuumPageScrollLockBound = true
+
+  const guards = getPageScrollLockGuards()
+
+  window.addEventListener("wheel", guards.wheel, { passive: false })
+  window.addEventListener("touchmove", guards.touchmove, { passive: false })
+  window.addEventListener("keydown", guards.keydown, { passive: false })
+}
+
+function unbindPageScrollLockGuards() {
+  const w = window as any
+  const guards = getPageScrollLockGuards()
+
+  window.removeEventListener("wheel", guards.wheel)
+  window.removeEventListener("touchmove", guards.touchmove)
+  window.removeEventListener("keydown", guards.keydown)
+
+  w.__continuumPageScrollLockBound = false
+}
+
+function syncPageScrollLock() {
+  if (shouldKeepPageScrollLocked()) {
+    applyHardScrollLock()
+    bindPageScrollLockGuards()
+  } else {
+    clearHardScrollLock()
+    unbindPageScrollLockGuards()
+  }
 }
 
 export function lockPageScroll() {
-  scrollLockDepth += 1
-  if (scrollLockDepth > 1) return
-
-  document.documentElement.setAttribute("data-page-scroll-locked", "1")
-
-  window.addEventListener("wheel", preventWheel, { passive: false })
-  window.addEventListener("touchmove", preventTouchMove, { passive: false })
-  window.addEventListener("keydown", preventKeyScroll, { passive: false })
+  syncPageScrollLock()
 }
 
 export function unlockPageScroll() {
-  if (scrollLockDepth === 0) return
+  syncPageScrollLock()
+}
 
-  scrollLockDepth -= 1
-  if (scrollLockDepth > 0) return
-
-  document.documentElement.removeAttribute("data-page-scroll-locked")
-
-  window.removeEventListener("wheel", preventWheel)
-  window.removeEventListener("touchmove", preventTouchMove)
-  window.removeEventListener("keydown", preventKeyScroll)
+export function forceUnlockPageScroll() {
+  clearHardScrollLock()
+  unbindPageScrollLockGuards()
 }
