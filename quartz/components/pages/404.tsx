@@ -1,4 +1,5 @@
 import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } from "../types"
+import { i18n } from "../../i18n"
 
 const notFoundScript = `
 function setup404Page() {
@@ -13,6 +14,7 @@ function setup404Page() {
     first = first.toLowerCase()
     if (first === "zh") lang = "zh"
     else if (first === "fr") lang = "fr"
+    else if (first === "ja") lang = "ja"
   }
 
   const localizedHome =
@@ -20,7 +22,9 @@ function setup404Page() {
       ? "/zh/"
       : lang === "fr"
         ? "/fr/"
-        : "/en/"
+        : lang === "ja"
+          ? "/ja/"
+          : "/en/"
 
   if (homeLink) {
     homeLink.setAttribute("href", localizedHome)
@@ -54,7 +58,6 @@ function setup404Page() {
     localStorage.setItem("continuum-explorer-drawer", "closed")
     localStorage.setItem("continuum-settings-drawer", "closed")
   } catch (_) {}
-
 }
 
 document.addEventListener("nav", setup404Page)
@@ -63,18 +66,19 @@ setup404Page()
 
 const NotFound: QuartzComponent = ({ cfg }: QuartzComponentProps) => {
   const fallbackHome = "/en/"
+  const t = i18n(cfg.locale).pages.error
 
   return (
     <article class="continuum-404 popover-hint">
       <div class="continuum-404-inner">
-        <div class="continuum-404-code">REDACTED</div>
+        <div class="continuum-404-code">{t.code}</div>
 
         <div class="continuum-404-divider" />
 
-        <h2 class="continuum-404-title">Record Restricted</h2>
+        <h2 class="continuum-404-title">{t.title}</h2>
 
         <p class="continuum-404-text">
-          The requested record is not available for viewing.
+          {t.message}
         </p>
 
         <div class="continuum-404-actions">
@@ -84,18 +88,15 @@ const NotFound: QuartzComponent = ({ cfg }: QuartzComponentProps) => {
             href={fallbackHome}
             data-router-ignore
           >
-            Go Back
+            {t.goBack}
           </a>
 
           <a
             id="localized-home-link"
             class="continuum-404-button"
             href={fallbackHome}
-            data-en-home="/en/"
-            data-zh-home="/zh/"
-            data-fr-home="/fr/"
           >
-            Return to Genesis
+            {t.returnToGenesis}
           </a>
         </div>
       </div>

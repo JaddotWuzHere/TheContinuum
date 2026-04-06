@@ -49,13 +49,13 @@ const defaultOptions: Options = {
     let lang = "en"
     try {
       const seg0 = window.location.pathname.replace(/^\/+/, "").split("/")[0]?.toLowerCase()
-      lang = seg0 === "zh" ? "zh" : seg0 === "fr" ? "fr" : "en"
+      lang = seg0 === "zh" ? "zh" : seg0 === "fr" ? "fr" : seg0 === "ja" ? "ja" : "en"
     } catch {}
 
     const slug = (node.slug ?? "").replace(/^\/+/, "")
     const first = slug.split("/")[0]?.toLowerCase() || ""
 
-    if (node.isFolder && ["en", "zh", "fr"].includes(node.displayName)) {
+    if (node.isFolder && ["en", "zh", "fr", "ja"].includes(node.displayName.toLowerCase())) {
       return node.displayName.toLowerCase() === lang
     }
 
@@ -81,6 +81,7 @@ export default ((userOpts?: Partial<Options>) => {
     const locale = (
       lang === "zh" ? "zh-CN" :
       lang === "fr" ? "fr-FR" :
+      lang === "ja" ? "ja-JP" :
       "en-US"
     ) as I18nLocale
 
@@ -98,7 +99,7 @@ export default ((userOpts?: Partial<Options>) => {
         })}
       >
         <div class="explorer-header">
-          <h2 class="explorer-title">Explorer</h2>
+          <h2 class="explorer-title">{i18n(locale).components.explorer.title}</h2>
 
           <div class="explorer-search-row">
             <SidebarSearch {...props} />

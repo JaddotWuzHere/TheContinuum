@@ -16,32 +16,31 @@ const defaultOptions: SearchOptions = {
 export default ((userOpts?: Partial<SearchOptions>) => {
   const Search: QuartzComponent = ({ displayClass, cfg }: QuartzComponentProps) => {
     const opts = { ...defaultOptions, ...userOpts }
-    const searchPlaceholder = i18n(cfg.locale).components.search.searchBarPlaceholder
+    const t = i18n(cfg.locale).components.search
 
     return (
       <div class={classNames(displayClass, "search")}>
         <button class="search-button">
           <svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7">
-            <title>Search</title>
+            <title>{t.title}</title>
             <g class="search-path" fill="none">
               <path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4" />
               <circle cx="8" cy="8" r="7" />
             </g>
           </svg>
-          <p>{i18n(cfg.locale).components.search.title}</p>
+          <p>{t.title}</p>
         </button>
 
         <div class="search-container">
           <div class="search-space">
             <div class="search-header">
-
               <button
                 class="search-close-button"
                 type="button"
-                aria-label="Close search"
+                aria-label={t.returnButton}
               >
                 <span class="search-close-button-icon" aria-hidden="true">↶</span>
-                <span class="search-close-button-label">Return</span>
+                <span class="search-close-button-label">{t.returnButton}</span>
               </button>
             </div>
 
@@ -54,8 +53,8 @@ export default ((userOpts?: Partial<SearchOptions>) => {
                 class="search-bar"
                 name="search"
                 type="text"
-                aria-label={searchPlaceholder}
-                placeholder={searchPlaceholder}
+                aria-label={t.searchBarPlaceholder}
+                placeholder={t.searchBarPlaceholder}
               />
             </div>
 

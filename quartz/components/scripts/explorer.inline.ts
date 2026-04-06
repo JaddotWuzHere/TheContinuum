@@ -2,6 +2,8 @@ import { FileTrieNode } from "../../util/fileTrie"
 import { FullSlug, resolveRelative, simplifySlug } from "../../util/path"
 import { ContentDetails } from "../../plugins/emitters/contentIndex"
 import { lockPageScroll, unlockPageScroll } from "./util"
+import { i18n } from "../../i18n"
+import { localeFromSlug, toI18nLocale } from "../../util/locale"
 
 type MaybeHTMLElement = HTMLElement | undefined
 
@@ -39,6 +41,10 @@ function staggerNewlyRevealedRows(folderOuter: HTMLElement) {
   })
 }
 
+function getExplorerI18n() {
+  const lang = localeFromSlug(window.location.pathname)
+  return i18n(toI18nLocale(lang)).components.explorer
+}
 
 function collectStaggerRows(folderOuter: HTMLElement): HTMLElement[] {
   const out: HTMLElement[] = []
@@ -101,8 +107,9 @@ function setupExplorerDrawer() {
   const handle = document.createElement("button")
   handle.type = "button"
   handle.className = "continuum-explorer-handle"
-  handle.setAttribute("aria-label", "Toggle explorer")
-  handle.innerHTML = `<span class="label">Explorer</span>`
+  const t = getExplorerI18n()
+  handle.setAttribute("aria-label", t.toggleLabel)
+  handle.innerHTML = `<span class="label">${t.title}</span>`
 
   const scrim = document.createElement("div")
   scrim.className = "continuum-explorer-scrim"

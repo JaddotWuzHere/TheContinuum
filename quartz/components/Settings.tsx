@@ -18,23 +18,17 @@ const langAfter = (LangSwitcher as any).afterDOMLoaded ?? ""
 
 const SettingsImpl: QuartzComponent = (props: QuartzComponentProps) => {
   const { cfg } = props
-  const t = i18n(cfg.locale)
-
-  const title = t.components.fxSettings.settingsTitle ?? "Settings"
-  const perfTitle = "Performance"
-  const langTitle = t.components.fxSettings.languageSection ?? "Language"
+  const t = i18n(cfg.locale).components.settings
 
   return (
-    <aside class="settings-panel" aria-label={title}>
+    <aside class="settings-panel" aria-label={t.panelTitle}>
       <div class="settings-inner">
-        {/* HEADER */}
         <header class="settings-header">
-          <h2 class="settings-title">{title}</h2>
+          <h2 class="settings-title">{t.panelTitle}</h2>
         </header>
 
-        {/* PERFORMANCE SECTION */}
         <section class="settings-section settings-section-performance">
-          <h3 class="settings-section-title">{perfTitle}</h3>
+          <h3 class="settings-section-title">{t.performanceSection}</h3>
 
           <button
             type="button"
@@ -42,7 +36,7 @@ const SettingsImpl: QuartzComponent = (props: QuartzComponentProps) => {
             data-setting="disableAnimations"
             data-state="off"
           >
-            <span class="fx-toggle-label">Disable Animations</span>
+            <span class="fx-toggle-label">{t.disableAnimations}</span>
             <span class="fx-toggle-switch" aria-hidden="true">
               <span class="fx-toggle-thumb" />
             </span>
@@ -54,7 +48,7 @@ const SettingsImpl: QuartzComponent = (props: QuartzComponentProps) => {
             data-setting="disableRays"
             data-state="off"
           >
-            <span class="fx-toggle-label">Disable Rays</span>
+            <span class="fx-toggle-label">{t.disableRays}</span>
             <span class="fx-toggle-switch" aria-hidden="true">
               <span class="fx-toggle-thumb" />
             </span>
@@ -67,7 +61,7 @@ const SettingsImpl: QuartzComponent = (props: QuartzComponentProps) => {
             data-setting="disableMovement"
             data-state="false"
           >
-            <span class="fx-toggle-label">Disable Movement</span>
+            <span class="fx-toggle-label">{t.disableMovement}</span>
             <span class="fx-toggle-switch" aria-hidden="true">
               <span class="fx-toggle-thumb" />
             </span>
@@ -80,7 +74,7 @@ const SettingsImpl: QuartzComponent = (props: QuartzComponentProps) => {
             data-setting="disableFlickering"
             data-state="false"
           >
-            <span class="fx-toggle-label">Disable Flickering</span>
+            <span class="fx-toggle-label">{t.disableFlickering}</span>
             <span class="fx-toggle-switch" aria-hidden="true">
               <span class="fx-toggle-thumb" />
             </span>
@@ -93,7 +87,7 @@ const SettingsImpl: QuartzComponent = (props: QuartzComponentProps) => {
             data-setting="disableParallax"
             data-state="false"
           >
-            <span class="fx-toggle-label">Disable Parallax</span>
+            <span class="fx-toggle-label">{t.disableParallax}</span>
             <span class="fx-toggle-switch" aria-hidden="true">
               <span class="fx-toggle-thumb" />
             </span>
@@ -105,16 +99,15 @@ const SettingsImpl: QuartzComponent = (props: QuartzComponentProps) => {
             data-setting="disableBackgroundParallax"
             data-state="off"
           >
-            <span class="fx-toggle-label">Disable Background Parallax</span>
+            <span class="fx-toggle-label">{t.disableBackgroundParallax}</span>
             <span class="fx-toggle-switch" aria-hidden="true">
               <span class="fx-toggle-thumb" />
             </span>
           </button>
         </section>
 
-        {/* LANGUAGE SECTION */}
         <section class="settings-section settings-section-language">
-          <h3 class="settings-section-title">{langTitle}</h3>
+          <h3 class="settings-section-title">{t.languageSection}</h3>
 
           <div class="settings-language-row">
             <LangSwitcher {...props} />
@@ -127,10 +120,7 @@ const SettingsImpl: QuartzComponent = (props: QuartzComponentProps) => {
 
 export default (() => {
   const Settings: QuartzComponent = SettingsImpl
-
   Settings.css = `${style}\n${langCss}`
-
   Settings.afterDOMLoaded = concatenateResources(script, langAfter)
-
   return Settings
 }) satisfies QuartzComponentConstructor

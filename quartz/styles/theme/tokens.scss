@@ -54,19 +54,3 @@
   --gold-3: hsl(calc(var(--gold-h) + 12) 76% 80% / .44);
   --gold-4: hsl(calc(var(--gold-h) + 9) 70% 64% / .34);
 }
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --gold-h: 45;
-    --gold-s: 85%;
-    --gold-l: 52%;
-
-    --gold-hi: hsl(var(--gold-h) var(--gold-s) 68%);
-    --gold-md: hsl(var(--gold-h) var(--gold-s) 52%);
-    --gold-dk: hsl(var(--gold-h) var(--gold-s) 34%);
-
-    --gold-strong: .9;
-    --gold-mid: .7;
-    --gold-soft: .5;
-  }
-}

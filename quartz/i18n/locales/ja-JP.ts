@@ -3,105 +3,65 @@ import { Translation } from "./definition"
 export default {
   propertyDefaults: {
     title: "無題",
-    description: "説明なし",
+    description: "説明はありません",
   },
+
   components: {
-    callout: {
-      note: "ノート",
-      abstract: "抄録",
-      info: "情報",
-      todo: "やるべきこと",
-      tip: "ヒント",
-      success: "成功",
-      question: "質問",
-      warning: "警告",
-      failure: "失敗",
-      danger: "危険",
-      bug: "バグ",
-      example: "例",
-      quote: "引用",
-    },
     backlinks: {
-      title: "バックリンク",
-      noBacklinksFound: "バックリンクはありません",
+      title: "参考項目",
+      noBacklinksFound: "参考項目はありません",
     },
-    themeToggle: {
-      lightMode: "ライトモード",
-      darkMode: "ダークモード",
-    },
-    readerMode: {
-      title: "リーダーモード",
-    },
+
     explorer: {
-      title: "エクスプローラー",
+      title: "探索",
+      toggleLabel: "探索欄を切り替える",
     },
-    footer: {
-      createdWith: "作成",
-    },
-    graph: {
-      title: "グラフビュー",
-    },
-    recentNotes: {
-      title: "最近の記事",
-      seeRemainingMore: ({ remaining }) => `さらに${remaining}件 →`,
-    },
-    transcludes: {
-      transcludeOf: ({ targetSlug }) => `${targetSlug}のまとめ`,
-      linkToOriginal: "元記事へのリンク",
-    },
+
     search: {
       title: "検索",
-      searchBarPlaceholder: "検索ワードを入力",
+      searchBarPlaceholder: "語句を入力",
+      returnButton: "戻る",
+      beginSearchingTitle: "検索を開始。",
+      beginSearchingText: "記録を検索する語句を入力してください。",
+      noMatchTitle: "一致する記録はありません。",
+      noMatchText: "その語句に対応する項目は索引内に存在しません。",
+      resultIndex: "検索結果索引",
     },
+
     tableOfContents: {
-      title: "目次",
+      title: "ページ概要",
     },
-    contentMeta: {
-      readingTime: ({ minutes }) => `${minutes} min read`,
+
+    settings: {
+      handleLabel: "設定",
+      panelTitle: "設定",
+      performanceSection: "パフォーマンス",
+      languageSection: "言語",
+      disableAnimations: "アニメーションを無効化",
+      disableRays: "光線を無効化",
+      disableMovement: "動きを無効化",
+      disableFlickering: "点滅を無効化",
+      disableParallax: "視差を無効化",
+      disableBackgroundParallax: "背景視差を無効化",
     },
-        fxSettings: {
-      settingsButton: "⚙ Settings",
-      settingsTitle: "Settings",
 
-      appearanceSection: "Appearance",
-      performanceSection: "Performance",
-      languageSection: "Language",
-
-      themeLabel: "Theme",
-      themeSystem: "System (coming soon)",
-      themeLight: "Light",
-      themeDark: "Dark",
-
-      disableRays: "Disable rays entirely",
-      disableRayMove: "Disable ray moving",
-      disableFlicker: "Disable ray flickering",
-      disableRayParallax: "Disable ray parallax",
-      disableBgParallax: "Disable background parallax",
+    footer: {
+      recordTitle: "コンティニュアム・アーカイブ記録",
+      copyright: "© {year} Jason Ding",
     },
   },
+
   pages: {
-    rss: {
-      recentNotes: "最近の記事",
-      lastFewNotes: ({ count }) => `最新の${count}件`,
-    },
     error: {
-      title: "Not Found",
-      notFound: "ページが存在しないか、非公開設定になっています。",
-      home: "ホームページに戻る",
-    },
-    folderContent: {
-      folder: "フォルダ",
-      itemsUnderFolder: ({ count }) => `${count}件のページ`,
-    },
-    tagContent: {
-      tag: "タグ",
-      tagIndex: "タグ一覧",
-      itemsUnderTag: ({ count }) => `${count}件のページ`,
-      showingFirst: ({ count }) => `のうち最初の${count}件を表示しています`,
-      totalTags: ({ count }) => `全${count}個のタグを表示中`,
+      code: "閲覧禁止",
+      title: "記録制限",
+      message: "要求された記録は閲覧できません。",
+      goBack: "戻る",
+      returnToGenesis: "創世へ戻る",
     },
   },
+
   layout: {
-    pageTitleSuffix: " | Magic made reality",
+    pageTitleSuffix: " | 魔法が現実となる",
   },
 } as const satisfies Translation

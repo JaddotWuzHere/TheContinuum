@@ -5,105 +5,63 @@ export default {
     title: "Sans titre",
     description: "Aucune description fournie",
   },
+
   components: {
-    callout: {
-      note: "Note",
-      abstract: "Résumé",
-      info: "Info",
-      todo: "À faire",
-      tip: "Conseil",
-      success: "Succès",
-      question: "Question",
-      warning: "Avertissement",
-      failure: "Échec",
-      danger: "Danger",
-      bug: "Bogue",
-      example: "Exemple",
-      quote: "Citation",
-    },
     backlinks: {
-      title: "Liens retour",
-      noBacklinksFound: "Aucun lien retour trouvé",
+      title: "Références",
+      noBacklinksFound: "Aucune référence trouvée",
     },
-    themeToggle: {
-      lightMode: "Mode clair",
-      darkMode: "Mode sombre",
-    },
-    readerMode: {
-      title: "Mode lecture",
-    },
+
     explorer: {
       title: "Explorateur",
+      toggleLabel: "Afficher ou masquer l’explorateur",
     },
-    footer: {
-      createdWith: "Créé avec",
-    },
-    graph: {
-      title: "Vue Graphique",
-    },
-    recentNotes: {
-      title: "Notes Récentes",
-      seeRemainingMore: ({ remaining }) => `Voir ${remaining} de plus →`,
-    },
-    transcludes: {
-      transcludeOf: ({ targetSlug }) => `Transclusion de ${targetSlug}`,
-      linkToOriginal: "Lien vers l'original",
-    },
+
     search: {
       title: "Recherche",
-      searchBarPlaceholder: "Rechercher quelque chose",
+      searchBarPlaceholder: "Saisir un terme",
+      returnButton: "Retour",
+      beginSearchingTitle: "Commencez la recherche.",
+      beginSearchingText: "Saisissez un terme pour rechercher dans les archives.",
+      noMatchTitle: "Aucune archive correspondante.",
+      noMatchText: "L’index ne contient aucune entrée pour ce terme.",
+      resultIndex: "Index des résultats",
     },
+
     tableOfContents: {
-      title: "Table des Matières",
+      title: "Plan de la page",
     },
-    contentMeta: {
-      readingTime: ({ minutes }) => `${minutes} min de lecture`,
+
+    settings: {
+      handleLabel: "Paramètres",
+      panelTitle: "Paramètres",
+      performanceSection: "Performances",
+      languageSection: "Langue",
+      disableAnimations: "Désactiver les animations",
+      disableRays: "Désactiver les rayons",
+      disableMovement: "Désactiver le mouvement",
+      disableFlickering: "Désactiver le scintillement",
+      disableParallax: "Désactiver la parallaxe",
+      disableBackgroundParallax: "Désactiver la parallaxe de l’arrière-plan",
     },
-    fxSettings: {
-      settingsButton: "⚙ Settings",
-      settingsTitle: "Settings",
 
-      appearanceSection: "Appearance",
-      performanceSection: "Performance",
-      languageSection: "Language",
-
-      themeLabel: "Theme",
-      themeSystem: "System (coming soon)",
-      themeLight: "Light",
-      themeDark: "Dark",
-
-      disableRays: "Disable rays entirely",
-      disableRayMove: "Disable ray moving",
-      disableFlicker: "Disable ray flickering",
-      disableRayParallax: "Disable ray parallax",
-      disableBgParallax: "Disable background parallax",
+    footer: {
+      recordTitle: "Archive du Continuum",
+      copyright: "© {year} Jason Ding",
     },
   },
+
   pages: {
-    rss: {
-      recentNotes: "Notes récentes",
-      lastFewNotes: ({ count }) => `Les dernières ${count} notes`,
-    },
     error: {
-      title: "Introuvable",
-      notFound: "Cette page est soit privée, soit elle n'existe pas.",
-      home: "Retour à la page d'accueil",
-    },
-    folderContent: {
-      folder: "Dossier",
-      itemsUnderFolder: ({ count }) =>
-        count === 1 ? "1 élément sous ce dossier." : `${count} éléments sous ce dossier.`,
-    },
-    tagContent: {
-      tag: "Étiquette",
-      tagIndex: "Index des étiquettes",
-      itemsUnderTag: ({ count }) =>
-        count === 1 ? "1 élément avec cette étiquette." : `${count} éléments avec cette étiquette.`,
-      showingFirst: ({ count }) => `Affichage des premières ${count} étiquettes.`,
-      totalTags: ({ count }) => `Trouvé ${count} étiquettes au total.`,
+      code: "CENSURÉ",
+      title: "Archive restreinte",
+      message: "L’archive demandée n’est pas disponible à la consultation.",
+      goBack: "Retour",
+      returnToGenesis: "Retour à la Genèse",
     },
   },
+
   layout: {
-    pageTitleSuffix: " | Magic made reality",
+    pageTitleSuffix: " | La magie devenue réalité",
   },
 } as const satisfies Translation

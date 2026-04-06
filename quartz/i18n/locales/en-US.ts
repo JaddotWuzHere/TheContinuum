@@ -5,105 +5,63 @@ export default {
     title: "Untitled",
     description: "No description provided",
   },
+
   components: {
-    callout: {
-      note: "Note",
-      abstract: "Abstract",
-      info: "Info",
-      todo: "Todo",
-      tip: "Tip",
-      success: "Success",
-      question: "Question",
-      warning: "Warning",
-      failure: "Failure",
-      danger: "Danger",
-      bug: "Bug",
-      example: "Example",
-      quote: "Quote",
-    },
     backlinks: {
       title: "References",
-      noBacklinksFound: "No backlinks found",
+      noBacklinksFound: "No references found",
     },
-    themeToggle: {
-      lightMode: "Light mode",
-      darkMode: "Dark mode",
-    },
-    readerMode: {
-      title: "Reader mode",
-    },
+
     explorer: {
       title: "Explorer",
+      toggleLabel: "Toggle explorer",
     },
-    footer: {
-      createdWith: "Created with",
-    },
-    graph: {
-      title: "Graph View",
-    },
-    recentNotes: {
-      title: "Recent Notes",
-      seeRemainingMore: ({ remaining }) => `See ${remaining} more →`,
-    },
-    transcludes: {
-      transcludeOf: ({ targetSlug }) => `Transclude of ${targetSlug}`,
-      linkToOriginal: "Link to original",
-    },
+
     search: {
       title: "Search",
       searchBarPlaceholder: "Enter a term",
+      returnButton: "Return",
+      beginSearchingTitle: "Begin Searching.",
+      beginSearchingText: "Enter a term to search for records.",
+      noMatchTitle: "No matching record.",
+      noMatchText: "The index contains no entry for that term.",
+      resultIndex: "Result Index",
     },
+
     tableOfContents: {
       title: "Page Outline",
     },
-    contentMeta: {
-      readingTime: ({ minutes }) => `${minutes} min read`,
-    },
-    fxSettings: {
-      settingsButton: "⚙ Settings",
-      settingsTitle: "Settings",
 
-      appearanceSection: "Appearance",
+    settings: {
+      handleLabel: "Settings",
+      panelTitle: "Settings",
       performanceSection: "Performance",
       languageSection: "Language",
+      disableAnimations: "Disable Animations",
+      disableRays: "Disable Rays",
+      disableMovement: "Disable Movement",
+      disableFlickering: "Disable Flickering",
+      disableParallax: "Disable Parallax",
+      disableBackgroundParallax: "Disable Background Parallax",
+    },
 
-      themeLabel: "Theme",
-      themeSystem: "System (coming soon)",
-      themeLight: "Light",
-      themeDark: "Dark",
-
-      disableRays: "Disable rays",
-      disableRayMove: "Disable ray movement",
-      disableFlicker: "Disable ray flicker",
-      disableRayParallax: "Disable ray parallax",
-      disableBgParallax: "Disable background parallax",
+    footer: {
+      recordTitle: "Continuum Archives Record",
+      copyright: "© {year} Jason Ding",
     },
   },
+
   pages: {
-    rss: {
-      recentNotes: "Recent notes",
-      lastFewNotes: ({ count }) => `Last ${count} notes`,
-    },
     error: {
+      code: "REDACTED",
       title: "Record Restricted",
-      notFound: "Either this page is private or doesn't exist.",
-      home: "Return to Homepage",
-    },
-    folderContent: {
-      folder: "Folder",
-      itemsUnderFolder: ({ count }) =>
-        count === 1 ? "1 item under this folder." : `${count} items under this folder.`,
-    },
-    tagContent: {
-      tag: "Tag",
-      tagIndex: "Tag Index",
-      itemsUnderTag: ({ count }) =>
-        count === 1 ? "1 item with this tag." : `${count} items with this tag.`,
-      showingFirst: ({ count }) => `Showing first ${count} tags.`,
-      totalTags: ({ count }) => `Found ${count} total tags.`,
+      message: "The requested record is not available for viewing.",
+      goBack: "Go Back",
+      returnToGenesis: "Return to Genesis",
     },
   },
+
   layout: {
-    pageTitleSuffix: " | Magic made reality",
-  },          
+    pageTitleSuffix: " | Magic Made Reality",
+  },
 } as const satisfies Translation

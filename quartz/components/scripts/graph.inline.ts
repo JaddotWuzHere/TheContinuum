@@ -590,11 +590,6 @@ document.addEventListener("nav", async (e: CustomEventMap["nav"]) => {
     void renderLocalGraph()
   }
 
-  document.addEventListener("themechange", handleThemeChange)
-  window.addCleanup(() => {
-    document.removeEventListener("themechange", handleThemeChange)
-  })
-
   const containers = [...document.getElementsByClassName("global-graph-outer")] as HTMLElement[]
   async function renderGlobalGraph() {
     const slug = getFullSlug(window)

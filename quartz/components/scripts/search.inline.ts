@@ -2,6 +2,8 @@ import FlexSearch, { DefaultDocumentSearchResults } from "flexsearch"
 import { ContentDetails } from "../../plugins/emitters/contentIndex"
 import { registerEscapeHandler, removeAllChildren, lockPageScroll, unlockPageScroll } from "./util"
 import { FullSlug, normalizeRelativeURLs, resolveRelative } from "../../util/path"
+import { i18n } from "../../i18n"
+import { localeFromSlug, toI18nLocale } from "../../util/locale"
 
 interface Item {
   id: number
@@ -53,6 +55,11 @@ let index = new FlexSearch.Document<Item>({
     ],
   },
 })
+
+function getSearchI18n() {
+  const lang = localeFromSlug(window.location.pathname)
+  return i18n(toI18nLocale(lang)).components.search
+}
 
 const p = new DOMParser()
 const fetchContentCache: Map<FullSlug, Element[]> = new Map()
@@ -628,14 +635,16 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
     if (finalResults.length === 0) {
       const isEmptyQuery = currentSearchTerm.trim() === ""
 
+      const t = getSearchI18n()
+
       results.innerHTML = isEmptyQuery
         ? `<a class="result-card no-match">
-            <h3>Begin searching.</h3>
-            <p>Enter a term to search for records.</p>
+            <h3>${t.beginSearchingTitle}</h3>
+            <p>${t.beginSearchingText}</p>
           </a>`
         : `<a class="result-card no-match">
-            <h3>No matching record.</h3>
-            <p>The index contains no entry for that term.</p>
+            <h3>${t.noMatchTitle}</h3>
+            <p>${t.noMatchText}</p>
           </a>`
     } else {
       results.append(...finalResults.map(resultToHTML))

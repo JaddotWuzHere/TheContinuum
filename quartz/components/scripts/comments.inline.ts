@@ -1,39 +1,3 @@
-const changeTheme = (e: CustomEventMap["themechange"]) => {
-  const theme = e.detail.theme
-  const iframe = document.querySelector("iframe.giscus-frame") as HTMLIFrameElement
-  if (!iframe) {
-    return
-  }
-
-  if (!iframe.contentWindow) {
-    return
-  }
-
-  iframe.contentWindow.postMessage(
-    {
-      giscus: {
-        setConfig: {
-          theme: getThemeUrl(getThemeName(theme)),
-        },
-      },
-    },
-    "https://giscus.app",
-  )
-}
-
-const getThemeName = (theme: string) => {
-  if (theme !== "dark" && theme !== "light") {
-    return theme
-  }
-  const giscusContainer = document.querySelector(".giscus") as GiscusElement
-  if (!giscusContainer) {
-    return theme
-  }
-  const darkGiscus = giscusContainer.dataset.darkTheme ?? "dark"
-  const lightGiscus = giscusContainer.dataset.lightTheme ?? "light"
-  return theme === "dark" ? darkGiscus : lightGiscus
-}
-
 const getThemeUrl = (theme: string) => {
   const giscusContainer = document.querySelector(".giscus") as GiscusElement
   if (!giscusContainer) {
@@ -49,8 +13,7 @@ type GiscusElement = Omit<HTMLElement, "dataset"> & {
     category: string
     categoryId: string
     themeUrl: string
-    lightTheme: string
-    darkTheme: string
+    theme: string
     mapping: "url" | "title" | "og:title" | "specific" | "number" | "pathname"
     strict: string
     reactionsEnabled: string
@@ -80,13 +43,10 @@ document.addEventListener("nav", () => {
   giscusScript.setAttribute("data-reactions-enabled", giscusContainer.dataset.reactionsEnabled)
   giscusScript.setAttribute("data-input-position", giscusContainer.dataset.inputPosition)
   giscusScript.setAttribute("data-lang", giscusContainer.dataset.lang)
-  const theme = document.documentElement.getAttribute("saved-theme")
-  if (theme) {
-    giscusScript.setAttribute("data-theme", getThemeUrl(getThemeName(theme)))
-  }
+  giscusScript.setAttribute(
+    "data-theme",
+    getThemeUrl(giscusContainer.dataset.theme ?? "site"),
+  )
 
   giscusContainer.appendChild(giscusScript)
-
-  document.addEventListener("themechange", changeTheme)
-  window.addCleanup(() => document.removeEventListener("themechange", changeTheme))
 })

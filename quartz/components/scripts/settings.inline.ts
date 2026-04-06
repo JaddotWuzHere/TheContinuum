@@ -1,4 +1,6 @@
 import { installNoScrollZoneGuards, lockPageScroll, unlockPageScroll } from "./util"
+import { i18n } from "../../i18n"
+import { localeFromSlug, toI18nLocale } from "../../util/locale"
 
 function setupSettingsDrawer() {
   installNoScrollZoneGuards()
@@ -34,8 +36,9 @@ function setupSettingsDrawer() {
     handle = document.createElement("button")
     handle.type = "button"
     handle.className = "continuum-settings-handle"
-    handle.setAttribute("aria-label", "Toggle settings")
-    handle.innerHTML = `<span class="label">Settings</span>`
+    const t = getSettingsI18n()
+    handle.setAttribute("aria-label", t.handleLabel)
+    handle.innerHTML = `<span class="label">${t.handleLabel}</span>`
     document.body.appendChild(handle)
   }
 
@@ -96,6 +99,11 @@ function setupSettingsDrawer() {
   }
 
   setupSettingsToggles()
+}
+
+function getSettingsI18n() {
+  const lang = localeFromSlug(window.location.pathname)
+  return i18n(toI18nLocale(lang)).components.settings
 }
 
 function setupSettingsToggles() {

@@ -1,107 +1,65 @@
-import { FullSlug } from "../../util/path"
-
-export interface CalloutTranslation {
-  note: string
-  abstract: string
-  info: string
-  todo: string
-  tip: string
-  success: string
-  question: string
-  warning: string
-  failure: string
-  danger: string
-  bug: string
-  example: string
-  quote: string
-}
-
 export interface Translation {
   propertyDefaults: {
     title: string
     description: string
   }
-  direction?: "ltr" | "rtl"
+
   components: {
-    callout: CalloutTranslation
     backlinks: {
       title: string
       noBacklinksFound: string
     }
-    themeToggle: {
-      lightMode: string
-      darkMode: string
-    }
-    readerMode: {
-      title: string
-    }
+
     explorer: {
       title: string
+      toggleLabel: string
     }
-    footer: {
-      createdWith: string
-    }
-    graph: {
-      title: string
-    }
-    recentNotes: {
-      title: string
-      seeRemainingMore: (variables: { remaining: number }) => string
-    }
-    transcludes: {
-      transcludeOf: (variables: { targetSlug: FullSlug }) => string
-      linkToOriginal: string
-    }
+
     search: {
       title: string
       searchBarPlaceholder: string
+      returnButton: string
+      beginSearchingTitle: string
+      beginSearchingText: string
+      noMatchTitle: string
+      noMatchText: string
+      resultIndex: string
     }
+
     tableOfContents: {
       title: string
     }
-    contentMeta: {
-      readingTime: (variables: { minutes: number }) => string
-    }
-    fxSettings: {
-      settingsButton: string
-      settingsTitle: string
-      appearanceSection: string
+
+    settings: {
+      handleLabel: string
+      panelTitle: string
       performanceSection: string
       languageSection: string
-      themeLabel: string
-      themeSystem: string
-      themeLight: string
-      themeDark: string
+      disableAnimations: string
       disableRays: string
-      disableRayMove: string
-      disableFlicker: string
-      disableRayParallax: string
-      disableBgParallax: string
+      disableMovement: string
+      disableFlickering: string
+      disableParallax: string
+      disableBackgroundParallax: string
+    }
+
+    footer: {
+      recordTitle: string
+      copyright: string
     }
   }
+
   pages: {
-    rss: {
-      recentNotes: string
-      lastFewNotes: (variables: { count: number }) => string
-    }
     error: {
+      code: string
       title: string
-      notFound: string
-      home: string
-    }
-    folderContent: {
-      folder: string
-      itemsUnderFolder: (variables: { count: number }) => string
-    }
-    tagContent: {
-      tag: string
-      tagIndex: string
-      itemsUnderTag: (variables: { count: number }) => string
-      showingFirst: (variables: { count: number }) => string
-      totalTags: (variables: { count: number }) => string
+      message: string
+      goBack: string
+      returnToGenesis: string
     }
   }
-  layout?: {
-    pageTitleSuffix?: string
+
+  layout: {
+    pageTitleSuffix: string
   }
 }

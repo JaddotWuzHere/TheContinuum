@@ -177,11 +177,10 @@ document.addEventListener("nav", async () => {
       {} as Record<(typeof cssVars)[number], string>,
     )
 
-    const darkMode = document.documentElement.getAttribute("saved-theme") === "dark"
     mermaid.initialize({
       startOnLoad: false,
       securityLevel: "loose",
-      theme: darkMode ? "dark" : "base",
+      theme: "dark",
       themeVariables: {
         fontFamily: computedStyleMap["--codeFont"],
         primaryColor: computedStyleMap["--light"],
@@ -199,8 +198,6 @@ document.addEventListener("nav", async () => {
   }
 
   await renderMermaid()
-  document.addEventListener("themechange", renderMermaid)
-  window.addCleanup(() => document.removeEventListener("themechange", renderMermaid))
 
   for (let i = 0; i < nodes.length; i++) {
     const codeBlock = nodes[i] as HTMLElement
