@@ -4,7 +4,7 @@ import {
   QuartzComponentProps,
 } from "./types"
 
-import style from "./styles/settings.scss"
+import style from "../styles/components/settings.scss"
 // @ts-ignore
 import script from "./scripts/settings.inline"
 

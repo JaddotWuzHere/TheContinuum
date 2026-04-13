@@ -1,5 +1,5 @@
 import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } from "./types"
-import style from "./styles/explorer.scss"
+import style from "../styles/components/explorer.scss"
 import searchStyle from "./styles/search.scss"
 import { localeFromSlug } from "../util/locale"
 
