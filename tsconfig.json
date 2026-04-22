@@ -17,6 +17,6 @@
     "jsx": "react-jsx",
     "jsxImportSource": "preact"
   },
-  "include": ["**/*.ts", "**/*.tsx", "./package.json", "quartz/components/scripts/rays.inline.js"],
+  "include": ["**/*.ts", "**/*.tsx", "./package.json"],
   "exclude": ["build/**/*.d.ts"]
 }

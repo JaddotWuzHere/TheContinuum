@@ -1,11 +1,12 @@
-// @ts-ignore
-import raysScript from "./scripts/rays.inline.js?raw"
+import raysScript from "./scripts/rays.inline"
+import parallaxScript from "./scripts/parallax.inline"
 
 import {
   QuartzComponent,
   QuartzComponentConstructor,
   QuartzComponentProps,
 } from "./types"
+import { concatenateResources } from "../util/resources"
 
 const Body: QuartzComponent = (props: QuartzComponentProps) => {
   const { children } = props
@@ -29,9 +30,7 @@ const Body: QuartzComponent = (props: QuartzComponentProps) => {
 // Scripts
 // =========================
 
-Body.afterDOMLoaded = [
-  raysScript,
-].filter(Boolean).join(";\n")
+Body.afterDOMLoaded = concatenateResources(raysScript, parallaxScript)
 
 // =========================
 // CSS
