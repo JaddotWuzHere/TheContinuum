@@ -1,0 +1,25 @@
+@use "../foundation/variables.scss" as *;
+
+html {
+  scroll-behavior: smooth;
+  text-size-adjust: none;
+  overflow-x: hidden;
+  width: 100vw;
+  background: #000;
+}
+
+body {
+  margin: 0;
+  box-sizing: border-box;
+  background-color: var(--light);
+  font-family: var(--bodyFont);
+  color: var(--darkgray);
+}
+
+html[data-page-scroll-locked="1"] {
+  overscroll-behavior: none;
+}
+
+html[data-page-scroll-locked="1"] body {
+  overscroll-behavior: none;
+}

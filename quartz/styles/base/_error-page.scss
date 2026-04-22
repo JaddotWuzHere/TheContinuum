@@ -1,0 +1,123 @@
+@use "../foundation/variables.scss" as *;
+
+.continuum-404-title-footer {
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+  width: 100%;
+}
+
+.continuum-404-title-footer .page-title {
+  width: auto;
+  text-align: center;
+}
+
+.continuum-404-title-footer .page-title-visual {
+  display: flex;
+  justify-content: center;
+  width: auto;
+}
+
+.continuum-404-title-footer .page-title-link {
+  display: inline-flex;
+  justify-content: center;
+  width: auto;
+}
+
+.continuum-404-title-footer .page-title-logo-frame {
+  transform: none;
+  width: auto;
+}
+
+.continuum-404-title-footer .page-title-logo {
+  margin: 0 auto;
+}
+
+body[data-slug="404"] #quartz-body {
+  grid-template-columns: minmax(0, 1fr) !important;
+  grid-template-areas:
+    "grid-center"
+    "grid-footer" !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+body[data-slug="404"] .center {
+  width: 100%;
+  max-width: 100%;
+}
+
+body[data-slug="404"] #quartz-root.page,
+body[data-slug="404"] #quartz-body,
+body[data-slug="404"] .center {
+  min-height: 100vh;
+}
+
+body[data-slug="404"] .center {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+body[data-slug="404"] .continuum-404 {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 3rem 1rem 1rem;
+  box-sizing: border-box;
+}
+
+body[data-slug="404"] .continuum-404-inner {
+  width: fit-content;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+body[data-slug="404"] footer {
+  display: none;
+}
+
+body[data-slug="404"] .page-footer {
+  margin-bottom: 20rem;
+}
+
+@-moz-document url-prefix() {
+  a.internal:not([role="anchor"]):not([href^="#"]) {
+    background-image:
+      linear-gradient(
+        100deg,
+        hsl(var(--gold-h) 40% 50%) 0%,
+        hsl(var(--gold-h) 56% 60%) 38%,
+        hsl(var(--gold-h) 78% 74%) 50%,
+        hsl(var(--gold-h) 56% 60%) 62%,
+        hsl(var(--gold-h) 38% 48%) 100%
+      ),
+      linear-gradient(
+        90deg,
+        hsl(var(--gold-h) 34% 22% / 0.12) 0%,
+        hsl(var(--gold-h) 52% 34% / 0.06) 50%,
+        hsl(var(--gold-h) 34% 22% / 0.12) 100%
+      ) !important;
+  }
+
+  a.internal:not([role="anchor"]):not([href^="#"]):hover {
+    background-image:
+      linear-gradient(
+        100deg,
+        hsl(var(--gold-h) 58% 60%) 0%,
+        hsl(var(--gold-h) 82% 72%) 38%,
+        hsl(var(--gold-h) 100% 86%) 50%,
+        hsl(var(--gold-h) 82% 72%) 62%,
+        hsl(var(--gold-h) 56% 58%) 100%
+      ),
+      linear-gradient(
+        90deg,
+        hsl(var(--gold-h) 42% 26% / 0.16) 0%,
+        hsl(var(--gold-h) 64% 42% / 0.08) 50%,
+        hsl(var(--gold-h) 42% 26% / 0.16) 100%
+      ) !important;
+  }
+}

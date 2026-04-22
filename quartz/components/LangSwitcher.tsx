@@ -4,7 +4,7 @@ import {
   QuartzComponentProps,
 } from "./types"
 
-import style from "./styles/langSwitcher.scss"
+import style from "../styles/components/lang-switcher.scss"
 // @ts-ignore – inline loader returns a string of JS
 import script from "./scripts/langSwitcher.inline"
 

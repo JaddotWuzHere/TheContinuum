@@ -10,10 +10,13 @@
 @use "./content/epigraph";
 @use "./content/blockquote";
 @use "./content/print";
+@use "./content/elements";
 
 @use "./base";
 
 @use "./layout/background";
+@use "./layout/visibility";
+@use "./layout/page";
 
 @use "./components/explorer";
 @use "./components/settings";

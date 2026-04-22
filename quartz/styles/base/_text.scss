@@ -1,0 +1,433 @@
+@use "../foundation/variables.scss" as *;
+
+p,
+ul,
+text,
+a,
+tr,
+td,
+li,
+ol,
+ul,
+.katex,
+.math,
+.typst-doc,
+.typst-doc * {
+  color: var(--darkgray);
+  fill: var(--darkgray);
+  overflow-wrap: break-word;
+  text-wrap: pretty;
+}
+
+.math {
+  &.math-display {
+    text-align: center;
+  }
+}
+
+article {
+  > mjx-container.MathJax,
+  blockquote > div > mjx-container.MathJax {
+    display: flex;
+
+    > svg {
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+
+  blockquote > div > mjx-container.MathJax > svg {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+}
+
+strong {
+  font-weight: $semiBoldWeight;
+}
+
+a {
+  font-weight: $semiBoldWeight;
+  text-decoration: none;
+  transition:
+    color 0.28s ease,
+    text-shadow 0.28s ease,
+    background-position 0.55s ease,
+    border-color 0.28s ease;
+  color: hsl(var(--gold-h) 58% 62%);
+
+  &:hover {
+    color: hsl(var(--gold-h) 82% 78%);
+  }
+
+  &.internal:not([role="anchor"]):not([href^="#"]) {
+    position: relative;
+    display: inline;
+    padding: 0.02rem 0.22rem;
+    border-radius: 0.28rem;
+    line-height: 1.4rem;
+    z-index: 0;
+
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+
+    background-image:
+      linear-gradient(
+        100deg,
+        hsl(var(--gold-h) 40% 50%) 0%,
+        hsl(var(--gold-h) 56% 60%) 38%,
+        hsl(var(--gold-h) 78% 74%) 50%,
+        hsl(var(--gold-h) 56% 60%) 62%,
+        hsl(var(--gold-h) 38% 48%) 100%
+      ),
+      linear-gradient(
+        90deg,
+        hsl(var(--gold-h) 34% 22% / 0.34) 0%,
+        hsl(var(--gold-h) 52% 34% / 0.2) 50%,
+        hsl(var(--gold-h) 34% 22% / 0.34) 100%
+      );
+    background-size:
+      220% 100%,
+      100% 100%;
+    background-position:
+      100% 0,
+      0 0;
+    background-repeat: no-repeat;
+
+    -webkit-background-clip: text, padding-box;
+    background-clip: text, padding-box;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+
+    text-shadow: 0 0 0.35rem hsl(var(--gold-h) 60% 64% / 0.1);
+
+    transition:
+      color 0.28s ease,
+      text-shadow 0.28s ease,
+      background-position 0.55s ease,
+      border-color 0.28s ease,
+      background-image 0.28s ease;
+
+    &::before {
+      display: none;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -0.08em;
+      width: 100%;
+      height: 1px;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition:
+        transform 0.32s ease,
+        opacity 0.32s ease,
+        box-shadow 0.32s ease;
+      opacity: 0.7;
+      background: linear-gradient(
+        90deg,
+        hsl(var(--gold-h) 42% 52% / 0.15) 0%,
+        hsl(var(--gold-h) 78% 74% / 0.95) 50%,
+        hsl(var(--gold-h) 42% 52% / 0.15) 100%
+      );
+      box-shadow: 0 0 8px hsl(var(--gold-h) 78% 74% / 0.2);
+    }
+
+    &:hover {
+      background-image:
+        linear-gradient(
+          100deg,
+          hsl(var(--gold-h) 58% 60%) 0%,
+          hsl(var(--gold-h) 82% 72%) 38%,
+          hsl(var(--gold-h) 100% 86%) 50%,
+          hsl(var(--gold-h) 82% 72%) 62%,
+          hsl(var(--gold-h) 56% 58%) 100%
+        ),
+        linear-gradient(
+          90deg,
+          hsl(var(--gold-h) 42% 26% / 0.44) 0%,
+          hsl(var(--gold-h) 64% 42% / 0.26) 50%,
+          hsl(var(--gold-h) 42% 26% / 0.44) 100%
+        );
+      background-position:
+        0% 0,
+        0 0;
+
+      -webkit-background-clip: text, padding-box;
+      background-clip: text, padding-box;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+
+      text-shadow: 0 0 0.35rem hsl(var(--gold-h) 88% 80% / 0.14);
+
+      &::after {
+        transform: scaleX(1);
+        opacity: 1;
+      }
+    }
+
+    &.broken {
+      background-image:
+        none,
+        linear-gradient(
+          90deg,
+          hsl(var(--gold-h) 12% 16% / 0.28) 0%,
+          hsl(var(--gold-h) 12% 16% / 0.28) 100%
+        );
+      color: hsl(var(--gold-h) 20% 52% / 0.55);
+      -webkit-background-clip: initial;
+      background-clip: initial;
+      -webkit-text-fill-color: currentColor;
+      text-shadow: none;
+      opacity: 0.72;
+
+      &:hover {
+        opacity: 0.92;
+      }
+
+      &::after {
+        background: hsl(var(--gold-h) 12% 44% / 0.4);
+        box-shadow: none;
+      }
+    }
+
+    &:has(> img) {
+      background: transparent;
+      color: inherit;
+      -webkit-text-fill-color: initial;
+      text-shadow: none;
+
+      &::after {
+        display: none;
+      }
+    }
+
+    &.tag-link {
+      &::before {
+        display: none;
+      }
+    }
+  }
+
+  &.external .external-icon {
+    transition: transform 0.2s ease;
+  }
+
+  &:hover .external-icon {
+    transform: translateX(1px) translateY(-1px);
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+thead {
+  font-family: var(--headerFont);
+  color: var(--dark);
+  font-weight: revert;
+  margin-bottom: 0;
+
+  article > & > a[role="anchor"] {
+    color: var(--dark);
+    background-color: transparent;
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  &[id] > a[href^="#"] {
+    margin-left: 0.5rem;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    transform: translateY(-0.1rem);
+    font-family: var(--codeFont);
+    user-select: none;
+    color: var(--dark);
+    -webkit-text-fill-color: currentColor;
+    background: none;
+    text-shadow: none;
+    padding: 0;
+    border-radius: 0;
+    line-height: 1;
+  }
+
+  &[id] > a[href^="#"]::after {
+    display: none;
+  }
+
+  &[id]:hover > a[href^="#"],
+  &[id] > a[href^="#"]:hover,
+  &[id] > a[href^="#"]:focus-visible {
+    opacity: 1;
+  }
+
+  &:not([id]) > a[role="anchor"] {
+    display: none;
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  line-height: 1.15;
+  letter-spacing: 0.01em;
+  position: relative;
+}
+
+h1 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-top: 2.8rem;
+  margin-bottom: 1.25rem;
+  letter-spacing: 0.015em;
+  text-shadow: 0 0 12px hsl(var(--gold-h) var(--gold-s) 70% / 0.08);
+}
+
+h2 {
+  font-size: 1.72rem;
+  font-weight: 650;
+  margin-top: 2.35rem;
+  margin-bottom: 1.1rem;
+  letter-spacing: 0.012em;
+  text-shadow: 0 0 10px hsl(var(--gold-h) var(--gold-s) 70% / 0.05);
+}
+
+h3 {
+  font-size: 1.34rem;
+  font-weight: 620;
+  margin-top: 2rem;
+  margin-bottom: 0.95rem;
+  letter-spacing: 0.01em;
+}
+
+h4 {
+  font-size: 1.12rem;
+  font-weight: 600;
+  margin-top: 1.7rem;
+  margin-bottom: 0.8rem;
+}
+
+h5 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-top: 1.45rem;
+  margin-bottom: 0.72rem;
+  opacity: 0.96;
+}
+
+h6 {
+  font-size: 0.92rem;
+  font-weight: 600;
+  margin-top: 1.25rem;
+  margin-bottom: 0.65rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  opacity: 0.82;
+}
+
+figure[data-rehype-pretty-code-figure] {
+  margin: 0;
+  position: relative;
+  line-height: 1.6rem;
+  position: relative;
+
+  & > [data-rehype-pretty-code-title] {
+    font-family: var(--codeFont);
+    font-size: 0.9rem;
+    padding: 0.1rem 0.5rem;
+    border: 1px solid var(--lightgray);
+    width: fit-content;
+    border-radius: 5px;
+    margin-bottom: -0.5rem;
+    color: var(--darkgray);
+  }
+
+  & > pre {
+    padding: 0;
+  }
+}
+
+pre {
+  font-family: var(--codeFont);
+  padding: 0 0.5rem;
+  border-radius: 5px;
+  overflow-x: auto;
+  border: 1px solid var(--lightgray);
+  position: relative;
+
+  &:has(> code.mermaid) {
+    border: none;
+  }
+
+  & > code {
+    background: none;
+    padding: 0;
+    font-size: 0.85rem;
+    counter-reset: line;
+    counter-increment: line 0;
+    display: grid;
+    padding: 0.5rem 0;
+    overflow-x: auto;
+
+    & [data-highlighted-chars] {
+      background-color: var(--highlight);
+      border-radius: 5px;
+    }
+
+    & > [data-line] {
+      padding: 0 0.25rem;
+      box-sizing: border-box;
+      border-left: 3px solid transparent;
+
+      &[data-highlighted-line] {
+        background-color: var(--highlight);
+        border-left: 3px solid var(--secondary);
+      }
+
+      &::before {
+        content: counter(line);
+        counter-increment: line;
+        width: 1rem;
+        margin-right: 1rem;
+        display: inline-block;
+        text-align: right;
+        color: rgba(115, 138, 148, 0.6);
+      }
+    }
+
+    &[data-line-numbers-max-digits="2"] > [data-line]::before {
+      width: 2rem;
+    }
+
+    &[data-line-numbers-max-digits="3"] > [data-line]::before {
+      width: 3rem;
+    }
+  }
+}
+
+code {
+  font-size: 0.9em;
+  color: var(--dark);
+  font-family: var(--codeFont);
+  border-radius: 5px;
+  padding: 0.1rem 0.2rem;
+  background: var(--lightgray);
+}
+
+tbody,
+li,
+p {
+  line-height: 1.6rem;
+}

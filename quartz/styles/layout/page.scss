@@ -1,0 +1,223 @@
+@use "sass:map";
+@use "../foundation/variables.scss" as *;
+
+.page {
+  max-width: 1800px;
+  margin: 0 auto;
+
+  & article {
+    & > h1 {
+      font-size: 2rem;
+    }
+
+    & li:has(> input[type="checkbox"]) {
+      list-style-type: none;
+      padding-left: 0;
+    }
+
+    & li:has(> input[type="checkbox"]:checked) {
+      text-decoration: line-through;
+      text-decoration-color: var(--gray);
+      color: var(--gray);
+    }
+
+    & li > * {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    p > strong {
+      color: var(--dark);
+    }
+  }
+
+  & > #quartz-body {
+    display: grid;
+    grid-template-columns: #{map.get($desktopGrid, templateColumns)};
+    grid-template-rows: #{map.get($desktopGrid, templateRows)};
+    column-gap: #{map.get($desktopGrid, columnGap)};
+    row-gap: #{map.get($desktopGrid, rowGap)};
+    grid-template-areas: #{map.get($desktopGrid, templateAreas)};
+    padding-left: $desktopLeftSafeGutter;
+    padding-right: $desktopRightSafeGutter;
+    box-sizing: border-box;
+
+    @media all and ($mobile) {
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-rows: auto auto auto;
+      grid-template-areas:
+        "grid-header"
+        "grid-center"
+        "grid-footer";
+      column-gap: 0;
+      row-gap: 0;
+      padding-inline: 1rem;
+      margin: 0 auto;
+    }
+
+    & .sidebar {
+      gap: 1.2rem;
+      top: 0;
+      box-sizing: border-box;
+      padding: $topSpacing 2rem 2rem 2rem;
+      display: flex;
+      height: 100vh;
+      position: sticky;
+    }
+
+    & .sidebar.left {
+      z-index: 1;
+      grid-area: grid-sidebar-left;
+      flex-direction: column;
+
+      @media all and ($mobile) {
+        grid-area: grid-center;
+        position: static;
+        display: block;
+        height: 0;
+        padding: 0;
+        margin: 0;
+        overflow: visible;
+        pointer-events: none;
+      }
+
+      @media all and ($mobile) {
+        & > * {
+          pointer-events: auto;
+        }
+      }
+    }
+
+    & .sidebar.right {
+      grid-area: grid-sidebar-right;
+      margin-right: 0;
+      flex-direction: column;
+
+      @media all and ($mobile) {
+        margin-left: inherit;
+        margin-right: inherit;
+      }
+
+      @media all and ($mobile) {
+        position: initial;
+        height: unset;
+        width: 100%;
+        flex-direction: row;
+        padding: 0;
+
+        & > * {
+          flex: 1;
+          max-height: 24rem;
+        }
+
+        & > .toc {
+          display: none;
+        }
+      }
+    }
+
+    & .page-header,
+    & .page-footer {
+      margin-top: 1rem;
+    }
+
+    & .page-header {
+      grid-area: grid-header;
+      margin: $topSpacing 0 0 0;
+
+      @media all and ($mobile) {
+        margin-top: 0;
+        padding: 0;
+      }
+    }
+
+    & .center {
+      grid-area: grid-center;
+    }
+
+    & footer {
+      grid-area: grid-footer;
+    }
+
+    & .center,
+    & footer {
+      max-width: 100%;
+      min-width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    @media all and ($mobile) {
+      & .page-header,
+      & .center,
+      & footer {
+        width: min(100%, 68rem);
+        min-width: 0;
+        margin-left: auto;
+        margin-right: auto;
+        box-sizing: border-box;
+        padding-inline: clamp(2.6rem, 5vw, 3.4rem);
+      }
+
+      & .page-header {
+        margin-top: 2rem;
+      }
+
+      & .page-footer {
+        margin-top: 2rem;
+      }
+    }
+
+    & footer {
+      margin-left: 0;
+    }
+  }
+}
+
+.table-container {
+  overflow-x: auto;
+
+  & > table {
+    margin: 1rem;
+    padding: 1.5rem;
+    border-collapse: collapse;
+
+    th,
+    td {
+      min-width: 75px;
+    }
+
+    & > * {
+      line-height: 2rem;
+    }
+  }
+}
+
+.spacer {
+  flex: 2 1 auto;
+}
+
+div:has(> .overflow) {
+  max-height: 100%;
+  overflow-y: hidden;
+}
+
+ul.overflow,
+ol.overflow {
+  max-height: 100%;
+  overflow-y: auto;
+  width: 100%;
+  margin-bottom: 0;
+
+  content: "";
+  clear: both;
+
+  & > li.overflow-end {
+    height: 0.5rem;
+    margin: 0;
+  }
+
+  &.gradient-active {
+    mask-image: linear-gradient(to bottom, black calc(100% - 50px), transparent 100%);
+  }
+}

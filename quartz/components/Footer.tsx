@@ -1,5 +1,5 @@
 import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } from "./types"
-import style from "./styles/footer.scss"
+import style from "../styles/components/footer.scss"
 import { i18n } from "../i18n"
 
 interface Options {

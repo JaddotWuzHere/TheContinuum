@@ -1,0 +1,129 @@
+@use "../foundation/variables.scss" as *;
+
+.text-highlight {
+  background-color: var(--textHighlight);
+  padding: 0 0.1rem;
+  border-radius: 5px;
+}
+
+input[type="checkbox"] {
+  transform: translateY(2px);
+  color: var(--secondary);
+  border: 1px solid var(--lightgray);
+  border-radius: 3px;
+  background-color: var(--light);
+  position: relative;
+  margin-inline-end: 0.2rem;
+  margin-inline-start: -1.4rem;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+
+  &:checked {
+    border-color: var(--secondary);
+    background-color: var(--secondary);
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 4px;
+      top: 1px;
+      width: 4px;
+      height: 8px;
+      display: block;
+      border: solid var(--light);
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+    }
+  }
+}
+
+blockquote {
+  margin: 1rem 0;
+  border-left: 3px solid var(--secondary);
+  padding-left: 1rem;
+  transition: border-color 0.2s ease;
+}
+
+thead {
+  font-family: var(--headerFont);
+  color: var(--dark);
+  font-weight: revert;
+  margin-bottom: 0;
+
+  article > & > a[role="anchor"] {
+    color: var(--dark);
+    background-color: transparent;
+  }
+}
+
+th {
+  text-align: left;
+  padding: 0.4rem 0.7rem;
+  border-bottom: 2px solid var(--gray);
+}
+
+td {
+  padding: 0.2rem 0.7rem;
+}
+
+tr {
+  border-bottom: 1px solid var(--lightgray);
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+img {
+  max-width: 100%;
+  border-radius: 5px;
+  margin: 1rem 0;
+  content-visibility: auto;
+}
+
+p > img + em {
+  display: block;
+  transform: translateY(-1rem);
+}
+
+hr {
+  width: 100%;
+  margin: 2rem auto;
+  height: 1px;
+  border: none;
+  background-color: var(--lightgray);
+}
+
+audio,
+video {
+  width: 100%;
+  border-radius: 5px;
+}
+
+hr {
+  width: 100%;
+  margin: 2.15rem auto 2.45rem;
+  height: 4px;
+  border: none;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    hsl(calc(var(--gold-h) - 20) var(--gold-s) 34% / 0) 0%,
+    hsl(calc(var(--gold-h) - 12) var(--gold-s) 44% / 0.35) 8%,
+    hsl(calc(var(--gold-h) - 6) var(--gold-s) 56% / 0.60) 18%,
+    hsl(var(--gold-h) var(--gold-s) 70% / 0.85) 32%,
+    hsl(var(--gold-h) var(--gold-s) 87%) 50%,
+    hsl(var(--gold-h) var(--gold-s) 70% / 0.85) 68%,
+    hsl(calc(var(--gold-h) - 6) var(--gold-s) 56% / 0.60) 82%,
+    hsl(calc(var(--gold-h) - 12) var(--gold-s) 44% / 0.35) 92%,
+    hsl(calc(var(--gold-h) - 20) var(--gold-s) 34% / 0) 100%
+  );
+  filter:
+    drop-shadow(0 0 1px hsl(var(--gold-h) var(--gold-s) 75% / 0.55))
+    drop-shadow(0 0 4px hsl(var(--gold-h) var(--gold-s) 75% / 0.20));
+}
+
+.page article :is(h1, h2, h3, h4, h5, h6) + hr {
+  margin-top: 0.9rem;
+}

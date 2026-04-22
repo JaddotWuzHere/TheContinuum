@@ -1,8 +1,5 @@
 // @ts-ignore
-import clipboardScript from "./scripts/clipboard.inline"
-// @ts-ignore
 import raysScript from "./scripts/rays.inline.js?raw"
-import clipboardStyle from "./styles/clipboard.scss"
 
 import {
   QuartzComponent,
@@ -33,14 +30,11 @@ const Body: QuartzComponent = (props: QuartzComponentProps) => {
 // =========================
 
 Body.afterDOMLoaded = [
-  clipboardScript,
   raysScript,
 ].filter(Boolean).join(";\n")
 
 // =========================
 // CSS
 // =========================
-
-Body.css = clipboardStyle
 
 export default (() => Body) satisfies QuartzComponentConstructor

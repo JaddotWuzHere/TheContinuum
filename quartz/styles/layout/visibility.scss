@@ -1,0 +1,37 @@
+@use "../foundation/variables.scss" as *;
+
+.flex-component {
+  display: flex;
+}
+
+.desktop-only {
+  display: none;
+
+  &.flex-component {
+    display: none;
+  }
+
+  @media all and ($desktop) {
+    display: initial;
+
+    &.flex-component {
+      display: flex;
+    }
+  }
+}
+
+.mobile-only {
+  display: none;
+
+  &.flex-component {
+    display: none;
+  }
+
+  @media all and ($mobile) {
+    display: initial;
+
+    &.flex-component {
+      display: flex;
+    }
+  }
+}

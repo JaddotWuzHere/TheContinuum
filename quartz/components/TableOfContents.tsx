@@ -1,6 +1,6 @@
 import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } from "./types"
-import legacyStyle from "./styles/legacyToc.scss"
-import modernStyle from "./styles/toc.scss"
+import legacyStyle from "../styles/components/legacy-toc.scss"
+import modernStyle from "../styles/components/toc.scss"
 import { classNames } from "../util/lang"
 
 // @ts-ignore

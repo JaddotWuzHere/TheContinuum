@@ -1,6 +1,6 @@
 // @ts-ignore
 import readerModeScript from "./scripts/readermode.inline"
-import styles from "./styles/readermode.scss"
+import styles from "../styles/components/readermode.scss"
 import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } from "./types"
 import { i18n } from "../i18n"
 import { classNames } from "../util/lang"
