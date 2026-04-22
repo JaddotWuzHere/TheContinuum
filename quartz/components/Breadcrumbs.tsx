@@ -1,5 +1,4 @@
 import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } from "./types"
-import breadcrumbsStyle from "../styles/components/breadcrumbs.scss"
 import { FullSlug, SimpleSlug, resolveRelative, simplifySlug } from "../util/path"
 import { classNames } from "../util/lang"
 import { trieFromAllFiles } from "../util/ctx"
@@ -89,6 +88,5 @@ export default ((opts?: Partial<BreadcrumbOptions>) => {
     )
   }
 
-  Breadcrumbs.css = breadcrumbsStyle
   return Breadcrumbs
 }) satisfies QuartzComponentConstructor

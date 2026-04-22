@@ -4,7 +4,6 @@ import {
   QuartzComponentProps,
 } from "./types"
 
-import style from "../styles/components/lang-switcher.scss"
 // @ts-ignore – inline loader returns a string of JS
 import script from "./scripts/langSwitcher.inline"
 
@@ -12,7 +11,6 @@ const LangSwitcherImpl: QuartzComponent = (_props: QuartzComponentProps) => {
   return (
     <div class="lang-switcher" data-open="0" aria-label="Language switcher">
       <div class="wrap">
-        {/* Globe */}
         <svg
           class="globe"
           xmlns="http://www.w3.org/2000/svg"
@@ -28,7 +26,6 @@ const LangSwitcherImpl: QuartzComponent = (_props: QuartzComponentProps) => {
           <path d="M2 12h20M12 2a15.3 15.3 0 0 1 0 20M12 2a15.3 15.3 0 0 0 0 20"></path>
         </svg>
 
-        {/* screen reader label */}
         <label
           for="lang-select"
           class="sr-only"
@@ -47,7 +44,6 @@ const LangSwitcherImpl: QuartzComponent = (_props: QuartzComponentProps) => {
           English
         </button>
 
-        {/* hidden native select = Quartz uses this */}
         <select
           id="lang-select"
           aria-label="Language"
@@ -59,7 +55,6 @@ const LangSwitcherImpl: QuartzComponent = (_props: QuartzComponentProps) => {
           <option value="ja">日本語</option>
         </select>
 
-        {/* Chevron */}
         <svg
           class="chev"
           xmlns="http://www.w3.org/2000/svg"
@@ -127,7 +122,6 @@ const LangSwitcherImpl: QuartzComponent = (_props: QuartzComponentProps) => {
 
 export default (() => {
   const LanguageSwitcher: QuartzComponent = LangSwitcherImpl
-  LanguageSwitcher.css = style
   LanguageSwitcher.afterDOMLoaded = script
   return LanguageSwitcher
 }) satisfies QuartzComponentConstructor

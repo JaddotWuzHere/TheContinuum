@@ -4,7 +4,6 @@ import {
   QuartzComponentProps,
 } from "./types"
 
-import style from "../styles/components/settings.scss"
 // @ts-ignore
 import script from "./scripts/settings.inline"
 
@@ -120,7 +119,7 @@ const SettingsImpl: QuartzComponent = (props: QuartzComponentProps) => {
 
 export default (() => {
   const Settings: QuartzComponent = SettingsImpl
-  Settings.css = `${style}\n${langCss}`
+  Settings.css = langCss
   Settings.afterDOMLoaded = concatenateResources(script, langAfter)
   return Settings
 }) satisfies QuartzComponentConstructor

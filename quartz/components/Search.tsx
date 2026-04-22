@@ -1,5 +1,4 @@
 import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } from "./types"
-import style from "../styles/components/search.scss"
 // @ts-ignore
 import script from "./scripts/search.inline"
 import { classNames } from "../util/lang"
@@ -66,7 +65,6 @@ export default ((userOpts?: Partial<SearchOptions>) => {
   }
 
   Search.afterDOMLoaded = script
-  Search.css = style
 
   return Search
 }) satisfies QuartzComponentConstructor

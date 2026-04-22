@@ -1,6 +1,4 @@
 import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } from "./types"
-import style from "../styles/components/explorer.scss"
-import searchStyle from "../styles/components/search.scss"
 import { localeFromSlug } from "../util/locale"
 
 // @ts-ignore
@@ -154,7 +152,6 @@ export default ((userOpts?: Partial<Options>) => {
     )
   }
 
-  Explorer.css = concatenateResources(style, searchStyle)
   Explorer.afterDOMLoaded = concatenateResources(
     script,
     searchScript,

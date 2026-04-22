@@ -1,5 +1,4 @@
 export { ContentPage } from "./contentPage"
-export { FolderPage } from "./folderPage"
 export { ContentIndex as ContentIndex } from "./contentIndex"
 export { AliasRedirects } from "./aliases"
 export { Assets } from "./assets"

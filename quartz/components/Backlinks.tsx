@@ -1,5 +1,4 @@
 import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } from "./types"
-import style from "../styles/components/backlinks.scss"
 import { resolveRelative, simplifySlug } from "../util/path"
 import { i18n } from "../i18n"
 import { classNames } from "../util/lang"
@@ -50,7 +49,6 @@ export default ((opts?: Partial<BacklinksOptions>) => {
     )
   }
 
-  Backlinks.css = style
   Backlinks.afterDOMLoaded = overflowListAfterDOMLoaded
 
   return Backlinks

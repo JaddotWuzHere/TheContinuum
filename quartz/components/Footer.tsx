@@ -1,5 +1,4 @@
 import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } from "./types"
-import style from "../styles/components/footer.scss"
 import { i18n } from "../i18n"
 
 interface Options {
@@ -22,6 +21,5 @@ export default ((opts?: Options) => {
     )
   }
 
-  Footer.css = style
   return Footer
 }) satisfies QuartzComponentConstructor
