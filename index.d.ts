@@ -7,7 +7,6 @@ declare module "*.scss" {
 interface CustomEventMap {
   prenav: CustomEvent<{}>
   nav: CustomEvent<{ url: FullSlug }>
-  readermodechange: CustomEvent<{ mode: "on" | "off" }>
 }
 
 type ContentIndex = Record<FullSlug, ContentDetails>
