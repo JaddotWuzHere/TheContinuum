@@ -19,7 +19,6 @@ const config: QuartzConfig = {
     },
     locale: "en-US",
     ignorePatterns: ["private", "templates", ".obsidian"],
-    defaultDateType: "modified",
     theme: {
       fontOrigin: "googleFonts",
       cdnCaching: true,
@@ -44,9 +43,6 @@ const config: QuartzConfig = {
   plugins: {
     transformers: [
       Plugin.FrontMatter(),
-      Plugin.CreatedModifiedDate({
-        priority: ["frontmatter", "git", "filesystem"],
-      }),
       Plugin.SyntaxHighlighting({
         theme: "github-dark",
         keepBackground: false,

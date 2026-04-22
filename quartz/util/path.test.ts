@@ -143,8 +143,6 @@ describe("transforms", () => {
         ["content/test.pdf", "./content/test.pdf"],
         ["./content/test.md", "./content/test"],
         ["../content/test.md", "../content/test"],
-        ["tags/", "./tags/"],
-        ["/tags/", "./tags/"],
         ["content/with spaces", "./content/with-spaces"],
         ["content/with spaces/index", "./content/with-spaces/"],
         ["content/with spaces#and Anchor!", "./content/with-spaces#and-anchor"],

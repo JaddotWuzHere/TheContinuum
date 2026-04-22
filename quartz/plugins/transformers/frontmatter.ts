@@ -77,9 +77,6 @@ export const FrontMatter: QuartzTransformerPlugin<Partial<Options>> = (userOpts)
               data.title = file.stem ?? i18n(cfg.configuration.locale).propertyDefaults.title
             }
 
-            const tags = coerceToArray(coalesceAliases(data, ["tags", "tag"]))
-            if (tags) data.tags = [...new Set(tags.map((tag: string) => slugTag(tag)))]
-
             const aliases = coerceToArray(coalesceAliases(data, ["aliases", "alias"]))
             if (aliases) {
               data.aliases = aliases // frontmatter
@@ -100,22 +97,6 @@ export const FrontMatter: QuartzTransformerPlugin<Partial<Options>> = (userOpts)
 
             const socialImage = coalesceAliases(data, ["socialImage", "image", "cover"])
 
-            const created = coalesceAliases(data, ["created", "date"])
-            if (created) {
-              data.created = created
-            }
-
-            const modified = coalesceAliases(data, [
-              "modified",
-              "lastmod",
-              "updated",
-              "last-modified",
-            ])
-            if (modified) data.modified = modified
-            data.modified ||= created // if modified is not set, use created
-
-            const published = coalesceAliases(data, ["published", "publishDate", "date"])
-            if (published) data.published = published
 
             if (socialImage) data.socialImage = socialImage
 
@@ -138,11 +119,7 @@ declare module "vfile" {
     frontmatter: { [key: string]: unknown } & {
       title: string
     } & Partial<{
-        tags: string[]
         aliases: string[]
-        modified: string
-        created: string
-        published: string
         description: string
         socialDescription: string
         publish: boolean | string

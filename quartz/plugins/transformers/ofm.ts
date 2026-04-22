@@ -331,40 +331,6 @@ export const ObsidianFlavoredMarkdown: QuartzTransformerPlugin<Partial<Options>>
             ])
           }
 
-          if (opts.parseTags) {
-            replacements.push([
-              tagRegex,
-              (_value: string, tag: string) => {
-                // Check if the tag only includes numbers and slashes
-                if (/^[\/\d]+$/.test(tag)) {
-                  return false
-                }
-
-                tag = slugTag(tag)
-                if (file.data.frontmatter) {
-                  const noteTags = file.data.frontmatter.tags ?? []
-                  file.data.frontmatter.tags = [...new Set([...noteTags, tag])]
-                }
-
-                return {
-                  type: "link",
-                  url: base + `/tags/${tag}`,
-                  data: {
-                    hProperties: {
-                      className: ["tag-link"],
-                    },
-                  },
-                  children: [
-                    {
-                      type: "text",
-                      value: tag,
-                    },
-                  ],
-                }
-              },
-            ])
-          }
-
           if (opts.enableInHtmlEmbed) {
             visit(tree, "html", (node: Html) => {
               for (const [regex, replace] of replacements) {

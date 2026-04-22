@@ -10,7 +10,6 @@ interface Item {
   slug: FullSlug
   title: string
   content: string
-  tags: string[]
   [key: string]: any
 }
 
@@ -22,7 +21,7 @@ declare global {
   }
 }
 
-type SearchType = "basic" | "tags"
+type SearchType = "basic"
 let searchType: SearchType = "basic"
 let currentSearchTerm: string = ""
 let activeSearchSlug: FullSlug | null = null
@@ -38,7 +37,6 @@ let index = new FlexSearch.Document<Item>({
   encode: encoder,
   document: {
     id: "id",
-    tag: "tags",
     index: [
       {
         field: "title",
@@ -46,10 +44,6 @@ let index = new FlexSearch.Document<Item>({
       },
       {
         field: "content",
-        tokenize: "forward",
-      },
-      {
-        field: "tags",
         tokenize: "forward",
       },
     ],
@@ -65,7 +59,6 @@ const p = new DOMParser()
 const fetchContentCache: Map<FullSlug, Element[]> = new Map()
 const contextWindowWords = 30
 const numSearchResults = 8
-const numTagResults = 5
 const SEARCH_RENDER_DEBOUNCE_MS = 315
 type ResultAnimationMode = "full" | "soft" | "none"
 
@@ -311,185 +304,133 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
       const done = () => {
         if (finished) return
         finished = true
-        container.removeEventListener("transitionend", onTransitionEnd)
         finishClose()
       }
 
-      const onTransitionEnd = (e: TransitionEvent) => {
-        if (e.target !== container) return
+      const onAnimationEnd = (ev: AnimationEvent) => {
+        if (ev.target !== container) return
+        container.removeEventListener("animationend", onAnimationEnd)
         done()
       }
 
-      container.addEventListener("transitionend", onTransitionEnd)
-      window.setTimeout(done, 250)
+      container.addEventListener("animationend", onAnimationEnd)
+      window.setTimeout(done, 260)
     })
   }
 
   window.__continuumSearchHide = hideSearch
 
-  function showSearch(searchTypeNew: SearchType) {
-    searchType = searchTypeNew
-
+  function showSearch(mode: SearchType = "basic") {
     closeExplorerDrawer()
     closeSettingsDrawer()
-    document.documentElement.setAttribute("data-search-open", "1")
-    lockPageScroll()
-
-    if (sidebar) sidebar.style.zIndex = "1"
-
-    isClosing = false
-    container.classList.remove("animating-in")
-    container.classList.remove("animating-out")
-    container.classList.add("active")
-
-    void container.offsetWidth
 
     cancelAnimationFrame(openRaf)
-    openRaf = requestAnimationFrame(async () => {
-      container.classList.add("animating-in")
-      searchBar.value = ""
-      currentSearchTerm = ""
-      hasRenderedSearchResults = false
-      selectedResult = null
-      searchRequestToken++
-      if (searchDebounceTimer !== null) {
-        window.clearTimeout(searchDebounceTimer)
-        searchDebounceTimer = null
-      }
-      results.classList.remove("results-refreshing", "results-animate-full", "results-animate-soft")
-      removeAllChildren(results)
-      if (preview) {
-        removeAllChildren(preview)
-        preview.classList.remove("preview-switching-out", "preview-switching-in")
-      }
-      searchLayout.classList.add("display-results")
-      await displayResults([], "none")
-      scheduleViewportSync()
-      searchBar.focus({ preventScroll: true })
+    isClosing = false
+    document.documentElement.setAttribute("data-search-open", "true")
+    lockPageScroll()
+    if (sidebar) sidebar.style.zIndex = "16"
+
+    if (!container.classList.contains("active")) {
+      container.classList.add("active")
+      container.classList.remove("animating-out")
+      void container.offsetWidth
+    }
+
+    searchType = mode
+    container.classList.remove("animating-out")
+    container.classList.add("animating-in")
+
+    openRaf = requestAnimationFrame(() => {
+      searchBar.focus()
+      searchBar.select()
       scheduleViewportSync()
     })
   }
 
-  let currentHover: HTMLElement | null = null
-  async function shortcutHandler(e: HTMLElementEventMap["keydown"]) {
-    if (e.key === "k" && (e.ctrlKey || e.metaKey) && !e.shiftKey) {
+  function shortcutHandler(e: KeyboardEvent) {
+    if (e.key === "/" && !e.ctrlKey && !e.metaKey) {
+      const active = document.activeElement
+      const typingInInput =
+        active instanceof HTMLInputElement ||
+        active instanceof HTMLTextAreaElement ||
+        (active instanceof HTMLElement && active.isContentEditable)
+
+      if (typingInInput) return
+
       e.preventDefault()
-      const searchBarOpen = container.classList.contains("active")
-      void (searchBarOpen ? hideSearch() : Promise.resolve(showSearch("basic")))
-      return
-    } else if (e.shiftKey && (e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
-      e.preventDefault()
-      const searchBarOpen = container.classList.contains("active")
-      if (searchBarOpen) {
-        void hideSearch()
-      } else {
-        showSearch("tags")
-        searchBar.value = "#"
-      }
+      showSearch("basic")
       return
     }
 
-    if (currentHover) {
-      currentHover.classList.remove("focus")
-    }
-    if (selectedResult && selectedResult !== currentHover) {
-      selectedResult.classList.remove("selected")
-    }
-
-    if (!container.classList.contains("active")) return
-    if (e.key === "Enter" && !e.isComposing) {
-      if (results.contains(document.activeElement)) {
-        const active = document.activeElement as HTMLElement
-        if (active.classList.contains("no-match")) return
-        await displayPreview(active)
-        active.click()
-      } else {
-        const anchor = document.getElementsByClassName("result-card")[0] as HTMLElement | null
-        if (!anchor || anchor.classList.contains("no-match")) return
-        await displayPreview(anchor)
-        anchor.click()
-      }
-    } else if (e.key === "ArrowUp" || (e.shiftKey && e.key === "Tab")) {
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
       e.preventDefault()
-      if (results.contains(document.activeElement)) {
-        const currentResult = currentHover
-          ? currentHover
-          : (document.activeElement as HTMLElement | null)
-        const prevResult = currentResult?.previousElementSibling as HTMLElement | null
-        currentResult?.classList.remove("focus")
-        currentResult?.classList.remove("selected")
-        prevResult?.focus()
-        if (prevResult) {
-          currentHover = prevResult
-          selectedResult = prevResult
-          prevResult.classList.add("selected")
-        }
-        await displayPreview(prevResult)
-      }
-    } else if (e.key === "ArrowDown" || e.key === "Tab") {
-      e.preventDefault()
-      if (document.activeElement === searchBar || currentHover !== null) {
-        const currentResult = currentHover
-          ? currentHover
-          : (document.getElementsByClassName("result-card")[0] as HTMLElement | null)
-        const nextResult =
-          document.activeElement === searchBar
-            ? currentResult
-            : (currentResult?.nextElementSibling as HTMLElement | null)
-
-        currentResult?.classList.remove("focus")
-        currentResult?.classList.remove("selected")
-        nextResult?.focus()
-        if (nextResult) {
-          currentHover = nextResult
-          selectedResult = nextResult
-          nextResult.classList.add("selected")
-        }
-        await displayPreview(nextResult)
-      }
+      showSearch("basic")
     }
   }
 
-  const formatForDisplay = (term: string, id: number) => {
+  type ContentIndex = Record<FullSlug, ContentDetails>
+  const currentHoverState = {
+    value: null as HTMLElement | null,
+  }
+
+  Object.defineProperty(window, "currentHover", {
+    get() {
+      return currentHoverState.value
+    },
+    set(v) {
+      currentHoverState.value = v
+    },
+    configurable: true,
+  })
+
+  let currentHover: HTMLElement | null = null
+
+  const formatForDisplay = (term: string, id: number): Item => {
     const slug = idDataMap[id]
+    const data = dataMap[slug]
+    const text = data.content
+    const contentIndex = text.toLowerCase().indexOf(term.toLowerCase())
+    const content =
+      contentIndex === -1
+        ? text.substring(0, contextWindowWords * 2) + "..."
+        : highlight(term, text.substring(contentIndex - contextWindowWords, contentIndex + contextWindowWords * 2), true)
+
     return {
       id,
       slug,
-      title: searchType === "tags" ? data[slug].title : highlight(term, data[slug].title ?? ""),
-      content: highlight(term, data[slug].content ?? "", true),
-      tags: highlightTags(term.substring(1), data[slug].tags),
+      title: highlight(term, data.title),
+      content,
     }
   }
 
-  function highlightTags(term: string, tags: string[]) {
-    if (!tags || searchType !== "tags") {
-      return []
-    }
-
-    return tags
-      .map((tag) => {
-        if (tag.toLowerCase().includes(term.toLowerCase())) {
-          return `<li><p class="match-tag">#${tag}</p></li>`
-        } else {
-          return `<li><p>#${tag}</p></li>`
-        }
-      })
-      .slice(0, numTagResults)
-  }
-
-  const resultToHTML = ({ slug, title, content, tags }: Item) => {
-    const htmlTags = tags.length > 0 ? `<ul class="tags">${tags.join("")}</ul>` : ``
-    const itemTile = document.createElement("a")
+  const resultToHTML = ({ slug, title, content }: Item) => {
+    const itemTile = document.createElement("button")
     itemTile.classList.add("result-card")
     itemTile.id = slug
-    itemTile.href = resolveUrl(slug).toString()
-    itemTile.innerHTML = `
-      <h3 class="card-title">${title}</h3>
-      ${htmlTags}
-      <p class="card-description">${content}</p>
-    `
+    itemTile.type = "button"
 
-    const setActiveResult = async () => {
+    const htmlTitle = document.createElement("h3")
+    htmlTitle.classList.add("result-card-title")
+    htmlTitle.innerHTML = title
+
+    const htmlContent = document.createElement("p")
+    htmlContent.classList.add("result-card-snippet")
+    htmlContent.innerHTML = content
+
+    itemTile.appendChild(htmlTitle)
+    itemTile.appendChild(htmlContent)
+
+    async function displayPreviewForSelf() {
+      await displayPreview(itemTile)
+    }
+
+    async function navigateToResult() {
+      await hideSearch({ skipFocus: true })
+      const targetUrl = resolveUrl(slug)
+      window.location.assign(targetUrl)
+    }
+
+    async function setActiveResult() {
       currentHover?.classList.remove("focus")
       selectedResult?.classList.remove("selected")
 
@@ -498,17 +439,12 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
       currentHover = itemTile
       selectedResult = itemTile
 
-      await displayPreview(itemTile)
+      await displayPreviewForSelf()
     }
 
-    const navigateToResult = async () => {
-      const targetUrl = new URL(itemTile.href, window.location.toString())
-      await hideSearch({ skipFocus: true })
-      await window.spaNavigate(targetUrl)
-    }
-
-    const onClick = async (event: MouseEvent) => {
-      if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return
+    async function onClick(event: MouseEvent) {
+      if (event.button !== 0) return
+      if (event.ctrlKey || event.metaKey || event.shiftKey) return
 
       event.preventDefault()
       event.stopPropagation()
@@ -555,50 +491,19 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
   async function runSearch(term: string, requestToken: number) {
     if (!searchLayout || !index) return
 
-    let effectiveSearchType: SearchType = term.startsWith("#") ? "tags" : "basic"
-    let effectiveTerm = term
+    const effectiveTerm = term
 
-    let searchResults: DefaultDocumentSearchResults<Item>
-    if (effectiveSearchType === "tags") {
-      effectiveTerm = effectiveTerm.substring(1).trim()
-      const separatorIndex = effectiveTerm.indexOf(" ")
-      if (separatorIndex !== -1) {
-        const tag = effectiveTerm.substring(0, separatorIndex)
-        const query = effectiveTerm.substring(separatorIndex + 1).trim()
-
-        searchResults = await index.searchAsync({
-          query,
-          limit: Math.max(numSearchResults, 10000),
-          index: ["title", "content"],
-          tag: { tags: tag },
-        })
-
-        for (const searchResult of searchResults) {
-          searchResult.result = searchResult.result.slice(0, numSearchResults)
-        }
-
-        effectiveSearchType = "basic"
-        effectiveTerm = query
-      } else {
-        searchResults = await index.searchAsync({
-          query: effectiveTerm,
-          limit: numSearchResults,
-          index: ["tags"],
-        })
-      }
-    } else {
-      searchResults = await index.searchAsync({
-        query: effectiveTerm,
-        limit: numSearchResults,
-        index: ["title", "content"],
-      })
-    }
+    const searchResults = await index.searchAsync({
+      query: effectiveTerm,
+      limit: numSearchResults,
+      index: ["title", "content"],
+    })
 
     if (requestToken !== searchRequestToken || !container.classList.contains("active")) {
       return
     }
 
-    searchType = effectiveSearchType
+    searchType = "basic"
     currentSearchTerm = effectiveTerm
 
     const getByField = (field: string): number[] => {
@@ -609,7 +514,6 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
     const allIds: Set<number> = new Set([
       ...getByField("title"),
       ...getByField("content"),
-      ...getByField("tags"),
     ])
 
     const finalResults = [...allIds].map((id) => formatForDisplay(currentSearchTerm, id))
@@ -827,7 +731,6 @@ async function fillDocument(data: ContentIndex) {
         slug: slug as FullSlug,
         title: fileData.title,
         content: fileData.content,
-        tags: fileData.tags,
       }),
     )
   }
