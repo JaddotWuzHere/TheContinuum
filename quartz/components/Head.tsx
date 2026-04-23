@@ -18,12 +18,9 @@ export default (() => {
   }: QuartzComponentProps) => {
 
     const lang = localeFromSlug(fileData?.slug ?? "/en/")
-    const locale = toI18nLocale(lang)
-    const short = localeFromSlug(fileData?.slug ?? "/en/")
-    const htmlLang = toI18nLocale(short)   // "en-US" | "zh-CN" | "fr-FR"
-    ;(cfg as any).locale = htmlLang             
+    const htmlLang = toI18nLocale(lang)
     const dict = i18n(htmlLang)
-    const t = i18n(locale)
+    const t = dict
 
     const titleSuffix = t.layout.pageTitleSuffix ?? ""
     const title = (fileData.frontmatter?.title ?? t.propertyDefaults.title) + titleSuffix
@@ -106,7 +103,6 @@ export default (() => {
 
         <link rel="icon" href={iconPath} />
         <meta name="description" content={description} />
-        <meta name="generator" content="Quartz" />
 
         {css.map((resource) => CSSResourceToStyleElement(resource, true))}
         {js

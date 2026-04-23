@@ -1,7 +1,7 @@
 import { QuartzEmitterPlugin } from "../types"
 import { QuartzComponentProps } from "../../components/types"
 import BodyConstructor from "../../components/Body"
-import { pageResources, renderPage } from "../../components/renderPage"
+import { pageResources, renderPage } from "../../components/RenderPage"
 import { FullPageLayout } from "../../cfg"
 import { FullSlug } from "../../util/path"
 import { sharedPageComponents } from "../../../quartz.layout"

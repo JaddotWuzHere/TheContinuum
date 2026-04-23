@@ -1,15 +1,15 @@
 {
-  "name": "@jackyzha0/quartz",
-  "description": "🌱 publish your digital garden and notes as a website",
+  "name": "continuum-archives",
+  "description": "The Continuum Archives",
   "private": true,
   "version": "4.5.2",
   "type": "module",
-  "author": "jackyzha0 <j.zhao2k19@gmail.com>",
+  "author": "Jason Ding",
   "license": "MIT",
-  "homepage": "https://quartz.jzhao.xyz",
+  "homepage": "https://continuumarchives.com",
   "repository": {
     "type": "git",
-    "url": "https://github.com/jackyzha0/quartz.git"
+    "url": "https://github.com/JaddotWuzHere/TheContinuum.git"
   },
   "scripts": {
     "quartz": "./quartz/bootstrap-cli.mjs",
@@ -23,14 +23,6 @@
     "npm": ">=10.9.2",
     "node": ">=22"
   },
-  "keywords": [
-    "site generator",
-    "ssg",
-    "digital-garden",
-    "markdown",
-    "blog",
-    "quartz"
-  ],
   "bin": {
     "quartz": "./quartz/bootstrap-cli.mjs"
   },

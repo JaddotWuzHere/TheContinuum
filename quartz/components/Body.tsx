@@ -1,5 +1,4 @@
-import raysScript from "./scripts/rays.inline"
-import parallaxScript from "./scripts/parallax.inline"
+import backgroundFxScript from "./scripts/backgroundfx.inline"
 
 import {
   QuartzComponent,
@@ -26,14 +25,6 @@ const Body: QuartzComponent = (props: QuartzComponentProps) => {
   )
 }
 
-// =========================
-// Scripts
-// =========================
-
-Body.afterDOMLoaded = concatenateResources(raysScript, parallaxScript)
-
-// =========================
-// CSS
-// =========================
+Body.afterDOMLoaded = concatenateResources(backgroundFxScript)
 
 export default (() => Body) satisfies QuartzComponentConstructor

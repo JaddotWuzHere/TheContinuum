@@ -1,5 +1,3 @@
-import {} from "./util"
-
 function waitForElement(selector: string, cb: (element: HTMLElement) => void) {
   const element = document.querySelector<HTMLElement>(selector)
   if (element) {
@@ -19,9 +17,9 @@ function easeInOutSine01(u: number) {
   return 0.5 - 0.5 * Math.cos(2 * Math.PI * u)
 }
 
-function setupRays() {
+function setupBackgroundFx() {
   const root = document.documentElement
-  const GLOBAL_KEY = "__continuumRaysInit"
+  const GLOBAL_KEY = "__continuumBackgroundFxInit"
 
   if ((window as any)[GLOBAL_KEY]) return
   ;(window as any)[GLOBAL_KEY] = true
@@ -217,4 +215,4 @@ function setupRays() {
   })
 }
 
-setupRays()
+setupBackgroundFx()
