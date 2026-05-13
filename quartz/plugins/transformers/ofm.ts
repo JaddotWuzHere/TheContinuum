@@ -6,9 +6,7 @@ import {
   PhrasingContent,
   DefinitionContent,
   Paragraph,
-  Code,
 } from "mdast"
-import { Element, Literal, Root as HtmlRoot } from "hast"
 import { ReplaceFunction, findAndReplace as mdastFindReplace } from "mdast-util-find-and-replace"
 import rehypeRaw from "rehype-raw"
 import { SKIP, visit } from "unist-util-visit"
@@ -18,9 +16,7 @@ import { JSResource, CSSResource } from "../../util/resources"
 // @ts-ignore
 import calloutScript from "../../components/scripts/callout.inline"
 // @ts-ignore
-import checkboxScript from "../../components/scripts/checkbox.inline"
-// @ts-ignore
-import { FilePath, pathToRoot, slugTag, slugifyFilePath } from "../../util/path"
+import { FilePath, pathToRoot, slugifyFilePath } from "../../util/path"
 import { toHast } from "mdast-util-to-hast"
 import { toHtml } from "hast-util-to-html"
 import { capitalize } from "../../util/lang"
@@ -31,14 +27,8 @@ export interface Options {
   highlight: boolean
   wikilinks: boolean
   callouts: boolean
-  mermaid: boolean
-  parseTags: boolean
   parseArrows: boolean
-  parseBlockReferences: boolean
   enableInHtmlEmbed: boolean
-  enableYouTubeEmbed: boolean
-  enableVideoEmbed: boolean
-  enableCheckbox: boolean
   disableBrokenWikilinks: boolean
 }
 
@@ -47,14 +37,8 @@ const defaultOptions: Options = {
   highlight: true,
   wikilinks: true,
   callouts: true,
-  mermaid: true,
-  parseTags: true,
   parseArrows: true,
-  parseBlockReferences: true,
   enableInHtmlEmbed: false,
-  enableYouTubeEmbed: true,
-  enableVideoEmbed: true,
-  enableCheckbox: false,
   disableBrokenWikilinks: false,
 }
 
@@ -131,17 +115,6 @@ const commentRegex = new RegExp(/%%[\s\S]*?%%/g)
 // from https://github.com/escwxyz/remark-obsidian-callout/blob/main/src/index.ts
 const calloutRegex = new RegExp(/^\[\!([\w-]+)\|?(.+?)?\]([+-]?)/)
 const calloutLineRegex = new RegExp(/^> *\[\!\w+\|?.*?\][+-]?.*$/gm)
-// (?<=^| )             -> a lookbehind assertion, tag should start be separated by a space or be the start of the line
-// #(...)               -> capturing group, tag itself must start with #
-// (?:[-_\p{L}\d\p{Z}])+       -> non-capturing group, non-empty string of (Unicode-aware) alpha-numeric characters and symbols, hyphens and/or underscores
-// (?:\/[-_\p{L}\d\p{Z}]+)*)   -> non-capturing group, matches an arbitrary number of tag strings separated by "/"
-const tagRegex = new RegExp(
-  /(?<=^| )#((?:[-_\p{L}\p{Emoji}\p{M}\d])+(?:\/[-_\p{L}\p{Emoji}\p{M}\d]+)*)/gu,
-)
-const blockReferenceRegex = new RegExp(/\^([-_A-Za-z0-9]+)$/g)
-const ytLinkRegex = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/
-const ytPlaylistLinkRegex = /[?&]list=([^#?&]*)/
-const videoExtensionRegex = new RegExp(/\.(mp4|webm|ogg|avi|mov|flv|wmv|mkv|mpg|mpeg|3gp|m4v)$/)
 const wikilinkImageEmbedRegex = new RegExp(
   /^(?<alt>(?!^\d*x?\d*$).*?)?(\|?\s*?(?<width>\d+)(x(?<height>\d+))?)?$/,
 )
@@ -191,8 +164,7 @@ export const ObsidianFlavoredMarkdown: QuartzTransformerPlugin<Partial<Options>>
           const [rawFp, rawHeader, rawAlias]: (string | undefined)[] = capture
 
           const [fp, anchor] = splitAnchor(`${rawFp ?? ""}${rawHeader ?? ""}`)
-          const blockRef = Boolean(rawHeader?.startsWith("#^")) ? "^" : ""
-          const displayAnchor = anchor ? `#${blockRef}${anchor.trim().replace(/^#+/, "")}` : ""
+          const displayAnchor = anchor ? `#${anchor.trim().replace(/^#+/, "")}` : ""
           const displayAlias = rawAlias ?? rawHeader?.replace("#", "|") ?? ""
           const embedDisplay = value.startsWith("!") ? "!" : ""
 
@@ -244,35 +216,12 @@ export const ObsidianFlavoredMarkdown: QuartzTransformerPlugin<Partial<Options>>
                         },
                       },
                     }
-                  } else if ([".mp4", ".webm", ".ogv", ".mov", ".mkv"].includes(ext)) {
-                    return {
-                      type: "html",
-                      value: `<video src="${url}" controls></video>`,
-                    }
-                  } else if (
-                    [".mp3", ".webm", ".wav", ".m4a", ".ogg", ".3gp", ".flac"].includes(ext)
-                  ) {
-                    return {
-                      type: "html",
-                      value: `<audio src="${url}" controls></audio>`,
-                    }
                   } else if ([".pdf"].includes(ext)) {
                     return {
                       type: "html",
                       value: `<iframe src="${url}" class="pdf"></iframe>`,
                     }
-                  } else {
-                    const block = anchor
-                    return {
-                      type: "html",
-                      data: { hProperties: { transclude: true } },
-                      value: `<blockquote class="transclude" data-url="${url}" data-block="${block}" data-embed-alias="${alias}"><a href="${
-                        url + anchor
-                      }" class="transclude-inner">Transclude of ${url}${block}</a></blockquote>`,
-                    }
                   }
-
-                  // otherwise, fall through to regular link
                 }
 
                 // treat as broken link if slug not in ctx.allSlugs
@@ -356,24 +305,6 @@ export const ObsidianFlavoredMarkdown: QuartzTransformerPlugin<Partial<Options>>
           mdastFindReplace(tree, replacements)
         }
       })
-
-      if (opts.enableVideoEmbed) {
-        plugins.push(() => {
-          return (tree: Root, _file) => {
-            visit(tree, "image", (node, index, parent) => {
-              if (parent && index != undefined && videoExtensionRegex.test(node.url)) {
-                const newNode: Html = {
-                  type: "html",
-                  value: `<video controls src="${node.url}"></video>`,
-                }
-
-                parent.children.splice(index, 1, newNode)
-                return SKIP
-              }
-            })
-          }
-        })
-      }
 
       if (opts.callouts) {
         plugins.push(() => {
@@ -484,242 +415,16 @@ export const ObsidianFlavoredMarkdown: QuartzTransformerPlugin<Partial<Options>>
         })
       }
 
-      if (opts.mermaid) {
-        plugins.push(() => {
-          return (tree: Root, file) => {
-            visit(tree, "code", (node: Code) => {
-              if (node.lang === "mermaid") {
-                file.data.hasMermaidDiagram = true
-                node.data = {
-                  hProperties: {
-                    className: ["mermaid"],
-                    "data-clipboard": JSON.stringify(node.value),
-                  },
-                }
-              }
-            })
-          }
-        })
-      }
-
       return plugins
     },
     htmlPlugins() {
       const plugins: PluggableList = [rehypeRaw]
-
-      if (opts.parseBlockReferences) {
-        plugins.push(() => {
-          const inlineTagTypes = new Set(["p", "li"])
-          const blockTagTypes = new Set(["blockquote"])
-          return (tree: HtmlRoot, file) => {
-            file.data.blocks = {}
-
-            visit(tree, "element", (node, index, parent) => {
-              if (blockTagTypes.has(node.tagName)) {
-                const nextChild = parent?.children.at(index! + 2) as Element
-                if (nextChild && nextChild.tagName === "p") {
-                  const text = nextChild.children.at(0) as Literal
-                  if (text && text.value && text.type === "text") {
-                    const matches = text.value.match(blockReferenceRegex)
-                    if (matches && matches.length >= 1) {
-                      parent!.children.splice(index! + 2, 1)
-                      const block = matches[0].slice(1)
-
-                      if (!Object.keys(file.data.blocks!).includes(block)) {
-                        node.properties = {
-                          ...node.properties,
-                          id: block,
-                        }
-                        file.data.blocks![block] = node
-                      }
-                    }
-                  }
-                }
-              } else if (inlineTagTypes.has(node.tagName)) {
-                const last = node.children.at(-1) as Literal
-                if (last && last.value && typeof last.value === "string") {
-                  const matches = last.value.match(blockReferenceRegex)
-                  if (matches && matches.length >= 1) {
-                    last.value = last.value.slice(0, -matches[0].length)
-                    const block = matches[0].slice(1)
-
-                    if (last.value === "") {
-                      // this is an inline block ref but the actual block
-                      // is the previous element above it
-                      let idx = (index ?? 1) - 1
-                      while (idx >= 0) {
-                        const element = parent?.children.at(idx)
-                        if (!element) break
-                        if (element.type !== "element") {
-                          idx -= 1
-                        } else {
-                          if (!Object.keys(file.data.blocks!).includes(block)) {
-                            element.properties = {
-                              ...element.properties,
-                              id: block,
-                            }
-                            file.data.blocks![block] = element
-                          }
-                          return
-                        }
-                      }
-                    } else {
-                      // normal paragraph transclude
-                      if (!Object.keys(file.data.blocks!).includes(block)) {
-                        node.properties = {
-                          ...node.properties,
-                          id: block,
-                        }
-                        file.data.blocks![block] = node
-                      }
-                    }
-                  }
-                }
-              }
-            })
-
-            file.data.htmlAst = tree
-          }
-        })
-      }
-
-      if (opts.enableYouTubeEmbed) {
-        plugins.push(() => {
-          return (tree: HtmlRoot) => {
-            visit(tree, "element", (node) => {
-              if (node.tagName === "img" && typeof node.properties.src === "string") {
-                const match = node.properties.src.match(ytLinkRegex)
-                const videoId = match && match[2].length == 11 ? match[2] : null
-                const playlistId = node.properties.src.match(ytPlaylistLinkRegex)?.[1]
-                if (videoId) {
-                  // YouTube video (with optional playlist)
-                  node.tagName = "iframe"
-                  node.properties = {
-                    class: "external-embed youtube",
-                    allow: "fullscreen",
-                    frameborder: 0,
-                    width: "600px",
-                    src: playlistId
-                      ? `https://www.youtube.com/embed/${videoId}?list=${playlistId}`
-                      : `https://www.youtube.com/embed/${videoId}`,
-                  }
-                } else if (playlistId) {
-                  // YouTube playlist only.
-                  node.tagName = "iframe"
-                  node.properties = {
-                    class: "external-embed youtube",
-                    allow: "fullscreen",
-                    frameborder: 0,
-                    width: "600px",
-                    src: `https://www.youtube.com/embed/videoseries?list=${playlistId}`,
-                  }
-                }
-              }
-            })
-          }
-        })
-      }
-
-      if (opts.enableCheckbox) {
-        plugins.push(() => {
-          return (tree: HtmlRoot, _file) => {
-            visit(tree, "element", (node) => {
-              if (node.tagName === "input" && node.properties.type === "checkbox") {
-                const isChecked = node.properties?.checked ?? false
-                node.properties = {
-                  type: "checkbox",
-                  disabled: false,
-                  checked: isChecked,
-                  class: "checkbox-toggle",
-                }
-              }
-            })
-          }
-        })
-      }
-
-      if (opts.mermaid) {
-        plugins.push(() => {
-          return (tree: HtmlRoot, _file) => {
-            visit(tree, "element", (node: Element, _idx, parent) => {
-              if (
-                node.tagName === "code" &&
-                ((node.properties?.className ?? []) as string[])?.includes("mermaid")
-              ) {
-                parent!.children = [
-                  {
-                    type: "element",
-                    tagName: "button",
-                    properties: {
-                      className: ["expand-button"],
-                      "aria-label": "Expand mermaid diagram",
-                      "data-view-component": true,
-                    },
-                    children: [
-                      {
-                        type: "element",
-                        tagName: "svg",
-                        properties: {
-                          width: 16,
-                          height: 16,
-                          viewBox: "0 0 16 16",
-                          fill: "currentColor",
-                        },
-                        children: [
-                          {
-                            type: "element",
-                            tagName: "path",
-                            properties: {
-                              fillRule: "evenodd",
-                              d: "M3.72 3.72a.75.75 0 011.06 1.06L2.56 7h10.88l-2.22-2.22a.75.75 0 011.06-1.06l3.5 3.5a.75.75 0 010 1.06l-3.5 3.5a.75.75 0 11-1.06-1.06l2.22-2.22H2.56l2.22 2.22a.75.75 0 11-1.06 1.06l-3.5-3.5a.75.75 0 010-1.06l3.5-3.5z",
-                            },
-                            children: [],
-                          },
-                        ],
-                      },
-                    ],
-                  },
-                  node,
-                  {
-                    type: "element",
-                    tagName: "div",
-                    properties: { id: "mermaid-container", role: "dialog" },
-                    children: [
-                      {
-                        type: "element",
-                        tagName: "div",
-                        properties: { id: "mermaid-space" },
-                        children: [
-                          {
-                            type: "element",
-                            tagName: "div",
-                            properties: { className: ["mermaid-content"] },
-                            children: [],
-                          },
-                        ],
-                      },
-                    ],
-                  },
-                ]
-              }
-            })
-          }
-        })
-      }
 
       return plugins
     },
     externalResources() {
       const js: JSResource[] = []
       const css: CSSResource[] = []
-
-      if (opts.enableCheckbox) {
-        js.push({
-          script: checkboxScript,
-          loadTime: "afterDOMReady",
-          contentType: "inline",
-        })
-      }
 
       if (opts.callouts) {
         js.push({
@@ -731,13 +436,5 @@ export const ObsidianFlavoredMarkdown: QuartzTransformerPlugin<Partial<Options>>
 
       return { js, css }
     },
-  }
-}
-
-declare module "vfile" {
-  interface DataMap {
-    blocks: Record<string, Element>
-    htmlAst: HtmlRoot
-    hasMermaidDiagram: boolean | undefined
   }
 }

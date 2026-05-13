@@ -1,10 +1,9 @@
 import { i18n } from "../i18n"
-import { FullSlug, getFileExtension, joinSegments, pathToRoot } from "../util/path"
+import { FullSlug, joinSegments, pathToRoot } from "../util/path"
 import { CSSResourceToStyleElement, JSResourceToScriptElement } from "../util/resources"
 import { googleFontHref, googleFontSubsetHref } from "../util/theme"
 import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } from "./types"
 import { unescapeHTML } from "../util/escape"
-import { CustomOgImagesEmitterName } from "../plugins/emitters/ogImage"
 import { localeFromSlug, toI18nLocale } from "../util/locale"
 
 
@@ -14,7 +13,6 @@ export default (() => {
     cfg,
     fileData,
     externalResources,
-    ctx,
   }: QuartzComponentProps) => {
 
     const lang = localeFromSlug(fileData?.slug ?? "/en/")
@@ -41,10 +39,7 @@ export default (() => {
     const socialUrl =
       fileData.slug === "404" ? url.toString() : joinSegments(url.toString(), fileData.slug!)
 
-    const usesCustomOgImage = ctx.cfg.plugins.emitters.some(
-      (e) => e.name === CustomOgImagesEmitterName,
-    )
-    const ogImageDefaultPath = `https://${cfg.baseUrl}/static/link_image.png`
+    const ogImagePath = `https://${cfg.baseUrl}/static/link_image.png`
 
     return (
       <head>
@@ -81,17 +76,10 @@ export default (() => {
         <meta property="og:description" content={description} />
         <meta property="og:image:alt" content={description} />
 
-        {!usesCustomOgImage && (
-          <>
-            <meta property="og:image" content={ogImageDefaultPath} />
-            <meta property="og:image:url" content={ogImageDefaultPath} />
-            <meta name="twitter:image" content={ogImageDefaultPath} />
-            <meta
-              property="og:image:type"
-              content={`image/${getFileExtension(ogImageDefaultPath) ?? "png"}`}
-            />
-          </>
-        )}
+        <meta property="og:image" content={ogImagePath} />
+        <meta property="og:image:url" content={ogImagePath} />
+        <meta name="twitter:image" content={ogImagePath} />
+        <meta property="og:image:type" content="image/png" />
 
         {cfg.baseUrl && (
           <>

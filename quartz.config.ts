@@ -47,7 +47,18 @@ const config: QuartzConfig = {
         theme: "github-dark",
         keepBackground: false,
       }),
-      Plugin.ObsidianFlavoredMarkdown({ enableInHtmlEmbed: false }),
+      Plugin.ObsidianFlavoredMarkdown({
+        comments: true,
+        highlight: true,
+        wikilinks: true,
+        callouts: true,
+
+        parseArrows: true,
+
+        enableInHtmlEmbed: false,
+
+        disableBrokenWikilinks: false,
+      }),
       Plugin.GitHubFlavoredMarkdown(),
       Plugin.TableOfContents(),
       Plugin.CrawlLinks({ markdownLinkResolution: "shortest" }),

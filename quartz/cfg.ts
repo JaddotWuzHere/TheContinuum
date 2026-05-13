@@ -9,46 +9,6 @@ export type Analytics =
       provider: "plausible"
       host?: string
     }
-  | {
-      provider: "google"
-      tagId: string
-    }
-  | {
-      provider: "umami"
-      websiteId: string
-      host?: string
-    }
-  | {
-      provider: "goatcounter"
-      websiteId: string
-      host?: string
-      scriptSrc?: string
-    }
-  | {
-      provider: "posthog"
-      apiKey: string
-      host?: string
-    }
-  | {
-      provider: "tinylytics"
-      siteId: string
-    }
-  | {
-      provider: "cabin"
-      host?: string
-    }
-  | {
-      provider: "clarity"
-      projectId?: string
-    }
-  | {
-      provider: "matomo"
-      host: string
-      siteId: string
-    }
-  | {
-      provider: "vercel"
-    }
 
 export interface GlobalConfiguration {
   pageTitle: string
@@ -62,7 +22,7 @@ export interface GlobalConfiguration {
   /** Glob patterns to not search */
   ignorePatterns: string[]
   /** Whether to use created, modified, or published as the default type of date */
-  /** Base URL to use for CNAME files, sitemaps, and RSS feeds that require an absolute URL.
+  /** Base URL to use for sitemaps, RSS feeds, and metadata that require an absolute URL.
    *   Quartz will avoid using this as much as possible and use relative URLs most of the time
    */
   baseUrl?: string

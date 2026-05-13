@@ -361,10 +361,6 @@ pre {
   border: 1px solid var(--lightgray);
   position: relative;
 
-  &:has(> code.mermaid) {
-    border: none;
-  }
-
   & > code {
     background: none;
     padding: 0;
