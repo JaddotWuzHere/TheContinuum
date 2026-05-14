@@ -1,12 +1,6 @@
 import { QuartzConfig } from "./quartz/cfg"
 import * as Plugin from "./quartz/plugins"
 
-/**
- * Quartz 4 Configuration
- *
- * See https://quartz.jzhao.xyz/configuration for more information.
- */
-
 const config: QuartzConfig = {
   configuration: {
     pageTitle: "The Continuum",
@@ -20,12 +14,13 @@ const config: QuartzConfig = {
     locale: "en-US",
     ignorePatterns: ["private", "templates", ".obsidian"],
     theme: {
-      fontOrigin: "googleFonts",
+      fontOrigin: "local",
       cdnCaching: true,
       typography: {
-        header: "Schibsted Grotesk",
-        body: "Source Sans Pro",
-        code: "IBM Plex Mono",
+        title: "Cinzel",
+        header: "EBGaramond",
+        body: "EBGaramond",
+        code: "ui-monospace",
       },
       colors: {
         light: "#030705",
@@ -72,7 +67,6 @@ const config: QuartzConfig = {
       Plugin.ContentPage(),
       Plugin.ContentIndex({
         enableSiteMap: true,
-        enableRSS: false,
       }),
       Plugin.Assets(),
       Plugin.Static(),

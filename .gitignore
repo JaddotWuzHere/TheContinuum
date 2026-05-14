@@ -1,4 +1,8 @@
 node_modules
 public
+build
 .quartz-cache
 quartz/.quartz-cache
+tsconfig.tsbuildinfo
+npm-debug.log*
+.DS_Store

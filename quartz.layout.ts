@@ -27,14 +27,3 @@ export const defaultContentPageLayout: PageLayout = {
   ],
   right: [],
 }
-
-export const defaultListPageLayout: PageLayout = {
-  beforeBody: [Component.Breadcrumbs(), Component.ArticleTitle()],
-  left: [
-    Component.PageTitle(),
-    Component.Explorer(),
-    Component.TableOfContents(),
-    Component.Backlinks(),
-  ],
-  right: [],
-}

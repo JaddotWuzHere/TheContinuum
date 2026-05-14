@@ -11,7 +11,6 @@ import Footer from "./Footer"
 import MobileOnly from "./MobileOnly"
 import Breadcrumbs from "./Breadcrumbs"
 import ConditionalRender from "./ConditionalRender"
-import LangSwitcher from "./LangSwitcher"
 import Settings from "./Settings"
 
 export {
@@ -28,6 +27,5 @@ export {
   NotFound,
   Breadcrumbs,
   ConditionalRender,
-  LangSwitcher,
   Settings,
 }
