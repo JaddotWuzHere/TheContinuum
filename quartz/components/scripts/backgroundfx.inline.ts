@@ -31,6 +31,7 @@ function setupBackgroundFx() {
   const MAX_ALPHA = 0.24
   const FLASH_LENGTH = 0.07
   const FLASH_GAIN = 0.16
+  const BG_PARALLAX_MAX = 260
 
   const T_ALPHA = [52, 60, 68, 56, 64, 72]
   const T_OFF = [29, 37, 45, 53, 61, 67]
@@ -45,6 +46,10 @@ function setupBackgroundFx() {
   const BURST_BOOST = [1.3, 1.2, 1.4, 1.3, 1.5, 1.2]
 
   waitForElement("#rays", (raysElement) => {
+    const bgLayers = Array.from(
+      document.querySelectorAll<HTMLElement>("#parallax-root .layer"),
+    )
+
     const burstStart = new Array<number>(RAY_COUNT).fill(-1)
     const burstEnd = new Array<number>(RAY_COUNT).fill(-1)
     const nextBurst = new Array<number>(RAY_COUNT).fill(0)
@@ -70,7 +75,8 @@ function setupBackgroundFx() {
       flashStart[index] = now
     }
 
-    const shouldParallax = () => !root.hasAttribute("data-no-ray-parallax")
+    const shouldRayParallax = () => !root.hasAttribute("data-no-ray-parallax")
+    const shouldBgParallax = () => !root.hasAttribute("data-no-bg-parallax")
     const shouldFlicker = () => !root.hasAttribute("data-no-flicker")
     const shouldMove = () => !root.hasAttribute("data-no-ray-movement")
     const shouldDraw = () => !root.hasAttribute("data-no-rays")
@@ -92,19 +98,40 @@ function setupBackgroundFx() {
     const tick = () => {
       if (!running) return
 
-      const parallaxOn = shouldParallax()
+      const rayParallaxOn = shouldRayParallax()
+      const bgParallaxOn = shouldBgParallax()
       const flickerOn = shouldFlicker()
       const movementOn = shouldMove()
+      const raysOn = shouldDraw()
 
-      let scrollY = 0
-      if (parallaxOn) {
-        scrollY =
-          document.scrollingElement?.scrollTop ?? document.documentElement.scrollTop ?? window.scrollY ?? 0
+      const scrollY =
+        document.scrollingElement?.scrollTop ?? document.documentElement.scrollTop ?? window.scrollY ?? 0
+
+      if (rayParallaxOn || bgParallaxOn) {
         root.style.setProperty("--scrollY", `${scrollY.toFixed(1)}px`)
+      }
+
+      if (bgLayers.length > 0) {
+        for (const layer of bgLayers) {
+          if (!bgParallaxOn) {
+            layer.style.transform = ""
+            continue
+          }
+
+          const rawSpeed = Number(layer.dataset.speed ?? "0.1")
+          const speed = Number.isFinite(rawSpeed) ? rawSpeed : 0.1
+          const y = Math.max(-BG_PARALLAX_MAX, Math.min(BG_PARALLAX_MAX, scrollY * -speed))
+          layer.style.transform = `translate3d(0, ${y.toFixed(1)}px, 0)`
+        }
       }
 
       const time = performance.now() / 1000
 
+      if (!raysOn) {
+        rafId = requestAnimationFrame(tick)
+        return
+      }
+          
       for (let i = 0; i < RAY_COUNT; i++) {
         if (time >= nextBurst[i] && time > burstEnd[i]) {
           if (activeBurstCount(time) < MAX_CONCURRENT_BURSTS) {
@@ -184,7 +211,7 @@ function setupBackgroundFx() {
     }
 
     const start = () => {
-      if (running || !shouldDraw()) return
+      if (running) return
       running = true
       rafId = requestAnimationFrame(tick)
     }
@@ -206,11 +233,16 @@ function setupBackgroundFx() {
     )
 
     new MutationObserver(() => {
-      if (shouldDraw()) start()
-      else stop()
+      start()
     }).observe(root, {
       attributes: true,
-      attributeFilter: ["data-no-rays", "data-no-ray-parallax", "data-no-flicker", "data-no-ray-movement"],
+      attributeFilter: [
+        "data-no-rays",
+        "data-no-bg-parallax",
+        "data-no-ray-parallax",
+        "data-no-flicker",
+        "data-no-ray-movement",
+      ],
     })
   })
 }
