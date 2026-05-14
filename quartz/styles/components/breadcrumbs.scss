@@ -124,15 +124,29 @@
 .breadcrumb-separator {
   display: inline-flex;
   align-items: center;
-  line-height: 1;
+  justify-content: center;
 
-  margin: 0 0.15rem;
+  width: 0.72rem;
+  height: 1rem;
+  margin: 0 0.08rem;
 
-  font-size: 0.9em;
-  color: hsl(var(--gold-h) var(--gold-s) 72% / 0.65);
-
-  transform: translateY(-0.1em); 
+  color: transparent;
   user-select: none;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.breadcrumb-separator::before {
+  content: "";
+  width: 0.32rem;
+  height: 0.32rem;
+
+  border-top: 1px solid hsl(var(--gold-h) var(--gold-s) 76% / 0.68);
+  border-right: 1px solid hsl(var(--gold-h) var(--gold-s) 76% / 0.68);
+
+  transform: rotate(45deg);
+
+  box-shadow: 1px -1px 5px hsl(var(--gold-h) var(--gold-s) 66% / 0.1);
 }
 
 @media all and (max-width: 800px) {

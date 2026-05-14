@@ -3,6 +3,7 @@
     if ((root as any)._langSwitcherInit) return
     ;(root as any)._langSwitcherInit = true
 
+    const wrap = root.querySelector<HTMLElement>(".wrap")
     const trigger = root.querySelector<HTMLButtonElement>(".lang-trigger")
     const select =
       root.querySelector<HTMLSelectElement>(".lang-select-native") ??
@@ -12,7 +13,7 @@
       root.querySelectorAll<HTMLButtonElement>(".lang-menu-item"),
     )
 
-    if (!trigger || !select || !menu || items.length === 0) return
+    if (!wrap || !trigger || !select || !menu || items.length === 0) return
 
     const safeTrigger = trigger as HTMLButtonElement
     const safeSelect = select as HTMLSelectElement
@@ -20,6 +21,11 @@
     function setOpen(open: boolean): void {
       root.setAttribute("data-open", open ? "1" : "0")
       safeTrigger.setAttribute("aria-expanded", open ? "true" : "false")
+    }
+
+    function toggleOpen(): void {
+      const isOpen = root.getAttribute("data-open") === "1"
+      setOpen(!isOpen)
     }
 
     function navigateToLang(lang: string): void {
@@ -45,9 +51,11 @@
       for (const item of items) {
         if (item.dataset.lang === value) {
           item.setAttribute("data-active", "1")
+          item.setAttribute("aria-selected", "true")
           chosen = item
         } else {
           item.setAttribute("data-active", "0")
+          item.setAttribute("aria-selected", "false")
         }
       }
 
@@ -65,15 +73,34 @@
     setActiveByValue(current)
     setOpen(false)
 
-    safeTrigger.addEventListener("click", (ev: MouseEvent) => {
+    wrap.addEventListener("click", (ev: MouseEvent) => {
+      const target = ev.target as HTMLElement | null
+
+      if (target?.closest(".lang-menu")) return
+
+      ev.preventDefault()
       ev.stopPropagation()
-      const isOpen = root.getAttribute("data-open") === "1"
-      setOpen(!isOpen)
+      toggleOpen()
+    })
+
+    safeTrigger.addEventListener("keydown", (ev: KeyboardEvent) => {
+      if (ev.key === "Enter" || ev.key === " ") {
+        ev.preventDefault()
+        ev.stopPropagation()
+        toggleOpen()
+      }
+
+      if (ev.key === "Escape") {
+        ev.preventDefault()
+        setOpen(false)
+      }
     })
 
     for (const item of items) {
       item.addEventListener("click", (ev: MouseEvent) => {
+        ev.preventDefault()
         ev.stopPropagation()
+
         const lang = item.dataset.lang
         if (!lang) return
 
@@ -114,14 +141,18 @@
 
         if (trigger && select && items.length > 0) {
           select.value = current
+
           for (const item of items) {
             if (item.dataset.lang === current) {
               item.setAttribute("data-active", "1")
+              item.setAttribute("aria-selected", "true")
+
               const label =
                 item.querySelector("span")?.textContent?.trim() || current
               trigger.textContent = label
             } else {
               item.setAttribute("data-active", "0")
+              item.setAttribute("aria-selected", "false")
             }
           }
         }

@@ -216,7 +216,9 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
     document.body.appendChild(container)
   }
 
-  const idDataMap = Object.keys(data) as FullSlug[]
+  const dataMap = data
+  const idDataMap = Object.keys(dataMap) as FullSlug[]
+
   const appendLayout = (el: HTMLElement) => {
     searchLayout.appendChild(el)
   }
@@ -326,7 +328,7 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
 
     cancelAnimationFrame(openRaf)
     isClosing = false
-    document.documentElement.setAttribute("data-search-open", "true")
+    document.documentElement.setAttribute("data-search-open", "1")
     lockPageScroll()
     if (sidebar) sidebar.style.zIndex = "16"
 
@@ -337,6 +339,32 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
     }
 
     searchType = mode
+    currentSearchTerm = searchBar.value
+
+    searchLayout.classList.add("display-results")
+
+    if (searchBar.value.trim() === "") {
+      searchRequestToken++
+      hasRenderedSearchResults = false
+      currentHover = null
+      selectedResult = null
+
+      results.classList.remove("results-refreshing", "results-animate-full", "results-animate-soft")
+      removeAllChildren(results)
+
+      const t = getSearchI18n()
+      results.innerHTML = `<a class="result-card no-match">
+        <h3>${t.beginSearchingTitle}</h3>
+        <p class="card-description">${t.beginSearchingText}</p>
+      </a>`
+
+      if (preview) {
+        previewToken++
+        removeAllChildren(preview)
+        preview.classList.remove("preview-switching-out", "preview-switching-in")
+      }
+    }
+
     container.classList.remove("animating-out")
     container.classList.add("animating-in")
 
@@ -387,18 +415,23 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
 
   const formatForDisplay = (term: string, id: number): Item => {
     const slug = idDataMap[id]
-    const data = dataMap[slug]
-    const text = data.content
+    const entry = dataMap[slug]
+    const text = entry.content
+
     const contentIndex = text.toLowerCase().indexOf(term.toLowerCase())
     const content =
       contentIndex === -1
         ? text.substring(0, contextWindowWords * 2) + "..."
-        : highlight(term, text.substring(contentIndex - contextWindowWords, contentIndex + contextWindowWords * 2), true)
+        : highlight(
+            term,
+            text.substring(contentIndex - contextWindowWords, contentIndex + contextWindowWords * 2),
+            true,
+          )
 
     return {
       id,
       slug,
-      title: highlight(term, data.title),
+      title: highlight(term, entry.title),
       content,
     }
   }
@@ -544,11 +577,11 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
       results.innerHTML = isEmptyQuery
         ? `<a class="result-card no-match">
             <h3>${t.beginSearchingTitle}</h3>
-            <p>${t.beginSearchingText}</p>
+            <p class="card-description">${t.beginSearchingText}</p>
           </a>`
         : `<a class="result-card no-match">
             <h3>${t.noMatchTitle}</h3>
-            <p>${t.noMatchText}</p>
+            <p class="card-description">${t.noMatchText}</p>
           </a>`
     } else {
       results.append(...finalResults.map(resultToHTML))
@@ -610,6 +643,7 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
 
   async function displayPreview(el: HTMLElement | null) {
     if (!searchLayout || !enablePreview || !el || !preview) return
+
     if (el.classList.contains("no-match")) {
       previewToken++
       removeAllChildren(preview)
@@ -628,13 +662,45 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
 
     if (thisToken !== previewToken) return
 
-    const innerDiv = await fetchContent(slug).then((contents) =>
-      contents.flatMap((contentEl) => [
-        ...highlightHTML(currentSearchTerm, contentEl as HTMLElement).children,
-      ]),
-    )
+    const contents = await fetchContent(slug)
 
     if (thisToken !== previewToken) return
+
+    const breadcrumb = contents
+      .map((contentEl) => contentEl.querySelector(".breadcrumb-container"))
+      .find((el): el is HTMLElement => el instanceof HTMLElement)
+      ?.cloneNode(true) as HTMLElement | undefined
+
+    if (breadcrumb) {
+      breadcrumb.classList.add("search-preview-breadcrumbs")
+    }
+
+    const innerDiv = contents.flatMap((contentEl) => {
+      const contentClone = contentEl.cloneNode(true) as HTMLElement
+
+      contentClone.querySelectorAll(".breadcrumb-container").forEach((el) => el.remove())
+
+      return [
+        ...highlightHTML(currentSearchTerm, contentClone).children,
+      ]
+    })
+
+    if (thisToken !== previewToken) return
+
+    const previewChrome = document.createElement("div")
+    previewChrome.classList.add("search-preview-chrome")
+
+    const breadcrumbSlot = document.createElement("div")
+    breadcrumbSlot.classList.add("search-preview-breadcrumb-slot")
+
+    if (breadcrumb) {
+      breadcrumbSlot.appendChild(breadcrumb)
+    }
+
+    previewChrome.appendChild(breadcrumbSlot)
+
+    const previewScroll = document.createElement("div")
+    previewScroll.classList.add("preview-scroll")
 
     const previewBadge = document.createElement("div")
     previewBadge.classList.add("preview-badge")
@@ -644,7 +710,8 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
     previewInner.classList.add("preview-inner")
     previewInner.append(...innerDiv)
 
-    preview.replaceChildren(previewBadge, previewInner)
+    previewScroll.append(previewBadge, previewInner)
+    preview.replaceChildren(previewChrome, previewScroll)
 
     preview.classList.remove("preview-switching-out")
     preview.classList.add("preview-switching-in")
@@ -659,6 +726,7 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
       const highlights = [...preview.getElementsByClassName("highlight")].sort(
         (a, b) => b.innerHTML.length - a.innerHTML.length,
       )
+
       highlights[0]?.scrollIntoView({ block: "start" })
     }
   }

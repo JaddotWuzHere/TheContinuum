@@ -5,7 +5,6 @@ export const sharedPageComponents: SharedLayout = {
   head: Component.Head(),
   header: [],
   afterBody: [
-    Component.MobileOnly(Component.Backlinks()),
     Component.Settings(),
   ],
   footer: Component.Footer(),

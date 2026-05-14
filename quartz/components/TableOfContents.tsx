@@ -4,14 +4,12 @@ import { classNames } from "../util/lang"
 // @ts-ignore
 import script from "./scripts/toc.inline"
 import { i18n } from "../i18n"
-import OverflowListFactory from "./OverflowList"
-import { concatenateResources } from "../util/resources"
 
 interface Options {}
 
 let numTocs = 0
+
 export default ((opts?: Partial<Options>) => {
-  const { OverflowList, overflowListAfterDOMLoaded } = OverflowListFactory()
   const TableOfContents: QuartzComponent = ({
     fileData,
     displayClass,
@@ -22,6 +20,7 @@ export default ((opts?: Partial<Options>) => {
     }
 
     const id = `toc-${numTocs++}`
+
     return (
       <div class={classNames(displayClass, "toc")}>
         <div class="toc-visual">
@@ -47,7 +46,8 @@ export default ((opts?: Partial<Options>) => {
               <polyline points="6 9 12 15 18 9"></polyline>
             </svg>
           </button>
-          <OverflowList
+
+          <ul
             id={id}
             class={fileData.collapseToc ? "collapsed toc-content" : "toc-content"}
           >
@@ -58,13 +58,13 @@ export default ((opts?: Partial<Options>) => {
                 </a>
               </li>
             ))}
-          </OverflowList>
+          </ul>
         </div>
       </div>
     )
   }
 
-  TableOfContents.afterDOMLoaded = concatenateResources(script, overflowListAfterDOMLoaded)
+  TableOfContents.afterDOMLoaded = script
 
   return TableOfContents
 }) satisfies QuartzComponentConstructor

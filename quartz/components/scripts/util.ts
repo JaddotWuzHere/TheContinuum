@@ -68,8 +68,9 @@ function isAllowedNestedScrollTarget(el: Element | null): boolean {
   return Boolean(
     el.closest(".explorer-content") ||
       el.closest(".settings-content") ||
-      el.closest(".toc .overflow") ||
-      el.closest(".backlinks .overflow"),
+      el.closest(".results-container") ||
+      el.closest(".preview-scroll") ||
+      el.closest(".settings-scroll"),
   )
 }
 
@@ -111,8 +112,10 @@ function getScrollableAncestor(target: EventTarget | null): HTMLElement | null {
 
   const scrollableSelectors = [
     ".results-container",
-    ".preview-container",
+    ".preview-scroll",
     ".settings-scroll",
+    ".explorer-content",
+    ".settings-content",
     ".explorer",
     ".settings-panel",
     ".search-layout",
@@ -204,24 +207,26 @@ function shouldKeepPageScrollLocked() {
   )
 }
 
-function applyHardScrollLock() {
+function applySoftScrollLock() {
   const html = document.documentElement
-  const body = document.body
 
   html.setAttribute("data-page-scroll-locked", "1")
-  html.style.overflow = "hidden"
-  body.style.overflow = "hidden"
-  body.style.touchAction = "none"
+
+  /*
+    Do NOT set html/body overflow: hidden here.
+
+    Changing overflow on the document while scrolled changes how sticky
+    sidebar elements are resolved, which makes the left sidebar visually
+    jump back to the top while panels are open.
+
+    Scroll prevention is handled by the wheel/touch/key guards below.
+  */
 }
 
-function clearHardScrollLock() {
+function clearSoftScrollLock() {
   const html = document.documentElement
-  const body = document.body
 
   html.removeAttribute("data-page-scroll-locked")
-  html.style.removeProperty("overflow")
-  body.style.removeProperty("overflow")
-  body.style.removeProperty("touch-action")
 }
 
 function bindPageScrollLockGuards() {
@@ -249,10 +254,10 @@ function unbindPageScrollLockGuards() {
 
 function syncPageScrollLock() {
   if (shouldKeepPageScrollLocked()) {
-    applyHardScrollLock()
+    applySoftScrollLock()
     bindPageScrollLockGuards()
   } else {
-    clearHardScrollLock()
+    clearSoftScrollLock()
     unbindPageScrollLockGuards()
   }
 }
@@ -266,6 +271,6 @@ export function unlockPageScroll() {
 }
 
 export function forceUnlockPageScroll() {
-  clearHardScrollLock()
+  clearSoftScrollLock()
   unbindPageScrollLockGuards()
 }

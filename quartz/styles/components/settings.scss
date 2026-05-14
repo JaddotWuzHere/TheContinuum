@@ -96,7 +96,7 @@ html[data-settings-open="1"] .continuum-settings-handle {
 .continuum-settings-handle .label {
   font-family: "EBGaramond", serif;
   font-weight: 700;
-  font-size: 1.1rem;
+  font-size: 1.25rem;
   letter-spacing: .08em;
   text-transform: uppercase;
 
@@ -113,6 +113,15 @@ html[data-settings-open="1"] .continuum-settings-handle {
   background-clip: text;
   color: transparent;
   filter: drop-shadow(0 0 6px hsl(var(--gold-h) var(--gold-s) 70% / .18));
+}
+
+html[lang^="zh"] .continuum-settings-handle .label,
+html[lang^="ja"] .continuum-settings-handle .label {
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  transform: none;
+  white-space: nowrap;
+  letter-spacing: 0.12em;
 }
 
 /* ---- Drawer ---- */

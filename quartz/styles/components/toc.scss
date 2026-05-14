@@ -32,7 +32,7 @@
 
   position: relative;
   overflow: hidden;
-  
+
   transition:
     filter 0.6s cubic-bezier(0.12, 0.85, 0.25, 1),
     transform 0.75s cubic-bezier(0.12, 0.85, 0.25, 1);
@@ -48,9 +48,9 @@
 
   background: linear-gradient(
     135deg,
-    rgba(255,230,160,0.85),
-    rgba(180,140,60,0.95),
-    rgba(255,220,140,0.75)
+    rgba(255, 230, 160, 0.85),
+    rgba(180, 140, 60, 0.95),
+    rgba(255, 220, 140, 0.75)
   );
 
   -webkit-mask:
@@ -102,11 +102,11 @@ button.toc-header h3::after {
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(160,120,40,0.6) 20%,
-    rgba(255,235,160,0.95) 40%,
-    rgba(255,250,210,1) 50%,
-    rgba(255,235,160,0.95) 60%,
-    rgba(160,120,40,0.6) 80%,
+    rgba(160, 120, 40, 0.6) 20%,
+    rgba(255, 235, 160, 0.95) 40%,
+    rgba(255, 250, 210, 1) 50%,
+    rgba(255, 235, 160, 0.95) 60%,
+    rgba(160, 120, 40, 0.6) 80%,
     transparent 100%
   );
 }
@@ -119,10 +119,16 @@ ul.toc-content {
   list-style: none;
   margin: 0;
   padding: 0 0 0 0.7rem;
+
   position: relative;
   z-index: 1;
-  overflow: hidden;
+
+  width: 100%;
+  max-width: 100%;
   min-width: 0;
+  box-sizing: border-box;
+
+  overflow: hidden;
 }
 
 ul.toc-content::before {
