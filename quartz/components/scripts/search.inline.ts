@@ -1,15 +1,20 @@
-import FlexSearch, { DefaultDocumentSearchResults } from "flexsearch"
+import FlexSearch from "flexsearch"
 import { ContentDetails } from "../../plugins/emitters/contentIndex"
 import { registerEscapeHandler, removeAllChildren, lockPageScroll, unlockPageScroll } from "./util"
 import { FullSlug, normalizeRelativeURLs, resolveRelative } from "../../util/path"
 import { i18n } from "../../i18n"
 import { localeFromSlug, toI18nLocale } from "../../util/locale"
 
+type ContentIndex = Record<FullSlug, ContentDetails>
+
 interface Item {
   id: number
   slug: FullSlug
   title: string
+  aliases: string
+  headings: string
   content: string
+  matchedHeading?: string
   [key: string]: any
 }
 
@@ -43,7 +48,11 @@ let index = new FlexSearch.Document<Item>({
         tokenize: "forward",
       },
       {
-        field: "content",
+        field: "aliases",
+        tokenize: "forward",
+      },
+      {
+        field: "headings",
         tokenize: "forward",
       },
     ],
@@ -69,6 +78,7 @@ function wait(ms: number) {
 const tokenizeTerm = (term: string) => {
   const tokens = term.split(/\s+/).filter((t) => t.trim() !== "")
   const tokenLen = tokens.length
+
   if (tokenLen > 1) {
     for (let i = 1; i < tokenLen; i++) {
       tokens.push(tokens.slice(0, i + 1).join(" "))
@@ -81,6 +91,7 @@ const tokenizeTerm = (term: string) => {
 function closeExplorerDrawer() {
   document.documentElement.removeAttribute("data-explorer-open")
   unlockPageScroll()
+
   try {
     localStorage.setItem("continuum-explorer-drawer", "closed")
   } catch {
@@ -90,6 +101,7 @@ function closeExplorerDrawer() {
 function closeSettingsDrawer() {
   document.documentElement.removeAttribute("data-settings-open")
   unlockPageScroll()
+
   try {
     localStorage.setItem("continuum-settings-drawer", "closed")
   } catch {
@@ -102,6 +114,7 @@ function highlight(searchTerm: string, text: string, trim?: boolean) {
 
   let startIndex = 0
   let endIndex = tokenizedText.length - 1
+
   if (trim) {
     const includesCheck = (tok: string) =>
       tokenizedTerms.some((term) => tok.toLowerCase().startsWith(term.toLowerCase()))
@@ -109,9 +122,11 @@ function highlight(searchTerm: string, text: string, trim?: boolean) {
 
     let bestSum = 0
     let bestIndex = 0
+
     for (let i = 0; i < Math.max(tokenizedText.length - contextWindowWords, 0); i++) {
       const window = occurrencesIndices.slice(i, i + contextWindowWords)
       const windowSum = window.reduce((total, cur) => total + (cur ? 1 : 0), 0)
+
       if (windowSum >= bestSum) {
         bestSum = windowSum
         bestIndex = i
@@ -132,6 +147,7 @@ function highlight(searchTerm: string, text: string, trim?: boolean) {
           return tok.replace(regex, `<span class="highlight">$&</span>`)
         }
       }
+
       return tok
     })
     .join(" ")
@@ -139,45 +155,53 @@ function highlight(searchTerm: string, text: string, trim?: boolean) {
   return `${startIndex === 0 ? "" : "..."}${slice}${endIndex === originalLength - 1 ? "" : "..."}`
 }
 
-function highlightHTML(searchTerm: string, el: HTMLElement) {
-  const p = new DOMParser()
-  const tokenizedTerms = tokenizeTerm(searchTerm)
-  const html = p.parseFromString(el.innerHTML, "text/html")
+const escapeHTML = (text: string) => {
+  const span = document.createElement("span")
+  span.textContent = text
+  return span.innerHTML
+}
 
-  const createHighlightSpan = (text: string) => {
-    const span = document.createElement("span")
-    span.className = "highlight"
-    span.textContent = text
-    return span
-  }
+const stripMarkdown = (text: string) => {
+  return text
+    .replace(/```[\s\S]*?```/g, " ")
+    .replace(/`([^`]+)`/g, "$1")
+    .replace(/\$\$[\s\S]*?\$\$/g, " ")
+    .replace(/\$([^$]+)\$/g, "$1")
+    .replace(/!\[[^\]]*]\([^)]*\)/g, " ")
+    .replace(/\[([^\]]+)]\([^)]*\)/g, "$1")
+    .replace(/[*_~>`]/g, "")
+    .replace(/\s+/g, " ")
+    .trim()
+}
 
-  const highlightTextNodes = (node: Node, term: string) => {
-    if (node.nodeType === Node.TEXT_NODE) {
-      const nodeText = node.nodeValue ?? ""
-      const regex = new RegExp(term.toLowerCase(), "gi")
-      const matches = nodeText.match(regex)
-      if (!matches || matches.length === 0) return
-      const spanContainer = document.createElement("span")
-      let lastIndex = 0
-      for (const match of matches) {
-        const matchIndex = nodeText.toLowerCase().indexOf(match.toLowerCase(), lastIndex)
-        spanContainer.appendChild(document.createTextNode(nodeText.slice(lastIndex, matchIndex)))
-        spanContainer.appendChild(createHighlightSpan(nodeText.slice(matchIndex, matchIndex + match.length)))
-        lastIndex = matchIndex + match.length
-      }
-      spanContainer.appendChild(document.createTextNode(nodeText.slice(lastIndex)))
-      node.parentNode?.replaceChild(spanContainer, node)
-    } else if (node.nodeType === Node.ELEMENT_NODE) {
-      if ((node as HTMLElement).classList.contains("highlight")) return
-      Array.from(node.childNodes).forEach((child) => highlightTextNodes(child, term))
-    }
-  }
+const truncateText = (text: string, maxLength = 150) => {
+  if (text.length <= maxLength) return text
+  return `${text.slice(0, maxLength).trim()}...`
+}
 
-  for (const term of tokenizedTerms) {
-    highlightTextNodes(html.body, term)
-  }
+const normalizeHeadingText = (text: string) => {
+  return text
+    .normalize("NFKD")
+    .replace(/[¶#]/g, "")
+    .replace(/[^\p{L}\p{N}\s]/gu, " ")
+    .replace(/\s+/g, " ")
+    .trim()
+    .toLowerCase()
+}
 
-  return html.body
+const headingScore = (rendered: string, target: string) => {
+  if (!rendered || !target) return 0
+  if (rendered === target) return 100
+  if (rendered.includes(target)) return 90
+  if (target.includes(rendered)) return 80
+
+  const renderedWords = new Set(rendered.split(" ").filter(Boolean))
+  const targetWords = target.split(" ").filter(Boolean)
+
+  if (targetWords.length === 0) return 0
+
+  const matchedWords = targetWords.filter((word) => renderedWords.has(word)).length
+  return matchedWords / targetWords.length
 }
 
 async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: ContentIndex) {
@@ -230,6 +254,8 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
   let searchRequestToken = 0
   let hasRenderedSearchResults = false
   let selectedResult: HTMLElement | null = null
+  let currentHover: HTMLElement | null = null
+
   const isHoverCapable = window.matchMedia("(hover: hover) and (pointer: fine)").matches
   const shouldAutoPreviewResults = isHoverCapable
 
@@ -253,7 +279,7 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
     appendLayout(el)
     preview = el
   }
-  
+
   function resolveUrl(slug: FullSlug): URL {
     return new URL(resolveRelative(activeSearchSlug ?? currentSlug, slug), location.toString())
   }
@@ -274,19 +300,26 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
         container.classList.remove("active")
         container.classList.remove("animating-out")
         searchBar.value = ""
-        if (sidebar) sidebar.style.zIndex = ""
+
+        if (sidebar) {
+          sidebar.style.zIndex = ""
+        }
+
         if (searchDebounceTimer !== null) {
           window.clearTimeout(searchDebounceTimer)
           searchDebounceTimer = null
         }
+
         searchRequestToken++
         hasRenderedSearchResults = false
         results.classList.remove("results-refreshing", "results-animate-full", "results-animate-soft")
         removeAllChildren(results)
+
         if (preview) {
           removeAllChildren(preview)
           preview.classList.remove("preview-switching-out", "preview-switching-in")
         }
+
         searchLayout.classList.remove("display-results")
         searchType = "basic"
         currentSearchTerm = ""
@@ -303,6 +336,7 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
       }
 
       let finished = false
+
       const done = () => {
         if (finished) return
         finished = true
@@ -330,7 +364,10 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
     isClosing = false
     document.documentElement.setAttribute("data-search-open", "1")
     lockPageScroll()
-    if (sidebar) sidebar.style.zIndex = "16"
+
+    if (sidebar) {
+      sidebar.style.zIndex = "16"
+    }
 
     if (!container.classList.contains("active")) {
       container.classList.add("active")
@@ -396,51 +433,212 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
     }
   }
 
-  type ContentIndex = Record<FullSlug, ContentDetails>
-  const currentHoverState = {
-    value: null as HTMLElement | null,
+  const includesSearchTerm = (text: string, term: string) => {
+    return text.toLowerCase().includes(term.toLowerCase())
   }
 
-  Object.defineProperty(window, "currentHover", {
-    get() {
-      return currentHoverState.value
-    },
-    set(v) {
-      currentHoverState.value = v
-    },
-    configurable: true,
-  })
+  const findMatchingEntry = (entries: string[], term: string) => {
+    return entries.find((entry) => includesSearchTerm(entry, term))
+  }
 
-  let currentHover: HTMLElement | null = null
+  const getTextPreviewAfterHeading = (headingEl: HTMLElement) => {
+    const sectionLevel = Number(headingEl.tagName.slice(1))
+    let firstChildHeading = ""
+    const bodyParts: string[] = []
+    let bodyTextLength = 0
+
+    let current = headingEl.nextElementSibling
+
+    while (current) {
+      const tag = current.tagName.toLowerCase()
+
+      if (/^h[1-6]$/.test(tag)) {
+        const level = Number(tag.slice(1))
+
+        if (level <= sectionLevel) {
+          break
+        }
+
+        if (!firstChildHeading) {
+          firstChildHeading = (current.textContent ?? "").replace(/\s+/g, " ").trim()
+        }
+
+        current = current.nextElementSibling
+        continue
+      }
+
+      const cloned = current.cloneNode(true) as HTMLElement
+
+      cloned.querySelectorAll("script, style, .breadcrumb-container, .tag-link, .external-icon").forEach((el) => {
+        el.remove()
+      })
+
+      const rawText = (cloned.textContent ?? "").replace(/\s+/g, " ").trim()
+
+      if (/^(statement|formal expression|where):$/i.test(rawText)) {
+        current = current.nextElementSibling
+        continue
+      }
+
+      cloned.querySelectorAll("a").forEach((link) => {
+        link.replaceWith(...link.childNodes)
+      })
+
+      cloned.querySelectorAll(".katex-display").forEach((displayMath) => {
+        displayMath.replaceWith(...displayMath.childNodes)
+      })
+
+      cloned.querySelectorAll("p, blockquote").forEach((block) => {
+        block.replaceWith(...block.childNodes, document.createTextNode(" "))
+      })
+
+      cloned.querySelectorAll("br").forEach((br) => {
+        br.replaceWith(" ")
+      })
+
+      let html = ""
+      const text = (cloned.textContent ?? "").replace(/\s+/g, " ").trim()
+
+      if (tag === "ul" || tag === "ol") {
+        const items = [...cloned.querySelectorAll(":scope > li")]
+          .map((li) => li.innerHTML.replace(/\s+/g, " ").trim())
+          .filter(Boolean)
+
+        html = items.length > 0 ? `${items.join(", ")}.` : ""
+      } else {
+        html = cloned.innerHTML.replace(/\s+/g, " ").trim()
+      }
+
+      if (html && text) {
+        bodyParts.push(html)
+        bodyTextLength += text.length
+      }
+
+      if (bodyTextLength > 220) {
+        break
+      }
+
+      current = current.nextElementSibling
+    }
+
+    const body = bodyParts.join(" ")
+
+    if (firstChildHeading && body) {
+      return `${escapeHTML(firstChildHeading)} | ${body}`
+    }
+
+    return body || escapeHTML(firstChildHeading)
+  }
+
+  const findHeadingElement = (root: HTMLElement, headingText: string) => {
+    const target = normalizeHeadingText(headingText)
+
+    const candidates = [...root.querySelectorAll("h1, h2, h3, h4, h5, h6")]
+      .map((heading) => {
+        const rendered = normalizeHeadingText(heading.textContent ?? "")
+
+        return {
+          heading: heading as HTMLElement,
+          score: headingScore(rendered, target),
+        }
+      })
+      .filter((candidate) => candidate.score >= 0.65)
+      .sort((a, b) => b.score - a.score)
+
+    return candidates[0]?.heading
+  }
 
   const formatForDisplay = (term: string, id: number): Item => {
     const slug = idDataMap[id]
     const entry = dataMap[slug]
-    const text = entry.content
 
-    const contentIndex = text.toLowerCase().indexOf(term.toLowerCase())
-    const content =
-      contentIndex === -1
-        ? text.substring(0, contextWindowWords * 2) + "..."
-        : highlight(
-            term,
-            text.substring(contentIndex - contextWindowWords, contentIndex + contextWindowWords * 2),
-            true,
-          )
+    const aliases = entry.aliases ?? []
+    const headings = entry.headings ?? []
+
+    const matchingAlias = findMatchingEntry(aliases, term)
+    const matchedHeading = findMatchingEntry(headings, term)
+    const titleMatches = includesSearchTerm(entry.title, term)
+
+    let title = ""
+    let content = ""
+
+    if (matchedHeading) {
+      title = `${escapeHTML(entry.title)} — ${highlight(term, matchedHeading)}`
+      content = ""
+    } else if (titleMatches) {
+      title = highlight(term, entry.title)
+      content = ""
+    } else if (matchingAlias) {
+      title = escapeHTML(entry.title)
+      content = `Alias: ${highlight(term, matchingAlias)}`
+    } else {
+      title = escapeHTML(entry.title)
+      content = ""
+    }
 
     return {
       id,
       slug,
-      title: highlight(term, entry.title),
+      title,
+      aliases: aliases.join(" "),
+      headings: headings.join(" "),
       content,
+      matchedHeading,
     }
   }
 
-  const resultToHTML = ({ slug, title, content }: Item) => {
+  const updateResultPreviewText = (resultEl: HTMLElement, previewHTML: string) => {
+    const snippet = resultEl.querySelector(".result-card-snippet") as HTMLElement | null
+    if (!snippet || !previewHTML) return
+
+    const [sectionLabel, ...rest] = previewHTML.split(" | ")
+
+    if (rest.length > 0) {
+      snippet.innerHTML = `<strong class="result-snippet-section">${sectionLabel} <span class="result-snippet-divider">|</span></strong> ${rest.join(
+        " | ",
+      )}`
+    } else {
+      snippet.innerHTML = previewHTML
+    }
+  }
+
+  const hydrateResultPreviewText = async (resultEl: HTMLElement, requestToken: number) => {
+    const matchedHeading = resultEl.dataset.matchedHeading
+    if (!matchedHeading) return
+
+    const slug = resultEl.id as FullSlug
+    const contents = await fetchContent(slug)
+
+    if (requestToken !== searchRequestToken || !container.classList.contains("active")) {
+      return
+    }
+
+    const previewRoot = document.createElement("div")
+
+    contents.forEach((contentEl) => {
+      const contentClone = contentEl.cloneNode(true) as HTMLElement
+
+      contentClone.querySelectorAll(".breadcrumb-container").forEach((el) => el.remove())
+
+      previewRoot.append(...contentClone.children)
+    })
+
+    const headingEl = findHeadingElement(previewRoot, matchedHeading)
+    if (!headingEl) return
+
+    const sectionPreview = getTextPreviewAfterHeading(headingEl)
+    updateResultPreviewText(resultEl, sectionPreview)
+  }
+  
+  const resultToHTML = ({ slug, title, content, matchedHeading }: Item) => {
     const itemTile = document.createElement("button")
     itemTile.classList.add("result-card")
     itemTile.id = slug
     itemTile.type = "button"
+
+    if (matchedHeading) {
+      itemTile.dataset.matchedHeading = matchedHeading
+    }
 
     const htmlTitle = document.createElement("h3")
     htmlTitle.classList.add("result-card-title")
@@ -524,12 +722,18 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
   async function runSearch(term: string, requestToken: number) {
     if (!searchLayout || !index) return
 
-    const effectiveTerm = term
+    const effectiveTerm = term.trim()
+
+    if (effectiveTerm === "") {
+      currentSearchTerm = ""
+      await displayResults([], "none")
+      return
+    }
 
     const searchResults = await index.searchAsync({
       query: effectiveTerm,
       limit: numSearchResults,
-      index: ["title", "content"],
+      index: ["title", "aliases", "headings"],
     })
 
     if (requestToken !== searchRequestToken || !container.classList.contains("active")) {
@@ -546,7 +750,8 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
 
     const allIds: Set<number> = new Set([
       ...getByField("title"),
-      ...getByField("content"),
+      ...getByField("aliases"),
+      ...getByField("headings"),
     ])
 
     const finalResults = [...allIds].map((id) => formatForDisplay(currentSearchTerm, id))
@@ -569,9 +774,9 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
     }
 
     removeAllChildren(results)
+
     if (finalResults.length === 0) {
       const isEmptyQuery = currentSearchTerm.trim() === ""
-
       const t = getSearchI18n()
 
       results.innerHTML = isEmptyQuery
@@ -582,9 +787,16 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
         : `<a class="result-card no-match">
             <h3>${t.noMatchTitle}</h3>
             <p class="card-description">${t.noMatchText}</p>
-          </a>`
+              </a>`
     } else {
       results.append(...finalResults.map(resultToHTML))
+
+      const requestToken = searchRequestToken
+      const resultCards = [...results.querySelectorAll(".result-card")] as HTMLElement[]
+
+      resultCards.forEach((resultCard) => {
+        void hydrateResultPreviewText(resultCard, requestToken)
+      })
     }
 
     requestAnimationFrame(() => {
@@ -632,8 +844,10 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
         if (contents === undefined) {
           throw new Error(`Could not fetch ${targetUrl}`)
         }
+
         const html = p.parseFromString(contents ?? "", "text/html")
         normalizeRelativeURLs(html, targetUrl)
+
         return [...html.getElementsByClassName("popover-hint")]
       })
 
@@ -652,6 +866,7 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
     }
 
     const slug = el.id as FullSlug
+    const matchedHeading = el.dataset.matchedHeading
     const thisToken = ++previewToken
 
     if (preview.childElementCount > 0) {
@@ -680,9 +895,7 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
 
       contentClone.querySelectorAll(".breadcrumb-container").forEach((el) => el.remove())
 
-      return [
-        ...highlightHTML(currentSearchTerm, contentClone).children,
-      ]
+      return [...contentClone.children]
     })
 
     if (thisToken !== previewToken) return
@@ -719,16 +932,30 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
         preview.classList.remove("preview-switching-in")
+
+        if (thisToken !== previewToken) return
+
+        if (matchedHeading && previewInner) {
+          const headingEl = findHeadingElement(previewInner, matchedHeading)
+
+          if (headingEl) {
+            const sectionPreview = getTextPreviewAfterHeading(headingEl)
+            updateResultPreviewText(el, sectionPreview)
+
+            const previewScrollRect = previewScroll.getBoundingClientRect()
+            const headingRect = headingEl.getBoundingClientRect()
+
+            const offset = 96
+
+            previewScroll.scrollTop += headingRect.top - previewScrollRect.top - offset
+          } else {
+            previewScroll.scrollTop = 0
+          }
+        } else {
+          previewScroll.scrollTop = 0
+        }
       })
     })
-
-    if (isHoverCapable) {
-      const highlights = [...preview.getElementsByClassName("highlight")].sort(
-        (a, b) => b.innerHTML.length - a.innerHTML.length,
-      )
-
-      highlights[0]?.scrollIntoView({ block: "start" })
-    }
   }
 
   function onType(e: HTMLElementEventMap["input"]) {
@@ -745,6 +972,7 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
     }
 
     const requestToken = ++searchRequestToken
+
     searchDebounceTimer = window.setTimeout(() => {
       void runSearch(rawTerm, requestToken)
     }, SEARCH_RENDER_DEBOUNCE_MS)
@@ -787,17 +1015,23 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
 }
 
 let indexPopulated = false
+
 async function fillDocument(data: ContentIndex) {
   if (indexPopulated) return
+
   let id = 0
   const promises: Array<Promise<unknown>> = []
+
   for (const [slug, fileData] of Object.entries<ContentDetails>(data)) {
     const docId = id++
+
     promises.push(
       index.addAsync(docId, {
         id: docId,
         slug: slug as FullSlug,
         title: fileData.title,
+        aliases: (fileData.aliases ?? []).join(" "),
+        headings: (fileData.headings ?? []).join(" "),
         content: fileData.content,
       }),
     )
@@ -814,8 +1048,10 @@ document.addEventListener("prenav", () => {
 document.addEventListener("nav", async (e: CustomEventMap["nav"]) => {
   const currentSlug = e.detail.url
   activeSearchSlug = currentSlug
+
   const data = await fetchData
   const searchElement = document.getElementsByClassName("search")
+
   for (const element of searchElement) {
     await setupSearch(element, currentSlug, data)
   }

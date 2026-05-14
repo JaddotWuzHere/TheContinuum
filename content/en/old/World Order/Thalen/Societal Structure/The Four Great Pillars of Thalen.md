@@ -25,25 +25,25 @@ Thus, the Pillars serve three intertwined purposes:
 It is said one can know another's origin by their habits of thought: the measured Horaxian, the curious Aletheian, the resolute Thalakarite, the serene Elydran.
 ## The Great Pillars
 ---
-#### Aevum | The Pillar of Order
+#### Aevum, The Pillar of Order
 Known as the Eyes of the World, order is the principle of rhythm and proportion. It asserts that stability is mercy, and in contrast, that chaos is a cruelty festered from neglect. Those who follow the Aevic philosophy seek perfection through design.
 
 Aevum teaches that every motion, from the heartbeat of a child to the striking of a clock, carries a divine interval. An rhythm that, when understood, reveals the hidden purpose of existence. This belief gives rise to an ethic of precision. Precision in architecture, precision in organization, precision in governance. Deviation is seen not as sin bur as error, a correction begging to be transpired.
 
 **[[Horaxis]]** was born from this philosophy. It is said that its every bell tolls in unison with the heavens.
-#### Noesis | The Pillar of Knowledge
+#### Noesis, The Pillar of Knowledge
 Known as the Mind of the World, knowledge is the principle of comprehension and remembrance. It declares that ignorance is decay, that truth, once known, must be preserved lest the world collapses into unmeaning. Those who follow the Noetic philosophy devote their lives to the pursuit of clarity.
 
 Noesis teaches that every unknown can be conquered with understanding. To study is to liberate; to record is to ensure eternity. Its adherents believe that thought itself refines the world—that through reason, even the divine can be measured. This conviction gives rise to an ethic of study.
 
 **[[Aletheia]]** stands as the living symbol of this creed. Its libraries have withstood eons of civilization, and contains the history and wisdom from the dawn of time.
-#### Kratos | The Pillar of Strength
+#### Kratos, The Pillar of Strength
 Known as the Body of the World, strength is the principle of creation. It proclaims that existence holds worthy only when shaped, that to act is holier than to dream. Followers of the Kratic philosophy hold that all things are born raw and meaningless until the hand or hammer gives them form.
 
 Kratos teaches that power is not conquest but rather persistence. It prizes craft, discipline, and resilience. Purpose and mastery are key aspects of Kratic ideology. Labor is worship, failure is simply an unfinished endeavor. 
 
 From this belief rose **[[Thalakar]]**. The sounds of metal can be heard constantly day and night, like a never ending song composed solely of drive.
-#### Pneuma | The Pillar of Will
+#### Pneuma, The Pillar of Will
 Known as the Heart of the World, will is the principle of endurance and renewal. It holds that life is the breath of the divine and that purpose, once awakened, need never fade. Those who follow the Pneumic philosophy seek serenity through constancy.
 
 Penuma teaches that every trial is an exhalation of the soul and every recovery an inhalation. Discipline of mind, purity of intent, and compassion without attachment form the structure of its teaching. Emotion is not denied but refined until meaning remains. To falter is not to fail, for even collapse is part of the greater journey.
