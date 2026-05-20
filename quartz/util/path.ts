@@ -233,25 +233,30 @@ export function transformLink(src: FullSlug, target: string, opts: TransformOpti
     return targetSlug as RelativeURL
   } else {
     const folderTail = isFolderPath(targetSlug) ? "/" : ""
+    
     const canonicalSlug = stripSlashes(targetSlug.slice(".".length))
     let [targetCanonical, targetAnchor] = splitAnchor(canonicalSlug)
 
+    targetCanonical = stripSlashes(targetCanonical)
+
     if (opts.strategy === "shortest") {
-      // if the file name is unique, then it's just the filename
       const matchingFileNames = opts.allSlugs.filter((slug) => {
         const parts = slug.split("/")
         const fileName = parts.at(-1)
-        return targetCanonical === fileName
+        const parentFolder = parts.at(-2)
+
+        return (
+          targetCanonical === fileName ||
+          (fileName === "index" && targetCanonical === parentFolder)
+        )
       })
 
-      // only match, just use it
       if (matchingFileNames.length === 1) {
         const targetSlug = matchingFileNames[0]
         return (resolveRelative(src, targetSlug) + targetAnchor) as RelativeURL
       }
     }
 
-    // if it's not unique, then it's the absolute path from the vault root
     return (joinSegments(pathToRoot(src), canonicalSlug) + folderTail) as RelativeURL
   }
 }

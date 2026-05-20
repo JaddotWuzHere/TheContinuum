@@ -3,11 +3,12 @@ import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } fro
 import { classNames } from "../util/lang"
 
 const PageTitle: QuartzComponent = ({ fileData, displayClass }: QuartzComponentProps) => {
-  const baseDir = pathToRoot(fileData.slug!)
+  const is404 = fileData.slug === "404"
+  const baseDir = is404 ? "" : pathToRoot(fileData.slug!)
 
   const first = fileData.slug?.split("/")[0]?.toLowerCase()
-  const lang = first === "zh" ? "zh" : first === "fr" ? "fr" : "en"
-  const homeHref = `${baseDir}/${lang}/`
+  const lang = first === "zh" ? "zh" : first === "fr" ? "fr" : first === "ja" ? "ja" : "en"
+  const homeHref = is404 ? `/${lang}/` : `${baseDir}/${lang}/`
 
   return (
     <h2 class={classNames(displayClass, "page-title")}>

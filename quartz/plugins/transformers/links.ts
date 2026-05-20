@@ -101,24 +101,43 @@ export const CrawlLinks: QuartzTransformerPlugin<Partial<Options>> = (userOpts) 
                 // don't process external links or intra-document anchors
                 const isInternal = !(isAbsoluteUrl(dest) || dest.startsWith("#"))
                 if (isInternal) {
-                  dest = node.properties.href = transformLink(
-                    file.data.slug!,
-                    dest,
-                    transformOptions,
-                  )
+                  const transformedDest = transformLink(file.data.slug!, dest, transformOptions)
 
-                  // url.resolve is considered legacy
-                  // WHATWG equivalent https://nodejs.dev/en/api/v18/url/#urlresolvefrom-to
-                  const url = new URL(dest, "https://base.com/" + stripSlashes(curSlug, true))
-                  const canonicalDest = url.pathname
-                  let [destCanonical, _destAnchor] = splitAnchor(canonicalDest)
-                  if (destCanonical.endsWith("/")) {
-                    destCanonical += "index"
+                  const relativeDest = transformLink(file.data.slug!, dest, {
+                    ...transformOptions,
+                    strategy: "relative",
+                  })
+
+                  const slugExists = (href: string): boolean => {
+                    const url = new URL(href, "https://base.com/" + stripSlashes(curSlug, true))
+                    const canonical = url.pathname
+                    let [destCanonical, _destAnchor] = splitAnchor(canonical)
+
+                    if (destCanonical.endsWith("/")) {
+                      destCanonical += "index"
+                    }
+
+                    const full = decodeURIComponent(stripSlashes(destCanonical, true)) as FullSlug
+                    const simple = simplifySlug(full)
+
+                    return ctx.allSlugs.map((slug) => simplifySlug(slug)).includes(simple)
                   }
 
-                  // need to decodeURIComponent here as WHATWG URL percent-encodes everything
-                  const full = decodeURIComponent(stripSlashes(destCanonical, true)) as FullSlug
+                  // Prefer Quartz's normal transformed link for real pages.
+                  // Only fall back to the current-folder relative link when the normal target does not exist.
+                  dest = node.properties.href = slugExists(transformedDest) ? transformedDest : relativeDest
+
+                  const finalUrl = new URL(dest, "https://base.com/" + stripSlashes(curSlug, true))
+                  const finalCanonical = finalUrl.pathname
+                  let [finalDestCanonical, _finalDestAnchor] = splitAnchor(finalCanonical)
+
+                  if (finalDestCanonical.endsWith("/")) {
+                    finalDestCanonical += "index"
+                  }
+
+                  const full = decodeURIComponent(stripSlashes(finalDestCanonical, true)) as FullSlug
                   const simple = simplifySlug(full)
+
                   outgoing.add(simple)
                   node.properties["data-slug"] = full
                 }
