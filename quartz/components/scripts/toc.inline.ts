@@ -34,10 +34,50 @@ function setupToc() {
   }
 }
 
+function updateScrollFadeHost(host: HTMLElement, scroller: HTMLElement) {
+  const maxScroll = scroller.scrollHeight - scroller.clientHeight
+  const epsilon = 2
+
+  host.toggleAttribute("data-scroll-top", scroller.scrollTop > epsilon)
+  host.toggleAttribute(
+    "data-scroll-bottom",
+    maxScroll > epsilon && scroller.scrollTop < maxScroll - epsilon,
+  )
+}
+
+function setupSidebarScrollFades() {
+  const pairs: Array<[HTMLElement, HTMLElement]> = []
+
+  document.querySelectorAll<HTMLElement>(".toc").forEach((host) => {
+    const scroller = host.querySelector<HTMLElement>(".toc-content")
+    if (scroller) pairs.push([host, scroller])
+  })
+
+  document.querySelectorAll<HTMLElement>(".backlinks").forEach((host) => {
+    const scroller = host.querySelector<HTMLElement>("ul")
+    if (scroller) pairs.push([host, scroller])
+  })
+
+  for (const [host, scroller] of pairs) {
+    const update = () => updateScrollFadeHost(host, scroller)
+
+    update()
+    requestAnimationFrame(update)
+
+    scroller.addEventListener("scroll", update, { passive: true })
+    window.addEventListener("resize", update)
+
+    window.addCleanup(() => {
+      scroller.removeEventListener("scroll", update)
+      window.removeEventListener("resize", update)
+    })
+  }
+}
+
 document.addEventListener("nav", () => {
   setupToc()
+  setupSidebarScrollFades()
 
-  // update toc entry highlighting
   observer.disconnect()
   const headers = document.querySelectorAll("h1[id], h2[id], h3[id], h4[id], h5[id], h6[id]")
   headers.forEach((header) => observer.observe(header))

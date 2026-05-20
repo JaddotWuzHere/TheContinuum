@@ -70,7 +70,9 @@ function isAllowedNestedScrollTarget(el: Element | null): boolean {
       el.closest(".settings-content") ||
       el.closest(".results-container") ||
       el.closest(".preview-scroll") ||
-      el.closest(".settings-scroll"),
+      el.closest(".settings-scroll") ||
+      el.closest(".toc-content") ||
+      el.closest(".backlinks ul"),
   )
 }
 
@@ -116,6 +118,8 @@ function getScrollableAncestor(target: EventTarget | null): HTMLElement | null {
     ".settings-scroll",
     ".explorer-content",
     ".settings-content",
+    ".toc-content",
+    ".backlinks ul",
     ".explorer",
     ".settings-panel",
     ".search-layout",

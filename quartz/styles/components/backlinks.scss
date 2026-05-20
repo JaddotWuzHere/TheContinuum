@@ -34,18 +34,15 @@
   min-width: 0;
   max-width: 100%;
 
-  overflow: hidden !important;
-  max-height: none !important;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
+  overflow: hidden;
+  min-height: 0;
 
   transition:
     filter 0.6s cubic-bezier(0.12, 0.85, 0.25, 1),
     transform 0.75s cubic-bezier(0.12, 0.85, 0.25, 1);
-}
 
-.backlinks::-webkit-scrollbar {
-  display: none;
+  --scroll-fade-top-opacity: 0;
+  --scroll-fade-bottom-opacity: 0;
 }
 
 .backlinks::before {
@@ -71,6 +68,41 @@
   mask-composite: exclude;
 
   pointer-events: none;
+}
+
+.backlinks::after {
+  content: "";
+  position: absolute;
+
+  left: 1rem;
+  right: 1rem;
+  top: 3.45rem;
+  bottom: 0.95rem;
+
+  z-index: 3;
+  pointer-events: none;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(4, 4, 4, var(--scroll-fade-top-opacity)) 0%,
+      rgba(4, 4, 4, 0) 1.15rem
+    ) top / 100% 1.2rem no-repeat,
+    linear-gradient(
+      0deg,
+      rgba(4, 4, 4, var(--scroll-fade-bottom-opacity)) 0%,
+      rgba(4, 4, 4, 0) 1.15rem
+    ) bottom / 100% 1.2rem no-repeat;
+
+  transition: background 0.18s ease;
+}
+
+.backlinks[data-scroll-top] {
+  --scroll-fade-top-opacity: 0.78;
+}
+
+.backlinks[data-scroll-bottom] {
+  --scroll-fade-bottom-opacity: 0.78;
 }
 
 .backlinks h3 {
@@ -111,7 +143,7 @@
 .backlinks ul {
   list-style: none !important;
   margin: 0;
-  padding: 0 0 0 0.7rem;
+  padding: 0 0.35rem 0 0.7rem;
 
   position: relative;
   z-index: 1;
@@ -119,9 +151,25 @@
   width: 100%;
   max-width: 100%;
   min-width: 0;
+  min-height: 0;
   box-sizing: border-box;
 
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-gutter: stable;
+}
+
+.backlinks ul::-webkit-scrollbar {
+  width: 8px;
+}
+
+.backlinks ul::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.backlinks ul::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: rgba(190, 150, 70, 0.42);
 }
 
 .backlinks ul::before {
@@ -200,6 +248,11 @@
 }
 
 .backlinks-visual {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  height: 100%;
+
   transform-origin: top left;
   transition:
     filter 0.6s cubic-bezier(0.12, 0.85, 0.25, 1),
