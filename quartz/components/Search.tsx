@@ -3,6 +3,7 @@ import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } fro
 import script from "./scripts/search.inline"
 import { classNames } from "../util/lang"
 import { i18n } from "../i18n"
+import { localeFromSlug, toI18nLocale } from "../util/locale"
 
 export interface SearchOptions {
   enablePreview: boolean
@@ -13,9 +14,15 @@ const defaultOptions: SearchOptions = {
 }
 
 export default ((userOpts?: Partial<SearchOptions>) => {
-  const Search: QuartzComponent = ({ displayClass, cfg }: QuartzComponentProps) => {
-    const opts = { ...defaultOptions, ...userOpts }
-    const t = i18n(cfg.locale).components.search
+  const Search: QuartzComponent = ({ displayClass, fileData }: QuartzComponentProps) => {
+  const opts = { ...defaultOptions, ...userOpts }
+
+  const lang =
+    fileData.frontmatter?.lang ??
+    localeFromSlug(fileData.slug ?? "/en/")
+
+  const locale = toI18nLocale(lang as "en" | "zh" | "fr" | "ja")
+  const t = i18n(locale).components.search
 
     return (
       <div class={classNames(displayClass, "search")}>

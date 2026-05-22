@@ -26,6 +26,8 @@ export default {
       noMatchTitle: "一致する記録はありません。",
       noMatchText: "その語句に対応する項目は索引内に存在しません。",
       resultIndex: "検索結果索引",
+      awaitingSelection: "記録の選択待ち",
+      recordPreview: "記録プレビュー",
     },
 
     tableOfContents: {
@@ -44,18 +46,13 @@ export default {
       disableParallax: "視差を無効化",
       disableBackgroundParallax: "背景視差を無効化",
     },
-
-    footer: {
-      recordTitle: "コンティニュアム・アーカイブ記録",
-      copyright: "© {year} Jason Ding",
-    },
   },
 
   pages: {
     error: {
-      code: "閲覧禁止",
-      title: "記録制限",
-      message: "要求された記録は閲覧できません。",
+      code: "抹消済み",
+      title: "記録未検出",
+      message: "この要求に一致する記録は、一度も索引に登録されていません。",
       goBack: "戻る",
       returnToGenesis: "端緒へ戻る",
     },

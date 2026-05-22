@@ -9,6 +9,7 @@ import script from "./scripts/settings.inline"
 
 import LanguageSwitcherCtor from "./LangSwitcher"
 import { i18n } from "../i18n"
+import { localeFromSlug, toI18nLocale } from "../util/locale"
 import { concatenateResources } from "../util/resources"
 
 const LangSwitcher = LanguageSwitcherCtor()
@@ -16,8 +17,14 @@ const langCss = (LangSwitcher as any).css ?? ""
 const langAfter = (LangSwitcher as any).afterDOMLoaded ?? ""
 
 const SettingsImpl: QuartzComponent = (props: QuartzComponentProps) => {
-  const { cfg } = props
-  const t = i18n(cfg.locale).components.settings
+  const { fileData } = props
+
+  const lang =
+    fileData.frontmatter?.lang ??
+    localeFromSlug(fileData.slug ?? "/en/")
+
+  const locale = toI18nLocale(lang as "en" | "zh" | "fr" | "ja")
+  const t = i18n(locale).components.settings
 
   return (
     <aside class="settings-panel" aria-label={t.panelTitle}>

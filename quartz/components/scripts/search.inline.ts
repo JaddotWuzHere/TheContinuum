@@ -281,6 +281,18 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
     preview = el
   }
 
+  const applySearchChromeLabels = () => {
+    const t = getSearchI18n()
+
+    results.dataset.resultIndex = t.resultIndex
+
+    if (preview) {
+      preview.dataset.awaitingSelection = t.awaitingSelection
+    }
+  }
+
+  applySearchChromeLabels()
+
   function resolveUrl(slug: FullSlug): URL {
     return new URL(resolveRelative(activeSearchSlug ?? currentSlug, slug), location.toString())
   }
@@ -358,6 +370,8 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
   window.__continuumSearchHide = hideSearch
 
   function showSearch(mode: SearchType = "basic") {
+    applySearchChromeLabels()
+
     closeExplorerDrawer()
     closeSettingsDrawer()
 
@@ -923,7 +937,7 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
 
     const previewBadge = document.createElement("div")
     previewBadge.classList.add("preview-badge")
-    previewBadge.textContent = "RECORD PREVIEW"
+    previewBadge.textContent = getSearchI18n().recordPreview
 
     previewInner = document.createElement("div")
     previewInner.classList.add("preview-inner")

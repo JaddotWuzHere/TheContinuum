@@ -195,11 +195,22 @@ async function setup404Page() {
 
   const englishHref = await detectUntranslatedEnglishVersion(lang, rest)
 
+  const pageTitleSuffix =
+    lang === "zh"
+      ? " | 以魔为实"
+      : lang === "fr"
+        ? " | La magie devenue réalité"
+        : lang === "ja"
+          ? " | 魔法が現実となる"
+          : " | Magic Made Reality"
+
   if (englishHref) {
     set404Text(copy.untranslated, englishHref)
+    document.title = copy.untranslated.title + pageTitleSuffix
     document.body.setAttribute("data-404-kind", "untranslated")
   } else {
     set404Text(copy.error, null)
+    document.title = copy.error.title + pageTitleSuffix
     document.body.setAttribute("data-404-kind", "missing")
   }
 
@@ -373,43 +384,45 @@ html[lang|="en"] .continuum-404,
 html[lang|="fr"] .continuum-404 {
   font-family: "EBGaramond", serif;
 }
-
+  
 html[lang|="zh"] .continuum-404 {
-  font-family: "EBGaramond", "LXGWWenKai", serif;
+  font-family: "LXGWWenKai", "EBGaramond", serif;
+  letter-spacing: 0.035em;
 }
 
-html[lang|="zh"] .continuum-404-code {
-  font-family: "EBGaramond", "STXINGKA", "SentyWEN2017", serif;
-  letter-spacing: 0.08em;
+html[lang|="zh"] .continuum-404-code,
+html[lang|="zh"] .continuum-404-title {
+  font-family: "SentyWEN2017", "LXGWWenKai", serif;
+  font-weight: 400;
+  letter-spacing: 0.075em;
+  line-height: 1.25;
 }
 
-html[lang|="zh"] .continuum-404-title,
 html[lang|="zh"] .continuum-404-text,
 html[lang|="zh"] .continuum-404-button {
-  font-family: "EBGaramond", "LXGWWenKai", serif;
+  font-family: "LXGWWenKai", "EBGaramond", serif;
+  font-weight: 400;
+  letter-spacing: 0.035em;
 }
 
 html[lang|="ja"] .continuum-404 {
-  font-family:
-    "EBGaramond",
-    "Hiragino Mincho ProN",
-    "Yu Mincho",
-    "YuMincho",
-    "Noto Serif JP",
-    serif;
+  font-family: "LXGWWenKai", "EBGaramond", serif;
+  letter-spacing: 0.025em;
 }
 
 html[lang|="ja"] .continuum-404-code,
-html[lang|="ja"] .continuum-404-title,
+html[lang|="ja"] .continuum-404-title {
+  font-family: "SentyWEN2017", "LXGWWenKai", serif;
+  font-weight: 400;
+  letter-spacing: 0.065em;
+  line-height: 1.25;
+}
+
 html[lang|="ja"] .continuum-404-text,
 html[lang|="ja"] .continuum-404-button {
-  font-family:
-    "EBGaramond",
-    "Hiragino Mincho ProN",
-    "Yu Mincho",
-    "YuMincho",
-    "Noto Serif JP",
-    serif;
+  font-family: "LXGWWenKai", "EBGaramond", serif;
+  font-weight: 400;
+  letter-spacing: 0.025em;
 }
 
 body[data-slug="404"] .continuum-explorer-handle,

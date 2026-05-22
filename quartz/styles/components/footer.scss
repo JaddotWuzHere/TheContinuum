@@ -1,3 +1,7 @@
+/* ================================
+   Base Footer
+   ================================ */
+
 footer {
   text-align: left;
   margin-bottom: 4rem;
@@ -5,20 +9,34 @@ footer {
 
   & ul {
     list-style: none;
-    margin: 0;
+    margin: -1rem 0 0;
     padding: 0;
     display: flex;
     flex-direction: row;
     gap: 1rem;
-    margin-top: -1rem;
   }
 }
+
+/* ================================
+   Continuum Footer
+   ================================ */
 
 .continuum-footer {
   margin-top: 60px;
   margin-bottom: 40px;
   text-align: center;
   opacity: 0.7;
+}
+
+.continuum-footer-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.continuum-footer-title,
+.continuum-footer-meta {
+  font-family: "EBGaramond", "Times New Roman", Times, serif;
 }
 
 .continuum-footer-title {
@@ -36,8 +54,8 @@ footer {
   -webkit-text-fill-color: transparent;
 
   text-shadow:
-    0 0 6px rgba(212,175,55,0.15),
-    0 0 12px rgba(212,175,55,0.08);
+    0 0 6px rgba(212, 175, 55, 0.15),
+    0 0 12px rgba(212, 175, 55, 0.08);
 }
 
 .continuum-footer-meta {
@@ -45,4 +63,5 @@ footer {
   margin-top: 6px;
   color: #d4c7a3;
   opacity: 0.75;
+  letter-spacing: 0.08em;
 }

@@ -24,6 +24,8 @@ export interface Translation {
       noMatchTitle: string
       noMatchText: string
       resultIndex: string
+      awaitingSelection: string
+      recordPreview: string
     }
 
     tableOfContents: {
@@ -41,11 +43,6 @@ export interface Translation {
       disableFlickering: string
       disableParallax: string
       disableBackgroundParallax: string
-    }
-
-    footer: {
-      recordTitle: string
-      copyright: string
     }
   }
 

@@ -485,3 +485,208 @@ html[data-no-animations="1"] *::after {
 
   scroll-behavior: auto !important;
 }
+
+/* =========================================================
+   LANGUAGE-AWARE SETTINGS TYPOGRAPHY
+   ========================================================= */
+
+/* ---- Shared settings polish ---- */
+
+.settings-title,
+.settings-section-title,
+.fx-toggle-label,
+.settings-language-row .lang-switcher,
+.settings-language-row .lang-trigger,
+.settings-language-row .lang-menu-item {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: geometricPrecision;
+}
+
+/* Default / English */
+
+.settings-title {
+  font-family: "Cinzel", "EBGaramond", serif;
+  font-size: 1.55rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  line-height: 1.05;
+  text-transform: uppercase;
+}
+
+.settings-section-title {
+  font-family: "MerriweatherSans", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 0.78rem;
+  font-weight: 650;
+  letter-spacing: 0.18em;
+  line-height: 1.15;
+  text-transform: uppercase;
+}
+
+.fx-toggle-label {
+  font-family: "EBGaramond", serif;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.12;
+  letter-spacing: 0.01em;
+}
+
+.fx-toggle.fx-toggle-child .fx-toggle-label {
+  font-size: 0.94rem;
+  font-weight: 500;
+  opacity: 0.88;
+}
+
+.settings-language-row .lang-switcher,
+.settings-language-row .lang-trigger {
+  font-family: "EBGaramond", serif;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.025em;
+}
+
+.continuum-settings-handle .label {
+  font-family: "Cinzel", "EBGaramond", serif;
+  font-size: 1.08rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* ---- French ---- */
+
+html:lang(fr) .settings-title {
+  font-family: "Cinzel", "EBGaramond", serif;
+  font-size: 1.42rem;
+  letter-spacing: 0.11em;
+}
+
+html:lang(fr) .settings-section-title {
+  font-size: 0.76rem;
+  letter-spacing: 0.14em;
+}
+
+html:lang(fr) .fx-toggle-label {
+  font-family: "EBGaramond", serif;
+  font-size: 0.98rem;
+  font-weight: 600;
+  line-height: 1.14;
+  letter-spacing: 0.005em;
+}
+
+html:lang(fr) .fx-toggle.fx-toggle-child .fx-toggle-label {
+  font-size: 0.92rem;
+}
+
+html:lang(fr) .settings-language-row .lang-trigger {
+  font-family: "EBGaramond", serif;
+  font-size: 0.98rem;
+  letter-spacing: 0.02em;
+}
+
+html:lang(fr) .continuum-settings-handle .label {
+  font-family: "Cinzel", "EBGaramond", serif;
+  font-size: 1rem;
+  letter-spacing: 0.1em;
+}
+
+/* ---- Chinese ---- */
+
+html[lang|="zh"] .settings-title {
+  font-family: "SentyWEN2017", "LXGWWenKai", serif;
+  font-size: 1.98rem;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  line-height: 1.05;
+  text-transform: none;
+}
+
+html[lang|="zh"] .settings-section-title {
+  font-family: "LXGWWenKai", "EBGaramond", serif;
+  font-size: 1.08rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  line-height: 1.15;
+  text-transform: none;
+}
+
+html[lang|="zh"] .fx-toggle-label {
+  font-family: "LXGWWenKai", "EBGaramond", serif;
+  font-size: 1.18rem;
+  font-weight: 500;
+  line-height: 1.14;
+  letter-spacing: 0.025em;
+}
+
+html[lang|="zh"] .fx-toggle.fx-toggle-child .fx-toggle-label {
+  font-size: 1.1rem;
+  font-weight: 400;
+  opacity: 0.88;
+}
+
+html[lang|="zh"] .settings-language-row .lang-switcher,
+html[lang|="zh"] .settings-language-row .lang-trigger {
+  font-family: "LXGWWenKai", "EBGaramond", serif;
+  font-size: 1.14rem;
+  font-weight: 500;
+  letter-spacing: 0.025em;
+}
+
+html[lang|="zh"] .continuum-settings-handle .label {
+  font-family: "SentyWEN2017", "LXGWWenKai", serif;
+  font-size: 1.62rem;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  line-height: 1.25;
+  text-transform: none;
+}
+
+/* ---- Japanese ---- */
+
+html[lang|="ja"] .settings-title {
+  font-family: "SentyWEN2017", "LXGWWenKai", serif;
+  font-size: 1.84rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  line-height: 1.08;
+  text-transform: none;
+}
+
+html[lang|="ja"] .settings-section-title {
+  font-family: "LXGWWenKai", "EBGaramond", serif;
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  line-height: 1.15;
+  text-transform: none;
+}
+
+html[lang|="ja"] .fx-toggle-label {
+  font-family: "LXGWWenKai", "EBGaramond", serif;
+  font-size: 1.12rem;
+  font-weight: 500;
+  line-height: 1.14;
+  letter-spacing: 0.015em;
+}
+
+html[lang|="ja"] .fx-toggle.fx-toggle-child .fx-toggle-label {
+  font-size: 1.04rem;
+  font-weight: 400;
+  opacity: 0.88;
+}
+
+html[lang|="ja"] .settings-language-row .lang-switcher,
+html[lang|="ja"] .settings-language-row .lang-trigger {
+  font-family: "LXGWWenKai", "EBGaramond", serif;
+  font-size: 1.1rem;
+  font-weight: 500;
+  letter-spacing: 0.015em;
+}
+
+html[lang|="ja"] .continuum-settings-handle .label {
+  font-family: "SentyWEN2017", "LXGWWenKai", serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  line-height: 1.25;
+  text-transform: none;
+}

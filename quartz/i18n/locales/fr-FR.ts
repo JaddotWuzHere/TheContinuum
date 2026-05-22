@@ -26,6 +26,8 @@ export default {
       noMatchTitle: "Aucune archive correspondante.",
       noMatchText: "L’index ne contient aucune entrée pour ce terme.",
       resultIndex: "Index des résultats",
+      awaitingSelection: "En attente d’une archive sélectionnée",
+      recordPreview: "Aperçu de l’archive",
     },
 
     tableOfContents: {
@@ -44,18 +46,13 @@ export default {
       disableParallax: "Désactiver la parallaxe",
       disableBackgroundParallax: "Désactiver la parallaxe de l’arrière-plan",
     },
-
-    footer: {
-      recordTitle: "Archive du Continuum",
-      copyright: "© {year} Jason Ding",
-    },
   },
 
   pages: {
     error: {
-      code: "CENSURÉ",
-      title: "Archive restreinte",
-      message: "L’archive demandée n’est pas disponible à la consultation.",
+      code: "EXPURGÉ",
+      title: "Archive introuvable",
+      message: "Aucune archive correspondant à cette requête n’a été indexée.",
       goBack: "Retour",
       returnToGenesis: "Retour à la Genèse",
     },

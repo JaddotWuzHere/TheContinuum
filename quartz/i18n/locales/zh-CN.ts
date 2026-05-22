@@ -26,6 +26,8 @@ export default {
       noMatchTitle: "未找到匹配记录。",
       noMatchText: "索引中不存在该词条的记录。",
       resultIndex: "结果索引",
+      awaitingSelection: "等待选择档案记录",
+      recordPreview: "档案预览",
     },
 
     tableOfContents: {
@@ -44,18 +46,13 @@ export default {
       disableParallax: "禁用视差",
       disableBackgroundParallax: "禁用背景视差",
     },
-
-    footer: {
-      recordTitle: "Continuum 档案记录",
-      copyright: "© {year} Jason Ding",
-    },
   },
 
   pages: {
     error: {
       code: "已删改",
-      title: "档案受限",
-      message: "所请求的档案记录当前无法查阅。",
+      title: "未找到档案",
+      message: "未有任何符合请求的档案记录被收录。",
       goBack: "返回",
       returnToGenesis: "返回初章",
     },

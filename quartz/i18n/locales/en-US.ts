@@ -26,6 +26,8 @@ export default {
       noMatchTitle: "No matching record.",
       noMatchText: "The index contains no entry for that term.",
       resultIndex: "Result Index",
+      awaitingSelection: "Awaiting record selection",
+      recordPreview: "Record Preview",
     },
 
     tableOfContents: {
@@ -44,18 +46,13 @@ export default {
       disableParallax: "Disable Parallax",
       disableBackgroundParallax: "Disable Background Parallax",
     },
-
-    footer: {
-      recordTitle: "Continuum Archives Record",
-      copyright: "© {year} Jason Ding",
-    },
   },
 
   pages: {
     error: {
       code: "REDACTED",
-      title: "Record Restricted",
-      message: "The requested record is not available for viewing.",
+      title: "Record Not Found",
+      message: "No record matching this request has ever been indexed.",
       goBack: "Go Back",
       returnToGenesis: "Return to Genesis",
     },

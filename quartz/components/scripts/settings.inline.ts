@@ -93,9 +93,17 @@ function setupSettingsDrawer() {
     close()
   }
 
-  const panel = document.querySelector<HTMLElement>(".settings-panel")
-  if (panel && panel.parentElement !== document.body) {
-    document.body.appendChild(panel)
+  const panels = Array.from(document.querySelectorAll<HTMLElement>(".settings-panel"))
+  const newestPanel = panels[panels.length - 1]
+
+  panels.forEach((panel) => {
+    if (panel !== newestPanel) {
+      panel.remove()
+    }
+  })
+
+  if (newestPanel && newestPanel.parentElement !== document.body) {
+    document.body.appendChild(newestPanel)
   }
 
   setupSettingsToggles()

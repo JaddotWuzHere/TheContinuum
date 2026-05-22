@@ -1,44 +1,16 @@
-html:lang(en) body {
-  font-family: "EBGaramond", serif;
-  font-size: 1.2em;
-}
-
-html[lang|="zh"] body {
-  font-family: "EBGaramond", "LXGWWenKai", serif;
-
-  ul { font-size: 1.1em; }
-  p  { font-size: 1.3em; }
-
-  h1, h2, h3, h4, h5, h6 {
-    font-family: var(--header-font, "EBGaramond", "SentyWEN2017", serif);
-    letter-spacing: 0;
-  }
-
-  .callout[data-callout="epigraph"] .callout-content > p:first-child {
-    line-height: 1;
-    font-family: "EBGaramond", "STXINGKA", serif;
-    font-size: 1.5em;
-  }
-
-  .callout[data-callout="epigraph"] .callout-content > p:last-child {
-    line-height: 1;
-    font-family: "EBGARAMOND", "STXINGKA", serif;
-  }
-
-  h1 { font-size: 3rem; }
-  h2 { font-size: 2.6rem; }
-  h3 { font-size: 2rem; }
-  h4, h5, h6 { font-size: 1.5rem; }
-}
+/* ================================
+   Shared article title styling
+   ================================ */
 
 .article-title {
   font-family: "Cinzel", serif;
 
-  font-size: 2.6rem;
+  font-size: clamp(2.15rem, 5vw, 2.6rem);
   font-weight: 600;
 
   text-transform: uppercase;
   letter-spacing: 0.12em;
+  line-height: 1.12;
 
   background: linear-gradient(
     90deg,
@@ -51,4 +23,368 @@ html[lang|="zh"] body {
 
   text-shadow:
     0 0 6px rgba(255, 215, 120, 0.15);
+}
+
+/* ================================
+   English
+   ================================ */
+
+html:lang(en) body {
+  font-family: "EBGaramond", serif;
+  font-size: 1.2em;
+  line-height: 1.38;
+}
+
+html:lang(en) article {
+  p,
+  li {
+    line-height: 1.36;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    line-height: 1.18;
+    letter-spacing: 0.015em;
+  }
+
+  h1 {
+    font-size: clamp(2.15rem, 5vw, 3rem);
+  }
+
+  h2 {
+    font-size: clamp(1.75rem, 3.6vw, 2.35rem);
+  }
+
+  h3 {
+    font-size: clamp(1.42rem, 2.8vw, 1.85rem);
+  }
+
+  h4 {
+    font-size: clamp(1.2rem, 2.2vw, 1.48rem);
+  }
+
+  h5 {
+    font-size: 1.12rem;
+  }
+
+  h6 {
+    font-size: 1rem;
+  }
+}
+
+/* ================================
+   French
+   ================================ */
+
+html:lang(fr) body {
+  font-family: "EBGaramond", serif;
+  font-size: 1.18em;
+  line-height: 1.38;
+}
+
+html:lang(fr) article {
+  p,
+  li {
+    line-height: 1.38;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    line-height: 1.18;
+    letter-spacing: 0.012em;
+  }
+
+  h1 {
+    font-size: clamp(2.05rem, 5vw, 2.85rem);
+  }
+
+  h2 {
+    font-size: clamp(1.7rem, 3.6vw, 2.25rem);
+  }
+
+  h3 {
+    font-size: clamp(1.38rem, 2.8vw, 1.78rem);
+  }
+
+  h4 {
+    font-size: clamp(1.18rem, 2.2vw, 1.42rem);
+  }
+
+  h5 {
+    font-size: 1.1rem;
+  }
+
+  h6 {
+    font-size: 1rem;
+  }
+}
+
+html:lang(fr) .article-title {
+  font-size: clamp(2rem, 5vw, 2.5rem);
+  letter-spacing: 0.1em;
+}
+
+/* ================================
+   Chinese
+   ================================ */
+
+html[lang|="zh"] body {
+  font-family: "LXGWWenKai", "EBGaramond", serif;
+  font-size: 1.14em;
+  line-height: 1.42;
+  letter-spacing: 0.02em;
+}
+
+html[lang|="zh"] article {
+  p,
+  li {
+    font-size: 1.18rem;
+    line-height: 1.42;
+  }
+
+  ul,
+  ol {
+    font-size: 1rem;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "SentyWEN2017", "LXGWWenKai", "EBGaramond", serif;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    line-height: 1.22;
+    text-transform: none;
+  }
+
+  h1 {
+    font-size: clamp(2.35rem, 5vw, 3.25rem);
+    margin-top: 2.9rem;
+    margin-bottom: 1.25rem;
+  }
+
+  h2 {
+    font-size: clamp(1.95rem, 3.6vw, 2.55rem);
+    margin-top: 2.45rem;
+    margin-bottom: 1.05rem;
+  }
+
+  h3 {
+    font-size: clamp(1.6rem, 2.8vw, 2rem);
+    margin-top: 2.05rem;
+    margin-bottom: 0.9rem;
+  }
+
+  h4 {
+    font-size: clamp(1.32rem, 2.2vw, 1.6rem);
+    margin-top: 1.7rem;
+    margin-bottom: 0.75rem;
+  }
+
+  h5 {
+    font-size: 1.16rem;
+    margin-top: 1.45rem;
+    margin-bottom: 0.7rem;
+  }
+
+  h6 {
+    font-size: 1.04rem;
+    letter-spacing: 0.08em;
+  }
+
+  .callout[data-callout="epigraph"] .callout-content > p:first-child {
+    font-family: "STXINGKA", "SentyWEN2017", "LXGWWenKai", serif;
+    font-size: 1.45em;
+    line-height: 1.18;
+    letter-spacing: 0.05em;
+  }
+
+  .callout[data-callout="epigraph"] .callout-content > p:last-child {
+    font-family: "LXGWWenKai", "EBGaramond", serif;
+    font-size: 1em;
+    line-height: 1.28;
+  }
+}
+
+html[lang|="zh"] .article-title {
+  font-family: "SentyWEN2017", "LXGWWenKai", serif;
+  font-size: clamp(2.25rem, 6vw, 3.3rem);
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0.12em;
+  line-height: 1.15;
+}
+
+/* ================================
+   Japanese
+   ================================ */
+
+html[lang|="ja"] body {
+  font-family: "LXGWWenKai", "EBGaramond", serif;
+  font-size: 1.12em;
+  line-height: 1.4;
+  letter-spacing: 0.015em;
+}
+
+html[lang|="ja"] article {
+  p,
+  li {
+    font-size: 1.15rem;
+    line-height: 1.4;
+  }
+
+  ul,
+  ol {
+    font-size: 1rem;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "SentyWEN2017", "LXGWWenKai", "EBGaramond", serif;
+    font-weight: 400;
+    letter-spacing: 0.035em;
+    line-height: 1.22;
+    text-transform: none;
+  }
+
+  h1 {
+    font-size: clamp(2.25rem, 5vw, 3.1rem);
+    margin-top: 2.8rem;
+    margin-bottom: 1.2rem;
+  }
+
+  h2 {
+    font-size: clamp(1.85rem, 3.6vw, 2.45rem);
+    margin-top: 2.35rem;
+    margin-bottom: 1rem;
+  }
+
+  h3 {
+    font-size: clamp(1.52rem, 2.8vw, 1.95rem);
+    margin-top: 2rem;
+    margin-bottom: 0.85rem;
+  }
+
+  h4 {
+    font-size: clamp(1.28rem, 2.2vw, 1.55rem);
+    margin-top: 1.65rem;
+    margin-bottom: 0.72rem;
+  }
+
+  h5 {
+    font-size: 1.12rem;
+    margin-top: 1.4rem;
+    margin-bottom: 0.68rem;
+  }
+
+  h6 {
+    font-size: 1.04rem;
+    letter-spacing: 0.07em;
+  }
+}
+
+html[lang|="ja"] .article-title {
+  font-family: "SentyWEN2017", "LXGWWenKai", serif;
+  font-size: clamp(2.15rem, 6vw, 3.1rem);
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0.1em;
+  line-height: 1.15;
+}
+
+/* ================================
+   Language-specific UI typography
+   ================================ */
+
+html[lang|="zh"],
+html[lang|="ja"] {
+  .toc a,
+  .backlinks a,
+  .search-result,
+  .result-card,
+  .result-card-content,
+  .result-card-title,
+  .result-card-section,
+  .preview-container,
+  .popover {
+    font-family: "LXGWWenKai", "EBGaramond", serif;
+    letter-spacing: 0.02em;
+  }
+
+  .toc a,
+  .backlinks a {
+    font-size: 0.98rem;
+    line-height: 1.35;
+  }
+
+  button.toc-header h3,
+  .backlinks > h3,
+  .search-close-button-label,
+  .search-header,
+  .search-bar {
+    font-family: "SentyWEN2017", "LXGWWenKai", serif;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    text-transform: none;
+  }
+
+  button.toc-header h3 {
+    font-size: 1.25rem;
+    line-height: 1.15;
+  }
+
+  .search-bar {
+    font-size: 1.25rem;
+  }
+
+  .result-card-title {
+    font-size: 1.18rem;
+    line-height: 1.28;
+  }
+
+  .result-card-section {
+    font-size: 1rem;
+    line-height: 1.28;
+  }
+
+  .preview-container {
+    font-size: 1rem;
+    line-height: 1.42;
+  }
+}
+
+html:lang(fr) {
+  .toc a,
+  .backlinks a {
+    font-size: 0.96rem;
+    line-height: 1.35;
+  }
+
+  .search-bar {
+    font-size: 1.18rem;
+  }
+
+  .result-card-title {
+    font-size: 1.12rem;
+    line-height: 1.28;
+  }
+
+  .preview-container {
+    line-height: 1.38;
+  }
 }

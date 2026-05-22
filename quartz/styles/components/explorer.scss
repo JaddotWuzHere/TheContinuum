@@ -20,6 +20,7 @@
 }
 
 /* ---- Scrim ---- */
+
 .continuum-explorer-scrim {
   position: fixed;
   inset: 0;
@@ -85,7 +86,9 @@ html[data-explorer-open="1"] .continuum-explorer-handle {
   transform: translateY(-50%) translateX(var(--explorer-w));
 }
 
-.continuum-explorer-handle:hover { filter: brightness(1.12); }
+.continuum-explorer-handle:hover {
+  filter: brightness(1.12);
+}
 
 .continuum-explorer-handle .label {
   font-family: "EBGaramond";
@@ -254,7 +257,9 @@ html[lang^="ja"] .continuum-explorer-handle .label {
   overflow: hidden;
 }
 
-html[data-explorer-open="1"] .explorer { transform: translateX(0); }
+html[data-explorer-open="1"] .explorer {
+  transform: translateX(0);
+}
 
 .explorer :is(.explorer-content, .explorer-ul) {
   max-height: 100lvh;
@@ -272,7 +277,9 @@ html[data-explorer-open="1"] .explorer { transform: translateX(0); }
   align-items: flex-start;
 }
 
-.explorer :is(a, .folder-container) > * { min-width: 0; }
+.explorer :is(a, .folder-container) > * {
+  min-width: 0;
+}
 
 .explorer .folder-title,
 .explorer .explorer-ul a {
@@ -288,7 +295,10 @@ html[data-explorer-open="1"] .explorer { transform: translateX(0); }
   width: 100%;
 }
 
-.explorer .folder-container > div { flex: 1 1 auto; min-width: 0; }
+.explorer .folder-container > div {
+  flex: 1 1 auto;
+  min-width: 0;
+}
 
 .explorer .folder-container a.folder-title {
   display: flex;
@@ -301,7 +311,9 @@ html[data-explorer-open="1"] .explorer { transform: translateX(0); }
   min-width: 0;
 }
 
-.explorer .folder-icon { flex: 0 0 auto; }
+.explorer .folder-icon {
+  flex: 0 0 auto;
+}
 
 /* =========================================================
    EXPLORER HOVERS
@@ -337,7 +349,7 @@ html[data-explorer-open="1"] .explorer { transform: translateX(0); }
   position: relative;
   display: flex;
   width: 100%;
-  align-items: stretch;
+  align-items: center;
   padding: 0;
   border-radius: .6rem;
 
@@ -370,7 +382,9 @@ html[data-explorer-open="1"] .explorer { transform: translateX(0); }
   pointer-events: none;
 }
 
-.explorer .explorer-ul a:not(.folder-title) { text-decoration: none; }
+.explorer .explorer-ul a:not(.folder-title) {
+  text-decoration: none;
+}
 
 /* Folder titles */
 .explorer a.folder-title,
@@ -402,6 +416,7 @@ html[data-explorer-open="1"] .explorer { transform: translateX(0); }
 }
 
 /* Sweeps */
+
 :root {
   --silver-1: rgba(140, 150, 165, 0.14);
   --silver-2: rgba(185, 200, 220, 0.24);
@@ -528,7 +543,9 @@ html[data-explorer-open="1"] .explorer { transform: translateX(0); }
    EXPLORER ARROWS
    ========================================================= */
 
-.explorer .folder-container { align-items: flex-start; }
+.explorer .folder-container {
+  align-items: center;
+}
 
 .explorer .folder-toggle {
   appearance: none;
@@ -538,25 +555,30 @@ html[data-explorer-open="1"] .explorer { transform: translateX(0); }
   cursor: pointer;
 
   flex: 0 0 auto;
-  align-self: flex-start;
 
   display: inline-flex;
   align-items: center;
   justify-content: center;
 
-  padding: 0.32rem;
-  margin: 0.23rem 0 0 -0.18rem;
+  width: 1.45rem;
+  height: 1.45rem;
+
+  padding: 0;
+  margin: 0 0.12rem 0 -0.18rem;
 
   border-radius: 0.45rem;
+  line-height: 1;
 }
 
 .explorer .folder-icon {
   cursor: pointer;
   color: hsl(var(--gold-h) var(--gold-s) 70% / .75);
 
+  display: block;
   flex: 0 0 auto;
-  margin-top: 0;
-  align-self: center;
+
+  width: 0.86rem;
+  height: 0.86rem;
 
   --_rot: 0deg;
   --_scale: 1;
@@ -573,7 +595,9 @@ html[data-explorer-open="1"] .explorer { transform: translateX(0); }
   --_scale: 0.92;
 }
 
-.explorer .folder-icon * { pointer-events: none; }
+.explorer .folder-icon * {
+  pointer-events: none;
+}
 
 .explorer .folder-container[data-open="false"] .folder-icon {
   --_rot: -90deg;
@@ -585,7 +609,13 @@ html[data-explorer-open="1"] .explorer { transform: translateX(0); }
   filter: brightness(1.1);
 }
 
-.explorer .folder-icon:active { --_scale: 0.92; }
+.explorer .folder-icon:active {
+  --_scale: 0.92;
+}
+
+/* =========================================================
+   EXPLORER FOLDER EXPANSION
+   ========================================================= */
 
 .explorer .folder-outer {
   display: grid;
@@ -600,7 +630,10 @@ html[data-explorer-open="1"] .explorer { transform: translateX(0); }
     transform .6s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
-.explorer .folder-outer > ul { min-height: 0; overflow: hidden; }
+.explorer .folder-outer > ul {
+  min-height: 0;
+  overflow: hidden;
+}
 
 .explorer .folder-outer.open {
   grid-template-rows: 1fr;
@@ -609,19 +642,28 @@ html[data-explorer-open="1"] .explorer { transform: translateX(0); }
 }
 
 /* Stagger */
+
 .explorer [data-stagger="1"] {
   position: relative;
   animation: explorer-row-in 0.45s cubic-bezier(0.22, 0.61, 0.36, 1);
   animation-delay: calc(var(--row-i, 0) * 55ms);
-  animation-fill-mode: backwards; 
+  animation-fill-mode: backwards;
 }
 
 @keyframes explorer-row-in {
-  from { opacity: 0; top: -10px; }
-  to { opacity: 1; top: 0px; }
+  from {
+    opacity: 0;
+    top: -10px;
+  }
+
+  to {
+    opacity: 1;
+    top: 0px;
+  }
 }
 
 /* Stagger reverse */
+
 .explorer [data-stagger-out="1"] {
   position: relative;
   animation: explorer-row-out 0.32s cubic-bezier(0.22, 0.61, 0.36, 1);
@@ -630,11 +672,19 @@ html[data-explorer-open="1"] .explorer { transform: translateX(0); }
 }
 
 @keyframes explorer-row-out {
-  from { opacity: 1; top: 0px; }
-  to { opacity: 0; top: -10px; }
+  from {
+    opacity: 1;
+    top: 0px;
+  }
+
+  to {
+    opacity: 0;
+    top: -10px;
+  }
 }
 
 /* Indent */
+
 .explorer .folder-outer > ul.content {
   margin-left: 1.05rem;
   padding-left: .55rem;
@@ -642,9 +692,264 @@ html[data-explorer-open="1"] .explorer { transform: translateX(0); }
 }
 
 /* Blur Settings when open */
+
 html[data-settings-open="1"] .explorer,
 html[data-settings-open="1"] .continuum-explorer-handle {
   filter: blur(2px) brightness(0.7);
   pointer-events: none;
   cursor: default;
+}
+
+/* =========================================================
+   LANGUAGE-AWARE EXPLORER TYPOGRAPHY
+   ========================================================= */
+
+/*
+   English intentionally mostly uses the original Explorer styling above:
+   - Explorer title / handle / page links / search text: EBGaramond
+   - Folder links: SchibstedGrotesk
+
+   The only English adjustment below is size balance:
+   folder labels should read slightly larger/heavier than page labels.
+*/
+
+/* ---- Shared polish ---- */
+
+.explorer-title,
+.continuum-explorer-handle .label,
+.explorer .explorer-ul a,
+.explorer a.folder-title,
+.explorer .folder-title,
+.explorer .explorer-search-row .search-button p {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: geometricPrecision;
+}
+
+/* ---- French: same font direction as English ---- */
+
+html:lang(fr) .explorer-title {
+  font-family: "EBGaramond", serif;
+  font-weight: 800;
+  font-size: 1.35rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+html:lang(fr) .continuum-explorer-handle .label {
+  font-family: "EBGaramond", serif;
+  font-weight: 700;
+  font-size: 1.18rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+html:lang(fr) .explorer .explorer-ul a:not(.folder-title) {
+  font-family: "EBGaramond", serif;
+  font-weight: 600;
+  line-height: 1.22;
+  letter-spacing: 0.01em;
+}
+
+html:lang(fr) .explorer a.folder-title,
+html:lang(fr) .explorer a.folder-title:hover,
+html:lang(fr) .explorer a.folder-title:visited,
+html:lang(fr) .explorer a.folder-title:active,
+html:lang(fr) .explorer a.folder-title:focus-visible {
+  font-family: "SchibstedGrotesk", system-ui, sans-serif;
+  font-weight: 750;
+  line-height: 1.22;
+  letter-spacing: 0.035em;
+  text-transform: none;
+}
+
+html:lang(fr) .explorer .explorer-search-row .search-button p {
+  font-family: "EBGaramond", serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+/* ---- Chinese ---- */
+
+html[lang|="zh"] .explorer-title {
+  font-family: "SentyWEN2017", "LXGWWenKai", serif;
+  font-size: 2.02rem;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  line-height: 1.05;
+  text-transform: none;
+}
+
+html[lang|="zh"] .continuum-explorer-handle {
+  width: 3.5rem;
+}
+
+html[lang|="zh"] .continuum-explorer-handle .label {
+  font-family: "SentyWEN2017", "LXGWWenKai", serif;
+  font-size: 1.62rem;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  line-height: 1.25;
+  text-transform: none;
+}
+
+/* Chinese page links: handwritten/literary */
+html[lang|="zh"] .explorer .explorer-ul a:not(.folder-title) {
+  font-family: "LXGWWenKai", "EBGaramond", serif;
+  font-weight: 500;
+  line-height: 1.24;
+  letter-spacing: 0.035em;
+}
+
+/* Chinese folder links: modern/thicker */
+html[lang|="zh"] .explorer a.folder-title,
+html[lang|="zh"] .explorer a.folder-title:hover,
+html[lang|="zh"] .explorer a.folder-title:visited,
+html[lang|="zh"] .explorer a.folder-title:active,
+html[lang|="zh"] .explorer a.folder-title:focus-visible {
+  font-family: "SchibstedGrotesk", "LXGWWenKai", system-ui, sans-serif;
+  font-weight: 780;
+  line-height: 1.22;
+  letter-spacing: 0.075em;
+  text-transform: none;
+}
+
+html[lang|="zh"] .explorer .explorer-search-row .search-button p {
+  font-family: "LXGWWenKai", "EBGaramond", serif;
+  font-size: 1.12rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+
+/* ---- Japanese ---- */
+
+html[lang|="ja"] .explorer-title {
+  font-family: "SentyWEN2017", "LXGWWenKai", serif;
+  font-size: 1.88rem;
+  font-weight: 400;
+  letter-spacing: 0.13em;
+  line-height: 1.08;
+  text-transform: none;
+}
+
+html[lang|="ja"] .continuum-explorer-handle {
+  width: 3.5rem;
+}
+
+html[lang|="ja"] .continuum-explorer-handle .label {
+  font-family: "SentyWEN2017", "LXGWWenKai", serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  line-height: 1.25;
+  text-transform: none;
+}
+
+/* Japanese page links: handwritten/literary */
+html[lang|="ja"] .explorer .explorer-ul a:not(.folder-title) {
+  font-family: "LXGWWenKai", "EBGaramond", serif;
+  font-weight: 500;
+  line-height: 1.24;
+  letter-spacing: 0.03em;
+}
+
+/* Japanese folder links: modern/thicker */
+html[lang|="ja"] .explorer a.folder-title,
+html[lang|="ja"] .explorer a.folder-title:hover,
+html[lang|="ja"] .explorer a.folder-title:visited,
+html[lang|="ja"] .explorer a.folder-title:active,
+html[lang|="ja"] .explorer a.folder-title:focus-visible {
+  font-family: "SchibstedGrotesk", "LXGWWenKai", system-ui, sans-serif;
+  font-weight: 780;
+  line-height: 1.22;
+  letter-spacing: 0.055em;
+  text-transform: none;
+}
+
+html[lang|="ja"] .explorer .explorer-search-row .search-button p {
+  font-family: "LXGWWenKai", "EBGaramond", serif;
+  font-size: 1.08rem;
+  font-weight: 500;
+  letter-spacing: 0.035em;
+}
+
+/* =========================================================
+   EXPLORER PAGE VS FOLDER SIZE BALANCE
+   Folder titles should read only slightly larger/heavier than page titles.
+   ========================================================= */
+
+/* ---- English ---- */
+
+.explorer .explorer-ul a:not(.folder-title) {
+  font-size: 1.02rem;
+  font-weight: 600;
+  line-height: 1.22;
+}
+
+.explorer a.folder-title,
+.explorer a.folder-title:hover,
+.explorer a.folder-title:visited,
+.explorer a.folder-title:active,
+.explorer a.folder-title:focus-visible {
+  font-size: 1.06rem;
+  font-weight: 750;
+  line-height: 1.22;
+}
+
+/* ---- French ---- */
+
+html:lang(fr) .explorer .explorer-ul a:not(.folder-title) {
+  font-size: 1.02rem;
+  font-weight: 600;
+  line-height: 1.22;
+}
+
+html:lang(fr) .explorer a.folder-title,
+html:lang(fr) .explorer a.folder-title:hover,
+html:lang(fr) .explorer a.folder-title:visited,
+html:lang(fr) .explorer a.folder-title:active,
+html:lang(fr) .explorer a.folder-title:focus-visible {
+  font-size: 1.06rem;
+  font-weight: 750;
+  line-height: 1.22;
+}
+
+/* ---- Chinese ---- */
+
+html[lang|="zh"] .explorer .explorer-ul a:not(.folder-title) {
+  font-size: 1.14rem;
+  font-weight: 500;
+  line-height: 1.24;
+  letter-spacing: 0.035em;
+}
+
+html[lang|="zh"] .explorer a.folder-title,
+html[lang|="zh"] .explorer a.folder-title:hover,
+html[lang|="zh"] .explorer a.folder-title:visited,
+html[lang|="zh"] .explorer a.folder-title:active,
+html[lang|="zh"] .explorer a.folder-title:focus-visible {
+  font-size: 1.18rem;
+  font-weight: 780;
+  line-height: 1.22;
+  letter-spacing: 0.075em;
+}
+
+/* ---- Japanese ---- */
+
+html[lang|="ja"] .explorer .explorer-ul a:not(.folder-title) {
+  font-size: 1.09rem;
+  font-weight: 500;
+  line-height: 1.24;
+  letter-spacing: 0.03em;
+}
+
+html[lang|="ja"] .explorer a.folder-title,
+html[lang|="ja"] .explorer a.folder-title:hover,
+html[lang|="ja"] .explorer a.folder-title:visited,
+html[lang|="ja"] .explorer a.folder-title:active,
+html[lang|="ja"] .explorer a.folder-title:focus-visible {
+  font-size: 1.12rem;
+  font-weight: 780;
+  line-height: 1.22;
+  letter-spacing: 0.055em;
 }

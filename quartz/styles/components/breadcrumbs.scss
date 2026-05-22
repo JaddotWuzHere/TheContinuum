@@ -149,6 +149,55 @@
   box-shadow: 1px -1px 5px hsl(var(--gold-h) var(--gold-s) 66% / 0.1);
 }
 
+/* ================================
+   Language-specific breadcrumbs
+   ================================ */
+
+html:lang(en) .breadcrumb-element {
+  a,
+  .breadcrumb-current {
+    font-family: "EBGaramond", serif;
+    font-size: 1.04rem;
+    font-weight: 520;
+    letter-spacing: 0.018em;
+  }
+}
+
+html:lang(fr) .breadcrumb-element {
+  a,
+  .breadcrumb-current {
+    font-family: "EBGaramond", serif;
+    font-size: 1.02rem;
+    font-weight: 520;
+    letter-spacing: 0.012em;
+    text-transform: none;
+  }
+}
+
+html[lang|="zh"] .breadcrumb-element {
+  a,
+  .breadcrumb-current {
+    font-family: "LXGWWenKai", "EBGaramond", serif;
+    font-size: 1.02rem;
+    font-weight: 400;
+    letter-spacing: 0.055em;
+    line-height: 1.1;
+    text-transform: none;
+  }
+}
+
+html[lang|="ja"] .breadcrumb-element {
+  a,
+  .breadcrumb-current {
+    font-family: "LXGWWenKai", "EBGaramond", serif;
+    font-size: 1rem;
+    font-weight: 400;
+    letter-spacing: 0.045em;
+    line-height: 1.1;
+    text-transform: none;
+  }
+}
+
 @media all and (max-width: 800px) {
   .breadcrumb-container {
     margin-top: 0.7rem;

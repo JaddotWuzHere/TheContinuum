@@ -433,7 +433,7 @@
         }
 
         &::before {
-          content: "RESULT INDEX";
+          content: attr(data-result-index);
           position: sticky;
           top: 0;
           display: block;
@@ -900,7 +900,7 @@
   }
 
   & > .search-space > .search-layout > .preview-container:empty::after {
-    content: "Awaiting record selection";
+    content: attr(data-awaiting-selection);
     position: absolute;
     inset: 0;
     display: flex;
@@ -958,6 +958,203 @@
       border-radius: 1rem;
     }
   }
+}
+
+
+/* Language typography */
+
+.search-container {
+  .search-bar,
+  .search-close-button-label,
+  .results-container::before,
+  .preview-badge,
+  .result-card,
+  .result-card-title,
+  .result-card-snippet,
+  .card-description,
+  .preview-container,
+  .preview-inner {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: geometricPrecision;
+  }
+}
+
+html:lang(fr) .search-container {
+  .search-bar,
+  .search-close-button-label,
+  .results-container::before,
+  .preview-badge {
+    font-family: "SchibstedGrotesk", system-ui, sans-serif;
+    letter-spacing: 0.045em;
+    text-transform: none;
+  }
+
+  .search-bar {
+    font-size: 1.12rem;
+    font-weight: 650;
+  }
+
+  .search-bar::placeholder {
+    letter-spacing: 0.035em;
+  }
+
+  .result-card,
+  .result-card-title,
+  .result-card-snippet,
+  .card-description,
+  .preview-container,
+  .preview-inner {
+    font-family: "EBGaramond", serif;
+  }
+
+  .result-card-title,
+  .result-card.no-match > h3 {
+    font-size: 1.24rem;
+    font-weight: 650;
+    letter-spacing: 0.015em;
+  }
+
+  .result-card-snippet,
+  .card-description {
+    font-size: 0.96rem;
+    line-height: 1.58;
+  }
+}
+
+html[lang|="zh"] .search-container {
+  .search-bar,
+  .result-card,
+  .result-card-title,
+  .result-card-snippet,
+  .card-description,
+  .preview-container,
+  .preview-inner {
+    font-family: "LXGWWenKai", "EBGaramond", serif;
+    text-transform: none;
+  }
+
+  .search-close-button-label,
+  .preview-badge {
+    font-family: "SentyWEN2017", "LXGWWenKai", serif;
+    font-size: 1rem;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-transform: none;
+  }
+
+  .search-bar {
+    font-size: 1.32rem;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+  }
+
+  .search-bar::placeholder {
+    letter-spacing: 0.08em;
+  }
+
+  .result-card-title,
+  .result-card.no-match > h3 {
+    font-size: 1.5rem;
+    font-weight: 500;
+    letter-spacing: 0.045em;
+    line-height: 1.35;
+  }
+
+  .result-card-snippet,
+  .card-description {
+    font-size: 1rem;
+    line-height: 1.65;
+    letter-spacing: 0.035em;
+  }
+}
+
+html[lang|="ja"] .search-container {
+  .search-bar,
+  .result-card,
+  .result-card-title,
+  .result-card-snippet,
+  .card-description,
+  .preview-container,
+  .preview-inner {
+    font-family: "LXGWWenKai", "EBGaramond", serif;
+    text-transform: none;
+  }
+
+  .search-close-button-label,
+  .preview-badge {
+    font-family: "SentyWEN2017", "LXGWWenKai", serif;
+    font-size: 0.96rem;
+    font-weight: 400;
+    letter-spacing: 0.085em;
+    text-transform: none;
+  }
+
+  .search-bar {
+    font-size: 1.24rem;
+    font-weight: 400;
+    letter-spacing: 0.055em;
+  }
+
+  .search-bar::placeholder {
+    letter-spacing: 0.055em;
+  }
+
+  .result-card-title,
+  .result-card.no-match > h3 {
+    font-size: 1.38rem;
+    font-weight: 500;
+    letter-spacing: 0.035em;
+    line-height: 1.38;
+  }
+
+  .result-card-snippet,
+  .card-description {
+    font-size: 0.98rem;
+    line-height: 1.65;
+    letter-spacing: 0.025em;
+  }
+}
+
+html[lang|="zh"] body .search-container > .search-space > .search-layout > .results-container::before {
+  font-family: "SentyWEN2017", "LXGWWenKai", serif;
+  font-size: 0.95rem;
+  line-height: 1.2;
+  letter-spacing: 0.14em;
+  text-transform: none;
+}
+
+html[lang|="ja"] body .search-container > .search-space > .search-layout > .results-container::before {
+  font-family: "SentyWEN2017", "LXGWWenKai", serif;
+  font-size: 0.9rem;
+  line-height: 1.2;
+  letter-spacing: 0.1em;
+  text-transform: none;
+}
+
+html[lang|="zh"] body .search-container > .search-space > .search-layout > .preview-container:empty::after {
+  font-family: "SentyWEN2017", "LXGWWenKai", serif;
+  font-size: 1.12rem;
+  line-height: 1.35;
+  letter-spacing: 0.1em;
+  text-transform: none;
+}
+
+html[lang|="ja"] body .search-container > .search-space > .search-layout > .preview-container:empty::after {
+  font-family: "SentyWEN2017", "LXGWWenKai", serif;
+  font-size: 1.06rem;
+  line-height: 1.35;
+  letter-spacing: 0.085em;
+  text-transform: none;
+}
+
+html[lang|="zh"] body .search-container > .search-space > .search-header .search-close-button-label {
+  font-size: 0.95rem;
+  line-height: 1.15;
+}
+
+html[lang|="ja"] body .search-container > .search-space > .search-header .search-close-button-label {
+  font-size: 0.95rem;
+  line-height: 1.15;
 }
 
 html[data-search-open="1"] .explorer,

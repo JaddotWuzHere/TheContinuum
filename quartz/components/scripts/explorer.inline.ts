@@ -102,28 +102,39 @@ function setupExplorerDrawer() {
   const root = document.documentElement
   const KEY = "continuum-explorer-drawer"
 
-  if (document.querySelector(".continuum-explorer-handle")) return
-
-  const handle = document.createElement("button")
-  handle.type = "button"
-  handle.className = "continuum-explorer-handle"
   const t = getExplorerI18n()
+
+  let handle = document.querySelector<HTMLButtonElement>(".continuum-explorer-handle")
+  if (!handle) {
+    handle = document.createElement("button")
+    handle.type = "button"
+    handle.className = "continuum-explorer-handle"
+    document.body.appendChild(handle)
+  }
+
   handle.setAttribute("aria-label", t.toggleLabel)
   handle.innerHTML = `<span class="label">${t.title}</span>`
 
-  const scrim = document.createElement("div")
-  scrim.className = "continuum-explorer-scrim"
-  scrim.setAttribute("aria-hidden", "true")
+  let scrim = document.querySelector<HTMLElement>(".continuum-explorer-scrim")
+  if (!scrim) {
+    scrim = document.createElement("div")
+    scrim.className = "continuum-explorer-scrim"
+    scrim.setAttribute("aria-hidden", "true")
+    document.body.appendChild(scrim)
+  }
 
-  document.body.appendChild(handle)
-  document.body.appendChild(scrim)
+  const explorers = Array.from(document.querySelectorAll<HTMLElement>(".explorer"))
+  const newestExplorer = explorers[explorers.length - 1]
 
-  const explorers = document.querySelectorAll(".explorer") as NodeListOf<HTMLElement>
   explorers.forEach((ex) => {
-    if (ex.parentElement !== document.body) {
-      document.body.appendChild(ex)
+    if (ex !== newestExplorer) {
+      ex.remove()
     }
   })
+
+  if (newestExplorer && newestExplorer.parentElement !== document.body) {
+    document.body.appendChild(newestExplorer)
+  }
 
   const open = () => {
     root.setAttribute("data-explorer-open", "1")
