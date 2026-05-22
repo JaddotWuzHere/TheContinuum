@@ -53,7 +53,7 @@ export default {
       code: "REDACTED",
       title: "Record Not Found",
       message: "No record matching this request has ever been indexed.",
-      goBack: "Go Back",
+      goBack: "Return",
       returnToGenesis: "Return to Genesis",
     },
 

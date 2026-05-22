@@ -18,7 +18,7 @@ Over time, the discovery of mana reveals a condition: to understand, to interact
 
 Magic does not distribute itself equally, and neither does its understanding. In this sense the universe is not ruled by scholarship so much as it is culled by it—knowledge accumulates only where it can be borne.
 
-The universe offers no judgement. It extends no mercy to the unprepared and no recognition to those who endure. All that exists is subject to the same order. Nothing is freely created.
+The universe offers no judgement, extending no mercy to the unprepared and granting no recognition to those who endure. All that exists is subject to the same order. Nothing is freely created.
 
 Nothing is exempt.
 ## Universe Compendium
