@@ -59,6 +59,13 @@ export default {
       goBack: "Go Back",
       returnToGenesis: "Return to Genesis",
     },
+
+    untranslated: {
+      code: "MISSING TRANSLATION",
+      title: "Current Transcript Not Archived",
+      message: "This record exists in English, but the selected language version has not yet been archived.",
+      viewEnglish: "View English Original",
+    },
   },
 
   layout: {

@@ -2,26 +2,122 @@ import { pathToRoot } from "../util/path"
 import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } from "./types"
 import { classNames } from "../util/lang"
 
+type ContinuumLang = "en" | "zh" | "fr" | "ja"
+
+const LOGOS: Record<ContinuumLang, { src: string; alt: string }> = {
+  en: {
+    src: "text_english.png",
+    alt: "The Continuum",
+  },
+  zh: {
+    src: "text_chinese.png",
+    alt: "恒宙",
+  },
+  fr: {
+    src: "text_french.png",
+    alt: "Le Continuum",
+  },
+  ja: {
+    src: "text_japanese.png",
+    alt: "永界",
+  },
+}
+
+function getLangFromSlug(slug: string | undefined): ContinuumLang {
+  const first = slug?.split("/")[0]?.toLowerCase()
+
+  if (first === "zh") return "zh"
+  if (first === "fr") return "fr"
+  if (first === "ja") return "ja"
+  return "en"
+}
+
+const pageTitleScript = `
+function getContinuumLogoForLang(lang) {
+  if (lang === "zh") {
+    return {
+      src: "/static/text_chinese.png",
+      alt: "恒宙",
+    }
+  }
+
+  if (lang === "fr") {
+    return {
+      src: "/static/text_french.png",
+      alt: "Le Continuum",
+    }
+  }
+
+  if (lang === "ja") {
+    return {
+      src: "/static/text_japanese.png",
+      alt: "永界",
+    }
+  }
+
+  return {
+    src: "/static/text_english.png",
+    alt: "The Continuum",
+  }
+}
+
+function getContinuumLangFromPathname() {
+  const first = window.location.pathname
+    .replace(/^\\/+/, "")
+    .split("/")[0]
+    ?.toLowerCase()
+
+  if (first === "zh") return "zh"
+  if (first === "fr") return "fr"
+  if (first === "ja") return "ja"
+  return "en"
+}
+
+function setupContinuumPageTitleLogo() {
+  const lang = getContinuumLangFromPathname()
+  const logo = getContinuumLogoForLang(lang)
+
+  document.querySelectorAll(".page-title-logo").forEach((img) => {
+    img.setAttribute("src", logo.src)
+    img.setAttribute("alt", logo.alt)
+  })
+
+  document.querySelectorAll(".page-title-link").forEach((link) => {
+    link.setAttribute("aria-label", logo.alt + " home")
+
+    if (document.body.dataset.slug === "404") {
+      link.setAttribute("href", "/" + lang + "/")
+    }
+  })
+}
+
+document.addEventListener("nav", setupContinuumPageTitleLogo)
+setupContinuumPageTitleLogo()
+`
+
 const PageTitle: QuartzComponent = ({ fileData, displayClass }: QuartzComponentProps) => {
   const is404 = fileData.slug === "404"
   const baseDir = is404 ? "" : pathToRoot(fileData.slug!)
 
-  const first = fileData.slug?.split("/")[0]?.toLowerCase()
-  const lang = first === "zh" ? "zh" : first === "fr" ? "fr" : first === "ja" ? "ja" : "en"
+  const lang = getLangFromSlug(fileData.slug)
+  const logo = LOGOS[lang]
+
   const homeHref = is404 ? `/${lang}/` : `${baseDir}/${lang}/`
 
   return (
     <h2 class={classNames(displayClass, "page-title")}>
       <div class="page-title-visual">
-        <a href={homeHref} class="page-title-link" aria-label="The Continuum home">
+        <a href={homeHref} class="page-title-link" aria-label={`${logo.alt} home`}>
           <span class="page-title-logo-frame">
-            <img src={`${baseDir}/static/text.png`} alt="The Continuum" class="page-title-logo" />
+            <img src={`${baseDir}/static/${logo.src}`} alt={logo.alt} class="page-title-logo" />
           </span>
         </a>
       </div>
     </h2>
   )
 }
+
+PageTitle.afterDOMLoaded = pageTitleScript
 
 PageTitle.css = `
 .page-title {
@@ -118,8 +214,6 @@ body[data-slug="404"] .page-footer .page-title-logo-frame {
 body[data-slug="404"] .page-footer .page-title-logo {
   margin: 0 auto;
 }
-
-
 `
 
 export default (() => PageTitle) satisfies QuartzComponentConstructor

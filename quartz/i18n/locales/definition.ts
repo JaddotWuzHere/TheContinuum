@@ -57,6 +57,13 @@ export interface Translation {
       goBack: string
       returnToGenesis: string
     }
+
+    untranslated: {
+      code: string
+      title: string
+      message: string
+      viewEnglish: string
+    }
   }
 
   layout: {

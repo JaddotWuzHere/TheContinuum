@@ -5,6 +5,9 @@ import { write } from "./helpers"
 import { Root, Element } from "hast"
 import { toString } from "hast-util-to-string"
 import { visit } from "unist-util-visit"
+import fs from "fs"
+import path from "path"
+import yaml from "js-yaml"
 
 export type ContentIndexMap = Map<FullSlug, ContentDetails>
 
@@ -78,6 +81,52 @@ function extractAliases(fileAliases: unknown): string[] {
     .filter(Boolean)
 }
 
+type TranslationRegistry = Record<string, Record<string, string>>
+
+function normalizeTranslationRegistry(raw: unknown): TranslationRegistry {
+  if (!raw || typeof raw !== "object" || Array.isArray(raw)) return {}
+
+  const registry: TranslationRegistry = {}
+
+  for (const [key, value] of Object.entries(raw)) {
+    if (!value || typeof value !== "object" || Array.isArray(value)) continue
+
+    const entry: Record<string, string> = {}
+
+    for (const [lang, slug] of Object.entries(value)) {
+      const normalizedLang = lang.toLowerCase().trim()
+      const normalizedSlug = slug
+        ?.toString()
+        .trim()
+        .replace(/^\/+/g, "")
+        .replace(/\/+$/g, "")
+
+      if (!normalizedLang || !normalizedSlug) continue
+
+      entry[normalizedLang] = normalizedSlug
+    }
+
+    if (Object.keys(entry).length > 0) {
+      registry[key] = entry
+    }
+  }
+
+  return registry
+}
+
+async function readTranslationRegistry(contentRoot: string): Promise<TranslationRegistry> {
+  const registryPath = path.join(contentRoot, "translations.yaml")
+
+  if (!fs.existsSync(registryPath)) {
+    return {}
+  }
+
+  const raw = await fs.promises.readFile(registryPath, "utf8")
+  const parsed = yaml.load(raw)
+
+  return normalizeTranslationRegistry(parsed)
+}
+
 export const ContentIndex: QuartzEmitterPlugin<Partial<Options>> = (opts) => {
   opts = { ...defaultOptions, ...opts }
 
@@ -87,6 +136,7 @@ export const ContentIndex: QuartzEmitterPlugin<Partial<Options>> = (opts) => {
     async *emit(ctx, content) {
       const cfg = ctx.cfg.configuration
       const linkIndex: ContentIndexMap = new Map()
+      const translationRegistry = await readTranslationRegistry(ctx.argv.directory)
 
       for (const [_tree, file] of content) {
         const slug = file.data.slug!
@@ -119,6 +169,13 @@ export const ContentIndex: QuartzEmitterPlugin<Partial<Options>> = (opts) => {
         ctx,
         content: JSON.stringify(Object.fromEntries(linkIndex)),
         slug: fp,
+        ext: ".json",
+      })
+
+      yield write({
+        ctx,
+        content: JSON.stringify(translationRegistry),
+        slug: joinSegments("static", "translations") as FullSlug,
         ext: ".json",
       })
     },

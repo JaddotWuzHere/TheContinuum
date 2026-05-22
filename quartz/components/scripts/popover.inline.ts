@@ -1,4 +1,6 @@
 import { normalizeRelativeURLs } from "../../util/path"
+import { i18n } from "../../i18n"
+import { localeFromSlug, toI18nLocale } from "../../util/locale"
 import { fetchCanonical } from "./util"
 
 const p = new DOMParser()
@@ -120,6 +122,169 @@ function neutralizeLinksInPopover(root: ParentNode) {
   })
 }
 
+function normalizeSlugForLookup(slug: string): string {
+  return slug
+    .toString()
+    .trim()
+    .replace(/^\/+/g, "")
+    .replace(/\/+/g, "/")
+    .replace(/\/index$/g, "")
+    .replace(/\/$/g, "")
+}
+
+function getRestFromLocalizedPath(pathname: string): string {
+  const parts = pathname
+    .replace(/^\/+/g, "")
+    .replace(/\/+$/g, "")
+    .split("/")
+    .filter(Boolean)
+    .map((part) => {
+      try {
+        return decodeURIComponent(part)
+      } catch {
+        return part
+      }
+    })
+
+  const first = (parts[0] || "").toLowerCase()
+
+  if (first === "zh" || first === "fr" || first === "ja" || first === "en") {
+    return parts.slice(1).join("/")
+  }
+
+  return parts.join("/")
+}
+
+function getContentIndexSlugs(contentIndex: Record<string, any>): Set<string> {
+  const slugs = new Set<string>()
+
+  for (const [key, value] of Object.entries(contentIndex || {})) {
+    slugs.add(normalizeSlugForLookup(key))
+
+    if (value && typeof value === "object" && typeof value.slug === "string") {
+      slugs.add(normalizeSlugForLookup(value.slug))
+    }
+  }
+
+  return slugs
+}
+
+async function fetchTranslationRegistry(): Promise<Record<string, any>> {
+  try {
+    const response = await fetch("/static/translations.json")
+
+    if (!response.ok) return {}
+
+    return await response.json()
+  } catch {
+    return {}
+  }
+}
+
+function findEnglishVersionFromRegistry(
+  contentIndex: Record<string, any>,
+  translationRegistry: Record<string, any>,
+  lang: "en" | "zh" | "fr" | "ja",
+  rest: string,
+): string | null {
+  if (lang === "en") return null
+  if (!rest) return null
+
+  const requestedRest = normalizeSlugForLookup(rest)
+  const existingSlugs = getContentIndexSlugs(contentIndex)
+
+  for (const entry of Object.values(translationRegistry || {})) {
+    if (!entry || typeof entry !== "object") continue
+
+    const localizedSlug = entry[lang]
+    const englishSlug = entry.en
+
+    if (!localizedSlug || !englishSlug) continue
+
+    const normalizedLocalizedSlug = normalizeSlugForLookup(localizedSlug)
+    const normalizedEnglishSlug = normalizeSlugForLookup(`en/${englishSlug}`)
+
+    if (normalizedLocalizedSlug !== requestedRest) continue
+
+    if (existingSlugs.has(normalizedEnglishSlug)) {
+      return `/${normalizedEnglishSlug}/`
+    }
+  }
+
+  return null
+}
+
+async function detectUntranslatedEnglishVersion(
+  lang: "en" | "zh" | "fr" | "ja",
+  rest: string,
+): Promise<string | null> {
+  if (lang === "en") return null
+  if (!rest) return null
+
+  try {
+    const [contentIndex, translationRegistry] = await Promise.all([
+      fetchData,
+      fetchTranslationRegistry(),
+    ])
+
+    return findEnglishVersionFromRegistry(contentIndex, translationRegistry, lang, rest)
+  } catch {
+    return null
+  }
+}
+
+async function localize404Popover(root: ParentNode, targetUrl: URL): Promise<void> {
+  const article = root.querySelector(".continuum-404")
+  if (!article) return
+
+  const lang = localeFromSlug(targetUrl.pathname)
+  const rest = getRestFromLocalizedPath(targetUrl.pathname)
+  const pages = i18n(toI18nLocale(lang)).pages
+  const englishHref = await detectUntranslatedEnglishVersion(lang, rest)
+  const copy = englishHref ? pages.untranslated : pages.error
+
+  const code = article.querySelector("#popover-internal-continuum-404-code")
+  const title = article.querySelector("#popover-internal-continuum-404-title")
+  const message = article.querySelector("#popover-internal-continuum-404-message")
+  const backLink = article.querySelector("#popover-internal-localized-back-link")
+  const englishLink = article.querySelector("#popover-internal-localized-english-link")
+  const homeLink = article.querySelector("#popover-internal-localized-home-link")
+
+  const localizedHome =
+    lang === "zh"
+      ? "/zh/"
+      : lang === "fr"
+        ? "/fr/"
+        : lang === "ja"
+          ? "/ja/"
+          : "/en/"
+
+  if (code) code.textContent = copy.code
+  if (title) title.textContent = copy.title
+  if (message) message.textContent = copy.message
+
+  if (backLink) {
+    backLink.textContent = pages.error.goBack
+    backLink.setAttribute("href", localizedHome)
+  }
+
+  if (homeLink) {
+    homeLink.textContent = pages.error.returnToGenesis
+    homeLink.setAttribute("href", localizedHome)
+  }
+
+  if (englishLink) {
+    if (englishHref) {
+      englishLink.textContent = pages.untranslated.viewEnglish
+      englishLink.setAttribute("href", englishHref + targetUrl.hash)
+      englishLink.removeAttribute("hidden")
+    } else {
+      englishLink.setAttribute("hidden", "")
+      englishLink.removeAttribute("href")
+    }
+  }
+}
+
 async function mouseEnterHandler(this: HTMLAnchorElement, event: MouseEvent) {
   const link = this
   const { clientX, clientY } = event
@@ -235,6 +400,7 @@ async function mouseEnterHandler(this: HTMLAnchorElement, event: MouseEvent) {
     const popoverInner = document.createElement("div")
     popoverInner.classList.add("popover-inner")
     popoverInner.dataset.contentType = contentType ?? undefined
+    popoverInner.dataset.lang = localeFromSlug(targetUrl.pathname)
     popoverElement.appendChild(popoverInner)
 
     switch (contentTypeCategory) {
@@ -267,6 +433,8 @@ async function mouseEnterHandler(this: HTMLAnchorElement, event: MouseEvent) {
         html.querySelectorAll("[id]").forEach((el) => {
           el.id = `popover-internal-${el.id}`
         })
+
+        await localize404Popover(html, targetUrl)
 
         const elts = [...html.getElementsByClassName("popover-hint")]
         if (elts.length === 0) return

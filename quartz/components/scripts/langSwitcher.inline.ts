@@ -1,3 +1,5 @@
+import { forceUnlockPageScroll } from "./util"
+
 (() => {
   function initLangSwitcher(root: HTMLElement): void {
     if ((root as any)._langSwitcherInit) return
@@ -18,6 +20,23 @@
     const safeTrigger = trigger as HTMLButtonElement
     const safeSelect = select as HTMLSelectElement
 
+    function closeDrawersBeforeLanguageNavigation(): void {
+      const html = document.documentElement
+
+      html.removeAttribute("data-settings-open")
+      html.removeAttribute("data-explorer-open")
+      html.removeAttribute("data-search-open")
+      html.removeAttribute("data-page-scroll-locked")
+
+      try {
+        localStorage.setItem("continuum-settings-drawer", "closed")
+        localStorage.setItem("continuum-explorer-drawer", "closed")
+      } catch {
+      }
+
+      forceUnlockPageScroll()
+    }
+
     function setOpen(open: boolean): void {
       root.setAttribute("data-open", open ? "1" : "0")
       safeTrigger.setAttribute("aria-expanded", open ? "true" : "false")
@@ -28,20 +47,106 @@
       setOpen(!isOpen)
     }
 
-    function navigateToLang(lang: string): void {
-      const url = new URL(window.location.href)
-      const parts = url.pathname.split("/").filter(Boolean)
-      const supported = new Set(["en", "zh", "fr", "ja"])
-      const first = parts[0]
+    function decodePathPart(part: string): string {
+      try {
+        return decodeURIComponent(part)
+      } catch (_) {
+        return part
+      }
+    }
 
-      if (supported.has(first)) {
-        parts[0] = lang
-      } else {
-        parts.unshift(lang)
+    function normalizeRegistrySlug(slug: string): string {
+      return slug
+        .toString()
+        .trim()
+        .replace(/^\/+/g, "")
+        .replace(/\/+/g, "/")
+        .replace(/\/+$/g, "")
+    }
+
+    async function fetchTranslationRegistry(): Promise<Record<string, Record<string, string>>> {
+      try {
+        const response = await fetch("/static/translations.json")
+
+        if (!response.ok) return {}
+
+        const data = await response.json()
+
+        if (!data || typeof data !== "object" || Array.isArray(data)) {
+          return {}
+        }
+
+        return data
+      } catch (_) {
+        return {}
+      }
+    }
+
+    function findRegistryTarget(
+      registry: Record<string, Record<string, string>>,
+      currentLang: string,
+      targetLang: string,
+      currentRest: string,
+    ): string | null {
+      const normalizedCurrentRest = normalizeRegistrySlug(currentRest)
+
+      for (const entry of Object.values(registry)) {
+        if (!entry || typeof entry !== "object") continue
+
+        const currentSlug = entry[currentLang]
+        const targetSlug = entry[targetLang]
+
+        if (!currentSlug || !targetSlug) continue
+
+        if (normalizeRegistrySlug(currentSlug) === normalizedCurrentRest) {
+          return normalizeRegistrySlug(targetSlug)
+        }
       }
 
+      return null
+    }
+
+    async function navigateToLang(lang: string): Promise<void> {
+      closeDrawersBeforeLanguageNavigation()
+
+      const url = new URL(window.location.href)
+      const supported = new Set(["en", "zh", "fr", "ja"])
+
+      const rawParts = url.pathname.split("/").filter(Boolean)
+      const decodedParts = rawParts.map(decodePathPart)
+
+      const first = decodedParts[0]
+      const currentLang = supported.has(first) ? first : "en"
+      const currentRest = supported.has(first)
+        ? decodedParts.slice(1).join("/")
+        : decodedParts.join("/")
+
+      const registry = await fetchTranslationRegistry()
+      const registryTarget = findRegistryTarget(
+        registry,
+        currentLang,
+        lang,
+        currentRest,
+      )
+
       const hadTrailingSlash = url.pathname.endsWith("/")
-      url.pathname = "/" + parts.join("/") + (hadTrailingSlash ? "/" : "")
+
+      if (registryTarget) {
+        url.pathname = "/" + lang + "/" + registryTarget + (hadTrailingSlash ? "/" : "")
+        window.location.assign(url.toString())
+        return
+      }
+
+      // Fallback for pages not listed in translations.yaml.
+      const fallbackParts = [...decodedParts]
+
+      if (supported.has(fallbackParts[0])) {
+        fallbackParts[0] = lang
+      } else {
+        fallbackParts.unshift(lang)
+      }
+
+      url.pathname = "/" + fallbackParts.join("/") + (hadTrailingSlash ? "/" : "")
       window.location.assign(url.toString())
     }
 
@@ -109,7 +214,7 @@
 
         setActiveByValue(lang)
         setOpen(false)
-        navigateToLang(lang)
+        void navigateToLang(lang)
       })
     }
 

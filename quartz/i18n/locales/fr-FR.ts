@@ -59,6 +59,13 @@ export default {
       goBack: "Retour",
       returnToGenesis: "Retour à la Genèse",
     },
+
+    untranslated: {
+      code: "TRADUCTION MANQUANTE",
+      title: "Version non archivée",
+      message: "Cette archive existe en version anglaise, mais la version sélectionnée n’a pas encore été archivée.",
+      viewEnglish: "Voir l’original anglais",
+    },
   },
 
   layout: {

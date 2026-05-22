@@ -57,7 +57,14 @@ export default {
       title: "記録制限",
       message: "要求された記録は閲覧できません。",
       goBack: "戻る",
-      returnToGenesis: "創世へ戻る",
+      returnToGenesis: "端緒へ戻る",
+    },
+
+    untranslated: {
+      code: "訳文欠落",
+      title: "現在の訳本は未収録",
+      message: "この記録には英語原文がありますが、選択中の言語版はまだ収録されていません。",
+      viewEnglish: "英語原文を見る",
     },
   },
 

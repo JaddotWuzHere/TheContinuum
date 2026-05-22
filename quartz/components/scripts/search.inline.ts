@@ -4,6 +4,7 @@ import { registerEscapeHandler, removeAllChildren, lockPageScroll, unlockPageScr
 import { FullSlug, normalizeRelativeURLs, resolveRelative } from "../../util/path"
 import { i18n } from "../../i18n"
 import { localeFromSlug, toI18nLocale } from "../../util/locale"
+import { slug as slugAnchor } from "github-slugger"
 
 type ContentIndex = Record<FullSlug, ContentDetails>
 
@@ -658,7 +659,12 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
     async function navigateToResult() {
       await hideSearch({ skipFocus: true })
       const targetUrl = resolveUrl(slug)
-      window.location.assign(targetUrl)
+
+      if (matchedHeading) {
+        targetUrl.hash = slugAnchor(matchedHeading)
+      }
+
+      window.spaNavigate(targetUrl, false)
     }
 
     async function setActiveResult() {

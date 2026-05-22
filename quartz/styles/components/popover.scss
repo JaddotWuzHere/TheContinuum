@@ -58,6 +58,79 @@
     text-rendering: optimizeLegibility;
     font-kerning: normal;
 
+    &[data-lang="en"],
+    &[data-lang="fr"] {
+      font-family: "EBGaramond", serif;
+    }
+
+    &[data-lang="zh"] {
+      font-family: "EBGaramond", "LXGWWenKai", serif;
+
+      p {
+        font-size: 1.18rem;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-family: "EBGaramond", "SentyWEN2017", serif;
+        letter-spacing: 0;
+      }
+
+      .continuum-404-code {
+        font-family: "EBGaramond", "STXINGKA", "SentyWEN2017", serif;
+        letter-spacing: 0.08em;
+      }
+
+      .continuum-404-title,
+      .continuum-404-text,
+      .continuum-404-button {
+        font-family: "EBGaramond", "LXGWWenKai", serif;
+      }
+    }
+
+    &[data-lang="ja"] {
+      font-family:
+        "EBGaramond",
+        "Hiragino Mincho ProN",
+        "Yu Mincho",
+        "YuMincho",
+        "Noto Serif JP",
+        serif;
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-family:
+          "EBGaramond",
+          "Hiragino Mincho ProN",
+          "Yu Mincho",
+          "YuMincho",
+          "Noto Serif JP",
+          serif;
+        letter-spacing: 0.02em;
+      }
+
+      .continuum-404-code,
+      .continuum-404-title,
+      .continuum-404-text,
+      .continuum-404-button {
+        font-family:
+          "EBGaramond",
+          "Hiragino Mincho ProN",
+          "Yu Mincho",
+          "YuMincho",
+          "Noto Serif JP",
+          serif;
+      }
+    }
+
     background:
       radial-gradient(
         circle at top center,
@@ -86,11 +159,6 @@
     scrollbar-color:
       hsl(var(--gold-h) 40% 50% / 0.85)
       rgba(255, 255, 255, 0.04);
-
-    &,
-    & * {
-      font-family: inherit;
-    }
 
     &::before {
       content: "";
@@ -145,7 +213,7 @@
     }
 
     h1 {
-      font-family: "Cinzel", serif;
+      font-family: inherit;
 
       font-size: 2.6rem;
       font-weight: 600;

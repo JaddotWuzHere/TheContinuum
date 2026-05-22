@@ -57,7 +57,14 @@ export default {
       title: "档案受限",
       message: "所请求的档案记录当前无法查阅。",
       goBack: "返回",
-      returnToGenesis: "返回 Genesis",
+      returnToGenesis: "返回初章",
+    },
+
+    untranslated: {
+      code: "译文缺页",
+      title: "当前译本尚未归档",
+      message: "此记录已有英文原文，但当前语言的译本尚未收录。",
+      viewEnglish: "查看英文原文",
     },
   },
 

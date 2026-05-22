@@ -1,6 +1,6 @@
 import micromorph from "micromorph"
 import { FullSlug, RelativeURL, getFullSlug, normalizeRelativeURLs } from "../../util/path"
-import { fetchCanonical } from "./util"
+import { fetchCanonical, forceUnlockPageScroll } from "./util"
 
 // adapted from `micromorph`
 // https://github.com/natemoo-re/micromorph
@@ -81,6 +81,12 @@ async function _navigate(url: URL, isBack: boolean = false) {
   const event: CustomEventMap["prenav"] = new CustomEvent("prenav", { detail: {} })
   document.dispatchEvent(event)
 
+  // hard-reset any overlay/panel scroll lock before morphing pages
+  document.documentElement.removeAttribute("data-search-open")
+  document.documentElement.removeAttribute("data-settings-open")
+  document.documentElement.removeAttribute("data-explorer-open")
+  forceUnlockPageScroll()
+
   // cleanup old
   cleanupFns.forEach((fn) => fn())
   cleanupFns.clear()
@@ -88,7 +94,21 @@ async function _navigate(url: URL, isBack: boolean = false) {
   const html = p.parseFromString(contents, "text/html")
   normalizeRelativeURLs(html, url)
 
+  const nextLang = html.documentElement.getAttribute("lang")
+  const nextDir = html.documentElement.getAttribute("dir")
+
+  if (nextLang) {
+    document.documentElement.setAttribute("lang", nextLang)
+  }
+
+  if (nextDir) {
+    document.documentElement.setAttribute("dir", nextDir)
+  } else {
+    document.documentElement.removeAttribute("dir")
+  }
+
   let title = html.querySelector("title")?.textContent
+
   if (title) {
     document.title = title
   } else {
@@ -125,6 +145,11 @@ async function _navigate(url: URL, isBack: boolean = false) {
   if (!isBack) {
     history.pushState({}, "", url)
   }
+
+  document.documentElement.removeAttribute("data-search-open")
+  document.documentElement.removeAttribute("data-settings-open")
+  document.documentElement.removeAttribute("data-explorer-open")
+  forceUnlockPageScroll()
 
   notifyNav(getFullSlug(window))
   delete announcer.dataset.persist
