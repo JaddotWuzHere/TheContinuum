@@ -5,18 +5,30 @@ import { FullSlug, normalizeRelativeURLs, resolveRelative } from "../../util/pat
 import { i18n } from "../../i18n"
 import { localeFromSlug, toI18nLocale } from "../../util/locale"
 import { slug as slugAnchor } from "github-slugger"
+import {
+  filterIgnoredSearchSectionHeadings,
+  isIgnoredSearchSectionHeading,
+  loadIgnoredSearchSectionHeadings,
+} from "../../util/search-ignored-sections"
 
 type ContentIndex = Record<FullSlug, ContentDetails>
 
-interface Item {
+type SearchResultKind = "page" | "section"
+
+interface IndexedDocument {
   id: number
   slug: FullSlug
   title: string
   aliases: string
   headings: string
   content: string
-  matchedHeading?: string
   [key: string]: any
+}
+
+interface Item extends IndexedDocument {
+  resultKey: string
+  kind: SearchResultKind
+  matchedHeading?: string
 }
 
 declare global {
@@ -32,14 +44,71 @@ let searchType: SearchType = "basic"
 let currentSearchTerm: string = ""
 let activeSearchSlug: FullSlug | null = null
 
+const CJK_CHAR_RE = /[\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}]/u
+
 const encoder = (str: string) => {
-  return str
-    .toLowerCase()
-    .split(/\s+/)
-    .filter((token) => token.length > 0)
+  const normalized = str.toLowerCase().normalize("NFKC")
+  const tokens: string[] = []
+  let latinBuffer = ""
+  let cjkBuffer = ""
+
+  const flushLatin = () => {
+    const words = latinBuffer
+      .split(/\s+/)
+      .map((token) => token.trim())
+      .filter((token) => token.length > 0)
+
+    tokens.push(...words)
+    latinBuffer = ""
+  }
+
+  const flushCJK = () => {
+    if (cjkBuffer.length === 0) return
+
+    tokens.push(...Array.from(cjkBuffer))
+
+    const chars = Array.from(cjkBuffer)
+    for (let i = 0; i < chars.length - 1; i++) {
+      tokens.push(chars[i] + chars[i + 1])
+    }
+
+    tokens.push(cjkBuffer)
+
+    cjkBuffer = ""
+  }
+
+  for (const char of normalized) {
+    if (CJK_CHAR_RE.test(char)) {
+      flushLatin()
+      cjkBuffer += char
+    } else {
+      flushCJK()
+      latinBuffer += char
+    }
+  }
+
+  flushLatin()
+  flushCJK()
+
+  return [...new Set(tokens)]
 }
 
-let index = new FlexSearch.Document<Item>({
+const shouldMatchSearchToken = (textToken: string, searchToken: string) => {
+  const lowerTextToken = textToken.toLowerCase()
+  const lowerSearchToken = searchToken.toLowerCase()
+
+  if (CJK_CHAR_RE.test(lowerSearchToken)) {
+    return lowerTextToken.includes(lowerSearchToken)
+  }
+
+  return lowerTextToken.startsWith(lowerSearchToken)
+}
+
+const escapeRegExp = (str: string) => {
+  return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
+}
+
+let index = new FlexSearch.Document<IndexedDocument>({
   encode: encoder,
   document: {
     id: "id",
@@ -60,15 +129,23 @@ let index = new FlexSearch.Document<Item>({
   },
 })
 
+function getCurrentSearchLocale() {
+  return localeFromSlug(activeSearchSlug ?? window.location.pathname)
+}
+
+function isSlugInCurrentSearchLocale(slug: FullSlug) {
+  return localeFromSlug(slug) === getCurrentSearchLocale()
+}
+
 function getSearchI18n() {
-  const lang = localeFromSlug(window.location.pathname)
-  return i18n(toI18nLocale(lang)).components.search
+  return i18n(toI18nLocale(getCurrentSearchLocale())).components.search
 }
 
 const p = new DOMParser()
 const fetchContentCache: Map<FullSlug, Element[]> = new Map()
 const contextWindowWords = 30
 const numSearchResults = 8
+const rawSearchResultLimit = numSearchResults * 24
 const SEARCH_RENDER_DEBOUNCE_MS = 315
 type ResultAnimationMode = "full" | "soft" | "none"
 
@@ -118,7 +195,8 @@ function highlight(searchTerm: string, text: string, trim?: boolean) {
 
   if (trim) {
     const includesCheck = (tok: string) =>
-      tokenizedTerms.some((term) => tok.toLowerCase().startsWith(term.toLowerCase()))
+      tokenizedTerms.some((term) => shouldMatchSearchToken(tok, term))
+
     const occurrencesIndices = tokenizedText.map(includesCheck)
 
     let bestSum = 0
@@ -143,8 +221,8 @@ function highlight(searchTerm: string, text: string, trim?: boolean) {
   const slice = tokenizedText
     .map((tok) => {
       for (const searchTok of tokenizedTerms) {
-        if (tok.toLowerCase().includes(searchTok.toLowerCase())) {
-          const regex = new RegExp(searchTok.toLowerCase(), "gi")
+        if (shouldMatchSearchToken(tok, searchTok)) {
+          const regex = new RegExp(escapeRegExp(searchTok), "gi")
           return tok.replace(regex, `<span class="highlight">$&</span>`)
         }
       }
@@ -448,8 +526,19 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
     }
   }
 
+  const tokenizeSearchableText = (text: string) => {
+    return encoder(text)
+  }
+
   const includesSearchTerm = (text: string, term: string) => {
-    return text.toLowerCase().includes(term.toLowerCase())
+    const textTokens = tokenizeSearchableText(text)
+    const termTokens = tokenizeSearchableText(term)
+
+    if (termTokens.length === 0) return false
+
+    return termTokens.every((termToken) =>
+      textTokens.some((textToken) => shouldMatchSearchToken(textToken, termToken)),
+    )
   }
 
   const findMatchingEntry = (entries: string[], term: string) => {
@@ -458,7 +547,6 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
 
   const getTextPreviewAfterHeading = (headingEl: HTMLElement) => {
     const sectionLevel = Number(headingEl.tagName.slice(1))
-    let firstChildHeading = ""
     const bodyParts: string[] = []
     let bodyTextLength = 0
 
@@ -472,10 +560,6 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
 
         if (level <= sectionLevel) {
           break
-        }
-
-        if (!firstChildHeading) {
-          firstChildHeading = (current.textContent ?? "").replace(/\s+/g, " ").trim()
         }
 
         current = current.nextElementSibling
@@ -536,13 +620,22 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
       current = current.nextElementSibling
     }
 
-    const body = bodyParts.join(" ")
+    return bodyParts.join(" ")
+  }
 
-    if (firstChildHeading && body) {
-      return `${escapeHTML(firstChildHeading)} | ${body}`
+  const getTextPreviewForPage = (root: HTMLElement) => {
+    const fakePageHeading = document.createElement("h1")
+    root.insertBefore(fakePageHeading, root.firstElementChild)
+
+    const pagePreview = getTextPreviewAfterHeading(fakePageHeading)
+    fakePageHeading.remove()
+
+    if (pagePreview) {
+      return pagePreview
     }
 
-    return body || escapeHTML(firstChildHeading)
+    const firstHeading = root.querySelector("h1, h2, h3, h4, h5, h6") as HTMLElement | null
+    return firstHeading ? getTextPreviewAfterHeading(firstHeading) : ""
   }
 
   const findHeadingElement = (root: HTMLElement, headingText: string) => {
@@ -563,41 +656,49 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
     return candidates[0]?.heading
   }
 
-  const formatForDisplay = (term: string, id: number): Item => {
+  const formatPageResultForDisplay = (term: string, id: number): Item | undefined => {
     const slug = idDataMap[id]
     const entry = dataMap[slug]
 
     const aliases = entry.aliases ?? []
-    const headings = entry.headings ?? []
+    const headings = filterIgnoredSearchSectionHeadings(entry.headings ?? [])
 
     const matchingAlias = findMatchingEntry(aliases, term)
-    const matchedHeading = findMatchingEntry(headings, term)
     const titleMatches = includesSearchTerm(entry.title, term)
 
-    let title = ""
-    let content = ""
-
-    if (matchedHeading) {
-      title = `${escapeHTML(entry.title)} — ${highlight(term, matchedHeading)}`
-      content = ""
-    } else if (titleMatches) {
-      title = highlight(term, entry.title)
-      content = ""
-    } else if (matchingAlias) {
-      title = escapeHTML(entry.title)
-      content = `Alias: ${highlight(term, matchingAlias)}`
-    } else {
-      title = escapeHTML(entry.title)
-      content = ""
-    }
+    if (!titleMatches && !matchingAlias) return undefined
 
     return {
       id,
+      resultKey: `page:${slug}`,
+      kind: "page",
       slug,
-      title,
+      title: titleMatches ? highlight(term, entry.title) : escapeHTML(entry.title),
       aliases: aliases.join(" "),
       headings: headings.join(" "),
-      content,
+      content: matchingAlias && !titleMatches ? `Alias: ${highlight(term, matchingAlias)}` : "",
+    }
+  }
+
+  const formatSectionResultForDisplay = (term: string, id: number): Item | undefined => {
+    const slug = idDataMap[id]
+    const entry = dataMap[slug]
+
+    const aliases = entry.aliases ?? []
+    const headings = filterIgnoredSearchSectionHeadings(entry.headings ?? [])
+    const matchedHeading = findMatchingEntry(headings, term)
+
+    if (!matchedHeading) return undefined
+
+    return {
+      id,
+      resultKey: `section:${slug}#${matchedHeading}`,
+      kind: "section",
+      slug,
+      title: `${escapeHTML(entry.title)} — ${highlight(term, matchedHeading)}`,
+      aliases: aliases.join(" "),
+      headings: headings.join(" "),
+      content: "",
       matchedHeading,
     }
   }
@@ -606,22 +707,14 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
     const snippet = resultEl.querySelector(".result-card-snippet") as HTMLElement | null
     if (!snippet || !previewHTML) return
 
-    const [sectionLabel, ...rest] = previewHTML.split(" | ")
-
-    if (rest.length > 0) {
-      snippet.innerHTML = `<strong class="result-snippet-section">${sectionLabel} <span class="result-snippet-divider">|</span></strong> ${rest.join(
-        " | ",
-      )}`
-    } else {
-      snippet.innerHTML = previewHTML
-    }
+    snippet.innerHTML = previewHTML
   }
 
   const hydrateResultPreviewText = async (resultEl: HTMLElement, requestToken: number) => {
     const matchedHeading = resultEl.dataset.matchedHeading
-    if (!matchedHeading) return
+    const slug = resultEl.dataset.slug as FullSlug | undefined
+    if (!slug) return
 
-    const slug = resultEl.id as FullSlug
     const contents = await fetchContent(slug)
 
     if (requestToken !== searchRequestToken || !container.classList.contains("active")) {
@@ -638,17 +731,26 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
       previewRoot.append(...contentClone.children)
     })
 
-    const headingEl = findHeadingElement(previewRoot, matchedHeading)
-    if (!headingEl) return
+    if (matchedHeading) {
+      if (isIgnoredSearchSectionHeading(matchedHeading)) return
 
-    const sectionPreview = getTextPreviewAfterHeading(headingEl)
-    updateResultPreviewText(resultEl, sectionPreview)
+      const headingEl = findHeadingElement(previewRoot, matchedHeading)
+      if (!headingEl) return
+
+      const sectionPreview = getTextPreviewAfterHeading(headingEl)
+      updateResultPreviewText(resultEl, sectionPreview)
+      return
+    }
+
+    const pagePreview = getTextPreviewForPage(previewRoot)
+    updateResultPreviewText(resultEl, pagePreview)
   }
   
-  const resultToHTML = ({ slug, title, content, matchedHeading }: Item) => {
+  const resultToHTML = ({ slug, title, content, matchedHeading, resultKey }: Item) => {
     const itemTile = document.createElement("button")
     itemTile.classList.add("result-card")
-    itemTile.id = slug
+    itemTile.id = `search-result-${resultKey}`
+    itemTile.dataset.slug = slug
     itemTile.type = "button"
 
     if (matchedHeading) {
@@ -752,7 +854,7 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
 
     const searchResults = await index.searchAsync({
       query: effectiveTerm,
-      limit: numSearchResults,
+      limit: rawSearchResultLimit,
       index: ["title", "aliases", "headings"],
     })
 
@@ -768,13 +870,23 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
       return resultsForField.length === 0 ? [] : ([...resultsForField[0].result] as number[])
     }
 
-    const allIds: Set<number> = new Set([
-      ...getByField("title"),
-      ...getByField("aliases"),
-      ...getByField("headings"),
-    ])
+    const titleIds = getByField("title")
+    const aliasIds = getByField("aliases")
+    const headingIds = getByField("headings")
 
-    const finalResults = [...allIds].map((id) => formatForDisplay(currentSearchTerm, id))
+    const pageIds: Set<number> = new Set([...titleIds, ...aliasIds])
+    const sectionIds: Set<number> = new Set(headingIds)
+
+    const finalResults = [
+      ...[...pageIds]
+        .filter((id) => isSlugInCurrentSearchLocale(idDataMap[id]))
+        .map((id) => formatPageResultForDisplay(currentSearchTerm, id)),
+      ...[...sectionIds]
+        .filter((id) => isSlugInCurrentSearchLocale(idDataMap[id]))
+        .map((id) => formatSectionResultForDisplay(currentSearchTerm, id)),
+    ]
+      .filter((result): result is Item => result !== undefined)
+      .slice(0, numSearchResults)
 
     const animationMode: ResultAnimationMode = hasRenderedSearchResults ? "soft" : "full"
     await displayResults(finalResults, animationMode)
@@ -885,7 +997,9 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
       return
     }
 
-    const slug = el.id as FullSlug
+    const slug = el.dataset.slug as FullSlug | undefined
+    if (!slug) return
+
     const matchedHeading = el.dataset.matchedHeading
     const thisToken = ++previewToken
 
@@ -956,6 +1070,8 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
         if (thisToken !== previewToken) return
 
         if (matchedHeading && previewInner) {
+          if (isIgnoredSearchSectionHeading(matchedHeading)) return
+
           const headingEl = findHeadingElement(previewInner, matchedHeading)
 
           if (headingEl) {
@@ -973,6 +1089,11 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
           }
         } else {
           previewScroll.scrollTop = 0
+
+          if (previewInner) {
+            const pagePreview = getTextPreviewForPage(previewInner)
+            updateResultPreviewText(el, pagePreview)
+          }
         }
       })
     })
@@ -1039,6 +1160,8 @@ let indexPopulated = false
 async function fillDocument(data: ContentIndex) {
   if (indexPopulated) return
 
+  await loadIgnoredSearchSectionHeadings()
+
   let id = 0
   const promises: Array<Promise<unknown>> = []
 
@@ -1051,7 +1174,7 @@ async function fillDocument(data: ContentIndex) {
         slug: slug as FullSlug,
         title: fileData.title,
         aliases: (fileData.aliases ?? []).join(" "),
-        headings: (fileData.headings ?? []).join(" "),
+        headings: filterIgnoredSearchSectionHeadings(fileData.headings ?? []).join(" "),
         content: fileData.content,
       }),
     )

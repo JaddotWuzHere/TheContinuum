@@ -114,8 +114,14 @@ function normalizeTranslationRegistry(raw: unknown): TranslationRegistry {
   return registry
 }
 
-async function readTranslationRegistry(contentRoot: string): Promise<TranslationRegistry> {
-  const registryPath = path.join(contentRoot, "translations.yaml")
+async function readTranslationRegistry(): Promise<TranslationRegistry> {
+  const registryPath = path.join(
+    process.cwd(),
+    "quartz",
+    "static",
+    "data",
+    "page-ids.yaml",
+  )
 
   if (!fs.existsSync(registryPath)) {
     return {}
@@ -136,7 +142,7 @@ export const ContentIndex: QuartzEmitterPlugin<Partial<Options>> = (opts) => {
     async *emit(ctx, content) {
       const cfg = ctx.cfg.configuration
       const linkIndex: ContentIndexMap = new Map()
-      const translationRegistry = await readTranslationRegistry(ctx.argv.directory)
+      const translationRegistry = await readTranslationRegistry()
 
       for (const [_tree, file] of content) {
         const slug = file.data.slug!

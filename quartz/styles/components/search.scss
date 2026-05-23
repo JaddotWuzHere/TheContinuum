@@ -1024,22 +1024,45 @@ html:lang(fr) .search-container {
 html[lang|="zh"] .search-container {
   .search-bar,
   .result-card,
-  .result-card-title,
   .result-card-snippet,
   .card-description,
   .preview-container,
-  .preview-inner {
+  .preview-inner,
+  .preview-inner p,
+  .preview-inner li,
+  .preview-inner blockquote,
+  .preview-inner table,
+  .preview-inner figcaption,
+  .search-preview-breadcrumbs,
+  .search-preview-breadcrumbs a,
+  .search-preview-breadcrumbs span {
     font-family: "LXGWWenKai", "EBGaramond", serif;
+    font-weight: 400;
     text-transform: none;
   }
 
   .search-close-button-label,
-  .preview-badge {
+  .results-container::before,
+  .preview-badge,
+  .result-card-title,
+  .result-card.no-match > h3,
+  .preview-container:empty::after,
+  .preview-inner h1,
+  .preview-inner h2,
+  .preview-inner h3,
+  .preview-inner h4,
+  .preview-inner h5,
+  .preview-inner h6 {
     font-family: "SentyWEN2017", "LXGWWenKai", serif;
-    font-size: 1rem;
     font-weight: 400;
-    letter-spacing: 0.1em;
     text-transform: none;
+  }
+
+  .preview-inner code,
+  .preview-inner pre,
+  .preview-inner kbd,
+  .preview-inner samp {
+    font-family: var(--codeFont);
   }
 
   .search-bar {
@@ -1052,12 +1075,35 @@ html[lang|="zh"] .search-container {
     letter-spacing: 0.08em;
   }
 
+  .search-close-button-label {
+    font-size: 0.95rem;
+    line-height: 1.15;
+    letter-spacing: 0.1em;
+  }
+
+  & > .search-space > .search-layout > .results-container::before {
+    font-size: 1rem;
+    line-height: 1.2;
+    letter-spacing: 0.14em;
+  }
+
+  .preview-badge {
+    font-size: 1rem;
+    line-height: 1.2;
+    letter-spacing: 0.1em;
+  }
+
+  .preview-container:empty::after {
+    font-size: 1.12rem;
+    line-height: 1.35;
+    letter-spacing: 0.1em;
+  }
+
   .result-card-title,
   .result-card.no-match > h3 {
     font-size: 1.5rem;
-    font-weight: 500;
-    letter-spacing: 0.045em;
     line-height: 1.35;
+    letter-spacing: 0.075em;
   }
 
   .result-card-snippet,
@@ -1066,27 +1112,75 @@ html[lang|="zh"] .search-container {
     line-height: 1.65;
     letter-spacing: 0.035em;
   }
+
+  .preview-inner h1 {
+    font-size: clamp(2.25rem, 5vw, 3.1rem);
+    line-height: 1.15;
+    letter-spacing: 0.12em;
+  }
+
+  .preview-inner h2 {
+    font-size: clamp(1.9rem, 3.6vw, 2.45rem);
+    line-height: 1.2;
+    letter-spacing: 0.085em;
+  }
+
+  .preview-inner h3 {
+    font-size: clamp(1.55rem, 2.8vw, 1.95rem);
+    line-height: 1.22;
+    letter-spacing: 0.07em;
+  }
+
+  .preview-inner p,
+  .preview-inner li {
+    font-size: 1.12rem;
+    line-height: 1.45;
+    letter-spacing: 0.03em;
+  }
 }
 
 html[lang|="ja"] .search-container {
   .search-bar,
   .result-card,
-  .result-card-title,
   .result-card-snippet,
   .card-description,
   .preview-container,
-  .preview-inner {
+  .preview-inner,
+  .preview-inner p,
+  .preview-inner li,
+  .preview-inner blockquote,
+  .preview-inner table,
+  .preview-inner figcaption,
+  .search-preview-breadcrumbs,
+  .search-preview-breadcrumbs a,
+  .search-preview-breadcrumbs span {
     font-family: "LXGWWenKai", "EBGaramond", serif;
+    font-weight: 400;
     text-transform: none;
   }
 
   .search-close-button-label,
-  .preview-badge {
+  .results-container::before,
+  .preview-badge,
+  .result-card-title,
+  .result-card.no-match > h3,
+  .preview-container:empty::after,
+  .preview-inner h1,
+  .preview-inner h2,
+  .preview-inner h3,
+  .preview-inner h4,
+  .preview-inner h5,
+  .preview-inner h6 {
     font-family: "SentyWEN2017", "LXGWWenKai", serif;
-    font-size: 0.96rem;
     font-weight: 400;
-    letter-spacing: 0.085em;
     text-transform: none;
+  }
+
+  .preview-inner code,
+  .preview-inner pre,
+  .preview-inner kbd,
+  .preview-inner samp {
+    font-family: var(--codeFont);
   }
 
   .search-bar {
@@ -1099,12 +1193,35 @@ html[lang|="ja"] .search-container {
     letter-spacing: 0.055em;
   }
 
+  .search-close-button-label {
+    font-size: 0.95rem;
+    line-height: 1.15;
+    letter-spacing: 0.085em;
+  }
+
+  & > .search-space > .search-layout > .results-container::before {
+    font-size: 0.96rem;
+    line-height: 1.2;
+    letter-spacing: 0.1em;
+  }
+
+  .preview-badge {
+    font-size: 0.96rem;
+    line-height: 1.2;
+    letter-spacing: 0.085em;
+  }
+
+  .preview-container:empty::after {
+    font-size: 1.06rem;
+    line-height: 1.35;
+    letter-spacing: 0.085em;
+  }
+
   .result-card-title,
   .result-card.no-match > h3 {
     font-size: 1.38rem;
-    font-weight: 500;
-    letter-spacing: 0.035em;
     line-height: 1.38;
+    letter-spacing: 0.055em;
   }
 
   .result-card-snippet,
@@ -1113,48 +1230,31 @@ html[lang|="ja"] .search-container {
     line-height: 1.65;
     letter-spacing: 0.025em;
   }
-}
 
-html[lang|="zh"] body .search-container > .search-space > .search-layout > .results-container::before {
-  font-family: "SentyWEN2017", "LXGWWenKai", serif;
-  font-size: 0.95rem;
-  line-height: 1.2;
-  letter-spacing: 0.14em;
-  text-transform: none;
-}
+  .preview-inner h1 {
+    font-size: clamp(2.15rem, 5vw, 3rem);
+    line-height: 1.15;
+    letter-spacing: 0.1em;
+  }
 
-html[lang|="ja"] body .search-container > .search-space > .search-layout > .results-container::before {
-  font-family: "SentyWEN2017", "LXGWWenKai", serif;
-  font-size: 0.9rem;
-  line-height: 1.2;
-  letter-spacing: 0.1em;
-  text-transform: none;
-}
+  .preview-inner h2 {
+    font-size: clamp(1.85rem, 3.6vw, 2.35rem);
+    line-height: 1.2;
+    letter-spacing: 0.075em;
+  }
 
-html[lang|="zh"] body .search-container > .search-space > .search-layout > .preview-container:empty::after {
-  font-family: "SentyWEN2017", "LXGWWenKai", serif;
-  font-size: 1.12rem;
-  line-height: 1.35;
-  letter-spacing: 0.1em;
-  text-transform: none;
-}
+  .preview-inner h3 {
+    font-size: clamp(1.5rem, 2.8vw, 1.9rem);
+    line-height: 1.22;
+    letter-spacing: 0.06em;
+  }
 
-html[lang|="ja"] body .search-container > .search-space > .search-layout > .preview-container:empty::after {
-  font-family: "SentyWEN2017", "LXGWWenKai", serif;
-  font-size: 1.06rem;
-  line-height: 1.35;
-  letter-spacing: 0.085em;
-  text-transform: none;
-}
-
-html[lang|="zh"] body .search-container > .search-space > .search-header .search-close-button-label {
-  font-size: 0.95rem;
-  line-height: 1.15;
-}
-
-html[lang|="ja"] body .search-container > .search-space > .search-header .search-close-button-label {
-  font-size: 0.95rem;
-  line-height: 1.15;
+  .preview-inner p,
+  .preview-inner li {
+    font-size: 1.08rem;
+    line-height: 1.45;
+    letter-spacing: 0.025em;
+  }
 }
 
 html[data-search-open="1"] .explorer,

@@ -261,13 +261,27 @@ html[data-explorer-open="1"] .explorer {
   transform: translateX(0);
 }
 
-.explorer :is(.explorer-content, .explorer-ul) {
+/*
+   Important:
+   Only the outer scroll container gets the reserved right-side width.
+   Do NOT apply this max-width to every nested .explorer-ul, or each folder
+   level progressively shrinks and long deep entries get clipped/squeezed.
+*/
+
+.explorer .explorer-content {
   max-height: 100lvh;
-  overflow: auto;
-  max-width: calc(100% - 50px - var(--explorer-gutter));
   overflow-y: auto;
   overflow-x: hidden;
+  max-width: calc(100% - 58px - var(--explorer-gutter));
   padding-left: var(--explorer-gutter);
+  box-sizing: border-box;
+}
+
+.explorer .explorer-ul {
+  max-height: none;
+  max-width: none;
+  overflow: visible;
+  padding-left: 0;
   box-sizing: border-box;
 }
 
