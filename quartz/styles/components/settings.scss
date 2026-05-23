@@ -423,59 +423,30 @@ html[data-explorer-open="1"] .continuum-settings-handle {
   justify-content: flex-end;
 }
 
-.fx-toggle.fx-toggle-child {
-  opacity: 0.92;
-}
-
-.fx-toggle[data-locked="1"] {
-  cursor: not-allowed;
-  opacity: 0.62;
-  transform: none !important;
-}
-
-.fx-toggle[data-locked="1"]::after {
-  opacity: 0;
-}
-
-.fx-toggle.fx-toggle-child .fx-toggle-switch {
-  transform: scale(.86);
-  transform-origin: right center;
-  filter: saturate(.85);
-}
-
-.fx-toggle.fx-toggle-parent {
-  padding-bottom: .45rem;
-}
-
-.fx-toggle.fx-toggle-parent::before {
+.settings-section-performance .fx-toggle:not(:last-child)::before {
   content: "";
   position: absolute;
   left: 1.0rem;
   right: 1.0rem;
-  bottom: .18rem;
+  bottom: -0.02rem;
   height: 1px;
 
   background: linear-gradient(
     90deg,
     transparent 0%,
-    hsl(var(--gold-h) var(--gold-s) 60% / .55) 18%,
-    hsl(calc(var(--gold-h) + 7) var(--gold-s) 72% / .65) 50%,
-    hsl(var(--gold-h) var(--gold-s) 60% / .55) 82%,
+    hsl(var(--gold-h) var(--gold-s) 60% / .42) 18%,
+    hsl(calc(var(--gold-h) + 7) var(--gold-s) 72% / .52) 50%,
+    hsl(var(--gold-h) var(--gold-s) 60% / .42) 82%,
     transparent 100%
   );
 
-  opacity: .9;
+  opacity: .8;
   pointer-events: none;
 }
 
-.fx-toggle.fx-toggle-child .fx-toggle-label {
-  opacity: .88;
-  font-weight: 500;
-}
-
-html[data-no-animations="1"] *,
-html[data-no-animations="1"] *::before,
-html[data-no-animations="1"] *::after {
+html[data-reduce-motion="1"] *,
+html[data-reduce-motion="1"] *::before,
+html[data-reduce-motion="1"] *::after {
   animation-duration: 0s !important;
   animation-delay: 0s !important;
   animation-iteration-count: 1 !important;
@@ -530,12 +501,6 @@ html[data-no-animations="1"] *::after {
   letter-spacing: 0.01em;
 }
 
-.fx-toggle.fx-toggle-child .fx-toggle-label {
-  font-size: 0.94rem;
-  font-weight: 500;
-  opacity: 0.88;
-}
-
 .settings-language-row .lang-switcher,
 .settings-language-row .lang-trigger {
   font-family: "EBGaramond", serif;
@@ -571,10 +536,6 @@ html:lang(fr) .fx-toggle-label {
   font-weight: 600;
   line-height: 1.14;
   letter-spacing: 0.005em;
-}
-
-html:lang(fr) .fx-toggle.fx-toggle-child .fx-toggle-label {
-  font-size: 0.92rem;
 }
 
 html:lang(fr) .settings-language-row .lang-trigger {
@@ -615,12 +576,6 @@ html[lang|="zh"] .fx-toggle-label {
   font-weight: 500;
   line-height: 1.14;
   letter-spacing: 0.025em;
-}
-
-html[lang|="zh"] .fx-toggle.fx-toggle-child .fx-toggle-label {
-  font-size: 1.1rem;
-  font-weight: 400;
-  opacity: 0.88;
 }
 
 html[lang|="zh"] .settings-language-row .lang-switcher,
@@ -666,12 +621,6 @@ html[lang|="ja"] .fx-toggle-label {
   font-weight: 500;
   line-height: 1.14;
   letter-spacing: 0.015em;
-}
-
-html[lang|="ja"] .fx-toggle.fx-toggle-child .fx-toggle-label {
-  font-size: 1.04rem;
-  font-weight: 400;
-  opacity: 0.88;
 }
 
 html[lang|="ja"] .settings-language-row .lang-switcher,

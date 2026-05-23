@@ -231,11 +231,12 @@ html[data-no-flicker] #rays {
   transition: none !important;
 }
 
-html[data-no-bg-parallax] #parallax-root .layer {
+html[data-no-bg-parallax] #parallax-root .layer,
+html[data-reduce-motion] #parallax-root .layer {
   transform: none !important;
 }
 
-html[data-no-ray-parallax] #rays {
+html[data-reduce-motion] #rays {
   background-attachment: scroll;
   background-position:
     left top,

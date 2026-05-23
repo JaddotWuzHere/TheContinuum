@@ -37,11 +37,9 @@ export interface Translation {
       panelTitle: string
       performanceSection: string
       languageSection: string
-      disableAnimations: string
-      disableRays: string
-      disableMovement: string
+      reduceMotion: string
       disableFlickering: string
-      disableParallax: string
+      disableRays: string
       disableBackgroundParallax: string
     }
   }

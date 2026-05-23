@@ -75,10 +75,12 @@ function setupBackgroundFx() {
       flashStart[index] = now
     }
 
-    const shouldRayParallax = () => !root.hasAttribute("data-no-ray-parallax")
-    const shouldBgParallax = () => !root.hasAttribute("data-no-bg-parallax")
+    const shouldReduceMotion = () => root.hasAttribute("data-reduce-motion")
+    const shouldRayParallax = () => !shouldReduceMotion()
+    const shouldBgParallax = () =>
+      !shouldReduceMotion() && !root.hasAttribute("data-no-bg-parallax")
     const shouldFlicker = () => !root.hasAttribute("data-no-flicker")
-    const shouldMove = () => !root.hasAttribute("data-no-ray-movement")
+    const shouldMove = () => !shouldReduceMotion()
     const shouldDraw = () => !root.hasAttribute("data-no-rays")
 
     const startTime = performance.now() / 1000
@@ -238,10 +240,9 @@ function setupBackgroundFx() {
       attributes: true,
       attributeFilter: [
         "data-no-rays",
+        "data-reduce-motion",
         "data-no-bg-parallax",
-        "data-no-ray-parallax",
         "data-no-flicker",
-        "data-no-ray-movement",
       ],
     })
   })

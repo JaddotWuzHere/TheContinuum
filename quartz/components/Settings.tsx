@@ -38,11 +38,11 @@ const SettingsImpl: QuartzComponent = (props: QuartzComponentProps) => {
 
           <button
             type="button"
-            class="fx-toggle fx-toggle-parent"
-            data-setting="disableAnimations"
+            class="fx-toggle"
+            data-setting="reduceMotion"
             data-state="off"
           >
-            <span class="fx-toggle-label">{t.disableAnimations}</span>
+            <span class="fx-toggle-label">{t.reduceMotion}</span>
             <span class="fx-toggle-switch" aria-hidden="true">
               <span class="fx-toggle-thumb" />
             </span>
@@ -50,7 +50,19 @@ const SettingsImpl: QuartzComponent = (props: QuartzComponentProps) => {
 
           <button
             type="button"
-            class="fx-toggle fx-toggle-parent"
+            class="fx-toggle"
+            data-setting="disableFlickering"
+            data-state="off"
+          >
+            <span class="fx-toggle-label">{t.disableFlickering}</span>
+            <span class="fx-toggle-switch" aria-hidden="true">
+              <span class="fx-toggle-thumb" />
+            </span>
+          </button>
+
+          <button
+            type="button"
+            class="fx-toggle"
             data-setting="disableRays"
             data-state="off"
           >
@@ -62,46 +74,7 @@ const SettingsImpl: QuartzComponent = (props: QuartzComponentProps) => {
 
           <button
             type="button"
-            class="fx-toggle fx-toggle-child"
-            data-parent="disableRays"
-            data-setting="disableMovement"
-            data-state="false"
-          >
-            <span class="fx-toggle-label">{t.disableMovement}</span>
-            <span class="fx-toggle-switch" aria-hidden="true">
-              <span class="fx-toggle-thumb" />
-            </span>
-          </button>
-
-          <button
-            type="button"
-            class="fx-toggle fx-toggle-child"
-            data-parent="disableRays"
-            data-setting="disableFlickering"
-            data-state="false"
-          >
-            <span class="fx-toggle-label">{t.disableFlickering}</span>
-            <span class="fx-toggle-switch" aria-hidden="true">
-              <span class="fx-toggle-thumb" />
-            </span>
-          </button>
-
-          <button
-            type="button"
-            class="fx-toggle fx-toggle-child"
-            data-parent="disableRays"
-            data-setting="disableParallax"
-            data-state="false"
-          >
-            <span class="fx-toggle-label">{t.disableParallax}</span>
-            <span class="fx-toggle-switch" aria-hidden="true">
-              <span class="fx-toggle-thumb" />
-            </span>
-          </button>
-
-          <button
-            type="button"
-            class="fx-toggle fx-toggle-parent"
+            class="fx-toggle"
             data-setting="disableBackgroundParallax"
             data-state="off"
           >

@@ -7,7 +7,7 @@ function setupSettingsDrawer() {
 
   const root = document.documentElement
   const KEY = "continuum-settings-drawer"
-  
+
   let handle = document.querySelector<HTMLButtonElement>(".continuum-settings-handle")
   let scrim = document.querySelector<HTMLDivElement>(".continuum-settings-scrim")
 
@@ -124,25 +124,28 @@ function setupSettingsToggles() {
   const setOn = (btn: HTMLElement, on: boolean) =>
     btn.setAttribute("data-state", on ? "on" : "off")
 
-  const setLocked = (btn: HTMLElement, locked: boolean) => {
-    if (locked) btn.setAttribute("data-locked", "1")
-    else btn.removeAttribute("data-locked")
+  const settingToRootAttr: Record<string, string> = {
+    reduceMotion: "data-reduce-motion",
+    disableFlickering: "data-no-flicker",
+    disableRays: "data-no-rays",
+    disableBackgroundParallax: "data-no-bg-parallax",
   }
 
-  const getChildren = (parentSetting: string) =>
-    Array.from(
-      document.querySelectorAll<HTMLButtonElement>(
-        `.fx-toggle[data-parent="${parentSetting}"]`,
-      ),
-    )
+  const getSavedSettings = () => {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY)
+      if (!raw) return null
 
-  const settingToRootAttr: Record<string, string> = {
-    disableAnimations: "data-no-animations",
-    disableRays: "data-no-rays",
-    disableMovement: "data-no-ray-movement",
-    disableFlickering: "data-no-flicker",
-    disableParallax: "data-no-ray-parallax",
-    disableBackgroundParallax: "data-no-bg-parallax",
+      const saved = JSON.parse(raw) as Record<string, boolean>
+
+      if ("disableAnimations" in saved && !("reduceMotion" in saved)) {
+        saved.reduceMotion = !!saved.disableAnimations
+      }
+
+      return saved
+    } catch {
+      return null
+    }
   }
 
   const saveSettings = () => {
@@ -158,6 +161,8 @@ function setupSettingsToggles() {
   }
 
   const applyRootFlags = () => {
+    Object.values(settingToRootAttr).forEach((attr) => root.removeAttribute(attr))
+
     toggles.forEach((btn) => {
       const key = btn.getAttribute("data-setting")
       if (!key) return
@@ -166,41 +171,27 @@ function setupSettingsToggles() {
       if (!attr) return
 
       if (isOn(btn)) root.setAttribute(attr, "1")
-      else root.removeAttribute(attr)
     })
   }
 
-  const syncLocksFromParent = (parentSetting: string) => {
-    const parent = document.querySelector<HTMLButtonElement>(
-      `.fx-toggle[data-setting="${parentSetting}"]`,
-    )
-    if (!parent) return
+  const saved = getSavedSettings()
+  const prefersReducedMotion =
+    window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches ?? false
 
-    const children = getChildren(parentSetting)
+  toggles.forEach((btn) => {
+    const key = btn.getAttribute("data-setting")
+    if (!key) return
 
-    if (isOn(parent)) {
-      children.forEach((c) => {
-        setOn(c, true)
-        setLocked(c, true)
-      })
-    } else {
-      children.forEach((c) => setLocked(c, false))
+    if (saved && key in saved) {
+      setOn(btn, !!saved[key])
+      return
     }
-  }
 
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY)
-    if (raw) {
-      const saved = JSON.parse(raw) as Record<string, boolean>
-      toggles.forEach((btn) => {
-        const key = btn.getAttribute("data-setting")
-        if (!key) return
-        if (key in saved) setOn(btn, !!saved[key])
-      })
+    if (!saved && key === "reduceMotion" && prefersReducedMotion) {
+      setOn(btn, true)
     }
-  } catch {}
+  })
 
-  syncLocksFromParent("disableRays")
   applyRootFlags()
 
   toggles.forEach((btn) => {
@@ -210,14 +201,8 @@ function setupSettingsToggles() {
     btn.addEventListener("click", (evt) => {
       evt.stopPropagation()
 
-      if (btn.getAttribute("data-locked") === "1") return
-
       const next = !isOn(btn)
       setOn(btn, next)
-
-      if (btn.getAttribute("data-setting") === "disableRays") {
-        syncLocksFromParent("disableRays")
-      }
 
       applyRootFlags()
       saveSettings()
@@ -228,3 +213,5 @@ function setupSettingsToggles() {
 document.addEventListener("nav", () => {
   setupSettingsDrawer()
 })
+
+setupSettingsDrawer()

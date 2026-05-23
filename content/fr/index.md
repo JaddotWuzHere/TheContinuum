@@ -17,7 +17,7 @@ Avec le temps, la découverte du mana révèle une condition : comprendre, c’
 
 La magie ne se distribue pas équitablement, ni sa compréhension ne l’est. En ce sens, l’univers n’est pas tant gouverné par le savoir qu’émondé par lui — la connaissance ne s’accumule qu’où elle peut être portée.
 
-L’univers ne juge pas. Il n’accorde aucune clémence à ceux qui n’y sont pas préparés, et ne reconnaît aucun mérite à ceux qui perdurent. Tout ce qui existe est soumis au même ordre. Rien n’est créé librement.
+L’univers ne rend aucun jugement, n’accordant aucune clémence à ceux qui n’y sont pas préparés, ni aucune reconnaissance à ceux qui perdurent. Tout ce qui existe est soumis au même ordre. Rien n’est créé librement.
 
 Rien n’est exempt.
 ## Compendium de l’univers
