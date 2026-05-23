@@ -149,6 +149,17 @@ const rawSearchResultLimit = numSearchResults * 24
 const SEARCH_RENDER_DEBOUNCE_MS = 315
 type ResultAnimationMode = "full" | "soft" | "none"
 
+const ignoredPreviewSelector = [
+  "script",
+  "style",
+  ".breadcrumb-container",
+  ".tag-link",
+  ".external-icon",
+  `.callout[data-callout="epigraph"]`,
+].join(", ")
+
+const ignoredPreviewRootSelector = `.callout[data-callout="epigraph"]`
+
 function wait(ms: number) {
   return new Promise<void>((resolve) => window.setTimeout(resolve, ms))
 }
@@ -568,11 +579,17 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
 
       const cloned = current.cloneNode(true) as HTMLElement
 
-      cloned.querySelectorAll("script, style, .breadcrumb-container, .tag-link, .external-icon").forEach((el) => {
+      if (cloned.matches(ignoredPreviewRootSelector)) {
+        current = current.nextElementSibling
+        continue
+      }
+
+      cloned.querySelectorAll(ignoredPreviewSelector).forEach((el) => {
         el.remove()
       })
 
       const rawText = (cloned.textContent ?? "").replace(/\s+/g, " ").trim()
+
 
       if (/^(statement|formal expression|where):$/i.test(rawText)) {
         current = current.nextElementSibling
