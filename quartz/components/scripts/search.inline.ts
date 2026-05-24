@@ -177,23 +177,42 @@ const tokenizeTerm = (term: string) => {
   return tokens.sort((a, b) => b.length - a.length)
 }
 
-function closeExplorerDrawer() {
-  document.documentElement.removeAttribute("data-explorer-open")
-  unlockPageScroll()
+function closeExplorerDrawer(options?: { instant?: boolean; keepScrollLocked?: boolean }) {
+  const root = document.documentElement
+  const wasOpen = root.hasAttribute("data-explorer-open")
+
+  if (options?.instant && wasOpen) {
+    root.classList.add("search-instant-close-explorer")
+  }
+
+  root.removeAttribute("data-explorer-open")
 
   try {
     localStorage.setItem("continuum-explorer-drawer", "closed")
-  } catch {
+  } catch {}
+
+  window.dispatchEvent(new CustomEvent("continuum-explorer-render-handle"))
+
+  if (!options?.keepScrollLocked) {
+    unlockPageScroll()
+  }
+
+  if (options?.instant && wasOpen) {
+    window.requestAnimationFrame(() => {
+      root.classList.remove("search-instant-close-explorer")
+    })
   }
 }
 
-function closeSettingsDrawer() {
+function closeSettingsDrawer(options?: { keepScrollLocked?: boolean }) {
   document.documentElement.removeAttribute("data-settings-open")
-  unlockPageScroll()
 
   try {
     localStorage.setItem("continuum-settings-drawer", "closed")
-  } catch {
+  } catch {}
+
+  if (!options?.keepScrollLocked) {
+    unlockPageScroll()
   }
 }
 
@@ -323,8 +342,7 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
   const searchSpace = container.querySelector(".search-space") as HTMLElement
   if (!searchSpace) return
 
-  const scheduleViewportSync = () => {
-  }
+  const scheduleViewportSync = () => {}
 
   if (container.parentElement !== document.body) {
     document.body.appendChild(container)
@@ -347,18 +365,22 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
   let currentHover: HTMLElement | null = null
 
   const isHoverCapable = window.matchMedia("(hover: hover) and (pointer: fine)").matches
-  const shouldAutoPreviewResults = isHoverCapable
+  const isMobileDevice = document.documentElement.classList.contains("device-mobile")
+  const shouldAutoPreviewResults = isHoverCapable && !isMobileDevice
 
-  const enablePreview = searchLayout.dataset.preview === "true"
+  const enablePreview = searchLayout.dataset.preview === "true" && !isMobileDevice
+
   let previewInner: HTMLDivElement | null = null
 
   const existingResults = searchLayout.querySelector(".results-container") as HTMLDivElement | null
-  const results: HTMLDivElement = existingResults ?? (() => {
-    const el = document.createElement("div")
-    el.className = "results-container"
-    appendLayout(el)
-    return el
-  })()
+  const results: HTMLDivElement =
+    existingResults ??
+    (() => {
+      const el = document.createElement("div")
+      el.className = "results-container"
+      appendLayout(el)
+      return el
+    })()
 
   const existingPreview = searchLayout.querySelector(".preview-container") as HTMLDivElement | null
   let preview: HTMLDivElement | undefined = existingPreview ?? undefined
@@ -461,8 +483,8 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
   function showSearch(mode: SearchType = "basic") {
     applySearchChromeLabels()
 
-    closeExplorerDrawer()
-    closeSettingsDrawer()
+    closeExplorerDrawer({ instant: true, keepScrollLocked: true })
+    closeSettingsDrawer({ keepScrollLocked: true })
 
     cancelAnimationFrame(openRaf)
     isClosing = false
@@ -511,7 +533,11 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
 
     openRaf = requestAnimationFrame(() => {
       searchBar.focus()
-      searchBar.select()
+
+      if (!isMobileDevice) {
+        searchBar.select()
+      }
+
       scheduleViewportSync()
     })
   }
@@ -589,7 +615,6 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
       })
 
       const rawText = (cloned.textContent ?? "").replace(/\s+/g, " ").trim()
-
 
       if (/^(statement|formal expression|where):$/i.test(rawText)) {
         current = current.nextElementSibling
@@ -762,7 +787,7 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
     const pagePreview = getTextPreviewForPage(previewRoot)
     updateResultPreviewText(resultEl, pagePreview)
   }
-  
+
   const resultToHTML = ({ slug, title, content, matchedHeading, resultKey }: Item) => {
     const itemTile = document.createElement("button")
     itemTile.classList.add("result-card")
@@ -819,7 +844,7 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
       event.preventDefault()
       event.stopPropagation()
 
-      if (isHoverCapable) {
+      if (isHoverCapable || isMobileDevice) {
         await navigateToResult()
         return
       }
@@ -936,7 +961,7 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
         : `<a class="result-card no-match">
             <h3>${t.noMatchTitle}</h3>
             <p class="card-description">${t.noMatchText}</p>
-              </a>`
+          </a>`
     } else {
       results.append(...finalResults.map(resultToHTML))
 
@@ -1144,7 +1169,7 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
     }
   }
 
-  searchBar.oninput = onType as unknown as ((this: GlobalEventHandlers, ev: Event) => any)
+  searchBar.oninput = onType as unknown as (this: GlobalEventHandlers, ev: Event) => any
 
   if (window.__continuumSearchInitialized) {
     await fillDocument(data)

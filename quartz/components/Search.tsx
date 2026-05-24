@@ -46,8 +46,8 @@ export default ((userOpts?: Partial<SearchOptions>) => {
                 type="button"
                 aria-label={localeText.common.close}
               >
-                <span class="search-close-button-icon" aria-hidden="true">↶</span>
                 <span class="search-close-button-label">{localeText.common.close}</span>
+                <span class="search-close-button-icon" aria-hidden="true">×</span>
               </button>
             </div>
 

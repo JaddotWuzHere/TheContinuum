@@ -489,6 +489,12 @@ function setupExplorerDrawer() {
 
   renderHandle()
 
+  if (!(window as any)._continuumExplorerRenderHandle) {
+    ;(window as any)._continuumExplorerRenderHandle = renderHandle
+  }
+
+  window.addEventListener("continuum-explorer-render-handle", renderHandle)
+
   if (!(handle as any)._explorerBound) {
     ;(handle as any)._explorerBound = true
     handle.addEventListener("click", toggle)

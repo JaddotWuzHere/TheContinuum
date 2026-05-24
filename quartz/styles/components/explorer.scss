@@ -1400,4 +1400,42 @@ html.device-mobile {
   .explorer .folder-title {
     padding-block: 0;
   }
+
+  .explorer .explorer-search-row,
+  .explorer .explorer-search-row *,
+  .explorer .explorer-search-row .search,
+  .explorer .explorer-search-row .search-button,
+  .explorer .explorer-search-row .search-button * {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    user-select: none;
+  }
+
+  .explorer .explorer-search-row .search-button {
+    appearance: none;
+    -webkit-appearance: none;
+
+    outline: none;
+    touch-action: manipulation;
+  }
+
+  .explorer .explorer-search-row .search-button:focus,
+  .explorer .explorer-search-row .search-button:focus-visible,
+  .explorer .explorer-search-row .search-button:active {
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .explorer .explorer-search-row .search-button p,
+  .explorer .explorer-search-row .search-button svg {
+    pointer-events: none;
+  }
+}
+
+html.search-instant-close-explorer {
+  .explorer,
+  .continuum-explorer-handle,
+  .continuum-explorer-scrim {
+    transition: none !important;
+  }
 }
