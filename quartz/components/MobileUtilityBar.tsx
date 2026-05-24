@@ -55,9 +55,6 @@ export default (() => {
           <section class="mobile-tool-panel mobile-tool-panel-outline" data-mobile-panel="outline">
             <header class="mobile-tool-panel-header">
               <h2>{t.components.tableOfContents.title}</h2>
-              <button type="button" class="mobile-tool-close" data-mobile-tool-close>
-                {t.common.close}
-              </button>
             </header>
 
             <ul class="mobile-tool-list mobile-tool-toc-list">
@@ -79,9 +76,6 @@ export default (() => {
           >
             <header class="mobile-tool-panel-header">
               <h2>{t.components.backlinks.title}</h2>
-              <button type="button" class="mobile-tool-close" data-mobile-tool-close>
-                {t.common.close}
-              </button>
             </header>
 
             <ul class="mobile-tool-list mobile-tool-reference-list">

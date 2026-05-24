@@ -97,7 +97,7 @@ footer {
 html.device-mobile {
   .continuum-footer {
     grid-area: grid-footer;
-    margin-top: 3rem;
+    margin-top: 1rem;
     margin-bottom: calc(var(--mobile-drawer-handle-h, 3.65rem) + 2rem);
     padding-inline: 1rem;
     text-align: center;

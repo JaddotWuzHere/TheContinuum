@@ -8,7 +8,7 @@ html.device-mobile {
   --mobile-utility-top: var(--mobile-visual-top);
   --mobile-utility-h: 3.25rem;
   --mobile-utility-z: 12000;
-  --mobile-tool-panel-z: 11990;
+  --mobile-tool-panel-z: 12010;
 
   .mobile-utility-shell {
     display: block;
@@ -79,6 +79,30 @@ html.device-mobile {
     user-select: none;
     filter: blur(3px) brightness(0.72);
     transform: translateZ(0);
+  }
+
+  &[data-mobile-tool-open] {
+    overflow: hidden;
+    overscroll-behavior: none;
+    touch-action: none;
+  }
+
+  &[data-mobile-tool-open] body {
+    overflow: hidden;
+    overscroll-behavior: none;
+    touch-action: none;
+  }
+
+  &[data-mobile-tool-open] .mobile-tool-panel,
+  &[data-mobile-tool-open] .mobile-tool-panel * {
+    touch-action: pan-y;
+  }
+
+  &[data-mobile-tool-open] .continuum-explorer-handle,
+  &[data-mobile-tool-open] .continuum-settings-handle {
+    filter: blur(2px) brightness(0.7);
+    transform: translateY(0);
+    pointer-events: none;
   }
 
   .mobile-utility-bar::before {
@@ -251,6 +275,7 @@ html.device-mobile {
 
     display: flex;
     flex-direction: column;
+    overflow: hidden;
 
     padding: 0.95rem 1rem 1rem;
     box-sizing: border-box;
@@ -299,11 +324,11 @@ html.device-mobile {
 
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
+    justify-content: center;
 
     padding-bottom: 0.65rem;
     border-bottom: 1px solid hsl(var(--gold-h) var(--gold-s) 35% / 0.42);
+    text-align: center;
   }
 
   .mobile-tool-panel-header h2 {
@@ -327,36 +352,76 @@ html.device-mobile {
     color: transparent;
   }
 
-  .mobile-tool-close {
-    appearance: none;
-    border: 1px solid hsl(var(--gold-h) var(--gold-s) 50% / 0.42);
-    border-radius: 999px;
-
-    padding: 0.34rem 0.7rem;
-
-    background: rgb(17, 15, 12);
-    color: rgba(232, 211, 158, 0.94);
-
-    font-family: "MerriweatherSans", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-    font-size: 0.62rem;
-    font-weight: 700;
-    letter-spacing: 0.13em;
-    text-transform: uppercase;
-
-    cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
-    touch-action: manipulation;
-  }
-
   .mobile-tool-list {
+    position: relative;
+    z-index: 1;
+
     width: min(100%, 25rem);
     margin: 0.65rem auto 0;
-    padding: 0 0.25rem;
+    padding: 0 0.25rem 0.45rem;
 
     list-style: none;
 
     overflow-y: auto;
     overflow-x: hidden;
+
+    scrollbar-width: none;
+    overscroll-behavior: contain;
+  }
+
+  .mobile-tool-list::before,
+  .mobile-tool-list::after {
+    content: "";
+    position: sticky;
+    left: 0;
+    right: 0;
+    z-index: 3;
+
+    display: block;
+    width: 100%;
+    height: 2.15rem;
+
+    pointer-events: none;
+
+    opacity: 0;
+    transition: opacity 0.18s ease;
+  }
+
+  .mobile-tool-list::before {
+    top: 0;
+    margin-bottom: -2.15rem;
+
+    background: linear-gradient(
+      180deg,
+      rgba(5, 6, 10, 0.88),
+      rgba(5, 6, 10, 0)
+    );
+  }
+
+  .mobile-tool-list::after {
+    bottom: -0.5rem;
+    height: 2.75rem;
+    margin-top: -2.75rem;
+
+    background: linear-gradient(
+      0deg,
+      rgba(5, 6, 10, 0.94) 0%,
+      rgba(5, 6, 10, 0.82) 28%,
+      rgba(5, 6, 10, 0.42) 68%,
+      rgba(5, 6, 10, 0) 100%
+    );
+  }
+
+  .mobile-tool-panel.can-scroll-up .mobile-tool-list::before {
+    opacity: 1;
+  }
+
+  .mobile-tool-panel.can-scroll-down .mobile-tool-list::after {
+    opacity: 1;
+  }
+  
+  .mobile-tool-list::-webkit-scrollbar {
+    display: none;
   }
 
   .mobile-tool-list li {

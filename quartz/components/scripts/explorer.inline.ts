@@ -215,14 +215,24 @@ function createFolderNode(
   drillButton.setAttribute("aria-label", getExplorerI18n().openFolder(node.displayName))
   drillButton.appendChild(createChevronSvg())
 
+  const pressHandler = (event: PointerEvent) => {
+    event.stopPropagation()
+    drillButton.classList.add("is-pressed")
+  }
+
   const drillHandler = (event: MouseEvent) => {
     event.preventDefault()
     event.stopPropagation()
     drillInto(folderSlug)
   }
 
+  drillButton.addEventListener("pointerdown", pressHandler)
   drillButton.addEventListener("click", drillHandler)
-  window.addCleanup(() => drillButton.removeEventListener("click", drillHandler))
+
+  window.addCleanup(() => {
+    drillButton.removeEventListener("pointerdown", pressHandler)
+    drillButton.removeEventListener("click", drillHandler)
+  })
 
   row.append(drillButton, title)
   li.appendChild(row)

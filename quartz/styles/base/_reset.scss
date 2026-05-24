@@ -58,3 +58,18 @@ html.device-mobile #quartz-body {
   overflow: visible;
   scroll-behavior: smooth;
 }
+
+html.device-mobile {
+  -webkit-tap-highlight-color: transparent;
+}
+
+html.device-mobile button,
+html.device-mobile a,
+html.device-mobile input,
+html.device-mobile textarea,
+html.device-mobile select,
+html.device-mobile summary,
+html.device-mobile [role="button"],
+html.device-mobile [tabindex] {
+  -webkit-tap-highlight-color: transparent;
+}

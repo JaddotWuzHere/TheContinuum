@@ -889,4 +889,13 @@ html.device-mobile {
   .fx-toggle:hover {
     transform: none;
   }
+
+  .fx-toggle-bg-parallax {
+    display: none;
+  }
+
+  .fx-toggle-rays-mobile-hidden,
+  .fx-toggle-bg-parallax-mobile-hidden {
+    display: none;
+  }
 }

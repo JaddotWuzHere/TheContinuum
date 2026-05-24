@@ -76,12 +76,14 @@ function setupBackgroundFx() {
     }
 
     const shouldReduceMotion = () => root.hasAttribute("data-reduce-motion")
-    const shouldRayParallax = () => !shouldReduceMotion()
+    const isMobile = () => root.classList.contains("device-mobile")
+
+    const shouldRayParallax = () => !isMobile() && !shouldReduceMotion()
     const shouldBgParallax = () =>
-      !shouldReduceMotion() && !root.hasAttribute("data-no-bg-parallax")
-    const shouldFlicker = () => !root.hasAttribute("data-no-flicker")
-    const shouldMove = () => !shouldReduceMotion()
-    const shouldDraw = () => !root.hasAttribute("data-no-rays")
+      !isMobile() && !shouldReduceMotion() && !root.hasAttribute("data-no-bg-parallax")
+    const shouldFlicker = () => !isMobile() && !root.hasAttribute("data-no-flicker")
+    const shouldMove = () => !isMobile() && !shouldReduceMotion()
+    const shouldDraw = () => !isMobile() && !root.hasAttribute("data-no-rays")
 
     const startTime = performance.now() / 1000
     for (let i = 0; i < RAY_COUNT; i++) {

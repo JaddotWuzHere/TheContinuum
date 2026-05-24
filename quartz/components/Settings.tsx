@@ -49,7 +49,7 @@ const SettingsImpl: QuartzComponent = (props: QuartzComponentProps) => {
 
           <button
             type="button"
-            class="fx-toggle"
+            class="fx-toggle fx-toggle-rays-mobile-hidden"
             data-setting="disableFlickering"
             data-state="off"
           >
@@ -61,7 +61,7 @@ const SettingsImpl: QuartzComponent = (props: QuartzComponentProps) => {
 
           <button
             type="button"
-            class="fx-toggle"
+            class="fx-toggle fx-toggle-rays-mobile-hidden"
             data-setting="disableRays"
             data-state="off"
           >
@@ -73,7 +73,7 @@ const SettingsImpl: QuartzComponent = (props: QuartzComponentProps) => {
 
           <button
             type="button"
-            class="fx-toggle"
+            class="fx-toggle fx-toggle-bg-parallax-mobile-hidden"
             data-setting="disableBackgroundParallax"
             data-state="off"
           >

@@ -186,6 +186,12 @@ function setupSettingsToggles() {
   const applyRootFlags = () => {
     Object.values(settingToRootAttr).forEach((attr) => root.removeAttribute(attr))
 
+    if (root.classList.contains("device-mobile")) {
+      root.setAttribute("data-no-rays", "1")
+      root.setAttribute("data-no-flicker", "1")
+      root.setAttribute("data-no-bg-parallax", "1")
+    }
+
     toggles.forEach((btn) => {
       const key = btn.getAttribute("data-setting")
       if (!key) return

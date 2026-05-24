@@ -75,25 +75,31 @@ main,
 html[data-explorer-open="1"] .center,
 html[data-settings-open="1"] .center,
 html[data-search-open="1"] .center,
+html[data-mobile-tool-open] .center,
 html[data-explorer-open="1"] .page-title-visual,
 html[data-settings-open="1"] .page-title-visual,
 html[data-search-open="1"] .page-title-visual,
+html[data-mobile-tool-open] .page-title-visual,
 html[data-explorer-open="1"] .toc,
 html[data-settings-open="1"] .toc,
 html[data-search-open="1"] .toc,
+html[data-mobile-tool-open] .toc,
 html[data-explorer-open="1"] .backlinks,
 html[data-settings-open="1"] .backlinks,
 html[data-search-open="1"] .backlinks,
+html[data-mobile-tool-open] .backlinks,
 html[data-explorer-open="1"] .continuum-footer,
 html[data-settings-open="1"] .continuum-footer,
-html[data-search-open="1"] .continuum-footer {
+html[data-search-open="1"] .continuum-footer,
+html[data-mobile-tool-open] .continuum-footer {
   filter: blur(3px) brightness(0.85);
   transform: scale(0.975);
 }
 
 html[data-explorer-open="1"] #parallax-root,
 html[data-settings-open="1"] #parallax-root,
-html[data-search-open="1"] #parallax-root {
+html[data-search-open="1"] #parallax-root,
+html[data-mobile-tool-open] #parallax-root {
   filter: blur(6px) brightness(0.85);
   transform: scale(0.8);
 }
@@ -246,4 +252,17 @@ html[data-reduce-motion] #rays {
     left 22svh,
     left -16svh,
     left 6svh;
+}
+
+html.device-mobile #parallax-root {
+  top: 0;
+  height: 100lvh;
+}
+
+html.device-mobile #parallax-root .layer {
+  top: -3svh;
+  height: 100lvh;
+  aspect-ratio: auto;
+  background-position: top center;
+  background-size: cover;
 }

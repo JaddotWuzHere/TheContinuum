@@ -301,6 +301,10 @@ h6 {
   html.device-mobile article & {
     text-align: center;
   }
+
+  html.device-mobile article &[id] {
+    scroll-margin-top: calc(var(--mobile-utility-h, 3.25rem) + 1.75rem);
+  }
 }
 
 .article-title {
