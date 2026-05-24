@@ -6,6 +6,10 @@ export default {
     description: "未提供描述",
   },
 
+  common: {
+    close: "关闭",
+  },
+
   components: {
     backlinks: {
       title: "参考条目",
@@ -20,7 +24,6 @@ export default {
     search: {
       title: "检索",
       searchBarPlaceholder: "输入词条",
-      returnButton: "返回",
       beginSearchingTitle: "开始检索。",
       beginSearchingText: "输入词条以检索档案记录。",
       noMatchTitle: "未找到匹配记录。",
@@ -32,6 +35,10 @@ export default {
 
     tableOfContents: {
       title: "页面提纲",
+    },
+
+    mobileUtilityBar: {
+      ariaLabel: "页面工具",
     },
 
     settings: {

@@ -214,6 +214,10 @@ body[data-slug="404"] .page-footer .page-title-logo-frame {
 body[data-slug="404"] .page-footer .page-title-logo {
   margin: 0 auto;
 }
+
+html.device-mobile .page-title {
+  display: none;
+}
 `
 
 export default (() => PageTitle) satisfies QuartzComponentConstructor

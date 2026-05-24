@@ -4,6 +4,10 @@ export interface Translation {
     description: string
   }
 
+  common: {
+    close: string
+  }
+
   components: {
     backlinks: {
       title: string
@@ -18,7 +22,6 @@ export interface Translation {
     search: {
       title: string
       searchBarPlaceholder: string
-      returnButton: string
       beginSearchingTitle: string
       beginSearchingText: string
       noMatchTitle: string
@@ -30,6 +33,10 @@ export interface Translation {
 
     tableOfContents: {
       title: string
+    }
+
+    mobileUtilityBar: {
+      ariaLabel: string
     }
 
     settings: {

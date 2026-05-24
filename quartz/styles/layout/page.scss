@@ -8,7 +8,7 @@
   & article {
     & > h1 {
       font-size: 2rem;
-    } 
+    }
 
     & li > * {
       margin-top: 0;
@@ -31,7 +31,7 @@
     padding-right: $desktopRightSafeGutter;
     box-sizing: border-box;
 
-    @media all and ($mobile) {
+    html.device-mobile & {
       grid-template-columns: minmax(0, 1fr);
       grid-template-rows: auto auto auto;
       grid-template-areas:
@@ -42,6 +42,16 @@
       row-gap: 0;
       padding-inline: 1rem;
       margin: 0 auto;
+    }
+
+    html.device-desktop.viewport-compact & {
+      padding-left: clamp(2.5rem, 8vw, $desktopLeftSafeGutter);
+      padding-right: clamp(1.25rem, 4vw, $desktopRightSafeGutter);
+    }
+
+    html.device-desktop.viewport-narrow & {
+      padding-left: 2.5rem;
+      padding-right: 1.25rem;
     }
 
     & .sidebar {
@@ -59,7 +69,7 @@
       grid-area: grid-sidebar-left;
       flex-direction: column;
 
-      @media all and ($mobile) {
+      html.device-mobile & {
         grid-area: grid-center;
         position: static;
         display: block;
@@ -68,11 +78,14 @@
         margin: 0;
         overflow: visible;
         pointer-events: none;
-      }
 
-      @media all and ($mobile) {
         & > * {
           pointer-events: auto;
+        }
+
+        & > .toc,
+        & > .backlinks {
+          display: none;
         }
       }
     }
@@ -82,12 +95,9 @@
       margin-right: 0;
       flex-direction: column;
 
-      @media all and ($mobile) {
+      html.device-mobile & {
         margin-left: inherit;
         margin-right: inherit;
-      }
-
-      @media all and ($mobile) {
         position: initial;
         height: unset;
         width: 100%;
@@ -114,7 +124,7 @@
       grid-area: grid-header;
       margin: $topSpacing 0 0 0;
 
-      @media all and ($mobile) {
+      html.device-mobile & {
         margin-top: 0;
         padding: 0;
       }
@@ -136,7 +146,7 @@
       margin-right: auto;
     }
 
-    @media all and ($mobile) {
+    html.device-mobile & {
       & .page-header,
       & .center,
       & footer {
@@ -145,15 +155,24 @@
         margin-left: auto;
         margin-right: auto;
         box-sizing: border-box;
-        padding-inline: clamp(2.6rem, 5vw, 3.4rem);
+        padding-inline: clamp(1rem, 4vw, 1.8rem);
       }
 
       & .page-header {
         margin-top: 2rem;
+        padding-top: 0;
       }
 
       & .page-footer {
         margin-top: 2rem;
+      }
+    }
+
+    html.device-desktop.viewport-narrow & {
+      & .page-header,
+      & .center,
+      & footer {
+        min-width: 0;
       }
     }
 

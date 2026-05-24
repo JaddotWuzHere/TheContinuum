@@ -22,7 +22,8 @@ export default ((userOpts?: Partial<SearchOptions>) => {
     localeFromSlug(fileData.slug ?? "/en/")
 
   const locale = toI18nLocale(lang as "en" | "zh" | "fr" | "ja")
-  const t = i18n(locale).components.search
+  const localeText = i18n(locale)
+  const t = localeText.components.search
 
     return (
       <div class={classNames(displayClass, "search")}>
@@ -43,10 +44,10 @@ export default ((userOpts?: Partial<SearchOptions>) => {
               <button
                 class="search-close-button"
                 type="button"
-                aria-label={t.returnButton}
+                aria-label={localeText.common.close}
               >
                 <span class="search-close-button-icon" aria-hidden="true">↶</span>
-                <span class="search-close-button-label">{t.returnButton}</span>
+                <span class="search-close-button-label">{localeText.common.close}</span>
               </button>
             </div>
 

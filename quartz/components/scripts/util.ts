@@ -211,20 +211,14 @@ function shouldKeepPageScrollLocked() {
   )
 }
 
+function isMobileDeviceMode() {
+  return document.documentElement.classList.contains("device-mobile")
+}
+
 function applySoftScrollLock() {
   const html = document.documentElement
 
   html.setAttribute("data-page-scroll-locked", "1")
-
-  /*
-    Do NOT set html/body overflow: hidden here.
-
-    Changing overflow on the document while scrolled changes how sticky
-    sidebar elements are resolved, which makes the left sidebar visually
-    jump back to the top while panels are open.
-
-    Scroll prevention is handled by the wheel/touch/key guards below.
-  */
 }
 
 function clearSoftScrollLock() {

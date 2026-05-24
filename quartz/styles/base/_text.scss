@@ -278,6 +278,16 @@ h6 {
   line-height: 1.15;
   letter-spacing: 0.01em;
   position: relative;
+
+  html.device-mobile article & {
+    text-align: center;
+  }
+}
+
+.article-title {
+  html.device-mobile & {
+    text-align: center;
+  }
 }
 
 h1 {

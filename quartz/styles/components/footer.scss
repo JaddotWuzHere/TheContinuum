@@ -65,3 +65,56 @@ footer {
   opacity: 0.75;
   letter-spacing: 0.08em;
 }
+
+/* ================================
+   Mobile Footer Logo
+   ================================ */
+
+.continuum-footer-logo-link {
+  text-decoration: none;
+}
+
+.continuum-footer-logo-frame {
+  display: block;
+  width: max-content;
+  max-width: 100%;
+  margin: 0 auto;
+  overflow: visible;
+}
+
+.continuum-footer-logo {
+  display: block;
+  width: min(19rem, 78vw);
+  height: auto;
+  margin: 0 auto 1.35rem;
+  border-radius: 0;
+
+  filter:
+    drop-shadow(0 0 10px rgba(240, 210, 140, 0.12))
+    drop-shadow(0 0 22px rgba(240, 210, 140, 0.06));
+}
+
+html.device-mobile {
+  .continuum-footer {
+    grid-area: grid-footer;
+    margin-top: 3rem;
+    margin-bottom: calc(var(--mobile-drawer-handle-h, 3.65rem) + 2rem);
+    padding-inline: 1rem;
+    text-align: center;
+    opacity: 1;
+  }
+
+  .continuum-footer-inner {
+    width: min(100%, 24rem);
+    margin-inline: auto;
+  }
+
+  .continuum-footer-title {
+    font-size: 0.78rem;
+    letter-spacing: 0.16em;
+  }
+
+  .continuum-footer-meta {
+    font-size: 0.7rem;
+  }
+}

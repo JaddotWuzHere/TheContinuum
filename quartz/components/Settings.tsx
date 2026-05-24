@@ -29,10 +29,9 @@ const SettingsImpl: QuartzComponent = (props: QuartzComponentProps) => {
   return (
     <aside class="settings-panel" aria-label={t.panelTitle}>
       <div class="settings-inner">
-        <header class="settings-header">
-          <h2 class="settings-title">{t.panelTitle}</h2>
-        </header>
-
+      <header class="settings-header">
+        <h2 class="settings-title">{t.panelTitle}</h2>
+      </header>
         <section class="settings-section settings-section-performance">
           <h3 class="settings-section-title">{t.performanceSection}</h3>
 

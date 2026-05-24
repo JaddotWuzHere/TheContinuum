@@ -112,7 +112,7 @@ export function renderPage(
   const locale = toI18nLocale(lang as "en" | "zh" | "fr" | "ja")
   const direction = i18n(locale).direction ?? "ltr"
   const doc = (
-    <html lang={lang} dir={direction}>
+    <html lang={lang} dir={direction} class="device-desktop">
       <Head {...componentData} />
       <body data-slug={slug}>
         <div id="quartz-root" class="page">

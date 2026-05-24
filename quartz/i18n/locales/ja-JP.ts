@@ -6,6 +6,10 @@ export default {
     description: "説明はありません",
   },
 
+  common: {
+    close: "閉じる",
+  },
+
   components: {
     backlinks: {
       title: "参考項目",
@@ -20,7 +24,6 @@ export default {
     search: {
       title: "検索",
       searchBarPlaceholder: "語句を入力",
-      returnButton: "戻る",
       beginSearchingTitle: "検索を開始。",
       beginSearchingText: "記録を検索する語句を入力してください。",
       noMatchTitle: "一致する記録はありません。",
@@ -32,6 +35,10 @@ export default {
 
     tableOfContents: {
       title: "ページ概要",
+    },
+
+    mobileUtilityBar: {
+      ariaLabel: "ページ補助",
     },
 
     settings: {

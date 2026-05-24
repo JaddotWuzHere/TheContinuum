@@ -6,6 +6,10 @@ export default {
     description: "No description provided",
   },
 
+  common: {
+    close: "Close",
+  },
+
   components: {
     backlinks: {
       title: "References",
@@ -20,7 +24,6 @@ export default {
     search: {
       title: "Search",
       searchBarPlaceholder: "Enter a term",
-      returnButton: "Return",
       beginSearchingTitle: "Begin Searching.",
       beginSearchingText: "Enter a term to search for records.",
       noMatchTitle: "No matching record.",
@@ -32,6 +35,10 @@ export default {
 
     tableOfContents: {
       title: "Page Outline",
+    },
+
+    mobileUtilityBar: {
+      ariaLabel: "Page utilities",
     },
 
     settings: {

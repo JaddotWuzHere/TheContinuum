@@ -11,34 +11,10 @@ function setupSettingsDrawer() {
   let handle = document.querySelector<HTMLButtonElement>(".continuum-settings-handle")
   let scrim = document.querySelector<HTMLDivElement>(".continuum-settings-scrim")
 
-  const open = () => {
-    root.setAttribute("data-settings-open", "1")
-    lockPageScroll()
-    try {
-      localStorage.setItem(KEY, "open")
-    } catch {}
-  }
-
-  const close = () => {
-    root.removeAttribute("data-settings-open")
-    unlockPageScroll()
-    try {
-      localStorage.setItem(KEY, "closed")
-    } catch {}
-  }
-
-  const toggle = () => {
-    if (root.hasAttribute("data-settings-open")) close()
-    else open()
-  }
-
   if (!handle) {
     handle = document.createElement("button")
     handle.type = "button"
     handle.className = "continuum-settings-handle"
-    const t = getSettingsI18n()
-    handle.setAttribute("aria-label", t.handleLabel)
-    handle.innerHTML = `<span class="label">${t.handleLabel}</span>`
     document.body.appendChild(handle)
   }
 
@@ -49,21 +25,63 @@ function setupSettingsDrawer() {
     document.body.appendChild(scrim)
   }
 
+  const renderHandle = () => {
+    const t = getSettingsI18n()
+    const common = getCommonI18n()
+    const isOpen = root.hasAttribute("data-settings-open")
+    const isMobile = root.classList.contains("device-mobile")
+    const showCloseLabel = isOpen && isMobile
+
+    const label = showCloseLabel ? common.close : t.handleLabel
+    const aria = isOpen ? common.close : t.handleLabel
+
+    handle.setAttribute("aria-label", aria)
+    handle.innerHTML = `<span class="label">${label}</span>`
+  }
+
+  const closeExplorerIfOpen = () => {
+    if (!root.hasAttribute("data-explorer-open")) return
+
+    root.removeAttribute("data-explorer-open")
+    try {
+      localStorage.setItem("continuum-explorer-drawer", "closed")
+    } catch {}
+  }
+
+  const open = () => {
+    closeExplorerIfOpen()
+    root.setAttribute("data-settings-open", "1")
+    lockPageScroll()
+    try {
+      localStorage.setItem(KEY, "open")
+    } catch {}
+    renderHandle()
+  }
+
+  const close = () => {
+    root.removeAttribute("data-settings-open")
+
+    try {
+      localStorage.setItem(KEY, "closed")
+    } catch {}
+
+    renderHandle()
+
+    window.setTimeout(() => {
+      unlockPageScroll()
+    }, 680)
+  }
+
+  const toggle = () => {
+    if (root.hasAttribute("data-settings-open")) close()
+    else open()
+  }
+
+  renderHandle()
+
   if (!(handle as any)._settingsBound) {
     ;(handle as any)._settingsBound = true
-
-    handle.addEventListener("click", () => {
-      if (root.hasAttribute("data-explorer-open")) {
-        root.removeAttribute("data-explorer-open")
-        unlockPageScroll()
-        try {
-          localStorage.setItem("continuum-explorer-drawer", "closed")
-        } catch {}
-        return
-      }
-
-      toggle()
-    })
+    handle.addEventListener("click", toggle)
   }
 
   if (!(scrim as any)._settingsBound) {
@@ -112,6 +130,11 @@ function setupSettingsDrawer() {
 function getSettingsI18n() {
   const lang = localeFromSlug(window.location.pathname)
   return i18n(toI18nLocale(lang)).components.settings
+}
+
+function getCommonI18n() {
+  const lang = localeFromSlug(window.location.pathname)
+  return i18n(toI18nLocale(lang)).common
 }
 
 function setupSettingsToggles() {

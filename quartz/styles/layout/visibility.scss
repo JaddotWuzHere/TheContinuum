@@ -1,5 +1,3 @@
-@use "../foundation/variables.scss" as *;
-
 .flex-component {
   display: flex;
 }
@@ -10,14 +8,6 @@
   &.flex-component {
     display: none;
   }
-
-  @media all and ($desktop) {
-    display: initial;
-
-    &.flex-component {
-      display: flex;
-    }
-  }
 }
 
 .mobile-only {
@@ -26,8 +16,20 @@
   &.flex-component {
     display: none;
   }
+}
 
-  @media all and ($mobile) {
+html.device-desktop {
+  .desktop-only {
+    display: initial;
+
+    &.flex-component {
+      display: flex;
+    }
+  }
+}
+
+html.device-mobile {
+  .mobile-only {
     display: initial;
 
     &.flex-component {

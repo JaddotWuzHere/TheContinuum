@@ -33,6 +33,58 @@ export default (() => {
     const path = url.pathname as FullSlug
     const baseDir = fileData.slug === "404" ? path : pathToRoot(fileData.slug!)
     const iconPath = joinSegments(baseDir, "static/icon.png")
+
+    const deviceModeScript = `
+    (function () {
+      var root = document.documentElement;
+
+      function hasMedia(query) {
+        return typeof window.matchMedia === "function" && window.matchMedia(query).matches;
+      }
+
+      function isMobileLikeDevice() {
+        var ua = navigator.userAgent || "";
+        var maxTouchPoints = navigator.maxTouchPoints || 0;
+
+        var mobileUA = /Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua);
+        var iPadLike = /iPad/i.test(ua) || (/Macintosh/i.test(ua) && maxTouchPoints > 1);
+
+        var coarsePointer = hasMedia("(pointer: coarse)");
+        var finePointer = hasMedia("(pointer: fine)");
+        var noHover = hasMedia("(hover: none)");
+        var hover = hasMedia("(hover: hover)");
+
+        var touchCapable = maxTouchPoints > 0;
+        var smallestScreenSide = Math.min(screen.width || window.innerWidth, screen.height || window.innerHeight);
+        var physicallySmallScreen = smallestScreenSide <= 900;
+
+        if (mobileUA || iPadLike) return true;
+
+        if ((coarsePointer || touchCapable) && noHover) return true;
+
+        if ((coarsePointer || touchCapable) && !finePointer && !hover && physicallySmallScreen) {
+          return true;
+        }
+
+        return false;
+      }
+
+      function applyDeviceMode() {
+        var mobile = isMobileLikeDevice();
+
+        root.classList.toggle("device-mobile", mobile);
+        root.classList.toggle("device-desktop", !mobile);
+
+        root.classList.toggle("viewport-compact", window.innerWidth < 1200);
+        root.classList.toggle("viewport-narrow", window.innerWidth < 900);
+      }
+
+      applyDeviceMode();
+
+      window.addEventListener("resize", applyDeviceMode, { passive: true });
+      window.addEventListener("orientationchange", applyDeviceMode, { passive: true });
+    })();
+    `
     
 
     // Url of current page
@@ -51,6 +103,12 @@ export default (() => {
           // sets <html lang="..."> very early since we can’t touch the outer <html> here
           dangerouslySetInnerHTML={{
             __html: `document.documentElement.setAttribute('lang','${htmlLang}');`,
+          }}
+        />
+
+        <script
+          dangerouslySetInnerHTML={{
+            __html: deviceModeScript,
           }}
         />
 

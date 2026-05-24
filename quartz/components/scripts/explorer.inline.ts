@@ -46,6 +46,11 @@ function getExplorerI18n() {
   return i18n(toI18nLocale(lang)).components.explorer
 }
 
+function getCommonI18n() {
+  const lang = localeFromSlug(window.location.pathname)
+  return i18n(toI18nLocale(lang)).common
+}
+
 function collectStaggerRows(folderOuter: HTMLElement): HTMLElement[] {
   const out: HTMLElement[] = []
   const ul = folderOuter.querySelector(":scope > ul") as HTMLUListElement | null
@@ -112,9 +117,6 @@ function setupExplorerDrawer() {
     document.body.appendChild(handle)
   }
 
-  handle.setAttribute("aria-label", t.toggleLabel)
-  handle.innerHTML = `<span class="label">${t.title}</span>`
-
   let scrim = document.querySelector<HTMLElement>(".continuum-explorer-scrim")
   if (!scrim) {
     scrim = document.createElement("div")
@@ -136,45 +138,87 @@ function setupExplorerDrawer() {
     document.body.appendChild(newestExplorer)
   }
 
+  const renderHandle = () => {
+    const common = getCommonI18n()
+    const isOpen = root.hasAttribute("data-explorer-open")
+    const isMobile = root.classList.contains("device-mobile")
+    const showCloseLabel = isOpen && isMobile
+
+    const label = showCloseLabel ? common.close : t.title
+    const aria = isOpen ? common.close : t.toggleLabel
+
+    handle.setAttribute("aria-label", aria)
+    handle.innerHTML = `<span class="label">${label}</span>`
+  }
+
+  const closeSettingsIfOpen = () => {
+    if (!root.hasAttribute("data-settings-open")) return
+
+    root.removeAttribute("data-settings-open")
+    try {
+      localStorage.setItem("continuum-settings-drawer", "closed")
+    } catch {}
+  }
+
   const open = () => {
+    closeSettingsIfOpen()
     root.setAttribute("data-explorer-open", "1")
     lockPageScroll()
     localStorage.setItem(KEY, "open")
+    renderHandle()
   }
+
   const close = () => {
     root.removeAttribute("data-explorer-open")
-    unlockPageScroll()
-    localStorage.setItem(KEY, "closed")
+
+    try {
+      localStorage.setItem(KEY, "closed")
+    } catch {}
+
+    renderHandle()
+
+    window.setTimeout(() => {
+      unlockPageScroll()
+    }, 680)
   }
+
   const toggle = () => {
     root.hasAttribute("data-explorer-open") ? close() : open()
   }
 
-  handle.addEventListener("click", () => {
-    const root = document.documentElement
+  renderHandle()
 
-    // If SETTINGS is open, treat this click as "click outside":
-    // close settings, do NOT open explorer yet.
-    if (root.hasAttribute("data-settings-open")) {
-      root.removeAttribute("data-settings-open")
-      try {
-        localStorage.setItem("continuum-settings-drawer", "closed")
-      } catch {
-        // ignore storage errors
-      }
-      return
+  if (!(handle as any)._explorerBound) {
+    ;(handle as any)._explorerBound = true
+    handle.addEventListener("click", toggle)
+  }
+
+  if (!(scrim as any)._explorerBound) {
+    ;(scrim as any)._explorerBound = true
+    scrim.addEventListener("click", close)
+  }
+
+  if (!(document as any)._explorerEscBound) {
+    ;(document as any)._explorerEscBound = true
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") close()
+    })
+  }
+
+  if (!(document as any)._explorerPrenavBound) {
+    ;(document as any)._explorerPrenavBound = true
+    document.addEventListener("prenav", () => close())
+  }
+
+  try {
+    if (localStorage.getItem(KEY) === "open") {
+      open()
+    } else {
+      close()
     }
-
-    // Otherwise, normal toggle
-    toggle()
-  })
-  scrim.addEventListener("click", close)
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") close()
-  })
-
-  if (localStorage.getItem(KEY) === "open") open()
-  document.addEventListener("prenav", () => close())
+  } catch {
+    close()
+  }
 }
 
 function toggleFolder(evt: MouseEvent) {

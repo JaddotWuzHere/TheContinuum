@@ -12,6 +12,7 @@ import MobileOnly from "./MobileOnly"
 import Breadcrumbs from "./Breadcrumbs"
 import ConditionalRender from "./ConditionalRender"
 import Settings from "./Settings"
+import MobileUtilityBar from "./MobileUtilityBar"
 
 export {
   ArticleTitle,
@@ -28,4 +29,5 @@ export {
   Breadcrumbs,
   ConditionalRender,
   Settings,
+  MobileUtilityBar,
 }
