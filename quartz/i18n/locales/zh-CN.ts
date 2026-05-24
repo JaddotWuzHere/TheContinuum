@@ -18,9 +18,15 @@ export default {
 
     explorer: {
       title: "索引",
-      toggleLabel: "切换索引栏",
+      toggleLabel: "切换探索器",
+      folderPathAriaLabel: "档案路径",
+      foldersSection: "目录",
+      pagesSection: "记录",
+      emptyState: "未找到记录。",
+      openFolder: (folderName: string) => `打开${folderName}`,
+      backToFolder: (folderName: string) => `返回${folderName}`,
     },
-
+    
     search: {
       title: "检索",
       searchBarPlaceholder: "输入词条",

@@ -142,7 +142,8 @@ html[lang^="ja"] .continuum-settings-handle .label {
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 
-  padding: .75rem .85rem 1rem;
+  /* Match the Explorer drawer title height on desktop. */
+  padding: 0.7rem 0.9rem 1rem 0.85rem;
 
   transform: translateX(calc(var(--settings-w) - var(--settings-peek)));
   transition: transform 0.8s cubic-bezier(0.22, 0.61, 0.36, 1);
@@ -165,7 +166,8 @@ html[data-settings-open="1"] .settings-panel {
 
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  /* Keeps PERFORMANCE from crowding the big SETTINGS title after moving the title upward. */
+  gap: 1.45rem;
 
   width: calc(100% - var(--settings-peek) - 24px);
   margin-left: auto;
@@ -191,7 +193,7 @@ html[data-settings-open="1"] .settings-panel {
   align-items: flex-end;
 
   padding-inline: .25rem;
-  padding-top: .1rem;
+  padding-top: 0;
   padding-bottom: .3rem;
 
   border-bottom: 1px solid hsl(var(--gold-h) var(--gold-s) 30% / .45);
@@ -202,10 +204,11 @@ html[data-settings-open="1"] .settings-panel {
 
   text-align: right;
 
-  font-family: "EBGaramond", serif;
-  font-weight: 800;
-  font-size: 1.5rem;
-  letter-spacing: .16em;
+  font-family: "Cinzel", "EBGaramond", serif;
+  font-weight: 700;
+  font-size: 1.55rem;
+  line-height: 1.05;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
 
   background-image: linear-gradient(

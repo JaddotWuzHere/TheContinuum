@@ -100,7 +100,7 @@ export default ((userOpts?: Partial<Options>) => {
         </div>
 
         <div id={id} class="explorer-content" role="group">
-          <nav class="explorer-drill-header" aria-label="Explorer folder path"></nav>
+          <nav class="explorer-drill-header" aria-label={i18n(locale).components.explorer.folderPathAriaLabel}></nav>
           <OverflowList class="explorer-ul" />
         </div>
       </div>

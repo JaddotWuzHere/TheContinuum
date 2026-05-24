@@ -12,7 +12,6 @@ export const sharedPageComponents: SharedLayout = {
 
 export const defaultContentPageLayout: PageLayout = {
   beforeBody: [
-    Component.MobileUtilityBar(),
     Component.ConditionalRender({
       component: Component.Breadcrumbs(),
       condition: (page) => page.fileData.slug !== "index",
@@ -20,6 +19,7 @@ export const defaultContentPageLayout: PageLayout = {
     Component.ArticleTitle(),
   ],
   left: [
+    Component.MobileUtilityBar(),
     Component.PageTitle(),
     Component.Explorer(),
     Component.TableOfContents(),

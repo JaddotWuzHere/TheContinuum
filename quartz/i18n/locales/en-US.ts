@@ -19,6 +19,12 @@ export default {
     explorer: {
       title: "Explorer",
       toggleLabel: "Toggle explorer",
+      folderPathAriaLabel: "Archive path",
+      foldersSection: "Directories",
+      pagesSection: "Records",
+      emptyState: "No records found.",
+      openFolder: (folderName: string) => `Open ${folderName}`,
+      backToFolder: (folderName: string) => `Back to ${folderName}`,
     },
 
     search: {

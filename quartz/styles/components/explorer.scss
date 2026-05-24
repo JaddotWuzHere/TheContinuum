@@ -145,7 +145,7 @@ html[lang^="ja"] .continuum-explorer-handle .label {
   width: var(--explorer-w);
   height: 100lvh;
 
-  padding: 0.75rem 0.75rem 1rem;
+  padding: 2.25rem 0.75rem 1rem 0.9rem;
 
   background: var(--explorer-bg);
   border-right: 1px solid var(--explorer-brd);
@@ -174,7 +174,7 @@ html[data-explorer-open="1"] .explorer {
 
 .explorer-header {
   padding-inline: 0.4rem;
-  padding-top: 0.4rem;
+  padding-top: 0;
   padding-bottom: 0.35rem;
 
   display: flex;
@@ -186,10 +186,11 @@ html[data-explorer-open="1"] .explorer {
   margin: 0;
   padding-bottom: 0.3rem;
 
-  font-family: "EBGaramond", serif;
-  font-weight: 800;
-  font-size: 1.35rem;
-  letter-spacing: 0.14em;
+  font-family: "Cinzel", "EBGaramond", serif;
+  font-weight: 700;
+  font-size: 1.55rem;
+  line-height: 1.05;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
 
   background-image: linear-gradient(
@@ -553,8 +554,10 @@ html[data-explorer-open="1"] .explorer {
   padding: 0.35rem 0.22rem;
 
   font-family: "EBGaramond", serif;
-  font-size: 1rem;
+  font-size: 1.1rem;
   font-weight: 600;
+  line-height: 1.26;
+  letter-spacing: 0.01em;
 
   color: rgba(210, 210, 230, 0.62);
 }
@@ -1045,6 +1048,14 @@ html:lang(fr) .explorer .explorer-search-row .search-button p {
   letter-spacing: 0.02em;
 }
 
+html:lang(fr) .explorer .explorer-empty-state {
+  font-family: "EBGaramond", serif;
+  font-size: 1.02rem;
+  font-weight: 600;
+  line-height: 1.22;
+  letter-spacing: 0.01em;
+}
+
 /* ---- Chinese ---- */
 
 html[lang|="zh"] .explorer-title {
@@ -1096,6 +1107,14 @@ html[lang|="zh"] .explorer .explorer-search-row .search-button p {
   font-size: 1.12rem;
   font-weight: 500;
   letter-spacing: 0.04em;
+}
+
+html[lang|="zh"] .explorer .explorer-empty-state {
+  font-family: "LXGWWenKai", "EBGaramond", serif;
+  font-size: 1.14rem;
+  font-weight: 500;
+  line-height: 1.24;
+  letter-spacing: 0.035em;
 }
 
 html[lang|="zh"] .explorer .explorer-drill-crumb {
@@ -1154,6 +1173,14 @@ html[lang|="ja"] .explorer .explorer-search-row .search-button p {
   font-size: 1.08rem;
   font-weight: 500;
   letter-spacing: 0.035em;
+}
+
+html[lang|="ja"] .explorer .explorer-empty-state {
+  font-family: "LXGWWenKai", "EBGaramond", serif;
+  font-size: 1.09rem;
+  font-weight: 500;
+  line-height: 1.24;
+  letter-spacing: 0.03em;
 }
 
 html[lang|="ja"] .explorer .explorer-drill-crumb {

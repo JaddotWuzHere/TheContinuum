@@ -17,6 +17,12 @@ export interface Translation {
     explorer: {
       title: string
       toggleLabel: string
+      folderPathAriaLabel: string
+      foldersSection: string
+      pagesSection: string
+      emptyState: string
+      openFolder: (folderName: string) => string
+      backToFolder: (folderName: string) => string
     }
 
     search: {

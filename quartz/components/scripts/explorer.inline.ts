@@ -147,7 +147,7 @@ function createSectionLabel(label: string): HTMLLIElement {
 function createEmptyState(): HTMLLIElement {
   const li = document.createElement("li")
   li.className = "explorer-empty-state"
-  li.textContent = "No entries here yet."
+  li.textContent = getExplorerI18n().emptyState
   return li
 }
 
@@ -212,7 +212,7 @@ function createFolderNode(
   const drillButton = document.createElement("button")
   drillButton.className = "folder-drill-toggle"
   drillButton.type = "button"
-  drillButton.setAttribute("aria-label", `Open ${node.displayName}`)
+  drillButton.setAttribute("aria-label", getExplorerI18n().openFolder(node.displayName))
   drillButton.appendChild(createChevronSvg())
 
   const drillHandler = (event: MouseEvent) => {
@@ -313,11 +313,18 @@ function renderBreadcrumbs(
     const backButton = document.createElement("button")
     backButton.type = "button"
     backButton.className = "explorer-drill-back"
-    backButton.setAttribute("aria-label", `Back to ${parent.displayName}`)
-    backButton.innerHTML = `
-      <span class="explorer-drill-back-arrow">←</span>
-      <span class="explorer-drill-back-label">Back to ${parent.displayName}</span>
-    `
+    const backLabel = getExplorerI18n().backToFolder(parent.displayName)
+    backButton.setAttribute("aria-label", backLabel)
+
+    const backArrow = document.createElement("span")
+    backArrow.className = "explorer-drill-back-arrow"
+    backArrow.textContent = "←"
+
+    const backText = document.createElement("span")
+    backText.className = "explorer-drill-back-label"
+    backText.textContent = backLabel
+
+    backButton.append(backArrow, backText)
 
     const backHandler = () => drillInto(parent.slug as FullSlug)
     backButton.addEventListener("click", backHandler)
@@ -352,7 +359,7 @@ function renderDrillPane(
   const pages = folderNode.children.filter((child) => !child.isFolder)
 
   if (folders.length > 0) {
-    explorerUl.appendChild(createSectionLabel("Folders"))
+    explorerUl.appendChild(createSectionLabel(getExplorerI18n().foldersSection))
 
     for (const folder of folders) {
       explorerUl.appendChild(createFolderNode(currentSlug, folder, drillInto))
@@ -360,7 +367,7 @@ function renderDrillPane(
   }
 
   if (pages.length > 0) {
-    explorerUl.appendChild(createSectionLabel("Pages"))
+    explorerUl.appendChild(createSectionLabel(getExplorerI18n().pagesSection))
 
     for (const page of pages) {
       explorerUl.appendChild(createFileNode(currentSlug, page))

@@ -12,14 +12,19 @@ html.device-mobile {
 
   .mobile-utility-shell {
     display: block;
-  }
-
-  .mobile-utility-bar {
     position: fixed;
     top: var(--mobile-utility-top);
     left: 0;
     right: 0;
     z-index: var(--mobile-utility-z);
+    height: var(--mobile-utility-h);
+    pointer-events: none;
+    isolation: isolate;
+  }
+
+  .mobile-utility-bar {
+    position: relative;
+    z-index: 1;
 
     display: flex;
     align-items: center;
@@ -29,18 +34,20 @@ html.device-mobile {
     padding: 0.42rem 0.72rem;
     box-sizing: border-box;
 
+    opacity: 1;
+
     border-bottom: 1px solid hsl(var(--gold-h) var(--gold-s) 54% / 0.34);
 
     background:
       radial-gradient(
         circle at 50% -35%,
-        hsl(var(--gold-h) var(--gold-s) 58% / 0.16),
+        hsl(var(--gold-h) var(--gold-s) 58% / 0.14),
         transparent 58%
       ),
       linear-gradient(
         180deg,
-        rgba(16, 16, 18, 0.94) 0%,
-        rgba(8, 10, 16, 0.9) 100%
+        rgb(16, 16, 18) 0%,
+        rgb(8, 10, 16) 100%
       );
 
     backdrop-filter: none;
@@ -53,11 +60,16 @@ html.device-mobile {
 
     transform: translateZ(0);
     backface-visibility: hidden;
-    will-change: transform;
+    will-change: filter;
 
     transition:
       filter 0.24s ease,
       opacity 0.24s ease;
+  }
+
+  .mobile-utility-shell .mobile-utility-bar,
+  .mobile-utility-shell .mobile-utility-button {
+    pointer-events: auto;
   }
 
   &[data-explorer-open="1"] .mobile-utility-bar,
@@ -99,7 +111,7 @@ html.device-mobile {
         rgba(255, 255, 255, 0.055),
         rgba(255, 255, 255, 0.018)
       ),
-      hsl(var(--gold-h) var(--gold-s) 18% / 0.1);
+      rgb(20, 18, 14);
 
     position: relative;
 
@@ -115,6 +127,7 @@ html.device-mobile {
     cursor: pointer;
     user-select: none;
     -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
 
     font-family: "EBGaramond", serif;
     font-size: 0.78rem;
@@ -203,10 +216,10 @@ html.device-mobile {
     background:
       linear-gradient(
         180deg,
-        hsl(var(--gold-h) var(--gold-s) 42% / 0.13),
-        hsl(var(--gold-h) var(--gold-s) 24% / 0.08)
+        hsl(var(--gold-h) var(--gold-s) 28% / 0.22),
+        hsl(var(--gold-h) var(--gold-s) 16% / 0.16)
       ),
-      rgba(255, 255, 255, 0.035);
+      rgb(23, 19, 13);
     box-shadow:
       inset 0 1px 0 hsl(var(--gold-h) var(--gold-s) 82% / 0.12),
       0 0 18px hsl(var(--gold-h) var(--gold-s) 42% / 0.11),
@@ -320,7 +333,7 @@ html.device-mobile {
 
     padding: 0.34rem 0.7rem;
 
-    background: rgba(255, 255, 255, 0.035);
+    background: rgb(17, 15, 12);
     color: rgba(232, 211, 158, 0.94);
 
     font-family: "MerriweatherSans", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
@@ -330,6 +343,8 @@ html.device-mobile {
     text-transform: uppercase;
 
     cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
   }
 
   .mobile-tool-list {
@@ -385,5 +400,13 @@ html.device-mobile {
   .mobile-tool-toc-list .depth-5,
   .mobile-tool-toc-list .depth-6 {
     margin-left: 1.55rem;
+  }
+
+  .continuum-explorer-handle,
+  .continuum-settings-handle,
+  .continuum-mobile-close {
+    -webkit-tap-highlight-color: transparent;
+    tap-highlight-color: transparent;
+    touch-action: manipulation;
   }
 }

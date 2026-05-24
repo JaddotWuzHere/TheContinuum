@@ -31,38 +31,30 @@ html.device-mobile[data-page-scroll-locked="1"] body {
 }
 
 /*
-  Mobile scroll shell.
+  Mobile document scrolling.
 
-  This avoids the jittery visualViewport workaround.
-  The document itself stops being the scrolling surface on mobile;
-  #quartz-body becomes the scroll container instead. That keeps fixed
-  mobile UI like the topbar and bottom handles anchored to a stable viewport.
+  Keep the browser viewport as the real scroll surface so native mobile
+  gestures like pull-to-refresh still work.
 */
 html.device-mobile {
-  height: 100%;
-  overflow: hidden;
+  min-height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 html.device-mobile body {
-  position: fixed;
-  inset: 0;
-  width: 100%;
-  height: 100dvh;
-  overflow: hidden;
+  min-height: 100dvh;
+  overflow-x: hidden;
 }
 
 html.device-mobile #quartz-root,
 html.device-mobile .page {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
+  min-height: 100dvh;
+  overflow: visible;
 }
 
 html.device-mobile #quartz-body {
-  height: 100dvh;
-  overflow-y: auto;
-  overflow-x: hidden;
-  overscroll-behavior-y: contain;
-  -webkit-overflow-scrolling: touch;
+  min-height: 100dvh;
+  overflow: visible;
   scroll-behavior: smooth;
 }

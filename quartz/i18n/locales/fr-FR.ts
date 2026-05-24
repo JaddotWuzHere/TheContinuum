@@ -17,8 +17,14 @@ export default {
     },
 
     explorer: {
-      title: "Explorateur",
-      toggleLabel: "Afficher ou masquer l’explorateur",
+      title: "Index",
+      toggleLabel: "Afficher ou masquer l’index",
+      folderPathAriaLabel: "Chemin d’archive",
+      foldersSection: "Répertoires",
+      pagesSection: "Entrées",
+      emptyState: "Aucune entrée trouvée.",
+      openFolder: (folderName: string) => `Ouvrir ${folderName}`,
+      backToFolder: (folderName: string) => `Retour à ${folderName}`,
     },
 
     search: {

@@ -71,13 +71,15 @@
 
       html.device-mobile & {
         grid-area: grid-center;
-        position: static;
+        position: relative;
+        z-index: 13000;
         display: block;
         height: 0;
         padding: 0;
         margin: 0;
         overflow: visible;
         pointer-events: none;
+        isolation: isolate;
 
         & > * {
           pointer-events: auto;

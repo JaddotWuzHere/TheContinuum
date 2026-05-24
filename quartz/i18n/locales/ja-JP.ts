@@ -17,8 +17,14 @@ export default {
     },
 
     explorer: {
-      title: "探索",
-      toggleLabel: "探索欄を切り替える",
+      title: "索引",
+      toggleLabel: "索引を開閉",
+      folderPathAriaLabel: "アーカイブのパス",
+      foldersSection: "ディレクトリ",
+      pagesSection: "記録",
+      emptyState: "記録が見つかりません。",
+      openFolder: (folderName: string) => `${folderName}を開く`,
+      backToFolder: (folderName: string) => `${folderName}へ戻る`,
     },
 
     search: {

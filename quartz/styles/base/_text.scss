@@ -25,6 +25,25 @@ ul,
   }
 }
 
+.katex-display {
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-block: 0.25rem;
+  -webkit-overflow-scrolling: touch;
+}
+
+.katex-display > .katex {
+  display: inline-block;
+  max-width: none;
+  white-space: nowrap;
+}
+
+/* Keep inline math from blowing up the page on very small screens. */
+html.device-mobile .katex:not(.katex-display .katex) {
+  max-width: 100%;
+}
+
 article {
   > mjx-container.MathJax,
   blockquote > div > mjx-container.MathJax {
