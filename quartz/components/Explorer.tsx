@@ -16,10 +16,6 @@ import { concatenateResources } from "../util/resources"
 type OrderEntries = "sort" | "filter" | "map"
 
 export interface Options {
-  title?: string
-  folderDefaultState: "collapsed" | "open"
-  folderClickBehavior: "collapse" | "link"
-  useSavedState: boolean
   sortFn: (a: FileTrieNode, b: FileTrieNode) => number
   filterFn: (node: FileTrieNode) => boolean
   mapFn: (node: FileTrieNode) => void
@@ -27,10 +23,8 @@ export interface Options {
 }
 
 const defaultOptions: Options = {
-  folderDefaultState: "collapsed",
-  folderClickBehavior: "link",
-  useSavedState: true,
   mapFn: (node) => node,
+
   sortFn: (a, b) => {
     if ((!a.isFolder && !b.isFolder) || (a.isFolder && b.isFolder)) {
       return a.displayName.localeCompare(b.displayName, undefined, {
@@ -38,6 +32,7 @@ const defaultOptions: Options = {
         sensitivity: "base",
       })
     }
+
     return !a.isFolder && b.isFolder ? 1 : -1
   },
 
@@ -77,18 +72,18 @@ export default ((userOpts?: Partial<Options>) => {
     const lang = localeFromSlug(fileData?.slug ?? "/en/")
     type I18nLocale = Parameters<typeof i18n>[0]
     const locale = (
-      lang === "zh" ? "zh-CN" :
-      lang === "fr" ? "fr-FR" :
-      lang === "ja" ? "ja-JP" :
-      "en-US"
+      lang === "zh"
+        ? "zh-CN"
+        : lang === "fr"
+          ? "fr-FR"
+          : lang === "ja"
+            ? "ja-JP"
+            : "en-US"
     ) as I18nLocale
 
     return (
       <div
         class={classNames(displayClass, "explorer")}
-        data-behavior={opts.folderClickBehavior}
-        data-collapsed={opts.folderDefaultState}
-        data-savestate={opts.useSavedState}
         data-data-fns={JSON.stringify({
           order: opts.order,
           sortFn: opts.sortFn.toString(),
@@ -104,50 +99,10 @@ export default ((userOpts?: Partial<Options>) => {
           </div>
         </div>
 
-        <div id={id} class="explorer-content" aria-expanded={false} role="group">
+        <div id={id} class="explorer-content" role="group">
+          <nav class="explorer-drill-header" aria-label="Explorer folder path"></nav>
           <OverflowList class="explorer-ul" />
         </div>
-
-        <template id="template-file">
-          <li>
-            <a href="#"></a>
-          </li>
-        </template>
-
-        <template id="template-folder">
-          <li>
-            <div class="folder-container">
-              <button
-                class="folder-toggle"
-                type="button"
-                aria-label="Toggle folder"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="12"
-                  height="12"
-                  viewBox="5 8 14 8"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  class="folder-icon"
-                >
-                  <polyline points="6 9 12 15 18 9"></polyline>
-                </svg>
-              </button>
-              <div>
-                <button class="folder-button">
-                  <span class="folder-title"></span>
-                </button>
-              </div>
-            </div>
-            <div class="folder-outer">
-              <ul class="content"></ul>
-            </div>
-          </li>
-        </template>
       </div>
     )
   }
