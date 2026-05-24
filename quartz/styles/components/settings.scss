@@ -743,7 +743,7 @@ html.device-mobile {
     visibility: hidden;
     pointer-events: none;
   }
-  
+
   .settings-panel {
     top: auto;
     left: 0;
@@ -757,12 +757,13 @@ html.device-mobile {
 
     width: 100vw;
     height: min(
-      calc(82svh - var(--mobile-drawer-handle-h, 3.65rem)),
-      46rem
+      calc(76svh - var(--mobile-drawer-handle-h, 3.65rem)),
+      38rem
     );
 
-    padding: 1rem 1rem calc(var(--mobile-drawer-handle-h, 3.65rem) + 1.2rem);
+    padding: 0;
     box-sizing: border-box;
+
     overflow: hidden;
 
     border-left: none;
@@ -772,15 +773,16 @@ html.device-mobile {
     background:
       radial-gradient(
         circle at 50% 0%,
-        hsl(var(--gold-h) var(--gold-s) 42% / 0.08),
-        transparent 42%
+        hsl(var(--gold-h) var(--gold-s) 42% / 0.1),
+        transparent 44%
       ),
-      rgba(8, 10, 16, 0.94);
+      rgba(8, 10, 16, 0.96);
 
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
 
     transform: translateY(calc(100% + var(--mobile-drawer-handle-h, 3.65rem)));
+
     transition:
       transform 0.62s cubic-bezier(0.16, 1, 0.3, 1);
 
@@ -794,24 +796,51 @@ html.device-mobile {
   }
 
   .settings-inner {
-    width: min(100%, 23rem);
-    max-width: 23rem;
+    width: min(100%, 24rem);
+    max-width: 24rem;
     height: 100%;
-    margin-left: auto;
-    margin-right: auto;
+    min-height: 0;
+
+    margin-inline: auto;
+    padding: 1.05rem 1.1rem 1.35rem;
+
     box-sizing: border-box;
 
     overflow-y: auto;
     overflow-x: hidden;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
 
-    padding-inline: 0.45rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+
+    scrollbar-width: none;
+  }
+
+  .settings-inner::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
+
+  .settings-scroll {
+    flex: 0 0 auto;
+    min-height: 0;
+    overflow: visible;
+
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
   }
 
   .settings-header {
     justify-content: center;
     align-items: center;
+
     padding-inline: 0;
-    padding-bottom: 0.65rem;
+    padding-bottom: 0.7rem;
+
+    border-bottom: 1px solid hsl(var(--gold-h) var(--gold-s) 38% / 0.42);
   }
 
   .settings-title {
@@ -821,15 +850,23 @@ html.device-mobile {
   }
 
   .settings-section {
-    padding-inline: 0.15rem;
+    padding-top: 0.75rem;
+    padding-inline: 0;
+  }
+
+  .settings-section-title {
+    margin-bottom: 0.55rem;
   }
 
   .settings-language-row {
     justify-content: center;
+    width: 100%;
+    margin-top: 0.35rem;
   }
 
   .settings-language-row .lang-switcher,
   .settings-language-row > * {
+    width: 100%;
     margin-left: 0;
     margin-right: 0;
   }
@@ -837,10 +874,12 @@ html.device-mobile {
   .fx-toggle {
     justify-content: space-between;
     gap: 1rem;
+
     width: 100%;
     box-sizing: border-box;
-    padding-block: 0.42rem;
-    padding-inline: 0.35rem;
+
+    padding-block: 0.48rem;
+    padding-inline: 0.45rem;
   }
 
   .fx-toggle-label {

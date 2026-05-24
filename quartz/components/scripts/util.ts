@@ -68,9 +68,12 @@ function isAllowedNestedScrollTarget(el: Element | null): boolean {
   return Boolean(
     el.closest(".explorer-content") ||
       el.closest(".settings-content") ||
+      el.closest(".settings-panel") ||
+      el.closest(".settings-inner") ||
+      el.closest(".settings-scroll") ||
+      el.closest(".lang-menu") ||
       el.closest(".results-container") ||
       el.closest(".preview-scroll") ||
-      el.closest(".settings-scroll") ||
       el.closest(".toc-content") ||
       el.closest(".backlinks ul"),
   )
@@ -115,6 +118,8 @@ function getScrollableAncestor(target: EventTarget | null): HTMLElement | null {
   const scrollableSelectors = [
     ".results-container",
     ".preview-scroll",
+    ".lang-menu",
+    ".settings-inner",
     ".settings-scroll",
     ".explorer-content",
     ".settings-content",
