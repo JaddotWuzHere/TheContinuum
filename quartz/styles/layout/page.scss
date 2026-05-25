@@ -48,7 +48,7 @@
       padding-left: clamp(2.5rem, 8vw, $desktopLeftSafeGutter);
       padding-right: clamp(1.25rem, 4vw, $desktopRightSafeGutter);
     }
-            
+
     html.device-desktop.viewport-narrow & {
       grid-template-columns: minmax(0, 1fr);
       grid-template-rows: auto auto auto;
@@ -218,25 +218,6 @@
 
     & footer {
       margin-left: 0;
-    }
-  }
-}
-
-.table-container {
-  overflow-x: auto;
-
-  & > table {
-    margin: 1rem;
-    padding: 1.5rem;
-    border-collapse: collapse;
-
-    th,
-    td {
-      min-width: 75px;
-    }
-
-    & > * {
-      line-height: 2rem;
     }
   }
 }

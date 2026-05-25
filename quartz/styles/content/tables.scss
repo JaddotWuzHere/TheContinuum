@@ -5,7 +5,107 @@ table {
 
 table th,
 table td {
-  padding: .5rem 1rem;
+  padding: 0.5rem 1rem;
   text-align: left;
   overflow-wrap: break-word;
+  vertical-align: top;
+}
+
+.table-container {
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+
+  & > table {
+    margin: 1rem;
+    padding: 1.5rem;
+    border-collapse: collapse;
+
+    th,
+    td {
+      min-width: 75px;
+    }
+
+    & > * {
+      line-height: 2rem;
+    }
+  }
+}
+
+html.device-mobile {
+  .table-container {
+    width: calc(100% + 1rem);
+    max-width: calc(100% + 1rem);
+    margin: 1.25rem -0.5rem;
+    padding: 0 0.5rem 0.45rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+    border-radius: 0.85rem;
+    scrollbar-width: thin;
+  }
+
+  .table-container > table {
+    width: max-content;
+    min-width: 100%;
+    margin: 0;
+    padding: 0;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 0.95rem;
+    line-height: 1.45;
+    background:
+      linear-gradient(
+        180deg,
+        hsl(var(--light-h) var(--light-s) var(--light-l) / 0.08),
+        hsl(var(--light-h) var(--light-s) var(--light-l) / 0.025)
+      );
+    border: 1px solid hsl(var(--gold-h) 30% 52% / 0.28);
+    border-radius: 0.85rem;
+    overflow: hidden;
+  }
+
+  .table-container th,
+  .table-container td {
+    min-width: 8.5rem;
+    max-width: 16rem;
+    padding: 0.7rem 0.85rem;
+    line-height: 1.45;
+    overflow-wrap: anywhere;
+    text-wrap: pretty;
+    border-right: 1px solid hsl(var(--gold-h) 22% 48% / 0.18);
+    border-bottom: 1px solid hsl(var(--gold-h) 22% 48% / 0.18);
+  }
+
+  .table-container th:last-child,
+  .table-container td:last-child {
+    border-right: 0;
+  }
+
+  .table-container tr:last-child td {
+    border-bottom: 0;
+  }
+
+  .table-container th {
+    color: var(--dark);
+    font-weight: 650;
+    background:
+      linear-gradient(
+        180deg,
+        hsl(var(--gold-h) 36% 44% / 0.22),
+        hsl(var(--gold-h) 28% 34% / 0.1)
+      );
+  }
+
+  .table-container td {
+    color: var(--darkgray);
+    background: hsl(var(--light-h) var(--light-s) var(--light-l) / 0.035);
+  }
+
+  .table-container tr:nth-child(even) td {
+    background: hsl(var(--gold-h) 20% 38% / 0.045);
+  }
+
+  .table-container code {
+    white-space: nowrap;
+  }
 }
