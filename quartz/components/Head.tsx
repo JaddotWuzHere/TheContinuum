@@ -75,8 +75,26 @@ export default (() => {
         root.classList.toggle("device-mobile", mobile);
         root.classList.toggle("device-desktop", !mobile);
 
-        root.classList.toggle("viewport-compact", window.innerWidth < 1200);
-        root.classList.toggle("viewport-narrow", window.innerWidth < 900);
+        root.classList.toggle("viewport-compact", window.innerWidth < 1500);
+        root.classList.toggle("viewport-narrow", window.innerWidth < 1200);
+
+        var tiny = window.innerWidth < 700;
+        var desktopTiny = !mobile && tiny;
+
+        root.classList.toggle("viewport-tiny", tiny);
+
+        if (desktopTiny) {
+          root.removeAttribute("data-explorer-open");
+          root.removeAttribute("data-settings-open");
+          root.removeAttribute("data-page-scroll-locked");
+
+          try {
+            localStorage.setItem("continuum-explorer-drawer", "closed");
+            localStorage.setItem("continuum-settings-drawer", "closed");
+          } catch {}
+
+          window.dispatchEvent(new Event("continuum-force-close-drawers"));
+        }
       }
 
       applyDeviceMode();

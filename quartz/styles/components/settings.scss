@@ -899,3 +899,11 @@ html.device-mobile {
     display: none;
   }
 }
+
+html.device-desktop.viewport-tiny {
+  .continuum-settings-handle,
+  .continuum-settings-scrim,
+  .settings-panel {
+    display: none !important;
+  }
+}

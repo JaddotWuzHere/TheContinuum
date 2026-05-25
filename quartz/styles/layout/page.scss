@@ -48,10 +48,23 @@
       padding-left: clamp(2.5rem, 8vw, $desktopLeftSafeGutter);
       padding-right: clamp(1.25rem, 4vw, $desktopRightSafeGutter);
     }
-
+            
     html.device-desktop.viewport-narrow & {
-      padding-left: 2.5rem;
-      padding-right: 1.25rem;
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-rows: auto auto auto;
+      grid-template-areas:
+        "grid-header"
+        "grid-center"
+        "grid-footer";
+
+      column-gap: 0;
+      padding-left: clamp(10rem, 8vw, 10rem);
+      padding-right: clamp(10rem, 8vw, 10rem);
+    }
+
+    html.device-desktop.viewport-tiny & {
+      padding-left: clamp(4rem, 6vw, 4rem);
+      padding-right: clamp(4rem, 6vw, 4rem);
     }
 
     & .sidebar {
@@ -68,6 +81,27 @@
       z-index: 1;
       grid-area: grid-sidebar-left;
       flex-direction: column;
+
+      html.device-desktop.viewport-narrow & {
+        grid-area: grid-center;
+        position: relative;
+        display: block;
+        height: 0;
+        padding: 0;
+        margin: 0;
+        overflow: visible;
+        pointer-events: none;
+
+        & > * {
+          pointer-events: auto;
+        }
+
+        & > .page-title,
+        & > .toc,
+        & > .backlinks {
+          display: none;
+        }
+      }
 
       html.device-mobile & {
         grid-area: grid-center;
@@ -174,7 +208,11 @@
       & .page-header,
       & .center,
       & footer {
+        width: min(100%, 68rem);
         min-width: 0;
+        margin-left: auto;
+        margin-right: auto;
+        box-sizing: border-box;
       }
     }
 

@@ -1447,3 +1447,11 @@ html.search-instant-close-explorer {
     transition: none !important;
   }
 }
+
+html.device-desktop.viewport-tiny {
+  .continuum-explorer-handle,
+  .continuum-explorer-scrim,
+  .explorer {
+    display: none !important;
+  }
+}

@@ -1,6 +1,11 @@
-import { installNoScrollZoneGuards, lockPageScroll, unlockPageScroll } from "./util"
+import { forceUnlockPageScroll, installNoScrollZoneGuards, lockPageScroll, unlockPageScroll } from "./util"
 import { i18n } from "../../i18n"
 import { localeFromSlug, toI18nLocale } from "../../util/locale"
+
+function isDesktopTinyViewport() {
+  const root = document.documentElement
+  return root.classList.contains("device-desktop") && root.classList.contains("viewport-tiny")
+}
 
 function setupSettingsDrawer() {
   installNoScrollZoneGuards()
@@ -48,17 +53,7 @@ function setupSettingsDrawer() {
     } catch {}
   }
 
-  const open = () => {
-    closeExplorerIfOpen()
-    root.setAttribute("data-settings-open", "1")
-    lockPageScroll()
-    try {
-      localStorage.setItem(KEY, "open")
-    } catch {}
-    renderHandle()
-  }
-
-  const close = () => {
+  const close = (immediate = false) => {
     root.removeAttribute("data-settings-open")
 
     try {
@@ -67,9 +62,29 @@ function setupSettingsDrawer() {
 
     renderHandle()
 
+    if (immediate) {
+      unlockPageScroll()
+      return
+    }
+
     window.setTimeout(() => {
       unlockPageScroll()
     }, 680)
+  }
+
+  const open = () => {
+    if (isDesktopTinyViewport()) {
+      close(true)
+      return
+    }
+
+    closeExplorerIfOpen()
+    root.setAttribute("data-settings-open", "1")
+    lockPageScroll()
+    try {
+      localStorage.setItem(KEY, "open")
+    } catch {}
+    renderHandle()
   }
 
   const toggle = () => {
@@ -99,6 +114,33 @@ function setupSettingsDrawer() {
   if (!(document as any)._settingsPrenavBound) {
     ;(document as any)._settingsPrenavBound = true
     document.addEventListener("prenav", () => close())
+  }
+
+  if (!(window as any)._settingsForceCloseBound) {
+    ;(window as any)._settingsForceCloseBound = true
+    window.addEventListener("continuum-force-close-drawers", () => {
+      root.removeAttribute("data-settings-open")
+
+      try {
+        localStorage.setItem(KEY, "closed")
+      } catch {}
+
+      renderHandle()
+      forceUnlockPageScroll()
+    })
+  }
+
+  if (!(window as any)._settingsTinyResizeBound) {
+    ;(window as any)._settingsTinyResizeBound = true
+    window.addEventListener(
+      "resize",
+      () => {
+        if (!isDesktopTinyViewport()) return
+        if (!root.hasAttribute("data-settings-open")) return
+        close(true)
+      },
+      { passive: true },
+    )
   }
 
   try {

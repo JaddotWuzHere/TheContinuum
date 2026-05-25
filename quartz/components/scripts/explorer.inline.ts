@@ -1,7 +1,7 @@
 import { FileTrieNode } from "../../util/fileTrie"
 import { FullSlug, resolveRelative, simplifySlug } from "../../util/path"
 import { ContentDetails } from "../../plugins/emitters/contentIndex"
-import { lockPageScroll, unlockPageScroll } from "./util"
+import { forceUnlockPageScroll, lockPageScroll, unlockPageScroll } from "./util"
 import { i18n } from "../../i18n"
 import { localeFromSlug, toI18nLocale } from "../../util/locale"
 
@@ -30,6 +30,11 @@ function getCommonI18n() {
 function getPageI18n() {
   const lang = localeFromSlug(window.location.pathname)
   return i18n(toI18nLocale(lang)).pages
+}
+
+function isDesktopTinyViewport() {
+  const root = document.documentElement
+  return root.classList.contains("device-desktop") && root.classList.contains("viewport-tiny")
 }
 
 function getGenesisHref() {
@@ -471,15 +476,7 @@ function setupExplorerDrawer() {
     } catch {}
   }
 
-  const open = () => {
-    closeSettingsIfOpen()
-    root.setAttribute("data-explorer-open", "1")
-    lockPageScroll()
-    localStorage.setItem(KEY, "open")
-    renderHandle()
-  }
-
-  const close = () => {
+  const close = (immediate = false) => {
     root.removeAttribute("data-explorer-open")
 
     try {
@@ -488,9 +485,31 @@ function setupExplorerDrawer() {
 
     renderHandle()
 
+    if (immediate) {
+      unlockPageScroll()
+      return
+    }
+
     window.setTimeout(() => {
       unlockPageScroll()
     }, 680)
+  }
+
+  const open = () => {
+    if (isDesktopTinyViewport()) {
+      close(true)
+      return
+    }
+
+    closeSettingsIfOpen()
+    root.setAttribute("data-explorer-open", "1")
+    lockPageScroll()
+
+    try {
+      localStorage.setItem(KEY, "open")
+    } catch {}
+
+    renderHandle()
   }
 
   const toggle = () => {
@@ -525,6 +544,33 @@ function setupExplorerDrawer() {
   if (!(document as any)._explorerPrenavBound) {
     ;(document as any)._explorerPrenavBound = true
     document.addEventListener("prenav", () => close())
+  }
+
+  if (!(window as any)._explorerForceCloseBound) {
+    ;(window as any)._explorerForceCloseBound = true
+    window.addEventListener("continuum-force-close-drawers", () => {
+      root.removeAttribute("data-explorer-open")
+
+      try {
+        localStorage.setItem(KEY, "closed")
+      } catch {}
+
+      renderHandle()
+      forceUnlockPageScroll()
+    })
+  }
+
+  if (!(window as any)._explorerTinyResizeBound) {
+    ;(window as any)._explorerTinyResizeBound = true
+    window.addEventListener(
+      "resize",
+      () => {
+        if (!isDesktopTinyViewport()) return
+        if (!root.hasAttribute("data-explorer-open")) return
+        close(true)
+      },
+      { passive: true },
+    )
   }
 
   try {
@@ -606,9 +652,15 @@ document.addEventListener("nav", async (e: CustomEventMap["nav"]) => {
 })
 
 window.addEventListener("resize", function () {
+  const root = document.documentElement
   const explorer = document.querySelector(".explorer")
 
+  if (!root.classList.contains("device-mobile")) {
+    root.classList.remove("mobile-no-scroll")
+    return
+  }
+
   if (explorer && !explorer.classList.contains("collapsed")) {
-    document.documentElement.classList.add("mobile-no-scroll")
+    root.classList.add("mobile-no-scroll")
   }
 })

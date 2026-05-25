@@ -1,19 +1,17 @@
-@use "sass:map";
-
 /**
- * Layout breakpoints
- * $mobile: screen width below this value will use mobile styles
- * $desktop: screen width above this value will use desktop styles
+ * Legacy width-only media query.
+ *
+ * Most layout switching should use the runtime classes from Head.tsx:
+ * - html.device-mobile
+ * - html.device-desktop
+ * - html.viewport-compact
+ * - html.viewport-narrow
+ *
+ * Keep this only for older component-level polish that still uses @media.
  */
-$breakpoints: (
-  mobile: 1200px,
-  desktop: 1200px,
-);
-
 $mobile: "(max-width: 1199px)";
-$desktop: "(min-width: 1200px)";
 
-$pageWidth: #{map.get($breakpoints, mobile)};
+$pageWidth: 1200px;
 $sidePanelWidth: 360px;
 
 $desktopLeftSafeGutter: 8rem;
@@ -24,19 +22,6 @@ $topSpacing: 6rem;
 $boldWeight: 700;
 $semiBoldWeight: 600;
 $normalWeight: 400;
-
-$mobileGrid: (
-  templateRows: "auto auto auto auto auto",
-  templateColumns: "auto",
-  rowGap: "5px",
-  columnGap: "5px",
-  templateAreas:
-    '"grid-sidebar-left"\
-      "grid-header"\
-      "grid-center"\
-      "grid-sidebar-right"\
-      "grid-footer"',
-);
 
 $desktopGrid: (
   templateRows: "auto auto auto",
