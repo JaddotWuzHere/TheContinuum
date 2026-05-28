@@ -4,37 +4,44 @@
     "type": "split",
     "children": [
       {
-        "id": "27ab86b9b182ee9c",
+        "id": "f537161e25f88c69",
         "type": "tabs",
+        "dimension": 14.064697609001406,
         "children": [
           {
-            "id": "673f4e45a9163d81",
+            "id": "e843a33e9705cb0d",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "outline",
               "state": {
-                "file": "en/Continuum Physics/index.md",
-                "mode": "source",
-                "source": false
+                "file": "en/High Principia/Physics/index.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
               },
-              "icon": "lucide-file",
-              "title": "index"
+              "icon": "lucide-list",
+              "title": "Outline of index"
             }
           }
         ]
       },
       {
-        "id": "2d57ea013678e50f",
+        "id": "79ee930de71d8e4c",
         "type": "tabs",
+        "dimension": 85.93530239099859,
         "children": [
           {
-            "id": "6fa41d0edf427e90",
+            "id": "bdb716334a306936",
             "type": "leaf",
             "state": {
-              "type": "graph",
-              "state": {},
-              "icon": "lucide-git-fork",
-              "title": "Graph view"
+              "type": "markdown",
+              "state": {
+                "file": "en/High Principia/Physics/index.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "index"
             }
           }
         ]
@@ -110,7 +117,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "en/Continuum Physics/index.md",
+                "file": "en/High Principia/Physics/index.md",
                 "collapseAll": true,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -124,21 +131,21 @@
             }
           },
           {
-            "id": "f2465e9b3c0d58f1",
+            "id": "48f90b90d09df1e8",
             "type": "leaf",
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Mana.md",
+                "file": "en/High Principia/Physics/index.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Outgoing links from Mana"
+              "title": "Outgoing links from index"
             }
           },
           {
-            "id": "fedac11f4b52ac16",
+            "id": "de49ddbf69d00fcf",
             "type": "leaf",
             "state": {
               "type": "tag",
@@ -151,27 +158,12 @@
               "icon": "lucide-tags",
               "title": "Tags"
             }
-          },
-          {
-            "id": "e843a33e9705cb0d",
-            "type": "leaf",
-            "state": {
-              "type": "outline",
-              "state": {
-                "file": "Mana.md",
-                "followCursor": false,
-                "showSearch": false,
-                "searchQuery": ""
-              },
-              "icon": "lucide-list",
-              "title": "Outline of Mana"
-            }
           }
         ]
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 200
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -185,44 +177,44 @@
       "table-editor-obsidian:Advanced Tables Toolbar": false
     }
   },
-  "active": "673f4e45a9163d81",
+  "active": "bdb716334a306936",
   "lastOpenFiles": [
-    "en/index.md",
-    "en/Continuum Physics/index.md",
-    "en/Continuum Physics/Branches/Anachysics/index.md",
-    "en/Continuum Physics/Branches/Manaphysics/Mana.md",
-    "en/Continuum Physics/Branches/Manaphysics/index.md",
+    "en/High Principia/index.md",
+    "old/Continuum Physics/index.md",
+    "en/High Principia/Physics/index.md",
+    "en/High Principia/Life Sciences/index.md",
+    "en/High Principia/Physics/Physical Principles.md",
     "notes.md",
-    "en/World Order/Thalen/Societal Structure/The Four Great Pillars of Thalen.md",
-    "en/World Order/Thalen/Societal Structure/index.md",
-    "World Order.md",
-    "en/World Order/Thalen/Philosophy and Thought/Concordance.md",
-    "en/World Order/Thalen/The Archives/Concord of Horaxis.md",
-    "en/World Order/Thalen/Societal Structure",
-    "zh/Continuum Physics/index.md",
-    "zh/Continuum Physics/Branches/Manaphysics/index.md",
-    "zh/Continuum Physics/Branches/index.md",
-    "zh/index.md",
-    "en/Continuum Physics/Branches/index.md",
-    "en/World Order/Thalen/Chronology/The Chronomatic Concordance System.md",
-    "en/World Order/Thalen/The Archives/index.md",
-    "en/World Order/Thalen/The Archives",
-    "en/Continuum Physics/Branches/Anachysics/Source.md",
-    "en/World Order/Thalen/Philosophy and Thought/index.md",
-    "en/World Order/Thalen/Philosophy and Thought",
-    "en/World Order/Thalen/Chronology",
-    "en/World Order/Thalen/index.md",
-    "en/World Order/Thalen",
-    "en/World Order/index.md",
+    "en/index.md",
+    "structure model.md",
+    "language dictionary.md",
+    "Pasted image 20260527220158.png",
+    "old/Continuum Physics/Branches/index.md",
+    "old/Continuum Physics/Domain.md",
+    "old/Continuum Physics/Branches/Anachysics/index.md",
+    "old/Continuum Physics/Branches/Anachysics/Soul.md",
+    "en/High Principia/Life Sciences",
+    "Physics.md",
+    "en/High Principia/Physics",
+    "en/High Principia",
+    "ja/index.md",
     "fr/index.md",
-    "en/Continuum Physics/Branches/Anachysics/Soul.md",
-    "en/Continuum Physics/Domain.md",
-    "zh/notes.md",
-    "fr/Continuum Physics/Branches/Manaphysics",
-    "fr/Continuum Physics/Branches/Anachysics",
-    "fr/Continuum Physics/Branches",
-    "fr/World Order",
-    "fr/Continuum Physics",
+    "zh/index.md",
+    "zh/中文.md",
+    "高等原理.md",
+    "en/Praxis.md",
+    "zh/实践.md",
+    "en/test file.md",
+    "translations.yaml",
+    "translations.yml~",
+    "translations.yml",
+    "translations.md",
+    "old/World Order/Thalen/Chronology/The Chronomatic Concordance System.md",
+    "old/World Order/Thalen/Societal Structure/The Four Great Pillars of Thalen.md",
+    "old/World Order/Thalen/The Archives",
+    "old/World Order/Thalen/Societal Structure",
+    "old/World Order/Thalen/Philosophy and Thought",
+    "old/World Order/Thalen/Chronology",
     "Pasted image 20251024001425.png",
     "Pasted image 20251019222302.png",
     "Untitled.canvas",

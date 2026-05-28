@@ -1,6 +1,11 @@
 ---
 title: Physics
+description: “Here the first wall was built against the world, and here the world answered.”
 ---
+>[!epigraph]
+>“Here the first wall was built against the world, and here the world answered.”
+>
+>— Inscription at the Ruins of the Asterion Containment Array
 ## Overview
 ---
 Physics begins where reality is compelled to answer.
