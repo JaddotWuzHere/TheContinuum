@@ -273,6 +273,10 @@ h6 {
     line-height: 1;
   }
 
+  html.device-mobile article &[id] > a[href^="#"] {
+    display: none;
+  }
+
   &[id] > a[href^="#"]::after {
     display: none;
   }

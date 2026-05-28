@@ -60,8 +60,6 @@
     0 0 2px hsl(var(--gold-h) var(--gold-s) 70% / 0.3);
 }
 
-
-
 .callout[data-callout="epigraph"] .callout-content {
   background: transparent !important;
 }
@@ -87,14 +85,42 @@
 }
 
 .callout[data-callout="epigraph"] .callout-content > p:last-child {
-  font-style: italic !important;
-  line-height: 1.05 !important;
-  text-align: right !important;
-  color: hsl(var(--gold-h) var(--gold-s) 34% / 0.76) !important;
+  position: relative;
+  display: block;
+  width: 100%;
+  max-width: none;
+  margin-left: 0 !important;
+  margin-top: 0.85em !important;
+  padding-top: 0.62em;
+
   font-family: "EBGaramond", "STXINGKA", serif;
-  font-size: 1.08em;
-  letter-spacing: 0.02em;
-  opacity: 0.92;
+  font-size: 0.88em;
+  font-style: italic !important;
+  font-weight: 500;
+  line-height: 1.22 !important;
+  letter-spacing: 0.025em;
+  text-align: right !important;
+
+  color: hsl(var(--gold-h) var(--gold-s) 31% / 0.82) !important;
+  opacity: 0.96;
+}
+
+.callout[data-callout="epigraph"] .callout-content > p:last-child::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  width: 72%;
+  height: 1px;
+
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    hsl(var(--gold-h) var(--gold-s) 44% / 0.12) 12%,
+    hsl(var(--gold-h) var(--gold-s) 48% / 0.34) 45%,
+    hsl(var(--gold-h) var(--gold-s) 52% / 0.62) 100%
+  );
 }
 
 @supports (-webkit-background-clip: text) or (background-clip: text) {
@@ -114,13 +140,100 @@
   .callout[data-callout="epigraph"] .callout-content > p:last-child {
     background-image: linear-gradient(
       90deg,
-      hsl(var(--gold-h) var(--gold-s) 33% / 0.82) 0%,
-      hsl(calc(var(--gold-h) + 6) var(--gold-s) 48% / 0.78) 50%,
-      hsl(var(--gold-h) var(--gold-s) 33% / 0.82) 100%
+      hsl(var(--gold-h) var(--gold-s) 28% / 0.82) 0%,
+      hsl(calc(var(--gold-h) + 5) var(--gold-s) 39% / 0.92) 58%,
+      hsl(var(--gold-h) var(--gold-s) 30% / 0.86) 100%
     );
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent !important;
     text-shadow: none !important;
   }
+}
+
+html.device-mobile .callout[data-callout="epigraph"] {
+  margin: 1.15em auto !important;
+  padding: 1em 1.05em 1.05em !important;
+  border-radius: 11px;
+
+  background:
+    linear-gradient(
+      180deg,
+      hsl(var(--gold-h) var(--gold-s) 22% / 0.12) 0%,
+      hsl(var(--gold-h) var(--gold-s) 14% / 0.07) 42%,
+      transparent 100%
+    );
+
+  box-shadow:
+    inset 0 1px 0 hsl(var(--gold-h) var(--gold-s) 68% / 0.06),
+    inset 0 -1px 0 hsl(var(--gold-h) var(--gold-s) 20% / 0.08),
+    0 0 16px hsl(var(--gold-h) var(--gold-s) 45% / 0.06) !important;
+}
+
+html.device-mobile .callout[data-callout="epigraph"]::before {
+  display: none;
+}
+
+html.device-mobile .callout[data-callout="epigraph"]::after {
+  content: "";
+  display: block;
+  width: 42%;
+  height: 1px;
+  margin: 0.6em auto 0;
+
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    hsl(var(--gold-h) var(--gold-s) 42% / 0.16) 16%,
+    hsl(var(--gold-h) var(--gold-s) 56% / 0.52) 50%,
+    hsl(var(--gold-h) var(--gold-s) 42% / 0.16) 84%,
+    transparent 100%
+  );
+}
+
+html.device-mobile .callout[data-callout="epigraph"] .callout-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+html.device-mobile .callout[data-callout="epigraph"] .callout-content > p:first-child {
+  max-width: 95%;
+  padding-left: 0;
+
+  font-size: 1.03em;
+  line-height: 1.28 !important;
+  letter-spacing: 0.006em;
+  text-align: center;
+}
+
+html.device-mobile .callout[data-callout="epigraph"] .callout-content > p:last-child {
+  width: 100%;
+  max-width: 92%;
+  margin-top: 0.95em !important;
+  margin-left: 0 !important;
+  padding-top: 0.72em;
+
+  font-size: 0.83em;
+  line-height: 1.28 !important;
+  letter-spacing: 0.018em;
+  text-align: center !important;
+}
+
+html.device-mobile .callout[data-callout="epigraph"] .callout-content > p:last-child::before {
+  left: 50%;
+  right: auto;
+
+  width: 72%;
+  height: 1px;
+  transform: translateX(-50%);
+
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    hsl(var(--gold-h) var(--gold-s) 44% / 0.12) 12%,
+    hsl(var(--gold-h) var(--gold-s) 52% / 0.5) 50%,
+    hsl(var(--gold-h) var(--gold-s) 44% / 0.12) 88%,
+    transparent 100%
+  );
 }

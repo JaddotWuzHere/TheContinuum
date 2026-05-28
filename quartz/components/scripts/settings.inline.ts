@@ -11,7 +11,6 @@ function setupSettingsDrawer() {
   installNoScrollZoneGuards()
 
   const root = document.documentElement
-  const KEY = "continuum-settings-drawer"
 
   let handle = document.querySelector<HTMLButtonElement>(".continuum-settings-handle")
   let scrim = document.querySelector<HTMLDivElement>(".continuum-settings-scrim")
@@ -48,17 +47,10 @@ function setupSettingsDrawer() {
     if (!root.hasAttribute("data-explorer-open")) return
 
     root.removeAttribute("data-explorer-open")
-    try {
-      localStorage.setItem("continuum-explorer-drawer", "closed")
-    } catch {}
   }
 
   const close = (immediate = false) => {
     root.removeAttribute("data-settings-open")
-
-    try {
-      localStorage.setItem(KEY, "closed")
-    } catch {}
 
     renderHandle()
 
@@ -81,9 +73,6 @@ function setupSettingsDrawer() {
     closeExplorerIfOpen()
     root.setAttribute("data-settings-open", "1")
     lockPageScroll()
-    try {
-      localStorage.setItem(KEY, "open")
-    } catch {}
     renderHandle()
   }
 
@@ -101,7 +90,7 @@ function setupSettingsDrawer() {
 
   if (!(scrim as any)._settingsBound) {
     ;(scrim as any)._settingsBound = true
-    scrim.addEventListener("click", close)
+    scrim.addEventListener("click", () => close())
   }
 
   if (!(document as any)._settingsEscBound) {
@@ -121,10 +110,6 @@ function setupSettingsDrawer() {
     window.addEventListener("continuum-force-close-drawers", () => {
       root.removeAttribute("data-settings-open")
 
-      try {
-        localStorage.setItem(KEY, "closed")
-      } catch {}
-
       renderHandle()
       forceUnlockPageScroll()
     })
@@ -143,15 +128,7 @@ function setupSettingsDrawer() {
     )
   }
 
-  try {
-    if (localStorage.getItem(KEY) === "open") {
-      open()
-    } else {
-      close()
-    }
-  } catch {
-    close()
-  }
+  close(true)
 
   const panels = Array.from(document.querySelectorAll<HTMLElement>(".settings-panel"))
   const newestPanel = panels[panels.length - 1]

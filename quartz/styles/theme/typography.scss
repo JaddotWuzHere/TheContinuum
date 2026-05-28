@@ -204,16 +204,19 @@ html[lang|="zh"] article {
   }
 
   .callout[data-callout="epigraph"] .callout-content > p:first-child {
-    font-family: "STXINGKA", "SentyWEN2017", "LXGWWenKai", serif;
-    font-size: 1.45em;
-    line-height: 1.18;
-    letter-spacing: 0.05em;
+    font-family: "SentyWEN2017", "LXGWWenKai", "EBGaramond", serif;
+    font-size: 1.08em;
+    line-height: 1.42 !important;
+    letter-spacing: 0.025em;
+    font-weight: 400;
   }
 
   .callout[data-callout="epigraph"] .callout-content > p:last-child {
-    font-family: "LXGWWenKai", "EBGaramond", serif;
-    font-size: 1em;
-    line-height: 1.28;
+    font-family: "LXGWWenKai", "SentyWEN2017", "EBGaramond", serif;
+    font-size: 0.76em;
+    line-height: 1.34 !important;
+    letter-spacing: 0.018em;
+    font-weight: 400;
   }
 }
 
@@ -224,6 +227,22 @@ html[lang|="zh"] .article-title {
   text-transform: none;
   letter-spacing: 0.12em;
   line-height: 1.15;
+}
+
+html.device-mobile[lang|="zh"] article {
+  .callout[data-callout="epigraph"] .callout-content > p:first-child {
+    max-width: 94%;
+    font-size: 0.98em;
+    line-height: 1.5 !important;
+    letter-spacing: 0.018em;
+  }
+
+  .callout[data-callout="epigraph"] .callout-content > p:last-child {
+    max-width: 90%;
+    font-size: 0.72em;
+    line-height: 1.38 !important;
+    letter-spacing: 0.014em;
+  }
 }
 
 /* ================================
@@ -295,6 +314,20 @@ html[lang|="ja"] article {
   h6 {
     font-size: 1.04rem;
     letter-spacing: 0.07em;
+  }
+
+  .callout[data-callout="epigraph"] .callout-content > p:first-child {
+    font-family: "YujiSyuku", "LXGWWenKai", "EBGaramond", serif;
+    font-size: 1.12em;
+    line-height: 1.3 !important;
+    letter-spacing: 0.03em;
+  }
+
+  .callout[data-callout="epigraph"] .callout-content > p:last-child {
+    font-family: "YujiSyuku", "LXGWWenKai", "EBGaramond", serif;
+    font-size: 0.86em;
+    line-height: 1.26 !important;
+    letter-spacing: 0.025em;
   }
 }
 

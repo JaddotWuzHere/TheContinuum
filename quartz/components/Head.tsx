@@ -86,16 +86,22 @@ export default (() => {
         if (desktopTiny) {
           root.removeAttribute("data-explorer-open");
           root.removeAttribute("data-settings-open");
+          root.removeAttribute("data-mobile-tool-open");
           root.removeAttribute("data-page-scroll-locked");
-
-          try {
-            localStorage.setItem("continuum-explorer-drawer", "closed");
-            localStorage.setItem("continuum-settings-drawer", "closed");
-          } catch {}
 
           window.dispatchEvent(new Event("continuum-force-close-drawers"));
         }
       }
+
+      root.removeAttribute("data-explorer-open");
+      root.removeAttribute("data-settings-open");
+      root.removeAttribute("data-mobile-tool-open");
+      root.removeAttribute("data-page-scroll-locked");
+
+      try {
+        localStorage.removeItem("continuum-explorer-drawer");
+        localStorage.removeItem("continuum-settings-drawer");
+      } catch {}
 
       applyDeviceMode();
 

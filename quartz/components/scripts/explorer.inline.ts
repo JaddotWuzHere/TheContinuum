@@ -422,7 +422,6 @@ function toggleExplorer(this: HTMLElement) {
 
 function setupExplorerDrawer() {
   const root = document.documentElement
-  const KEY = "continuum-explorer-drawer"
 
   const t = getExplorerI18n()
 
@@ -470,18 +469,10 @@ function setupExplorerDrawer() {
     if (!root.hasAttribute("data-settings-open")) return
 
     root.removeAttribute("data-settings-open")
-
-    try {
-      localStorage.setItem("continuum-settings-drawer", "closed")
-    } catch {}
   }
 
   const close = (immediate = false) => {
     root.removeAttribute("data-explorer-open")
-
-    try {
-      localStorage.setItem(KEY, "closed")
-    } catch {}
 
     renderHandle()
 
@@ -505,10 +496,6 @@ function setupExplorerDrawer() {
     root.setAttribute("data-explorer-open", "1")
     lockPageScroll()
 
-    try {
-      localStorage.setItem(KEY, "open")
-    } catch {}
-
     renderHandle()
   }
 
@@ -531,7 +518,7 @@ function setupExplorerDrawer() {
 
   if (!(scrim as any)._explorerBound) {
     ;(scrim as any)._explorerBound = true
-    scrim.addEventListener("click", close)
+    scrim.addEventListener("click", () => close())
   }
 
   if (!(document as any)._explorerEscBound) {
@@ -551,10 +538,6 @@ function setupExplorerDrawer() {
     window.addEventListener("continuum-force-close-drawers", () => {
       root.removeAttribute("data-explorer-open")
 
-      try {
-        localStorage.setItem(KEY, "closed")
-      } catch {}
-
       renderHandle()
       forceUnlockPageScroll()
     })
@@ -573,11 +556,7 @@ function setupExplorerDrawer() {
     )
   }
 
-  try {
-    localStorage.getItem(KEY) === "open" ? open() : close()
-  } catch {
-    close()
-  }
+  close(true)
 }
 
 async function setupExplorer(currentSlug: FullSlug) {

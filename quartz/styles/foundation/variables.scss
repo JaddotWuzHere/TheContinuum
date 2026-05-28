@@ -24,12 +24,11 @@ $semiBoldWeight: 600;
 $normalWeight: 400;
 
 $desktopGrid: (
-  templateRows: "auto auto auto",
+  templateRows: "auto auto",
   templateColumns: "#{$sidePanelWidth} minmax(0, 1fr) #{$rightGutterWidth}",
   rowGap: "5px",
   columnGap: "5px",
   templateAreas:
-    '"grid-sidebar-left grid-header grid-sidebar-right"\
-      "grid-sidebar-left grid-center grid-sidebar-right"\
+    '"grid-sidebar-left grid-center grid-sidebar-right"\
       "grid-sidebar-left grid-footer grid-sidebar-right"',
 );

@@ -5,7 +5,7 @@ description: '"Reality is most merciful when it withholds the shape of its teeth
 >[!epigraph]
 >"Reality is most merciful when it withholds the shape of its teeth."
 >
-> — Elian Veyr, "Foundations of Higher Inquiry", published ▓▓▓▓▓▓▓▓▓▓
+> — Elian Veyr, "Foundations of Higher Inquiry", published ▓▓▓▓▓▓▓
 ## Overview
 ---
 A phenomenon must first be permitted to reveal its nature. 

@@ -1,9 +1,9 @@
 ---
 title: Physics
-description: “Here the first wall was built against the world, and here the world answered.”
+description: “Here the first wall was raised against the world, and here the world responded in kind.”
 ---
 >[!epigraph]
->“Here the first wall was built against the world, and here the world answered.”
+>“Here the first wall was raised against the world, and here the world responded in kind.”
 >
 >— Inscription at the Ruins of the Asterion Containment Array
 ## Overview
@@ -44,7 +44,7 @@ Physics may be entered through several major branches, each attending to a diffe
 #### [[Mechanics]]
 Mechanics studies motion, force, structure, and change.
 
-It begins with the most immediate form of physical consequence. Bodies do not merely occupy the world. They answer to it. They accelerate under force, strain under burden, and preserve form only while their structure can endure what is imposed upon them.
+It begins with the most immediate form of physical consequence. Bodies do not merely occupy the world, but rather answering to it. They accelerate under force, strain under burden, and preserve form only while their structure can endure what is imposed upon them.
 
 Through mechanics, law becomes visible as motion, pressure, resistance, balance, and failure. A structure does not collapse because collapse is dramatic. It collapses because its form has reached the limit of what it can truthfully sustain.
 

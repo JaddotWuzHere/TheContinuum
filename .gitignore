@@ -6,3 +6,5 @@ quartz/.quartz-cache
 tsconfig.tsbuildinfo
 npm-debug.log*
 .DS_Store
+.trash/
+.obsidian/workspace*

@@ -58,18 +58,7 @@
   }
 
   function setupMobileUtilityBar() {
-    const root = document.documentElement
-    const openTool = root.getAttribute("data-mobile-tool-open")
-
-    document
-      .querySelectorAll<HTMLButtonElement>(".mobile-utility-button[data-mobile-tool]")
-      .forEach((button) => {
-        const isActive = button.dataset.mobileTool === openTool
-        button.setAttribute("aria-expanded", String(isActive))
-        button.classList.toggle("is-active", isActive)
-      })
-
-    requestAnimationFrame(updateMobileToolFades)
+    closeMobileUtilityPanels()
   }
 
   function handleMobileToolScroll(event: Event) {
