@@ -83,7 +83,7 @@ No act of order is free from entropic cost; each carries an inherent entropic de
 The Law of Phase Relativity extends the principles of relativity to trans-domain contexts.
 Temporal flow, coherence, and perceived energy vary according to the observer’s phase reference frame, governed by local field conditions. 
 
-As these parameters diverge between domains, relative distortions manifest, producing effects such as **[[Mana Time Dilation|mana time dilation]]** and **[[Continuum Physics/Branches/Manaphysics/index#4. Law of Phase Hysteresis|mana hysteresis]]**. Thus, observation and causality remain consistent within each frame, yet differ across domains, ensuring that no universal synchronization exists within the Continuum.
+As these parameters diverge between domains, relative distortions manifest, producing effects such as **[[Mana Time Dilation|mana time dilation]]** and **[[old/Continuum Physics/Branches/Manaphysics/index#4. Law of Phase Hysteresis|mana hysteresis]]**. Thus, observation and causality remain consistent within each frame, yet differ across domains, ensuring that no universal synchronization exists within the Continuum.
 ### VI. Law of Field Continuity
 > [!epigraph]
 > "They told *me*. I heard them when everything became quiet. It remembers, that emptiness... it was—it was *listening*. Let *go* of me, you damn bastards!"

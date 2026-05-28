@@ -1,6 +1,6 @@
 ---
 title: Genesis
-description: "...And from that first, indifferent moment, came everything that would ever hunger, burn, or cease."
+description: '"...And from that first, indifferent moment, came everything that would ever hunger, burn, or cease."'
 ---
 > [!epigraph]
 > "...And from that first, indifferent moment, came everything that would ever hunger, burn, or cease."
@@ -23,12 +23,30 @@ The universe offers no judgement, extending no mercy to the unprepared and grant
 Nothing is exempt.
 ## Universe Compendium
 ---
-The Continuum is not approached through a single discipline, rather it is through distinct paths of inquiry. It is an organized entry point, a structure imposed on a body of knowledge that does not, by nature, organize itself. All of knowledge is divided into four areas, each defined less by strict boundary than by orientation.
-#### [[High Principia]]
-High principia concerns itself with the underlying structure of reality, such as the physics of the universe and the mathematics that describe it. These are fields defined by rigor, and hold no interest in utility. They carry the accumulated weight of every civilization that has attempted to describe the universe.
-#### [[Praxis]]
-Praxis concerns itself with what can be done. It is pertained with construction, control, execution; the focus lies in turning knowledge into systems that operate within the constraints of reality. While high principia determines the limits of the universe, praxis is the practice of approaching them.
-#### [[World Order]]
-World Order concerns itself with structures the emerge when knowledge is unevenly retained. It addresses the systems by which civilizations have organized themselves, such as how power is held, how time is counted, how populations are divided and governed. It is indifferent to whether these structures were just or wise, but rather what they were, how they functioned, and what their presence or absence produced.
+The Continuum is the accumulated record of a universe governed, in part, by mana. Its knowledge spans more than magic itself, reaching into the principles, systems, institutions, and histories that arise where magic is not mere myth, but rather part of the order by which existence operates.
+
+This is an organized entry point, a structure imposed on a body of knowledge that does not, by nature, organize itself. The four divisions below do not dictate where inquiry must begin. They offer orientation, a rare gift granted only to those willing to dwell in confusion: four ways of approaching the same vast corpus.
 #### [[The Archives]]
-The Archives concerns itself with discovery, conflict, and thought. It encompasses the accumulated record of the universe, and their purpose is ensure the continuity of knowledge. In a realm where knowledge determines survival, what is remembered is as important as what is discovered. What is held in the Archives is not always complete, not always accurate, and not always meant to be read.
+The Archives preserve what remains after discovery has passed through conflict, testimony, loss, contradiction, and time.
+
+Its records include histories, biographies, disputes, fragments, documents, and accounts of failed transmission by which entire ages became uncertain. They preserve not only what was known, but what was misread, concealed, damaged, revised, or never meant to survive.
+
+In a world where knowledge determines survival, remembrance is not passive. What is held in the Archives is not always complete, not always accurate, and not always meant to be read. 
+#### [[World Order]]
+World order examines what knowledge becomes once it is unevenly retained.
+
+Its records address states, institutions, hierarchies, laws, classifications, and the mechanisms by which populations are named, governed, protected, discarded, or forgotten. It is indifferent to whether these structures were just. It asks how they held, and ultimately, how they broke.
+
+Where knowledge accumulates, power follows. Where power settles, society learns what it is allowed to remember.
+#### [[Praxis]]
+Praxis begins where knowledge is made to act.
+
+Its records concern construction, control, execution, sourcecraft, engineering, and the disciplines by which understanding becomes system. Where high principia studies the limits of reality, praxis studies the methods by which those limits are approached, tested, and exploited.
+
+Praxis is theory placed under burden, made to function and most importantly to answer for its failures.
+#### [[en/High Principia/index|High Principia]]
+High principia studies the underlying structure of reality: causality, cosmology, metaphysical constraint, and the mathematical forms by which existence becomes legible. 
+
+Its records belong to fields defined by rigor rather than use. They ask what may exist, what must follow, and what cannot be made otherwise. From these first principles descend the higher practices of magic, though high principia itself holds little interest in application.
+
+It carries the accumulated weight of every civilization that attempted to describe the universe, whether or not the universe answered in kind.
